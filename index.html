@@ -1,1907 +1,2049 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  >
-
-  <meta
-    name="theme-color"
-    content="#11110f"
-  >
-
-  <meta
-    name="description"
-    content="AKSH — A Safe Space For Every Mind."
-  >
-
-  <title>AKSH — A Safe Space For Every Mind</title>
-
-  <style>
-    :root {
-      --white: #ffffff;
-      --soft-white: rgba(255, 255, 255, 0.88);
-      --muted-white: rgba(255, 255, 255, 0.68);
-      --glass: rgba(0, 0, 0, 0.18);
-      --glass-border: rgba(255, 255, 255, 0.38);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html,
-    body {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #11110f;
-    }
-
-    body {
-      font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Helvetica Neue",
-        Helvetica,
-        Arial,
-        sans-serif;
-
-      color: var(--white);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
-
-    button,
-    a {
-      font: inherit;
-    }
-
-    /* =========================================================
-       PAGE
-    ========================================================= */
-
-    .arrival {
-      position: relative;
-      width: 100%;
-      height: 100svh;
-      min-height: 100vh;
-      overflow: hidden;
-      background: #11110f;
-      isolation: isolate;
-    }
-
-    /* =========================================================
-       BACKGROUND VIDEO
-    ========================================================= */
-
-    .video-container {
-      position: absolute;
-      inset: 0;
-      z-index: -10;
-      overflow: hidden;
-      background: #11110f;
-    }
-
-    #arrivalVideo {
-      position: absolute;
-      inset: 0;
-
-      width: 100%;
-      height: 100%;
-
-      object-fit: cover;
-      object-position: center center;
-
-      opacity: 0;
-
-      transform: scale(1.025);
-
-      transition:
-        opacity 1.2s ease,
-        transform 12s ease;
-
-      will-change: opacity, transform;
-    }
-
-    #arrivalVideo.loaded {
-      opacity: 1;
-      transform: scale(1);
-    }
-
-    /* =========================================================
-       CINEMATIC OVERLAYS
-    ========================================================= */
-
-    .overlay {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-    }
-
-    .overlay-main {
-      z-index: 1;
-
-      background:
-        linear-gradient(
-          180deg,
-          rgba(0, 0, 0, 0.38) 0%,
-          rgba(0, 0, 0, 0.08) 28%,
-          rgba(0, 0, 0, 0.04) 58%,
-          rgba(0, 0, 0, 0.44) 100%
-        );
-    }
-
-    .overlay-vignette {
-      z-index: 2;
-
-      background:
-        radial-gradient(
-          ellipse at center,
-          rgba(0, 0, 0, 0) 38%,
-          rgba(0, 0, 0, 0.22) 100%
-        );
-    }
-
-    /* =========================================================
-       CONTENT
-    ========================================================= */
-
-    .page-content {
-      position: relative;
-      z-index: 10;
-
-      width: 100%;
-      height: 100%;
-
-      padding:
-        max(24px, env(safe-area-inset-top))
-        max(22px, env(safe-area-inset-right))
-        max(26px, env(safe-area-inset-bottom))
-        max(22px, env(safe-area-inset-left));
-
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* =========================================================
-       TOP BAR
-    ========================================================= */
-
-    .top-bar {
-      position: relative;
-
-      width: 100%;
-
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
-
-    /* =========================================================
-       DATE + DAY
-    ========================================================= */
-
-    .date-block {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-
-      text-shadow:
-        0 2px 16px rgba(0, 0, 0, 0.48);
-    }
-
-    .date-text {
-      font-size: clamp(11px, 1.35vw, 14px);
-      font-weight: 500;
-      line-height: 1.35;
-      letter-spacing: 0.07em;
-      white-space: nowrap;
-    }
-
-    .day-text {
-      margin-top: 3px;
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size: clamp(12px, 1.45vw, 15px);
-      font-weight: 400;
-      line-height: 1.35;
-
-      color: rgba(255, 255, 255, 0.78);
-
-      letter-spacing: 0.025em;
-    }
-
-    /* =========================================================
-       CENTRE BRAND
-    ========================================================= */
-
-    .brand {
-      position: absolute;
-
-      left: 50%;
-      top: 0;
-
-      transform: translateX(-50%);
-
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      text-align: center;
-    }
-
-    .brand-icon-frame {
-      width: 58px;
-      height: 58px;
-
-      display: grid;
-      place-items: center;
-
-      border-radius: 50%;
-
-      background:
-        rgba(0, 0, 0, 0.13);
-
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.36);
-
-      box-shadow:
-        0 10px 34px rgba(0, 0, 0, 0.22);
-
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-    }
-
-    .brand-icon {
-      width: 42px;
-      height: 42px;
-
-      display: block;
-
-      object-fit: contain;
-
-      filter: none;
-    }
-
-    .brand-name {
-      margin-top: 9px;
-
-      font-size: 10px;
-      font-weight: 600;
-
-      letter-spacing: 0.42em;
-      padding-left: 0.42em;
-
-      color: #ffffff;
-
-      text-shadow:
-        0 2px 14px rgba(0, 0, 0, 0.55);
-    }
-
-    .brand-tagline {
-      margin-top: 5px;
-
-      font-size: 7.5px;
-      font-weight: 400;
-
-      letter-spacing: 0.13em;
-
-      color: rgba(255, 255, 255, 0.82);
-
-      white-space: nowrap;
-
-      text-shadow:
-        0 2px 14px rgba(0, 0, 0, 0.5);
-    }
-
-    /* =========================================================
-       TOP RIGHT
-    ========================================================= */
-
-    .top-actions {
-      display: flex;
-      align-items: center;
-      gap: 9px;
-    }
-
-    .control-button {
-      width: 41px;
-      height: 41px;
-
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.34);
-
-      border-radius: 50%;
-
-      background:
-        rgba(0, 0, 0, 0.14);
-
-      color: #ffffff;
-
-      display: grid;
-      place-items: center;
-
-      cursor: pointer;
-
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-
-      transition:
-        transform 0.25s ease,
-        background 0.25s ease,
-        border-color 0.25s ease;
-    }
-
-    .control-button:active {
-      transform: scale(0.92);
-    }
-
-    .control-button:hover {
-      background:
-        rgba(255, 255, 255, 0.11);
-
-      border-color:
-        rgba(255, 255, 255, 0.7);
-    }
-
-    .control-button svg {
-      width: 17px;
-      height: 17px;
-
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.35;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    /* =========================================================
-       HERO
-    ========================================================= */
-
-    .hero {
-      flex: 1;
-
-      display: flex;
-      flex-direction: column;
-
-      align-items: center;
-      justify-content: center;
-
-      text-align: center;
-
-      padding:
-        80px 12px
-        100px;
-    }
-
-    .greeting {
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size:
-        clamp(
-          58px,
-          10vw,
-          118px
-        );
-
-      font-weight: 400;
-
-      line-height: 0.95;
-
-      letter-spacing: -0.055em;
-
-      color: #ffffff;
-
-      text-shadow:
-        0 7px 34px rgba(0, 0, 0, 0.38);
-
-      animation:
-        greeting-enter 1.2s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        both;
-    }
-
-    .quote {
-      max-width: 570px;
-
-      margin-top: 26px;
-
-      font-family:
-        Georgia,
-        "Times New Roman",
-        serif;
-
-      font-size:
-        clamp(
-          16px,
-          1.8vw,
-          22px
-        );
-
-      line-height: 1.5;
-
-      font-weight: 400;
-
-      color:
-        rgba(255, 255, 255, 0.91);
-
-      text-shadow:
-        0 4px 24px rgba(0, 0, 0, 0.38);
-
-      animation:
-        quote-enter 1.25s
-        0.12s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        both;
-    }
-
-    .time-label {
-      margin-top: 18px;
-
-      font-size: 9px;
-
-      font-weight: 500;
-
-      letter-spacing: 0.32em;
-
-      padding-left: 0.32em;
-
-      color:
-        rgba(255, 255, 255, 0.65);
-
-      text-transform: uppercase;
-
-      text-shadow:
-        0 2px 14px rgba(0, 0, 0, 0.4);
-
-      animation:
-        quote-enter 1.25s
-        0.22s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        both;
-    }
-
-    /* =========================================================
-       BOTTOM
-    ========================================================= */
-
-    .bottom-area {
-      position: relative;
-
-      min-height: 86px;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .begin-button {
-      min-width: 238px;
-      min-height: 56px;
-
-      padding:
-        0 28px 0 31px;
-
-      border:
-        1px solid
-        rgba(255, 255, 255, 0.62);
-
-      border-radius: 999px;
-
-      background:
-        rgba(0, 0, 0, 0.17);
-
-      color: #ffffff;
-
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-
-      gap: 15px;
-
-      cursor: pointer;
-
-      text-decoration: none;
-
-      font-size: 10px;
-      font-weight: 600;
-
-      letter-spacing: 0.22em;
-      padding-left:
-        calc(31px + 0.22em);
-
-      text-transform: uppercase;
-
-      backdrop-filter: blur(15px);
-      -webkit-backdrop-filter: blur(15px);
-
-      box-shadow:
-        0 12px 42px rgba(0, 0, 0, 0.2);
-
-      transition:
-        transform 0.3s ease,
-        background 0.3s ease,
-        border-color 0.3s ease,
-        box-shadow 0.3s ease;
-
-      animation:
-        button-enter 1.35s
-        0.28s
-        cubic-bezier(0.22, 1, 0.36, 1)
-        both;
-    }
-
-    .begin-button:hover {
-      transform: translateY(-2px);
-
-      background:
-        rgba(255, 255, 255, 0.12);
-
-      border-color:
-        rgba(255, 255, 255, 0.9);
-
-      box-shadow:
-        0 17px 52px rgba(0, 0, 0, 0.25);
-    }
-
-    .begin-button:active {
-      transform: scale(0.97);
-    }
-
-    .arrow {
-      width: 18px;
-      height: 18px;
-
-      display: grid;
-      place-items: center;
-    }
-
-    .arrow svg {
-      width: 18px;
-      height: 18px;
-
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.4;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-
-      transition:
-        transform 0.3s ease;
-    }
-
-    .begin-button:hover .arrow svg {
-      transform: translateX(4px);
-    }
-
-    /* =========================================================
-       SKIP
-    ========================================================= */
-
-    .skip-button {
-      position: absolute;
-
-      right: 0;
-      bottom: 2px;
-
-      border: 0;
-
-      background: transparent;
-
-      color:
-        rgba(255, 255, 255, 0.72);
-
-      font-size: 9px;
-
-      font-weight: 500;
-
-      letter-spacing: 0.2em;
-
-      text-transform: uppercase;
-
-      cursor: pointer;
-
-      padding: 9px;
-
-      text-shadow:
-        0 2px 12px rgba(0, 0, 0, 0.5);
-
-      transition:
-        color 0.25s ease;
-    }
-
-    .skip-button:hover {
-      color: #ffffff;
-    }
-
-    /* =========================================================
-       LOADING
-    ========================================================= */
-
-    .loading-screen {
-      position: absolute;
-      inset: 0;
-
-      z-index: 100;
-
-      background: #11110f;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      transition:
-        opacity 0.9s ease,
-        visibility 0.9s ease;
-    }
-
-    .loading-screen.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .loading-icon {
-      width: 48px;
-      height: 48px;
-
-      object-fit: contain;
-
-      animation:
-        icon-breathe 2s ease-in-out infinite;
-    }
-
-    /* =========================================================
-       PAGE TRANSITION
-    ========================================================= */
-
-    .page-transition {
-      position: fixed;
-      inset: 0;
-
-      z-index: 200;
-
-      background: #11110f;
-
-      opacity: 0;
-
-      pointer-events: none;
-
-      transition:
-        opacity 0.75s ease;
-    }
-
-    .page-transition.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* =========================================================
-       ANIMATIONS
-    ========================================================= */
-
-    @keyframes greeting-enter {
-      from {
-        opacity: 0;
-        transform: translateY(28px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes quote-enter {
-      from {
-        opacity: 0;
-        transform: translateY(17px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes button-enter {
-      from {
-        opacity: 0;
-        transform: translateY(22px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes icon-breathe {
-      0%,
-      100% {
-        opacity: 0.65;
-        transform: scale(0.96);
-      }
-
-      50% {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    /* =========================================================
-       MOBILE
-    ========================================================= */
-
-    @media (max-width: 600px) {
-
-      .page-content {
-        padding:
-          max(20px, env(safe-area-inset-top))
-          max(18px, env(safe-area-inset-right))
-          max(24px, env(safe-area-inset-bottom))
-          max(18px, env(safe-area-inset-left));
-      }
-
-      .brand-icon-frame {
-        width: 52px;
-        height: 52px;
-      }
-
-      .brand-icon {
-        width: 38px;
-        height: 38px;
-      }
-
-      .brand-name {
-        margin-top: 7px;
-        font-size: 9px;
-      }
-
-      .brand-tagline {
-        font-size: 6.5px;
-      }
-
-      .date-text {
-        font-size: 10px;
-      }
-
-      .day-text {
-        font-size: 11px;
-      }
-
-      .control-button {
-        width: 38px;
-        height: 38px;
-      }
-
-      .hero {
-        padding:
-          72px 4px
-          94px;
-      }
-
-      .greeting {
-        font-size:
-          clamp(
-            50px,
-            15vw,
-            84px
-          );
-      }
-
-      .quote {
-        max-width: 340px;
-        margin-top: 21px;
-        font-size: 16px;
-      }
-
-      .time-label {
-        margin-top: 16px;
-      }
-
-      .begin-button {
-        min-width: 220px;
-        min-height: 54px;
-
-        font-size: 9px;
-      }
-
-      .skip-button {
-        bottom: 0;
-        font-size: 8px;
-      }
-    }
-
-    /* =========================================================
-       SMALL PHONES
-    ========================================================= */
-
-    @media (max-width: 375px) {
-
-      .page-content {
-        padding-left: 15px;
-        padding-right: 15px;
-      }
-
-      .brand-icon-frame {
-        width: 47px;
-        height: 47px;
-      }
-
-      .brand-icon {
-        width: 34px;
-        height: 34px;
-      }
-
-      .brand-tagline {
-        display: none;
-      }
-
-      .date-text {
-        font-size: 9px;
-      }
-
-      .day-text {
-        font-size: 10px;
-      }
-
-      .greeting {
-        font-size: 47px;
-      }
-
-      .quote {
-        font-size: 15px;
-      }
-
-      .begin-button {
-        min-width: 205px;
-      }
-    }
-
-    /* =========================================================
-       LANDSCAPE
-    ========================================================= */
-
-    @media (
-      max-height: 520px
-    ) and (
-      orientation: landscape
-    ) {
-
-      .page-content {
-        padding-top: 12px;
-        padding-bottom: 12px;
-      }
-
-      .brand-icon-frame {
-        width: 40px;
-        height: 40px;
-      }
-
-      .brand-icon {
-        width: 29px;
-        height: 29px;
-      }
-
-      .brand-name {
-        margin-top: 3px;
-        font-size: 7px;
-      }
-
-      .brand-tagline {
-        display: none;
-      }
-
-      .hero {
-        padding:
-          20px 10px
-          28px;
-      }
-
-      .greeting {
-        font-size: 47px;
-      }
-
-      .quote {
-        margin-top: 10px;
-        font-size: 13px;
-      }
-
-      .time-label {
-        margin-top: 7px;
-      }
-
-      .bottom-area {
-        min-height: 54px;
-      }
-
-      .begin-button {
-        min-height: 43px;
-      }
-    }
-
-    /* =========================================================
-       REDUCED MOTION
-    ========================================================= */
-
-    @media (prefers-reduced-motion: reduce) {
-
-      *,
-      *::before,
-      *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-
-      #arrivalVideo {
-        transform: none;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b0a">
+<title>AKSH — A Safe Space For Every Mind</title>
+
+<style>
+:root{
+  --bg:#080a09;
+  --gold:#d7b66d;
+  --gold2:#f0d59a;
+  --white:#f4f0e7;
+  --soft:rgba(244,240,231,.72);
+  --dim:rgba(244,240,231,.46);
+  --line:rgba(255,255,255,.12);
+  --glass:rgba(10,12,11,.62);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  background:var(--bg);
+  color:var(--white);
+}
+
+body{
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Helvetica Neue",
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+
+button,a{
+  font:inherit;
+  color:inherit;
+}
+
+button{
+  border:0;
+  background:none;
+}
+
+a{
+  text-decoration:none;
+}
+
+.page{
+  position:relative;
+  min-height:100svh;
+  overflow:hidden;
+  background:#080a09;
+}
+
+.background{
+  position:absolute;
+  inset:0;
+  overflow:hidden;
+}
+
+.background video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:0;
+  transform:scale(1.015);
+  transition:
+    opacity 1.4s ease,
+    transform 8s ease;
+}
+
+.background video.active{
+  opacity:1;
+  transform:scale(1);
+}
+
+.background::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.82) 0%,
+      rgba(0,0,0,.58) 31%,
+      rgba(0,0,0,.16) 68%,
+      rgba(0,0,0,.45) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.52) 0%,
+      transparent 25%,
+      rgba(0,0,0,.3) 72%,
+      rgba(0,0,0,.7) 100%
+    );
+}
+
+.grain{
+  position:absolute;
+  inset:0;
+  z-index:30;
+  pointer-events:none;
+  opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.nav{
+  position:absolute;
+  z-index:20;
+  top:0;
+  left:0;
+  right:0;
+
+  height:88px;
+
+  padding:
+    max(18px,env(safe-area-inset-top))
+    5.5vw
+    0;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.brand img{
+  width:43px;
+  height:43px;
+  object-fit:contain;
+}
+
+.brand-text{
+  display:flex;
+  flex-direction:column;
+  line-height:1;
+}
+
+.brand-name{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:17px;
+  letter-spacing:.05em;
+}
+
+.brand-sub{
+  margin-top:4px;
+  font-size:6px;
+  letter-spacing:.16em;
+  color:var(--gold);
+}
+
+.navigation{
+  display:flex;
+  align-items:center;
+  gap:30px;
+}
+
+.navigation a{
+  position:relative;
+  font-size:7px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.72);
+  transition:color .3s ease;
+}
+
+.navigation a:hover{
+  color:#fff;
+}
+
+.navigation a.active{
+  color:#fff;
+}
+
+.navigation a.active::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  bottom:-11px;
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:var(--gold);
+  transform:translateX(-50%);
+  box-shadow:0 0 10px var(--gold);
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:13px;
+}
+
+.space-button{
+  height:34px;
+  padding:0 15px;
+  border:1px solid rgba(215,182,109,.45);
+  border-radius:20px;
+
+  display:flex;
+  align-items:center;
+  gap:7px;
+
+  font-size:7px;
+  letter-spacing:.03em;
+
+  background:rgba(5,7,6,.28);
+  backdrop-filter:blur(12px);
+
+  cursor:pointer;
+  transition:.35s ease;
+}
+
+.space-button:hover{
+  background:rgba(215,182,109,.12);
+  border-color:var(--gold);
+}
+
+.space-button svg{
+  width:13px;
+  height:13px;
+  fill:none;
+  stroke:var(--gold2);
+  stroke-width:1.4;
+}
+
+.menu{
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+}
+
+.menu-lines{
+  width:14px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.menu-lines span{
+  width:100%;
+  height:1px;
+  background:var(--gold);
+}
+
+.hero{
+  position:relative;
+  z-index:5;
+
+  min-height:100svh;
+
+  padding:
+    155px
+    5.5vw
+    115px;
+
+  display:flex;
+  align-items:center;
+}
+
+.hero-content{
+  width:min(55vw,620px);
+}
+
+.welcome{
+  font-size:8px;
+  font-weight:600;
+  letter-spacing:.2em;
+  color:var(--gold2);
+  text-transform:uppercase;
+
+  opacity:0;
+  transform:translateY(15px);
+  animation:rise .9s .15s var(--ease) forwards;
+}
+
+.hero-title{
+  margin-top:19px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-weight:400;
+  font-size:
+    clamp(
+      43px,
+      5.2vw,
+      73px
+    );
+
+  line-height:.98;
+  letter-spacing:-.035em;
+
+  max-width:610px;
+
+  opacity:0;
+  transform:translateY(20px);
+  animation:rise 1s .25s var(--ease) forwards;
+}
+
+.hero-copy{
+  margin-top:22px;
+
+  max-width:380px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:13px;
+  line-height:1.55;
+
+  color:var(--soft);
+
+  opacity:0;
+  transform:translateY(18px);
+  animation:rise 1s .38s var(--ease) forwards;
+}
+
+.actions{
+  margin-top:27px;
+
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  opacity:0;
+  transform:translateY(15px);
+  animation:rise 1s .5s var(--ease) forwards;
+}
+
+.primary{
+  height:39px;
+  padding:0 18px;
+
+  border-radius:22px;
+  background:linear-gradient(
+    135deg,
+    #e5c27a,
+    #cda45c
+  );
+
+  color:#15130e;
+
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  font-size:7px;
+  font-weight:600;
+  letter-spacing:.05em;
+
+  box-shadow:
+    0 7px 25px rgba(205,164,92,.2);
+
+  cursor:pointer;
+
+  transition:
+    transform .35s var(--ease),
+    box-shadow .35s ease;
+}
+
+.primary:hover{
+  transform:translateY(-2px);
+  box-shadow:
+    0 11px 35px rgba(205,164,92,.3);
+}
+
+.primary svg,
+.secondary svg{
+  width:13px;
+  height:13px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.3;
+}
+
+.secondary{
+  height:39px;
+  padding:0 17px;
+
+  border:1px solid rgba(215,182,109,.4);
+  border-radius:22px;
+
+  background:rgba(5,7,6,.28);
+  backdrop-filter:blur(12px);
+
+  display:flex;
+  align-items:center;
+  gap:9px;
+
+  font-size:7px;
+  letter-spacing:.04em;
+
+  cursor:pointer;
+
+  transition:.35s ease;
+}
+
+.secondary:hover{
+  border-color:var(--gold);
+  background:rgba(215,182,109,.1);
+}
+
+.time-card{
+  position:absolute;
+  z-index:10;
+
+  right:5.5vw;
+  top:29%;
+
+  width:150px;
+  min-height:215px;
+
+  padding:19px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.1);
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(25,27,24,.7),
+      rgba(10,12,11,.58)
+    );
+
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.25);
+
+  opacity:0;
+  transform:translateY(15px);
+  animation:rise 1s .55s var(--ease) forwards;
+}
+
+.time-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+}
+
+.time-heading{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:12px;
+  line-height:1.25;
+}
+
+.sun{
+  color:var(--gold2);
+}
+
+.sun svg{
+  width:15px;
+  height:15px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.1;
+}
+
+.time-date{
+  margin-top:6px;
+  font-size:6px;
+  letter-spacing:.06em;
+  color:var(--dim);
+}
+
+.card-line{
+  height:1px;
+  background:rgba(255,255,255,.12);
+  margin:16px 0;
+}
+
+.time-message{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:11px;
+  line-height:1.65;
+  color:rgba(244,240,231,.75);
+}
+
+.time-message strong{
+  display:block;
+  margin-top:10px;
+  color:#fff;
+  font-weight:400;
+}
+
+.heart{
+  margin-top:18px;
+  color:var(--gold);
+}
+
+.heart svg{
+  width:14px;
+  height:14px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.2;
+}
+
+.scroll{
+  position:absolute;
+  left:5.5vw;
+  bottom:95px;
+
+  display:flex;
+  align-items:center;
+  gap:9px;
+
+  transform:rotate(-90deg) translateX(-100%);
+  transform-origin:left top;
+
+  font-size:6px;
+  letter-spacing:.19em;
+  color:rgba(255,255,255,.55);
+  text-transform:uppercase;
+}
+
+.scroll-dot{
+  width:3px;
+  height:3px;
+  border-radius:50%;
+  background:var(--gold);
+}
+
+.needs{
+  position:relative;
+  z-index:12;
+
+  margin:
+    -62px
+    5.5vw
+    0;
+
+  padding:19px 20px 16px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.09);
+
+  border-radius:15px;
+
+  background:
+    rgba(8,10,9,.68);
+
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+}
+
+.needs-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  margin-bottom:14px;
+}
+
+.needs-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:13px;
+}
+
+.needs-note{
+  font-size:6px;
+  color:var(--dim);
+}
+
+.needs-note::after{
+  content:" ☼";
+  color:var(--gold);
+}
+
+.needs-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:9px;
+}
+
+.need{
+  min-height:76px;
+
+  border:
+    1px solid
+    rgba(255,255,255,.08);
+
+  border-radius:11px;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+
+  gap:7px;
+
+  background:rgba(255,255,255,.008);
+
+  transition:
+    transform .35s var(--ease),
+    border-color .3s ease,
+    background .3s ease;
+
+  cursor:pointer;
+}
+
+.need:hover{
+  transform:translateY(-3px);
+  border-color:rgba(215,182,109,.4);
+  background:rgba(215,182,109,.045);
+}
+
+.need-icon{
+  color:var(--gold);
+}
+
+.need-icon svg{
+  width:20px;
+  height:20px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.15;
+}
+
+.need-name{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:9px;
+}
+
+.need-desc{
+  font-size:6px;
+  color:var(--dim);
+}
+
+.lower{
+  position:relative;
+  z-index:10;
+
+  padding:
+    14px
+    5.5vw
+    55px;
+
+  display:grid;
+  grid-template-columns:1.65fr 1fr;
+  gap:14px;
+}
+
+.feature{
+  min-height:270px;
+  position:relative;
+  overflow:hidden;
+
+  border:1px solid var(--line);
+  border-radius:14px;
+
+  background:#10120f;
+}
+
+.feature-bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.72;
+}
+
+.feature::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(0,0,0,.75),
+      rgba(0,0,0,.15)
+    ),
+    linear-gradient(
+      0deg,
+      rgba(0,0,0,.55),
+      transparent 60%
+    );
+}
+
+.feature-content{
+  position:relative;
+  z-index:2;
+  padding:30px;
+  width:60%;
+}
+
+.feature-label{
+  font-size:6px;
+  letter-spacing:.18em;
+  color:var(--gold);
+  text-transform:uppercase;
+}
+
+.feature-title{
+  margin-top:16px;
+
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:27px;
+  font-weight:400;
+  line-height:1;
+}
+
+.feature-copy{
+  margin-top:12px;
+  max-width:210px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:9px;
+  line-height:1.5;
+  color:var(--soft);
+}
+
+.feature-button{
+  margin-top:21px;
+
+  height:31px;
+  padding:0 13px;
+
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:18px;
+
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  font-size:6px;
+  letter-spacing:.05em;
+
+  background:rgba(0,0,0,.22);
+}
+
+.right-stack{
+  display:grid;
+  grid-template-rows:1fr 1fr;
+  gap:14px;
+}
+
+.progress-card,
+.ai-card{
+  position:relative;
+  overflow:hidden;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:14px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(28,30,27,.72),
+      rgba(10,12,11,.75)
+    );
+
+  padding:23px;
+}
+
+.progress-title,
+.ai-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:15px;
+}
+
+.progress{
+  margin-top:15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.progress-circle{
+  width:65px;
+  height:65px;
+  border-radius:50%;
+
+  background:
+    conic-gradient(
+      var(--gold) 0 72%,
+      rgba(255,255,255,.08) 72% 100%
+    );
+
+  display:grid;
+  place-items:center;
+}
+
+.progress-circle::after{
+  content:"72%";
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#171916;
+  display:grid;
+  place-items:center;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:13px;
+}
+
+.stats{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+.stat{
+  font-size:7px;
+  color:var(--soft);
+}
+
+.stat b{
+  color:var(--white);
+  font-weight:500;
+}
+
+.ai-card{
+  background:
+    radial-gradient(
+      circle at 75% 45%,
+      rgba(105,178,177,.2),
+      transparent 45%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(17,27,26,.9),
+      rgba(7,10,9,.9)
+    );
+}
+
+.ai-copy{
+  margin-top:10px;
+  max-width:200px;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:9px;
+  line-height:1.45;
+  color:var(--soft);
+}
+
+.ai-button{
+  margin-top:13px;
+  padding:8px 12px;
+  border:1px solid rgba(255,255,255,.16);
+  border-radius:15px;
+  font-size:6px;
+}
+
+.ai-orb{
+  position:absolute;
+  right:30px;
+  top:50%;
+  transform:translateY(-50%);
+
+  width:58px;
+  height:58px;
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 30%,
+      rgba(255,255,255,.95),
+      rgba(120,214,208,.55) 30%,
+      rgba(53,124,121,.35) 58%,
+      transparent 72%
+    );
+
+  box-shadow:
+    0 0 28px rgba(95,200,193,.35);
+}
+
+.ai-orb::before,
+.ai-orb::after{
+  content:"";
+  position:absolute;
+  top:23px;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#d9ffff;
+}
+
+.ai-orb::before{left:19px}
+.ai-orb::after{right:19px}
+
+.curated{
+  position:relative;
+  z-index:10;
+
+  padding:
+    5px
+    5.5vw
+    45px;
+}
+
+.curated-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:13px;
+}
+
+.curated-title{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:17px;
+}
+
+.curated-all{
+  font-size:6px;
+  color:var(--dim);
+}
+
+.curated-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.curated-card{
+  min-height:145px;
+  position:relative;
+  overflow:hidden;
+
+  border-radius:11px;
+  border:1px solid var(--line);
+
+  background:#111;
+}
+
+.curated-card img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.72;
+}
+
+.curated-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    0deg,
+    rgba(0,0,0,.8),
+    transparent 65%
+  );
+}
+
+.curated-content{
+  position:absolute;
+  z-index:2;
+  left:14px;
+  right:14px;
+  bottom:13px;
+}
+
+.curated-content h3{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:11px;
+  font-weight:400;
+}
+
+.curated-content p{
+  margin-top:4px;
+  font-size:6px;
+  color:var(--soft);
+}
+
+.play{
+  position:absolute;
+  z-index:3;
+  right:11px;
+  bottom:11px;
+
+  width:23px;
+  height:23px;
+  border-radius:50%;
+
+  background:rgba(0,0,0,.55);
+  border:1px solid rgba(255,255,255,.25);
+
+  display:grid;
+  place-items:center;
+}
+
+.play svg{
+  width:8px;
+  height:8px;
+  fill:currentColor;
+}
+
+.quote{
+  position:relative;
+  z-index:10;
+
+  margin:
+    0
+    5.5vw
+    35px;
+
+  min-height:58px;
+
+  border:
+    1px solid
+    var(--line);
+
+  border-radius:14px;
+
+  display:flex;
+  align-items:center;
+  gap:18px;
+
+  padding:15px 23px;
+
+  background:rgba(15,17,15,.75);
+}
+
+.quote-mark{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:35px;
+  color:rgba(215,182,109,.3);
+}
+
+.quote-text{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:12px;
+  font-style:italic;
+  color:rgba(244,240,231,.6);
+}
+
+.quote-infinity{
+  margin-left:auto;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:30px;
+  color:var(--gold);
+}
+
+.transition{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:#080a09;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .6s ease;
+}
+
+.transition.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+@keyframes rise{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@media(max-width:850px){
+
+  .navigation{
+    display:none;
+  }
+
+  .hero{
+    padding-top:125px;
+  }
+
+  .hero-content{
+    width:60%;
+  }
+
+  .time-card{
+    right:4vw;
+    width:145px;
+  }
+
+  .needs-grid{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .lower{
+    grid-template-columns:1fr;
+  }
+
+  .right-stack{
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr;
+  }
+
+  .curated-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:600px){
+
+  .nav{
+    height:70px;
+    padding:
+      max(12px,env(safe-area-inset-top))
+      17px
+      0;
+  }
+
+  .brand img{
+    width:35px;
+    height:35px;
+  }
+
+  .brand-name{
+    font-size:14px;
+  }
+
+  .brand-sub{
+    font-size:5px;
+  }
+
+  .space-button{
+    display:none;
+  }
+
+  .hero{
+    min-height:650px;
+    padding:
+      110px
+      18px
+      95px;
+
+    align-items:flex-start;
+  }
+
+  .hero-content{
+    width:100%;
+    max-width:370px;
+  }
+
+  .hero-title{
+    font-size:47px;
+    max-width:350px;
+  }
+
+  .hero-copy{
+    font-size:12px;
+    max-width:280px;
+  }
+
+  .time-card{
+    position:absolute;
+    top:auto;
+    bottom:82px;
+    right:18px;
+    width:145px;
+    min-height:175px;
+    padding:15px;
+  }
+
+  .time-message{
+    font-size:10px;
+  }
+
+  .scroll{
+    display:none;
+  }
+
+  .needs{
+    margin:
+      -42px
+      12px
+      0;
+
+    padding:16px 13px;
+  }
+
+  .needs-heading{
+    margin-bottom:12px;
+  }
+
+  .needs-title{
+    font-size:12px;
+  }
+
+  .needs-note{
+    font-size:5px;
+  }
+
+  .need{
+    min-height:73px;
+  }
+
+  .need-name{
+    font-size:8px;
+  }
+
+  .need-desc{
+    display:none;
+  }
+
+  .lower{
+    padding:
+      12px
+      12px
+      35px;
+  }
+
+  .feature{
+    min-height:245px;
+  }
+
+  .feature-content{
+    width:72%;
+    padding:24px;
+  }
+
+  .feature-title{
+    font-size:25px;
+  }
+
+  .right-stack{
+    grid-template-columns:1fr;
+    grid-template-rows:145px 145px;
+  }
+
+  .curated{
+    padding:
+      0
+      12px
+      30px;
+  }
+
+  .curated-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .curated-card{
+    min-height:135px;
+  }
+
+  .quote{
+    margin:
+      0
+      12px
+      25px;
+
+    padding:13px 15px;
+  }
+
+  .quote-text{
+    font-size:10px;
+  }
+
+  .quote-infinity{
+    display:none;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  *,
+  *::before,
+  *::after{
+    animation-duration:.01ms!important;
+    transition-duration:.01ms!important;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <main class="arrival">
+<div class="page">
 
-    <!-- =======================================================
-         VIDEO
-    ======================================================== -->
+<div class="background">
 
-    <div class="video-container">
+  <video id="morning1" muted playsinline loop preload="auto"
+    src="aksh-morning.1.mov"></video>
 
-      <video
-        id="arrivalVideo"
-        autoplay
-        playsinline
-        webkit-playsinline
-        preload="auto"
-        loop
-      ></video>
+  <video id="morning2" muted playsinline loop preload="none"
+    src="aksh-morning.2.mov"></video>
 
-      <div class="overlay overlay-main"></div>
-      <div class="overlay overlay-vignette"></div>
+  <video id="morning3" muted playsinline loop preload="none"
+    src="aksh-morning.3.mov"></video>
+
+  <video id="morning4" muted playsinline loop preload="none"
+    src="aksh-morning.4.mov"></video>
+
+  <video id="afternoon1" muted playsinline loop preload="none"
+    src="aksh-afternoon.1.mov"></video>
+
+  <video id="afternoon2" muted playsinline loop preload="none"
+    src="aksh-afternoon.2.mov"></video>
+
+  <video id="afternoon3" muted playsinline loop preload="none"
+    src="aksh-afternoon.3.mov"></video>
+
+  <video id="afternoon4" muted playsinline loop preload="none"
+    src="aksh-afternoon.4.mov"></video>
+
+  <video id="evening1" muted playsinline loop preload="none"
+    src="aksh-evening.1.mov"></video>
+
+  <video id="evening2" muted playsinline loop preload="none"
+    src="aksh-evening.2.mov"></video>
+
+  <video id="evening3" muted playsinline loop preload="none"
+    src="aksh-evening.3.mov"></video>
+
+  <video id="night1" muted playsinline loop preload="none"
+    src="aksh-night.1.mov"></video>
+
+  <video id="night2" muted playsinline loop preload="none"
+    src="aksh-night.2.mov"></video>
+
+</div>
+
+<div class="grain"></div>
+
+<nav class="nav">
+
+  <a href="index.html" class="brand">
+
+    <img src="aksh-icon.PNG" alt="AKSH">
+
+    <span class="brand-text">
+      <span class="brand-name">AKSH</span>
+      <span class="brand-sub">MENTAL WELLNESS</span>
+    </span>
+
+  </a>
+
+  <div class="navigation">
+
+    <a href="index.html" class="active">Home</a>
+    <a href="journey.html">Journey</a>
+    <a href="ai.html">AI Companion</a>
+    <a href="resources.html">Resources</a>
+    <a href="journal.html">Journal</a>
+    <a href="about.html">About</a>
+
+  </div>
+
+  <div class="nav-right">
+
+    <a href="space.html" class="space-button">
+      <svg viewBox="0 0 24 24">
+        <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"></path>
+        <path d="M4 21c.8-4 3.4-6 8-6s7.2 2 8 6"></path>
+      </svg>
+      My Space
+    </a>
+
+    <a href="menu.html" class="menu" aria-label="Menu">
+      <span class="menu-lines">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </a>
+
+  </div>
+
+</nav>
+
+<section class="hero">
+
+  <div class="hero-content">
+
+    <div class="welcome" id="welcome">
+      Welcome to AKSH
+    </div>
+
+    <h1 class="hero-title">
+      A Safe Space<br>
+      For Every Mind
+    </h1>
+
+    <p class="hero-copy">
+      You matter. Your mind matters.<br>
+      Begin your journey to inner peace.
+    </p>
+
+    <div class="actions">
+
+      <a href="journey.html" class="primary">
+        Begin Your Journey
+
+        <svg viewBox="0 0 24 24">
+          <path d="M5 12h13"></path>
+          <path d="m13 6 6 6-6 6"></path>
+        </svg>
+      </a>
+
+      <a href="how-it-works.html" class="secondary">
+        How It Works
+
+        <svg viewBox="0 0 24 24">
+          <path d="m9 6 6 6-6 6"></path>
+        </svg>
+      </a>
 
     </div>
 
+  </div>
 
-    <!-- =======================================================
-         LOADING
-    ======================================================== -->
 
-    <div
-      id="loadingScreen"
-      class="loading-screen"
-      aria-hidden="true"
+  <aside class="time-card">
+
+    <div class="time-top">
+
+      <div>
+
+        <div class="time-heading" id="timeGreeting">
+          Good Morning, Aksh
+        </div>
+
+        <div class="time-date" id="todayDate">
+          11 AUG 2026 • TUESDAY
+        </div>
+
+      </div>
+
+      <div class="sun">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.9 4.9 1.4 1.4"></path>
+          <path d="m17.7 17.7 1.4 1.4"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+        </svg>
+      </div>
+
+    </div>
+
+    <div class="card-line"></div>
+
+    <div class="time-message" id="timeMessage">
+      Every sunrise is a reminder that you can start again.
+
+      <strong>
+        Take a deep breath.<br>
+        You've got this.
+      </strong>
+    </div>
+
+    <div class="heart">
+      <svg viewBox="0 0 24 24">
+        <path d="M20.8 8.9c0 5.5-8.8 10.5-8.8 10.5S3.2 14.4 3.2 8.9A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.7Z"></path>
+      </svg>
+    </div>
+
+  </aside>
+
+
+  <div class="scroll">
+    <span class="scroll-dot"></span>
+    Scroll to explore
+  </div>
+
+</section>
+
+
+<section class="needs">
+
+  <div class="needs-heading">
+
+    <h2 class="needs-title">
+      Today, what do you need?
+    </h2>
+
+    <span class="needs-note">
+      You are not alone. We're here with you.
+    </span>
+
+  </div>
+
+
+  <div class="needs-grid">
+
+    <a href="calm.html" class="need">
+
+      <span class="need-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 21c-4-3-7-7-7-11a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 4-3 8-7 11Z"></path>
+          <path d="M12 8v7"></path>
+        </svg>
+      </span>
+
+      <span class="need-name">Calm My Mind</span>
+      <span class="need-desc">Reduce stress</span>
+
+    </a>
+
+
+    <a href="sleep.html" class="need">
+
+      <span class="need-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M18 4a8 8 0 1 0 2 14A9 9 0 0 1 18 4Z"></path>
+          <path d="M17 5h.01"></path>
+          <path d="M20 8h.01"></path>
+        </svg>
+      </span>
+
+      <span class="need-name">Improve Sleep</span>
+      <span class="need-desc">Rest better</span>
+
+    </a>
+
+
+    <a href="anxiety.html" class="need">
+
+      <span class="need-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M8 4c-3 1-4 4-4 8s1 7 4 8"></path>
+          <path d="M16 4c3 1 4 4 4 8s-1 7-4 8"></path>
+          <path d="M9 7c2 2 4 2 6 0"></path>
+          <path d="M8 12c2 2 6 2 8 0"></path>
+          <path d="M9 17c2-2 4-2 6 0"></path>
+        </svg>
+      </span>
+
+      <span class="need-name">Manage Anxiety</span>
+      <span class="need-desc">Find balance</span>
+
+    </a>
+
+
+    <a href="mood.html" class="need">
+
+      <span class="need-icon">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v2"></path>
+          <path d="M12 20v2"></path>
+          <path d="m4.9 4.9 1.4 1.4"></path>
+          <path d="m17.7 17.7 1.4 1.4"></path>
+          <path d="M2 12h2"></path>
+          <path d="M20 12h2"></path>
+        </svg>
+      </span>
+
+      <span class="need-name">Boost Mood</span>
+      <span class="need-desc">Feel lighter</span>
+
+    </a>
+
+
+    <a href="journal.html" class="need">
+
+      <span class="need-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 4h12a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4Z"></path>
+          <path d="M7 4v16"></path>
+          <path d="M10 8h6"></path>
+          <path d="M10 12h6"></path>
+        </svg>
+      </span>
+
+      <span class="need-name">Daily Journal</span>
+      <span class="need-desc">Write it out</span>
+
+    </a>
+
+
+    <a href="ai.html" class="need">
+
+      <span class="need-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M4 6h16v11H8l-4 3V6Z"></path>
+          <path d="M9 11h.01"></path>
+          <path d="M12 11h.01"></path>
+          <path d="M15 11h.01"></path>
+        </svg>
+      </span>
+
+      <span class="need-name">Talk to AI</span>
+      <span class="need-desc">Here for you</span>
+
+    </a>
+
+  </div>
+
+</section>
+
+
+<section class="lower">
+
+  <article class="feature">
+
+    <img
+      class="feature-bg"
+      src="aksh-evening.2.mov"
+      alt=""
+      onerror="this.style.display='none'"
     >
 
-      <img
-        class="loading-icon"
-        src="aksh-icon.PNG"
-        alt=""
-      >
+    <div class="feature-content">
+
+      <div class="feature-label">
+        Featured
+      </div>
+
+      <h2 class="feature-title">
+        Evening<br>
+        Reflection
+      </h2>
+
+      <p class="feature-copy">
+        Take a moment to pause,
+        breathe, and reflect on
+        your beautiful day.
+      </p>
+
+      <a href="reflection.html" class="feature-button">
+        Start Now
+        <svg viewBox="0 0 24 24" style="width:10px;height:10px;fill:currentColor">
+          <path d="m9 6 6 6-6 6"></path>
+        </svg>
+      </a>
 
     </div>
 
+  </article>
 
-    <!-- =======================================================
-         PAGE CONTENT
-    ======================================================== -->
 
-    <div class="page-content">
+  <div class="right-stack">
 
-      <!-- TOP -->
+    <article class="progress-card">
 
-      <header class="top-bar">
+      <h2 class="progress-title">
+        Your Progress
+      </h2>
 
-        <!-- DATE -->
+      <div class="progress">
 
-        <div class="date-block">
+        <div class="progress-circle"></div>
 
-          <div
-            id="dateText"
-            class="date-text"
-          >
-            12 August 2026
+        <div class="stats">
+
+          <div class="stat">
+            <b>3 / 5</b> &nbsp; Daily Check-ins
           </div>
 
-          <div
-            id="dayText"
-            class="day-text"
-          >
-            Wednesday
+          <div class="stat">
+            <b>4 / 7</b> &nbsp; Mood Entries
           </div>
 
-        </div>
-
-
-        <!-- BRAND -->
-
-        <div class="brand">
-
-          <div class="brand-icon-frame">
-
-            <img
-              class="brand-icon"
-              src="aksh-icon.PNG"
-              alt="AKSH"
-            >
-
+          <div class="stat">
+            <b>2 / 3</b> &nbsp; Meditations
           </div>
 
-          <div class="brand-name">
-            AKSH
-          </div>
-
-          <div class="brand-tagline">
-            A SAFE SPACE FOR EVERY MIND
+          <div class="stat">
+            <b>6 h 12 m</b> &nbsp; Self Care Time
           </div>
 
         </div>
 
+      </div>
 
-        <!-- SOUND -->
+    </article>
 
-        <div class="top-actions">
 
-          <button
-            id="soundButton"
-            class="control-button"
-            type="button"
-            aria-label="Turn sound on"
-          >
+    <article class="ai-card">
 
-            <svg
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path d="M4 10v4h4l5 4V6l-5 4H4Z"></path>
-              <path d="m18 9-4 6"></path>
-              <path d="m14 9 4 6"></path>
-            </svg>
+      <div class="ai-title">
+        AI Companion
+      </div>
 
-          </button>
+      <p class="ai-copy">
+        Hi Aksh, I'm here to listen.
+        How are you feeling today?
+      </p>
 
-        </div>
+      <a href="ai.html" class="ai-button">
+        Let's Talk →
+      </a>
 
-      </header>
+      <div class="ai-orb"></div>
 
+    </article>
 
-      <!-- HERO -->
+  </div>
 
-      <section class="hero">
+</section>
 
-        <h1
-          id="greeting"
-          class="greeting"
-        >
-          Good Afternoon
-        </h1>
 
-        <p
-          id="quote"
-          class="quote"
-        >
-          Pause for a moment. You deserve a little space.
-        </p>
+<section class="curated">
 
-        <div
-          id="timeLabel"
-          class="time-label"
-        >
-          AKSH · AFTERNOON
-        </div>
+  <div class="curated-head">
 
-      </section>
+    <h2 class="curated-title">
+      Curated For You
+    </h2>
 
+    <a href="resources.html" class="curated-all">
+      See all
+    </a>
 
-      <!-- BOTTOM -->
+  </div>
 
-      <footer class="bottom-area">
 
-        <a
-          id="beginButton"
-          class="begin-button"
-          href="home.html"
-          aria-label="Begin Your Journey"
-        >
+  <div class="curated-grid">
 
-          <span>
-            Begin Your Journey
-          </span>
+    <a href="breathing.html" class="curated-card">
 
-          <span
-            class="arrow"
-            aria-hidden="true"
-          >
+      <img src="aksh-morning.1.mov" alt="">
 
-            <svg viewBox="0 0 24 24">
-              <path d="M5 12h13"></path>
-              <path d="m13 6 6 6-6 6"></path>
-            </svg>
+      <div class="curated-content">
+        <h3>7 Min Breathing</h3>
+        <p>Calm your mind in just 7 minutes</p>
+      </div>
 
-          </span>
+      <span class="play">
+        <svg viewBox="0 0 24 24">
+          <path d="m8 5 11 7-11 7V5Z"></path>
+        </svg>
+      </span>
 
-        </a>
+    </a>
 
 
-        <button
-          id="skipButton"
-          class="skip-button"
-          type="button"
-        >
-          Skip
-        </button>
+    <a href="body-scan.html" class="curated-card">
 
-      </footer>
+      <img src="aksh-morning.2.mov" alt="">
 
-    </div>
+      <div class="curated-content">
+        <h3>Body Scan Relaxation</h3>
+        <p>Release tension and relax your body</p>
+      </div>
 
+      <span class="play">
+        <svg viewBox="0 0 24 24">
+          <path d="m8 5 11 7-11 7V5Z"></path>
+        </svg>
+      </span>
 
-    <!-- TRANSITION -->
+    </a>
 
-    <div
-      id="pageTransition"
-      class="page-transition"
-      aria-hidden="true"
-    ></div>
-
-  </main>
-
-
-  <script>
-
-    /* =========================================================
-       AKSH — STAGE 0 ARRIVAL ENGINE
-    ========================================================= */
-
-    const EXPERIENCES = [
-
-      /* -------------------------------------------------------
-         NIGHT — 12:00 AM → 4:59 AM
-      ------------------------------------------------------- */
-
-      {
-        start: 0,
-        end: 5,
-        greeting: "Good Night",
-        period: "NIGHT",
-        quote:
-          "Let the world become quiet. You can simply be.",
-        video:
-          "aksh-night.2.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         MORNING — 5:00 AM → 5:59 AM
-      ------------------------------------------------------- */
-
-      {
-        start: 5,
-        end: 6,
-        greeting: "Good Morning",
-        period: "MORNING",
-        quote:
-          "Begin gently. There is nowhere you need to rush.",
-        video:
-          "aksh-morning.1.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         MORNING — 6:00 AM → 7:59 AM
-      ------------------------------------------------------- */
-
-      {
-        start: 6,
-        end: 8,
-        greeting: "Good Morning",
-        period: "MORNING",
-        quote:
-          "A new day does not ask you to have everything figured out.",
-        video:
-          "aksh-morning.2.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         MORNING — 8:00 AM → 9:59 AM
-      ------------------------------------------------------- */
-
-      {
-        start: 8,
-        end: 10,
-        greeting: "Good Morning",
-        period: "MORNING",
-        quote:
-          "Take a breath. Let this moment be enough.",
-        video:
-          "aksh-morning.3.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         MORNING — 10:00 AM → 11:59 AM
-      ------------------------------------------------------- */
-
-      {
-        start: 10,
-        end: 12,
-        greeting: "Good Morning",
-        period: "MORNING",
-        quote:
-          "There is space here for whatever today brings.",
-        video:
-          "aksh-morning.4.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         AFTERNOON — 12:00 PM → 12:59 PM
-      ------------------------------------------------------- */
-
-      {
-        start: 12,
-        end: 13,
-        greeting: "Good Afternoon",
-        period: "AFTERNOON",
-        quote:
-          "Pause for a moment. You deserve a little space.",
-        video:
-          "aksh-afternoon.1.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         AFTERNOON — 1:00 PM → 2:29 PM
-      ------------------------------------------------------- */
-
-      {
-        start: 13,
-        end: 14.5,
-        greeting: "Good Afternoon",
-        period: "AFTERNOON",
-        quote:
-          "Warm light. A quiet moment. Just be here.",
-        video:
-          "aksh-afternoon.2.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         AFTERNOON — 2:30 PM → 3:59 PM
-      ------------------------------------------------------- */
-
-      {
-        start: 14.5,
-        end: 16,
-        greeting: "Good Afternoon",
-        period: "AFTERNOON",
-        quote:
-          "You do not have to carry everything at once.",
-        video:
-          "aksh-afternoon.3.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         AFTERNOON — 4:00 PM → 4:59 PM
-      ------------------------------------------------------- */
-
-      {
-        start: 16,
-        end: 17,
-        greeting: "Good Afternoon",
-        period: "AFTERNOON",
-        quote:
-          "Even changing skies can hold a little hope.",
-        video:
-          "aksh-afternoon.4.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         EVENING — 5:00 PM → 5:44 PM
-      ------------------------------------------------------- */
-
-      {
-        start: 17,
-        end: 17.75,
-        greeting: "Good Evening",
-        period: "EVENING",
-        quote:
-          "Some beautiful moments arrive when we least expect them.",
-        video:
-          "aksh-evening.1.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         EVENING — 5:45 PM → 6:59 PM
-      ------------------------------------------------------- */
-
-      {
-        start: 17.75,
-        end: 19,
-        greeting: "Good Evening",
-        period: "EVENING",
-        quote:
-          "It is okay to slow down and simply exist.",
-        video:
-          "aksh-evening.2.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         EVENING — 7:00 PM → 7:59 PM
-      ------------------------------------------------------- */
-
-      {
-        start: 19,
-        end: 20,
-        greeting: "Good Evening",
-        period: "EVENING",
-        quote:
-          "Look a little further. There is always another horizon.",
-        video:
-          "aksh-evening.3.mov"
-      },
-
-
-      /* -------------------------------------------------------
-         NIGHT — 8:00 PM → 11:59 PM
-      ------------------------------------------------------- */
-
-      {
-        start: 20,
-        end: 24,
-        greeting: "Good Night",
-        period: "NIGHT",
-        quote:
-          "You are safe to rest. Tomorrow can wait.",
-        video:
-          "aksh-night.1.mov"
-      }
-
-    ];
-
-
-    /* =========================================================
-       ELEMENTS
-    ========================================================= */
-
-    const video =
-      document.getElementById("arrivalVideo");
-
-    const loadingScreen =
-      document.getElementById("loadingScreen");
-
-    const dateText =
-      document.getElementById("dateText");
-
-    const dayText =
-      document.getElementById("dayText");
-
-    const greeting =
-      document.getElementById("greeting");
-
-    const quote =
-      document.getElementById("quote");
-
-    const timeLabel =
-      document.getElementById("timeLabel");
-
-    const soundButton =
-      document.getElementById("soundButton");
-
-    const skipButton =
-      document.getElementById("skipButton");
 
-    const pageTransition =
-      document.getElementById("pageTransition");
-
+    <a href="gratitude.html" class="curated-card">
 
-    let activeVideo = "";
+      <img src="aksh-afternoon.3.mov" alt="">
 
-    let soundUnlocked = false;
+      <div class="curated-content">
+        <h3>Gratitude Practice</h3>
+        <p>Build positivity every day</p>
+      </div>
 
+      <span class="play">
+        <svg viewBox="0 0 24 24">
+          <path d="m8 5 11 7-11 7V5Z"></path>
+        </svg>
+      </span>
 
-    /* =========================================================
-       GET LOCAL TIME
-    ========================================================= */
+    </a>
 
-    function getLocalDecimalHour() {
 
-      const now = new Date();
+    <a href="sleep-stories.html" class="curated-card">
 
-      return (
-        now.getHours() +
-        now.getMinutes() / 60 +
-        now.getSeconds() / 3600
-      );
+      <img src="aksh-night.1.mov" alt="">
 
-    }
+      <div class="curated-content">
+        <h3>Sleep Stories</h3>
+        <p>Peaceful stories for a better sleep</p>
+      </div>
 
+      <span class="play">
+        <svg viewBox="0 0 24 24">
+          <path d="m8 5 11 7-11 7V5Z"></path>
+        </svg>
+      </span>
 
-    /* =========================================================
-       FIND EXPERIENCE
-    ========================================================= */
+    </a>
 
-    function getExperience() {
+  </div>
 
-      const hour =
-        getLocalDecimalHour();
+</section>
 
-      return EXPERIENCES.find(
-        experience =>
-          hour >= experience.start &&
-          hour < experience.end
-      );
 
-    }
+<div class="quote">
 
+  <div class="quote-mark">“</div>
 
-    /* =========================================================
-       DATE + DAY
-    ========================================================= */
+  <div class="quote-text">
+    Healing is not a race. It's a journey. And every step you take, matters.
+  </div>
 
-    function updateDateAndDay() {
+  <div class="quote-infinity">∞</div>
 
-      const now = new Date();
+</div>
 
-      const dateFormatter =
-        new Intl.DateTimeFormat(
-          "en-IN",
-          {
-            day: "numeric",
-            month: "long",
-            year: "numeric"
-          }
-        );
 
-      const dayFormatter =
-        new Intl.DateTimeFormat(
-          "en-IN",
-          {
-            weekday: "long"
-          }
-        );
+<div class="transition" id="transition"></div>
 
-      dateText.textContent =
-        dateFormatter.format(now);
+</div>
 
-      dayText.textContent =
-        dayFormatter.format(now);
 
-    }
+<script>
 
+const videos = {
+  morning: [
+    document.getElementById("morning1"),
+    document.getElementById("morning2"),
+    document.getElementById("morning3"),
+    document.getElementById("morning4")
+  ],
 
-    /* =========================================================
-       UPDATE TEXT
-    ========================================================= */
+  afternoon: [
+    document.getElementById("afternoon1"),
+    document.getElementById("afternoon2"),
+    document.getElementById("afternoon3"),
+    document.getElementById("afternoon4")
+  ],
 
-    function updateExperienceText(
-      experience
-    ) {
+  evening: [
+    document.getElementById("evening1"),
+    document.getElementById("evening2"),
+    document.getElementById("evening3")
+  ],
 
-      greeting.textContent =
-        experience.greeting;
+  night: [
+    document.getElementById("night1"),
+    document.getElementById("night2")
+  ]
+};
 
-      quote.textContent =
-        experience.quote;
 
-      timeLabel.textContent =
-        `AKSH · ${experience.period}`;
+function getPeriod(hour){
 
-    }
+  if(hour >= 5 && hour < 12){
+    return "morning";
+  }
 
+  if(hour >= 12 && hour < 17){
+    return "afternoon";
+  }
 
-    /* =========================================================
-       LOAD VIDEO
-    ========================================================= */
+  if(hour >= 17 && hour < 20){
+    return "evening";
+  }
 
-    function loadExperience() {
+  return "night";
+}
 
-      const experience =
-        getExperience();
 
-      if (!experience) {
-        return;
-      }
+function getVideoIndex(period,hour){
 
+  if(period === "morning"){
 
-      updateExperienceText(
-        experience
-      );
+    if(hour < 6) return 0;
+    if(hour < 8) return 1;
+    if(hour < 10) return 2;
+    return 3;
 
+  }
 
-      /*
-       * Prevent unnecessary video reloads.
-       */
+  if(period === "afternoon"){
 
-      if (
-        activeVideo ===
-        experience.video
-      ) {
-        return;
-      }
+    if(hour < 13) return 0;
+    if(hour < 14.5) return 1;
+    if(hour < 16) return 2;
+    return 3;
 
+  }
 
-      activeVideo =
-        experience.video;
+  if(period === "evening"){
 
+    if(hour < 17.75) return 0;
+    if(hour < 19) return 1;
+    return 2;
 
-      video.classList.remove(
-        "loaded"
-      );
+  }
 
+  if(hour >= 20) return 0;
+
+  return 1;
+}
+
+
+function updateTime(){
+
+  const now = new Date();
+
+  const hour =
+    now.getHours() +
+    now.getMinutes() / 60;
+
+  const period = getPeriod(hour);
+
+  const index =
+    getVideoIndex(period,hour);
+
+  const active =
+    videos[period][index];
+
+  Object.values(videos)
+    .flat()
+    .forEach(video => {
+
+      video.classList.remove("active");
 
       video.pause();
 
+    });
 
-      video.src =
-        experience.video;
 
+  if(active){
 
-      video.load();
+    active.classList.add("active");
 
+    active.play().catch(()=>{});
 
-      const onLoaded =
-        () => {
+  }
 
-          video.classList.add(
-            "loaded"
-          );
 
-          loadingScreen.classList.add(
-            "hidden"
-          );
+  const greeting = {
+    morning:"Good Morning, Aksh",
+    afternoon:"Good Afternoon, Aksh",
+    evening:"Good Evening, Aksh",
+    night:"Good Night, Aksh"
+  };
 
+  const messages = {
 
-          /*
-           * First attempt audio autoplay.
-           */
+    morning:
+      "Every sunrise is a reminder that you can start again.<strong>Take a deep breath.<br>You’ve got this.</strong>",
 
-          attemptSound();
+    afternoon:
+      "There is still time to pause, breathe, and be gentle with yourself.<strong>Take a moment for you.</strong>",
 
+    evening:
+      "You made it here. Let the day become a little quieter.<strong>It’s okay to slow down.</strong>",
 
-          /*
-           * Always make sure the video itself
-           * can play.
-           */
+    night:
+      "For tonight, you don’t have to solve everything.<strong>You can simply rest.</strong>"
+  };
 
-          video.play().catch(
-            () => {
 
-              video.muted = true;
+  document.getElementById("welcome").textContent =
+    "Welcome to AKSH";
 
-              video.play().catch(
-                () => {}
-              );
 
-            }
-          );
+  document.getElementById("timeGreeting").textContent =
+    greeting[period];
 
-        };
 
+  document.getElementById("timeMessage").innerHTML =
+    messages[period];
 
-      video.addEventListener(
-        "loadeddata",
-        onLoaded,
-        {
-          once: true
-        }
-      );
 
-
-      video.addEventListener(
-        "error",
-        () => {
-
-          loadingScreen.classList.add(
-            "hidden"
-          );
-
-        },
-        {
-          once: true
-        }
-      );
-
-    }
-
-
-    /* =========================================================
-       SOUND AUTOPLAY
-    ========================================================= */
-
-    function attemptSound() {
-
-      /*
-       * iPhone/Safari may block sound autoplay.
-       * We try it first.
-       */
-
-      video.muted = false;
-
-      const playPromise =
-        video.play();
-
-      if (
-        playPromise &&
-        typeof playPromise.catch ===
-          "function"
-      ) {
-
-        playPromise.catch(
-          () => {
-
-            /*
-             * Safari blocked automatic audio.
-             * Video continues muted until user
-             * taps the sound control or interacts.
-             */
-
-            video.muted = true;
-
-            updateSoundButton(
-              false
-            );
-
-          }
-        );
-
-      }
-
-    }
-
-
-    /* =========================================================
-       SOUND BUTTON
-    ========================================================= */
-
-    function updateSoundButton(
-      enabled
-    ) {
-
-      if (enabled) {
-
-        soundButton.innerHTML = `
-          <svg
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path d="M4 10v4h4l5 4V6l-5 4H4Z"></path>
-            <path d="M17 8.5c1.9 1.9 1.9 5.1 0 7"></path>
-            <path d="M19.5 6c3.2 3.2 3.2 8.8 0 12"></path>
-          </svg>
-        `;
-
-        soundButton.setAttribute(
-          "aria-label",
-          "Mute sound"
-        );
-
-      } else {
-
-        soundButton.innerHTML = `
-          <svg
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path d="M4 10v4h4l5 4V6l-5 4H4Z"></path>
-            <path d="m18 9-4 6"></path>
-            <path d="m14 9 4 6"></path>
-          </svg>
-        `;
-
-        soundButton.setAttribute(
-          "aria-label",
-          "Turn sound on"
-        );
-
-      }
-
-    }
-
-
-    soundButton.addEventListener(
-      "click",
-      event => {
-
-        event.preventDefault();
-
-        event.stopPropagation();
-
-
-        if (video.muted) {
-
-          video.muted = false;
-
-          soundUnlocked = true;
-
-          video.play().catch(
-            () => {}
-          );
-
-          updateSoundButton(
-            true
-          );
-
-        } else {
-
-          video.muted = true;
-
-          updateSoundButton(
-            false
-          );
-
-        }
-
-      }
-    );
-
-
-    /* =========================================================
-       FIRST USER INTERACTION
-    ========================================================= */
-
-    function unlockSound() {
-
-      if (
-        soundUnlocked ||
-        !video.src
-      ) {
-        return;
-      }
-
-      video.muted = false;
-
-      video.play().then(
-        () => {
-
-          soundUnlocked = true;
-
-          updateSoundButton(
-            true
-          );
-
-        }
-      ).catch(
-        () => {
-
-          video.muted = true;
-
-        }
-      );
-
-    }
-
-
-    document.addEventListener(
-      "touchstart",
-      unlockSound,
+  document.getElementById("todayDate").textContent =
+    now.toLocaleDateString(
+      "en-IN",
       {
-        passive: true,
-        once: true
+        day:"2-digit",
+        month:"short",
+        year:"numeric"
       }
-    );
+    ).toUpperCase()
+    +
+    " • "
+    +
+    now.toLocaleDateString(
+      "en-IN",
+      {weekday:"long"}
+    ).toUpperCase();
+
+}
 
 
-    document.addEventListener(
-      "pointerdown",
-      unlockSound,
-      {
-        once: true
-      }
-    );
+updateTime();
+
+setInterval(updateTime,30000);
 
 
-    /* =========================================================
-       SKIP
-    ========================================================= */
+document.querySelectorAll("a")
+.forEach(link => {
 
-    skipButton.addEventListener(
-      "click",
-      () => {
+  link.addEventListener("click",event => {
 
-        goToHome();
+    const href =
+      link.getAttribute("href");
 
-      }
-    );
-
-
-    /* =========================================================
-       BEGIN JOURNEY
-    ========================================================= */
-
-    document
-      .getElementById("beginButton")
-      .addEventListener(
-        "click",
-        event => {
-
-          event.preventDefault();
-
-          goToHome();
-
-        }
-      );
-
-
-    /* =========================================================
-       PAGE TRANSITION
-    ========================================================= */
-
-    function goToHome() {
-
-      pageTransition.classList.add(
-        "active"
-      );
-
-
-      setTimeout(
-        () => {
-
-          window.location.href =
-            "home.html";
-
-        },
-        700
-      );
-
+    if(
+      !href ||
+      href.startsWith("#") ||
+      href.startsWith("mailto:") ||
+      href.startsWith("tel:")
+    ){
+      return;
     }
 
+    event.preventDefault();
 
-    /* =========================================================
-       KEEP TIME SYNCHRONISED
-    ========================================================= */
+    const transition =
+      document.getElementById("transition");
 
-    setInterval(
-      () => {
+    transition.classList.add("active");
 
-        updateDateAndDay();
+    setTimeout(()=>{
+      window.location.href = href;
+    },550);
 
-        loadExperience();
+  });
 
-      },
-      1000
-    );
+});
 
 
-    /* =========================================================
-       INITIALISE
-    ========================================================= */
+window.addEventListener("pageshow",()=>{
+  document
+    .getElementById("transition")
+    .classList.remove("active");
+});
 
-    updateDateAndDay();
-
-    updateSoundButton(
-      false
-    );
-
-    loadExperience();
-
-  </script>
+</script>
 
 </body>
 </html>
