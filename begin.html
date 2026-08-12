@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
+
+  <meta
+    name="description"
+    content="Begin your journey with AKSH — A Safe Space For Every Mind."
+  >
+
+  <meta
+    name="theme-color"
+    content="#11130f"
+  >
+
+  <title>BEGIN — AKSH</title>
+
+  <style>
+    :root {
+      --bg: #11130f;
+      --cream: #eee9df;
+      --soft: rgba(238,233,223,.72);
+      --muted: rgba(238,233,223,.44);
+      --line: rgba(238,233,223,.15);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      background: var(--bg);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100svh;
+      background: var(--bg);
+      color: var(--cream);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button {
+      font: inherit;
+      color: inherit;
+    }
+
+    .page {
+      position: relative;
+      min-height: 100svh;
+      overflow: hidden;
+    }
+
+    /* =====================================================
+       ATMOSPHERE
+    ===================================================== */
+
+    .light {
+      position: fixed;
+      width: 75vw;
+      height: 75vw;
+      max-width: 1000px;
+      max-height: 1000px;
+
+      left: 50%;
+      top: 42%;
+
+      transform: translate(-50%, -50%);
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(145,155,124,.13) 0%,
+          rgba(145,155,124,.05) 30%,
+          transparent 68%
+        );
+
+      filter: blur(12px);
+      pointer-events: none;
+    }
+
+    .light::after {
+      content: "";
+
+      position: absolute;
+      width: 50%;
+      height: 50%;
+
+      right: -10%;
+      bottom: -10%;
+
+      border-radius: 50%;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(171,137,94,.12),
+          transparent 70%
+        );
+
+      filter: blur(20px);
+    }
+
+    .grain {
+      position: fixed;
+      inset: 0;
+
+      z-index: 30;
+      pointer-events: none;
+
+      opacity: .035;
+
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180' viewBox='0 0 180 180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+
+      mix-blend-mode: soft-light;
+    }
+
+    /* =====================================================
+       NAV
+    ===================================================== */
+
+    .nav {
+      position: fixed;
+      z-index: 50;
+
+      top: 0;
+      left: 0;
+      right: 0;
+
+      height: 78px;
+
+      padding:
+        max(14px, env(safe-area-inset-top))
+        max(20px, 5vw)
+        0;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(17,19,15,.94),
+          rgba(17,19,15,0)
+        );
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .brand img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+    }
+
+    .brand-name {
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: .32em;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+
+      font-size: 8px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+
+      color: var(--soft);
+    }
+
+    .back svg {
+      width: 15px;
+      height: 15px;
+
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.2;
+    }
+
+    /* =====================================================
+       MAIN
+    ===================================================== */
+
+    .main {
+      position: relative;
+      z-index: 2;
+
+      min-height: 100svh;
+
+      padding:
+        145px
+        max(22px, 6vw)
+        90px;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      text-align: center;
+    }
+
+    .eyebrow {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+
+      color: var(--muted);
+
+      opacity: 0;
+      transform: translateY(20px);
+
+      animation:
+        reveal 1s .1s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+    }
+
+    .title {
+      max-width: 1050px;
+
+      margin-top: 25px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          58px,
+          10vw,
+          132px
+        );
+
+      font-weight: 400;
+
+      line-height: .88;
+
+      letter-spacing: -.065em;
+
+      opacity: 0;
+      transform: translateY(30px);
+
+      animation:
+        reveal 1.15s .2s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+    }
+
+    .title em {
+      font-style: italic;
+      color: rgba(238,233,223,.62);
+    }
+
+    .intro {
+      max-width: 560px;
+
+      margin-top: 31px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          17px,
+          2vw,
+          21px
+        );
+
+      line-height: 1.55;
+
+      color: var(--soft);
+
+      opacity: 0;
+      transform: translateY(20px);
+
+      animation:
+        reveal 1s .4s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+    }
+
+    /* =====================================================
+       CHOICES
+    ===================================================== */
+
+    .choices {
+      width: 100%;
+      max-width: 1100px;
+
+      margin-top: 55px;
+
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0,1fr));
+
+      gap: 12px;
+
+      opacity: 0;
+      transform: translateY(20px);
+
+      animation:
+        reveal 1s .55s
+        cubic-bezier(.22,1,.36,1)
+        forwards;
+    }
+
+    .choice {
+      position: relative;
+
+      min-height: 180px;
+
+      padding: 28px;
+
+      border:
+        1px solid var(--line);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.045),
+          rgba(255,255,255,.012)
+        );
+
+      text-align: left;
+
+      cursor: pointer;
+
+      transition:
+        transform .5s cubic-bezier(.22,1,.36,1),
+        border-color .4s ease,
+        background .4s ease;
+    }
+
+    .choice:hover {
+      transform: translateY(-6px);
+
+      border-color:
+        rgba(238,233,223,.38);
+
+      background:
+        linear-gradient(
+          145deg,
+          rgba(255,255,255,.075),
+          rgba(255,255,255,.018)
+        );
+    }
+
+    .choice-number {
+      display: block;
+
+      font-size: 8px;
+      letter-spacing: .28em;
+
+      color: var(--muted);
+    }
+
+    .choice-title {
+      margin-top: 29px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size:
+        clamp(
+          27px,
+          4vw,
+          43px
+        );
+
+      font-weight: 400;
+
+      line-height: 1;
+
+      letter-spacing: -.04em;
+    }
+
+    .choice-copy {
+      margin-top: 12px;
+
+      max-width: 400px;
+
+      font-size: 11px;
+      line-height: 1.55;
+
+      color: var(--soft);
+    }
+
+    .choice-arrow {
+      position: absolute;
+
+      top: 24px;
+      right: 24px;
+
+      width: 35px;
+      height: 35px;
+
+      border:
+        1px solid
+        rgba(238,233,223,.19);
+
+      border-radius: 50%;
+
+      display: grid;
+      place-items: center;
+
+      transition:
+        transform .4s ease,
+        background .4s ease;
+    }
+
+    .choice-arrow svg {
+      width: 14px;
+      height: 14px;
+
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.2;
+    }
+
+    .choice:hover .choice-arrow {
+      transform: translate(2px,-2px);
+      background: rgba(255,255,255,.08);
+    }
+
+    /* =====================================================
+       NOTE
+    ===================================================== */
+
+    .note {
+      max-width: 520px;
+
+      margin-top: 43px;
+
+      font-size: 9px;
+      line-height: 1.6;
+
+      letter-spacing: .05em;
+
+      color: var(--muted);
+
+      opacity: 0;
+      animation:
+        fade .9s .8s ease forwards;
+    }
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    .footer {
+      position: relative;
+      z-index: 2;
+
+      padding:
+        35px
+        max(20px, 5vw)
+        max(28px, env(safe-area-inset-bottom));
+
+      border-top:
+        1px solid var(--line);
+
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 25px;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer-left img {
+      width: 29px;
+      height: 29px;
+      object-fit: contain;
+    }
+
+    .footer-left span {
+      font-size: 8px;
+      font-weight: 600;
+      letter-spacing: .3em;
+    }
+
+    .footer-right {
+      font-size: 7px;
+      letter-spacing: .14em;
+      color: var(--muted);
+    }
+
+    /* =====================================================
+       TRANSITION
+    ===================================================== */
+
+    .transition {
+      position: fixed;
+      inset: 0;
+
+      z-index: 200;
+
+      background: #11130f;
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition: opacity .55s ease;
+    }
+
+    .transition.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* =====================================================
+       ACCESSIBILITY
+    ===================================================== */
+
+    :focus-visible {
+      outline:
+        2px solid
+        rgba(238,233,223,.9);
+
+      outline-offset: 5px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    /* =====================================================
+       MOBILE
+    ===================================================== */
+
+    @media (max-width: 650px) {
+
+      .nav {
+        height: 70px;
+
+        padding:
+          max(12px, env(safe-area-inset-top))
+          18px
+          0;
+      }
+
+      .brand img {
+        width: 30px;
+        height: 30px;
+      }
+
+      .brand-name {
+        font-size: 8px;
+      }
+
+      .back {
+        font-size: 7px;
+      }
+
+      .main {
+        padding:
+          125px
+          18px
+          65px;
+      }
+
+      .title {
+        font-size:
+          clamp(
+            56px,
+            16.8vw,
+            88px
+          );
+      }
+
+      .intro {
+        font-size: 17px;
+      }
+
+      .choices {
+        grid-template-columns: 1fr;
+        margin-top: 42px;
+      }
+
+      .choice {
+        min-height: 175px;
+      }
+
+      .choice-title {
+        font-size: 34px;
+      }
+
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @keyframes reveal {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fade {
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="light"></div>
+    <div class="grain"></div>
+
+
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
+
+    <nav class="nav">
+
+      <a
+        href="home.html"
+        class="brand"
+        aria-label="AKSH home"
+      >
+
+        <img
+          src="aksh-icon.PNG"
+          alt="AKSH"
+        >
+
+        <span class="brand-name">
+          AKSH
+        </span>
+
+      </a>
+
+
+      <a
+        href="journey.html"
+        class="back"
+      >
+
+        <svg viewBox="0 0 24 24">
+          <path d="M19 12H5"></path>
+          <path d="m11 18-6-6 6-6"></path>
+        </svg>
+
+        Back
+
+      </a>
+
+    </nav>
+
+
+    <!-- =====================================================
+         BEGIN EXPERIENCE
+    ====================================================== -->
+
+    <section class="main">
+
+      <div class="eyebrow">
+        BEGIN / YOUR WAY
+      </div>
+
+
+      <h1 class="title">
+        You can begin<br>
+        <em>exactly as you are.</em>
+      </h1>
+
+
+      <p class="intro">
+        You don't need the perfect words.
+        You don't need to know exactly what you need.
+        Choose the way that feels most comfortable
+        right now.
+      </p>
+
+
+      <div class="choices">
+
+
+        <!-- =================================================
+             CHOICE 01
+        ================================================== -->
+
+        <a
+          href="support.html"
+          class="choice"
+        >
+
+          <span class="choice-number">
+            01 / TALK
+          </span>
+
+          <span class="choice-arrow">
+
+            <svg viewBox="0 0 24 24">
+              <path d="M5 19 19 5"></path>
+              <path d="M8 5h11v11"></path>
+            </svg>
+
+          </span>
+
+          <h2 class="choice-title">
+            I want to talk
+          </h2>
+
+          <p class="choice-copy">
+            Find a human way to begin a conversation
+            when you're ready.
+          </p>
+
+        </a>
+
+
+        <!-- =================================================
+             CHOICE 02
+        ================================================== -->
+
+        <a
+          href="explore.html"
+          class="choice"
+        >
+
+          <span class="choice-number">
+            02 / EXPLORE
+          </span>
+
+          <span class="choice-arrow">
+
+            <svg viewBox="0 0 24 24">
+              <path d="M5 19 19 5"></path>
+              <path d="M8 5h11v11"></path>
+            </svg>
+
+          </span>
+
+          <h2 class="choice-title">
+            I want to explore
+          </h2>
+
+          <p class="choice-copy">
+            Discover AKSH, psychology, wellness,
+            ideas and ways to understand yourself.
+          </p>
+
+        </a>
+
+
+        <!-- =================================================
+             CHOICE 03
+        ================================================== -->
+
+        <a
+          href="aksh-ai.html"
+          class="choice"
+        >
+
+          <span class="choice-number">
+            03 / AKSH AI
+          </span>
+
+          <span class="choice-arrow">
+
+            <svg viewBox="0 0 24 24">
+              <path d="M5 19 19 5"></path>
+              <path d="M8 5h11v11"></path>
+            </svg>
+
+          </span>
+
+          <h2 class="choice-title">
+            I want to start with AI
+          </h2>
+
+          <p class="choice-copy">
+            Begin with AKSH's digital support experience,
+            while keeping human support within reach.
+          </p>
+
+        </a>
+
+
+        <!-- =================================================
+             CHOICE 04
+        ================================================== -->
+
+        <a
+          href="services.html"
+          class="choice"
+        >
+
+          <span class="choice-number">
+            04 / AKSH
+          </span>
+
+          <span class="choice-arrow">
+
+            <svg viewBox="0 0 24 24">
+              <path d="M5 19 19 5"></path>
+              <path d="M8 5h11v11"></path>
+            </svg>
+
+          </span>
+
+          <h2 class="choice-title">
+            I want to know AKSH
+          </h2>
+
+          <p class="choice-copy">
+            Explore what AKSH can offer individuals,
+            schools, colleges and organisations.
+          </p>
+
+        </a>
+
+      </div>
+
+
+      <p class="note">
+        AKSH is a mental-wellness space.
+        Digital experiences and AI can support
+        exploration, but they are not a replacement
+        for professional care or emergency services.
+      </p>
+
+    </section>
+
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <footer class="footer">
+
+      <div class="footer-left">
+
+        <img
+          src="aksh-icon.PNG"
+          alt="AKSH"
+        >
+
+        <span>
+          AKSH
+        </span>
+
+      </div>
+
+
+      <div class="footer-right">
+        A SAFE SPACE FOR EVERY MIND
+      </div>
+
+    </footer>
+
+
+    <div
+      class="transition"
+      id="transition"
+    ></div>
+
+  </main>
+
+
+  <script>
+
+    /* =====================================================
+       PAGE TRANSITIONS
+    ===================================================== */
+
+    const transition =
+      document.getElementById(
+        "transition"
+      );
+
+
+    document
+      .querySelectorAll("a")
+      .forEach(link => {
+
+        link.addEventListener(
+          "click",
+          event => {
+
+            const href =
+              link.getAttribute("href");
+
+
+            if (
+              !href ||
+              href.startsWith("#") ||
+              href.startsWith("mailto:") ||
+              href.startsWith("tel:")
+            ) {
+              return;
+            }
+
+
+            event.preventDefault();
+
+
+            transition.classList.add(
+              "active"
+            );
+
+
+            setTimeout(
+              () => {
+                window.location.href =
+                  href;
+              },
+              550
+            );
+
+          }
+        );
+
+      });
+
+
+    window.addEventListener(
+      "pageshow",
+      () => {
+
+        transition.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+  </script>
+
+</body>
+</html>
