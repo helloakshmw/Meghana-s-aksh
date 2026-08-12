@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#10100f" />
+
+  <title>AKSH — Page Not Found</title>
+
+  <style>
+    :root {
+      --background: #10100f;
+      --text: #f7f4ee;
+      --muted: rgba(247, 244, 238, 0.68);
+      --line: rgba(247, 244, 238, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      width: 100%;
+      min-height: 100%;
+      background: var(--background);
+    }
+
+    body {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Helvetica Neue",
+        Helvetica,
+        Arial,
+        sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      width: 100%;
+      min-height: 100svh;
+      padding:
+        max(32px, env(safe-area-inset-top))
+        max(24px, env(safe-area-inset-right))
+        max(32px, env(safe-area-inset-bottom))
+        max(24px, env(safe-area-inset-left));
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      filter:
+        brightness(0)
+        invert(1);
+    }
+
+    .brand-name {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.36em;
+      padding-left: 0.36em;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 520px;
+    }
+
+    .number {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(90px, 20vw, 180px);
+      line-height: 0.8;
+      font-weight: 400;
+      letter-spacing: -0.06em;
+      opacity: 0.92;
+    }
+
+    h1 {
+      margin-top: 34px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 400;
+      letter-spacing: -0.025em;
+    }
+
+    p {
+      margin-top: 18px;
+      color: var(--muted);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 17px;
+      line-height: 1.6;
+      max-width: 400px;
+    }
+
+    .home-link {
+      margin-top: 32px;
+      min-height: 50px;
+      padding: 0 28px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      transition:
+        background 0.3s ease,
+        border-color 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .home-link:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.6);
+      transform: translateY(-2px);
+    }
+
+    footer {
+      color: rgba(247, 244, 238, 0.45);
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <header class="brand">
+      <img src="aksh-icon.PNG" alt="AKSH" />
+      <div class="brand-name">AKSH</div>
+    </header>
+
+    <section class="content" aria-labelledby="page-title">
+
+      <div class="number" aria-hidden="true">404</div>
+
+      <h1 id="page-title">
+        This space doesn't exist.
+      </h1>
+
+      <p>
+        Sometimes the path changes.
+        You can always find your way back to AKSH.
+      </p>
+
+      <a class="home-link" href="./">
+        Return to AKSH
+      </a>
+
+    </section>
+
+    <footer>
+      A Safe Space For Every Mind
+    </footer>
+
+  </main>
+
+</body>
+</html>
