@@ -1,0 +1,19 @@
+{
+  "name": "AKSH — A Safe Space For Every Mind",
+  "short_name": "AKSH",
+  "description": "AKSH Mental Wellness Center — A Safe Space For Every Mind.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#10100f",
+  "theme_color": "#10100f",
+  "icons": [
+    {
+      "src": "aksh-icon.PNG",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
