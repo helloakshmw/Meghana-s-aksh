@@ -1,35 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
 
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  />
+  >
 
-  <meta name="theme-color" content="#11110f" />
-
-  <title>AKSH — A Safe Space For Every Mind</title>
+  <meta
+    name="theme-color"
+    content="#11110f"
+  >
 
   <meta
     name="description"
     content="AKSH — A Safe Space For Every Mind."
-  />
+  >
+
+  <title>AKSH — A Safe Space For Every Mind</title>
 
   <style>
     :root {
       --white: #ffffff;
       --soft-white: rgba(255, 255, 255, 0.88);
       --muted-white: rgba(255, 255, 255, 0.68);
-      --glass: rgba(0, 0, 0, 0.16);
-      --glass-border: rgba(255, 255, 255, 0.42);
+      --glass: rgba(0, 0, 0, 0.18);
+      --glass-border: rgba(255, 255, 255, 0.38);
     }
 
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html,
@@ -41,7 +45,6 @@
     }
 
     body {
-      color: var(--white);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -50,16 +53,18 @@
         Arial,
         sans-serif;
 
+      color: var(--white);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
 
-    button {
+    button,
+    a {
       font: inherit;
     }
 
     /* =========================================================
-       ARRIVAL
+       PAGE
     ========================================================= */
 
     .arrival {
@@ -68,15 +73,15 @@
       height: 100svh;
       min-height: 100vh;
       overflow: hidden;
-      isolation: isolate;
       background: #11110f;
+      isolation: isolate;
     }
 
     /* =========================================================
-       VIDEO
+       BACKGROUND VIDEO
     ========================================================= */
 
-    .video-layer {
+    .video-container {
       position: absolute;
       inset: 0;
       z-index: -10;
@@ -84,7 +89,7 @@
       background: #11110f;
     }
 
-    .background-video {
+    #arrivalVideo {
       position: absolute;
       inset: 0;
 
@@ -92,53 +97,55 @@
       height: 100%;
 
       object-fit: cover;
-      object-position: center;
+      object-position: center center;
 
       opacity: 0;
 
-      transform: scale(1.03);
+      transform: scale(1.025);
 
       transition:
-        opacity 1.3s ease,
-        transform 10s ease;
+        opacity 1.2s ease,
+        transform 12s ease;
 
       will-change: opacity, transform;
     }
 
-    .background-video.visible {
+    #arrivalVideo.loaded {
       opacity: 1;
       transform: scale(1);
     }
 
-    /* Cinematic readability layer */
+    /* =========================================================
+       CINEMATIC OVERLAYS
+    ========================================================= */
 
-    .cinematic-overlay {
+    .overlay {
       position: absolute;
       inset: 0;
-      z-index: 1;
       pointer-events: none;
+    }
+
+    .overlay-main {
+      z-index: 1;
 
       background:
         linear-gradient(
           180deg,
-          rgba(0, 0, 0, 0.36) 0%,
-          rgba(0, 0, 0, 0.08) 30%,
-          rgba(0, 0, 0, 0.08) 58%,
-          rgba(0, 0, 0, 0.42) 100%
+          rgba(0, 0, 0, 0.38) 0%,
+          rgba(0, 0, 0, 0.08) 28%,
+          rgba(0, 0, 0, 0.04) 58%,
+          rgba(0, 0, 0, 0.44) 100%
         );
     }
 
-    .cinematic-vignette {
-      position: absolute;
-      inset: 0;
+    .overlay-vignette {
       z-index: 2;
-      pointer-events: none;
 
       background:
         radial-gradient(
           ellipse at center,
-          rgba(0, 0, 0, 0) 42%,
-          rgba(0, 0, 0, 0.18) 100%
+          rgba(0, 0, 0, 0) 38%,
+          rgba(0, 0, 0, 0.22) 100%
         );
     }
 
@@ -146,9 +153,9 @@
        CONTENT
     ========================================================= */
 
-    .content {
+    .page-content {
       position: relative;
-      z-index: 5;
+      z-index: 10;
 
       width: 100%;
       height: 100%;
@@ -156,7 +163,7 @@
       padding:
         max(24px, env(safe-area-inset-top))
         max(22px, env(safe-area-inset-right))
-        max(28px, env(safe-area-inset-bottom))
+        max(26px, env(safe-area-inset-bottom))
         max(22px, env(safe-area-inset-left));
 
       display: flex;
@@ -164,40 +171,55 @@
     }
 
     /* =========================================================
-       TOP
+       TOP BAR
     ========================================================= */
 
-    .top {
+    .top-bar {
       position: relative;
 
       width: 100%;
 
       display: flex;
-      align-items: flex-start;
       justify-content: space-between;
+      align-items: flex-start;
     }
 
-    /* DATE */
+    /* =========================================================
+       DATE + DAY
+    ========================================================= */
 
-    .date-container {
-      padding-top: 3px;
-    }
-
-    .date {
-      color: var(--white);
-
-      font-size: clamp(11px, 1.3vw, 14px);
-
-      font-weight: 500;
-
-      line-height: 1.3;
-
-      letter-spacing: 0.055em;
-
-      white-space: nowrap;
+    .date-block {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
 
       text-shadow:
-        0 2px 14px rgba(0, 0, 0, 0.45);
+        0 2px 16px rgba(0, 0, 0, 0.48);
+    }
+
+    .date-text {
+      font-size: clamp(11px, 1.35vw, 14px);
+      font-weight: 500;
+      line-height: 1.35;
+      letter-spacing: 0.07em;
+      white-space: nowrap;
+    }
+
+    .day-text {
+      margin-top: 3px;
+
+      font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+
+      font-size: clamp(12px, 1.45vw, 15px);
+      font-weight: 400;
+      line-height: 1.35;
+
+      color: rgba(255, 255, 255, 0.78);
+
+      letter-spacing: 0.025em;
     }
 
     /* =========================================================
@@ -219,85 +241,95 @@
       text-align: center;
     }
 
-    .brand-icon-wrapper {
-      width: 54px;
-      height: 54px;
+    .brand-icon-frame {
+      width: 58px;
+      height: 58px;
 
       display: grid;
       place-items: center;
 
       border-radius: 50%;
 
-      background: rgba(0, 0, 0, 0.14);
+      background:
+        rgba(0, 0, 0, 0.13);
 
-      border: 1px solid rgba(255, 255, 255, 0.34);
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.36);
 
       box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.22);
+        0 10px 34px rgba(0, 0, 0, 0.22);
 
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
     .brand-icon {
-      width: 36px;
-      height: 36px;
+      width: 42px;
+      height: 42px;
+
+      display: block;
 
       object-fit: contain;
 
-      /* Do NOT invert the original AKSH artwork. */
       filter: none;
-
-      display: block;
     }
 
     .brand-name {
       margin-top: 9px;
 
       font-size: 10px;
+      font-weight: 600;
 
-      font-weight: 500;
+      letter-spacing: 0.42em;
+      padding-left: 0.42em;
 
-      letter-spacing: 0.38em;
+      color: #ffffff;
 
-      padding-left: 0.38em;
+      text-shadow:
+        0 2px 14px rgba(0, 0, 0, 0.55);
+    }
 
-      color: var(--white);
+    .brand-tagline {
+      margin-top: 5px;
+
+      font-size: 7.5px;
+      font-weight: 400;
+
+      letter-spacing: 0.13em;
+
+      color: rgba(255, 255, 255, 0.82);
+
+      white-space: nowrap;
 
       text-shadow:
         0 2px 14px rgba(0, 0, 0, 0.5);
     }
 
-    .tagline {
-      margin-top: 6px;
-
-      font-size: 8px;
-
-      letter-spacing: 0.13em;
-
-      color: var(--soft-white);
-
-      white-space: nowrap;
-
-      text-shadow:
-        0 2px 14px rgba(0, 0, 0, 0.45);
-    }
-
     /* =========================================================
-       SOUND
+       TOP RIGHT
     ========================================================= */
 
-    .sound-button {
-      width: 40px;
-      height: 40px;
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .control-button {
+      width: 41px;
+      height: 41px;
+
+      border:
+        1px solid
+        rgba(255, 255, 255, 0.34);
 
       border-radius: 50%;
 
-      border: 1px solid rgba(255, 255, 255, 0.34);
+      background:
+        rgba(0, 0, 0, 0.14);
 
-      background: rgba(0, 0, 0, 0.14);
-
-      color: white;
+      color: #ffffff;
 
       display: grid;
       place-items: center;
@@ -308,26 +340,31 @@
       -webkit-backdrop-filter: blur(12px);
 
       transition:
-        background 0.3s ease,
-        transform 0.3s ease;
+        transform 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
     }
 
-    .sound-button:active {
-      transform: scale(0.94);
+    .control-button:active {
+      transform: scale(0.92);
     }
 
-    .sound-button svg {
+    .control-button:hover {
+      background:
+        rgba(255, 255, 255, 0.11);
+
+      border-color:
+        rgba(255, 255, 255, 0.7);
+    }
+
+    .control-button svg {
       width: 17px;
       height: 17px;
 
       fill: none;
-
       stroke: currentColor;
-
-      stroke-width: 1.4;
-
+      stroke-width: 1.35;
       stroke-linecap: round;
-
       stroke-linejoin: round;
     }
 
@@ -339,18 +376,16 @@
       flex: 1;
 
       display: flex;
-
       flex-direction: column;
 
       align-items: center;
-
       justify-content: center;
 
       text-align: center;
 
       padding:
-        60px 15px
-        80px;
+        80px 12px
+        100px;
     }
 
     .greeting {
@@ -361,32 +396,32 @@
 
       font-size:
         clamp(
-          54px,
+          58px,
           10vw,
           118px
         );
 
-      line-height: 0.96;
-
       font-weight: 400;
 
-      letter-spacing: -0.045em;
+      line-height: 0.95;
 
-      color: var(--white);
+      letter-spacing: -0.055em;
+
+      color: #ffffff;
 
       text-shadow:
-        0 6px 30px rgba(0, 0, 0, 0.34);
+        0 7px 34px rgba(0, 0, 0, 0.38);
 
       animation:
-        greetingIn 1.25s
+        greeting-enter 1.2s
         cubic-bezier(0.22, 1, 0.36, 1)
         both;
     }
 
     .quote {
-      max-width: 600px;
+      max-width: 570px;
 
-      margin-top: 25px;
+      margin-top: 26px;
 
       font-family:
         Georgia,
@@ -394,40 +429,51 @@
         serif;
 
       font-size:
-        clamp(16px, 1.8vw, 22px);
+        clamp(
+          16px,
+          1.8vw,
+          22px
+        );
 
       line-height: 1.5;
 
       font-weight: 400;
 
-      color: rgba(255, 255, 255, 0.9);
+      color:
+        rgba(255, 255, 255, 0.91);
 
       text-shadow:
         0 4px 24px rgba(0, 0, 0, 0.38);
 
       animation:
-        quoteIn 1.35s
+        quote-enter 1.25s
         0.12s
         cubic-bezier(0.22, 1, 0.36, 1)
         both;
     }
 
-    .period {
+    .time-label {
       margin-top: 18px;
 
       font-size: 9px;
 
-      letter-spacing: 0.3em;
+      font-weight: 500;
 
-      padding-left: 0.3em;
+      letter-spacing: 0.32em;
 
-      color: rgba(255, 255, 255, 0.62);
+      padding-left: 0.32em;
+
+      color:
+        rgba(255, 255, 255, 0.65);
 
       text-transform: uppercase;
 
+      text-shadow:
+        0 2px 14px rgba(0, 0, 0, 0.4);
+
       animation:
-        quoteIn 1.35s
-        0.2s
+        quote-enter 1.25s
+        0.22s
         cubic-bezier(0.22, 1, 0.36, 1)
         both;
     }
@@ -436,91 +482,83 @@
        BOTTOM
     ========================================================= */
 
-    .bottom {
+    .bottom-area {
       position: relative;
 
-      min-height: 78px;
+      min-height: 86px;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
     }
 
     .begin-button {
-      appearance: none;
-
-      min-width: 225px;
-
-      min-height: 54px;
+      min-width: 238px;
+      min-height: 56px;
 
       padding:
-        0 30px;
-
-      border-radius: 999px;
+        0 28px 0 31px;
 
       border:
         1px solid
         rgba(255, 255, 255, 0.62);
 
-      background:
-        rgba(0, 0, 0, 0.18);
+      border-radius: 999px;
 
-      color: white;
+      background:
+        rgba(0, 0, 0, 0.17);
+
+      color: #ffffff;
 
       display: inline-flex;
-
       align-items: center;
-
       justify-content: center;
 
-      gap: 16px;
+      gap: 15px;
 
       cursor: pointer;
 
-      font-size: 10px;
+      text-decoration: none;
 
-      font-weight: 500;
+      font-size: 10px;
+      font-weight: 600;
 
       letter-spacing: 0.22em;
-
       padding-left:
-        calc(30px + 0.22em);
+        calc(31px + 0.22em);
 
       text-transform: uppercase;
 
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
 
       box-shadow:
-        0 10px 40px rgba(0, 0, 0, 0.18);
+        0 12px 42px rgba(0, 0, 0, 0.2);
 
       transition:
-        background 0.35s ease,
-        border-color 0.35s ease,
-        transform 0.35s ease,
-        box-shadow 0.35s ease;
+        transform 0.3s ease,
+        background 0.3s ease,
+        border-color 0.3s ease,
+        box-shadow 0.3s ease;
 
       animation:
-        buttonIn 1.4s
-        0.25s
+        button-enter 1.35s
+        0.28s
         cubic-bezier(0.22, 1, 0.36, 1)
         both;
     }
 
     .begin-button:hover {
+      transform: translateY(-2px);
+
       background:
-        rgba(255, 255, 255, 0.13);
+        rgba(255, 255, 255, 0.12);
 
       border-color:
         rgba(255, 255, 255, 0.9);
 
-      transform:
-        translateY(-2px);
-
       box-shadow:
-        0 16px 50px rgba(0, 0, 0, 0.24);
+        0 17px 52px rgba(0, 0, 0, 0.25);
     }
 
     .begin-button:active {
@@ -540,13 +578,9 @@
       height: 18px;
 
       fill: none;
-
       stroke: currentColor;
-
       stroke-width: 1.4;
-
       stroke-linecap: round;
-
       stroke-linejoin: round;
 
       transition:
@@ -558,22 +592,59 @@
     }
 
     /* =========================================================
-       LOADER
+       SKIP
     ========================================================= */
 
-    .loader {
+    .skip-button {
       position: absolute;
 
+      right: 0;
+      bottom: 2px;
+
+      border: 0;
+
+      background: transparent;
+
+      color:
+        rgba(255, 255, 255, 0.72);
+
+      font-size: 9px;
+
+      font-weight: 500;
+
+      letter-spacing: 0.2em;
+
+      text-transform: uppercase;
+
+      cursor: pointer;
+
+      padding: 9px;
+
+      text-shadow:
+        0 2px 12px rgba(0, 0, 0, 0.5);
+
+      transition:
+        color 0.25s ease;
+    }
+
+    .skip-button:hover {
+      color: #ffffff;
+    }
+
+    /* =========================================================
+       LOADING
+    ========================================================= */
+
+    .loading-screen {
+      position: absolute;
       inset: 0;
 
-      z-index: 50;
+      z-index: 100;
 
       background: #11110f;
 
       display: flex;
-
       align-items: center;
-
       justify-content: center;
 
       transition:
@@ -581,38 +652,31 @@
         visibility 0.9s ease;
     }
 
-    .loader.hidden {
+    .loading-screen.hidden {
       opacity: 0;
-
       visibility: hidden;
-
       pointer-events: none;
     }
 
-    .loader-icon {
-      width: 44px;
-      height: 44px;
+    .loading-icon {
+      width: 48px;
+      height: 48px;
 
       object-fit: contain;
 
-      filter: none;
-
       animation:
-        breathe 2s
-        ease-in-out
-        infinite;
+        icon-breathe 2s ease-in-out infinite;
     }
 
     /* =========================================================
-       TRANSITION
+       PAGE TRANSITION
     ========================================================= */
 
-    .transition {
-      position: absolute;
-
+    .page-transition {
+      position: fixed;
       inset: 0;
 
-      z-index: 40;
+      z-index: 200;
 
       background: #11110f;
 
@@ -621,12 +685,11 @@
       pointer-events: none;
 
       transition:
-        opacity 0.9s ease;
+        opacity 0.75s ease;
     }
 
-    .transition.active {
+    .page-transition.active {
       opacity: 1;
-
       pointer-events: auto;
     }
 
@@ -634,10 +697,10 @@
        ANIMATIONS
     ========================================================= */
 
-    @keyframes greetingIn {
+    @keyframes greeting-enter {
       from {
         opacity: 0;
-        transform: translateY(26px);
+        transform: translateY(28px);
       }
 
       to {
@@ -646,10 +709,10 @@
       }
     }
 
-    @keyframes quoteIn {
+    @keyframes quote-enter {
       from {
         opacity: 0;
-        transform: translateY(16px);
+        transform: translateY(17px);
       }
 
       to {
@@ -658,10 +721,10 @@
       }
     }
 
-    @keyframes buttonIn {
+    @keyframes button-enter {
       from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(22px);
       }
 
       to {
@@ -670,16 +733,16 @@
       }
     }
 
-    @keyframes breathe {
+    @keyframes icon-breathe {
       0%,
       100% {
+        opacity: 0.65;
         transform: scale(0.96);
-        opacity: 0.72;
       }
 
       50% {
-        transform: scale(1);
         opacity: 1;
+        transform: scale(1);
       }
     }
 
@@ -689,7 +752,7 @@
 
     @media (max-width: 600px) {
 
-      .content {
+      .page-content {
         padding:
           max(20px, env(safe-area-inset-top))
           max(18px, env(safe-area-inset-right))
@@ -697,39 +760,42 @@
           max(18px, env(safe-area-inset-left));
       }
 
-      .brand-icon-wrapper {
-        width: 50px;
-        height: 50px;
+      .brand-icon-frame {
+        width: 52px;
+        height: 52px;
       }
 
       .brand-icon {
-        width: 34px;
-        height: 34px;
+        width: 38px;
+        height: 38px;
       }
 
       .brand-name {
         margin-top: 7px;
-
         font-size: 9px;
       }
 
-      .tagline {
-        font-size: 7px;
+      .brand-tagline {
+        font-size: 6.5px;
       }
 
-      .date {
+      .date-text {
         font-size: 10px;
       }
 
-      .sound-button {
-        width: 37px;
-        height: 37px;
+      .day-text {
+        font-size: 11px;
+      }
+
+      .control-button {
+        width: 38px;
+        height: 38px;
       }
 
       .hero {
         padding:
-          70px 5px
-          90px;
+          72px 4px
+          94px;
       }
 
       .greeting {
@@ -737,58 +803,68 @@
           clamp(
             50px,
             15vw,
-            82px
+            84px
           );
       }
 
       .quote {
-        max-width: 330px;
-
-        font-size: 16px;
-
+        max-width: 340px;
         margin-top: 21px;
+        font-size: 16px;
+      }
+
+      .time-label {
+        margin-top: 16px;
       }
 
       .begin-button {
-        min-width: 215px;
-
-        min-height: 52px;
+        min-width: 220px;
+        min-height: 54px;
 
         font-size: 9px;
+      }
+
+      .skip-button {
+        bottom: 0;
+        font-size: 8px;
       }
     }
 
     /* =========================================================
-       VERY SMALL PHONES
+       SMALL PHONES
     ========================================================= */
 
     @media (max-width: 375px) {
 
-      .content {
+      .page-content {
         padding-left: 15px;
         padding-right: 15px;
       }
 
-      .brand-icon-wrapper {
-        width: 46px;
-        height: 46px;
+      .brand-icon-frame {
+        width: 47px;
+        height: 47px;
       }
 
       .brand-icon {
-        width: 31px;
-        height: 31px;
+        width: 34px;
+        height: 34px;
       }
 
-      .tagline {
+      .brand-tagline {
         display: none;
       }
 
-      .date {
+      .date-text {
         font-size: 9px;
       }
 
+      .day-text {
+        font-size: 10px;
+      }
+
       .greeting {
-        font-size: 48px;
+        font-size: 47px;
       }
 
       .quote {
@@ -796,7 +872,7 @@
       }
 
       .begin-button {
-        min-width: 200px;
+        min-width: 205px;
       }
     }
 
@@ -810,38 +886,38 @@
       orientation: landscape
     ) {
 
-      .content {
+      .page-content {
         padding-top: 12px;
         padding-bottom: 12px;
       }
 
-      .brand-icon-wrapper {
-        width: 38px;
-        height: 38px;
+      .brand-icon-frame {
+        width: 40px;
+        height: 40px;
       }
 
       .brand-icon {
-        width: 27px;
-        height: 27px;
+        width: 29px;
+        height: 29px;
       }
 
       .brand-name {
         margin-top: 3px;
-        font-size: 8px;
+        font-size: 7px;
       }
 
-      .tagline {
+      .brand-tagline {
         display: none;
       }
 
       .hero {
         padding:
           20px 10px
-          30px;
+          28px;
       }
 
       .greeting {
-        font-size: 48px;
+        font-size: 47px;
       }
 
       .quote {
@@ -849,16 +925,16 @@
         font-size: 13px;
       }
 
-      .period {
-        margin-top: 8px;
+      .time-label {
+        margin-top: 7px;
       }
 
-      .bottom {
-        min-height: 55px;
+      .bottom-area {
+        min-height: 54px;
       }
 
       .begin-button {
-        min-height: 44px;
+        min-height: 43px;
       }
     }
 
@@ -876,7 +952,7 @@
         transition-duration: 0.01ms !important;
       }
 
-      .background-video {
+      #arrivalVideo {
         transform: none;
       }
     }
@@ -887,72 +963,88 @@
 
   <main class="arrival">
 
-    <!-- =====================================================
+    <!-- =======================================================
          VIDEO
-    ====================================================== -->
+    ======================================================== -->
 
-    <div class="video-layer" aria-hidden="true">
+    <div class="video-container">
 
       <video
-        id="backgroundVideo"
-        class="background-video"
+        id="arrivalVideo"
         autoplay
         playsinline
+        webkit-playsinline
         preload="auto"
         loop
       ></video>
 
-      <div class="cinematic-overlay"></div>
-      <div class="cinematic-vignette"></div>
+      <div class="overlay overlay-main"></div>
+      <div class="overlay overlay-vignette"></div>
 
     </div>
 
-    <!-- =====================================================
+
+    <!-- =======================================================
          LOADING
-    ====================================================== -->
+    ======================================================== -->
 
     <div
-      class="loader"
-      id="loader"
+      id="loadingScreen"
+      class="loading-screen"
       aria-hidden="true"
     >
+
       <img
-        class="loader-icon"
+        class="loading-icon"
         src="aksh-icon.PNG"
         alt=""
-      />
+      >
+
     </div>
 
-    <!-- =====================================================
-         CONTENT
-    ====================================================== -->
 
-    <div class="content">
+    <!-- =======================================================
+         PAGE CONTENT
+    ======================================================== -->
+
+    <div class="page-content">
 
       <!-- TOP -->
 
-      <header class="top">
+      <header class="top-bar">
 
         <!-- DATE -->
 
-        <div class="date-container">
+        <div class="date-block">
+
           <div
-            class="date"
-            id="date"
-          ></div>
+            id="dateText"
+            class="date-text"
+          >
+            12 August 2026
+          </div>
+
+          <div
+            id="dayText"
+            class="day-text"
+          >
+            Wednesday
+          </div>
+
         </div>
+
 
         <!-- BRAND -->
 
         <div class="brand">
 
-          <div class="brand-icon-wrapper">
+          <div class="brand-icon-frame">
 
             <img
               class="brand-icon"
               src="aksh-icon.PNG"
               alt="AKSH"
-            />
+            >
 
           </div>
 
@@ -960,69 +1052,77 @@
             AKSH
           </div>
 
-          <div class="tagline">
+          <div class="brand-tagline">
             A SAFE SPACE FOR EVERY MIND
           </div>
 
         </div>
 
+
         <!-- SOUND -->
 
-        <button
-          class="sound-button"
-          id="soundButton"
-          type="button"
-          aria-label="Turn sound on"
-        >
+        <div class="top-actions">
 
-          <svg
-            viewBox="0 0 24 24"
-            aria-hidden="true"
+          <button
+            id="soundButton"
+            class="control-button"
+            type="button"
+            aria-label="Turn sound on"
           >
-            <path d="M4 10v4h4l5 4V6l-5 4H4Z"></path>
-            <path d="m18 9-4 6"></path>
-            <path d="m14 9 4 6"></path>
-          </svg>
 
-        </button>
+            <svg
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path d="M4 10v4h4l5 4V6l-5 4H4Z"></path>
+              <path d="m18 9-4 6"></path>
+              <path d="m14 9 4 6"></path>
+            </svg>
+
+          </button>
+
+        </div>
 
       </header>
+
 
       <!-- HERO -->
 
       <section class="hero">
 
         <h1
-          class="greeting"
           id="greeting"
+          class="greeting"
         >
-          Welcome
+          Good Afternoon
         </h1>
 
         <p
-          class="quote"
           id="quote"
+          class="quote"
         >
-          Take a moment. You are welcome here.
+          Pause for a moment. You deserve a little space.
         </p>
 
         <div
-          class="period"
-          id="period"
+          id="timeLabel"
+          class="time-label"
         >
-          AKSH
+          AKSH · AFTERNOON
         </div>
 
       </section>
 
+
       <!-- BOTTOM -->
 
-      <footer class="bottom">
+      <footer class="bottom-area">
 
-        <button
-          class="begin-button"
+        <a
           id="beginButton"
-          type="button"
+          class="begin-button"
+          href="home.html"
+          aria-label="Begin Your Journey"
         >
 
           <span>
@@ -1041,31 +1141,44 @@
 
           </span>
 
+        </a>
+
+
+        <button
+          id="skipButton"
+          class="skip-button"
+          type="button"
+        >
+          Skip
         </button>
 
       </footer>
 
     </div>
 
+
     <!-- TRANSITION -->
 
     <div
-      class="transition"
-      id="transition"
+      id="pageTransition"
+      class="page-transition"
       aria-hidden="true"
     ></div>
 
   </main>
 
+
   <script>
 
     /* =========================================================
-       AKSH ARRIVAL ENGINE
+       AKSH — STAGE 0 ARRIVAL ENGINE
     ========================================================= */
 
-    const schedule = [
+    const EXPERIENCES = [
 
-      /* NIGHT */
+      /* -------------------------------------------------------
+         NIGHT — 12:00 AM → 4:59 AM
+      ------------------------------------------------------- */
 
       {
         start: 0,
@@ -1078,7 +1191,10 @@
           "aksh-night.2.mov"
       },
 
-      /* MORNING */
+
+      /* -------------------------------------------------------
+         MORNING — 5:00 AM → 5:59 AM
+      ------------------------------------------------------- */
 
       {
         start: 5,
@@ -1091,6 +1207,11 @@
           "aksh-morning.1.mov"
       },
 
+
+      /* -------------------------------------------------------
+         MORNING — 6:00 AM → 7:59 AM
+      ------------------------------------------------------- */
+
       {
         start: 6,
         end: 8,
@@ -1101,6 +1222,11 @@
         video:
           "aksh-morning.2.mov"
       },
+
+
+      /* -------------------------------------------------------
+         MORNING — 8:00 AM → 9:59 AM
+      ------------------------------------------------------- */
 
       {
         start: 8,
@@ -1113,6 +1239,11 @@
           "aksh-morning.3.mov"
       },
 
+
+      /* -------------------------------------------------------
+         MORNING — 10:00 AM → 11:59 AM
+      ------------------------------------------------------- */
+
       {
         start: 10,
         end: 12,
@@ -1124,7 +1255,10 @@
           "aksh-morning.4.mov"
       },
 
-      /* AFTERNOON */
+
+      /* -------------------------------------------------------
+         AFTERNOON — 12:00 PM → 12:59 PM
+      ------------------------------------------------------- */
 
       {
         start: 12,
@@ -1137,6 +1271,11 @@
           "aksh-afternoon.1.mov"
       },
 
+
+      /* -------------------------------------------------------
+         AFTERNOON — 1:00 PM → 2:29 PM
+      ------------------------------------------------------- */
+
       {
         start: 13,
         end: 14.5,
@@ -1147,6 +1286,11 @@
         video:
           "aksh-afternoon.2.mov"
       },
+
+
+      /* -------------------------------------------------------
+         AFTERNOON — 2:30 PM → 3:59 PM
+      ------------------------------------------------------- */
 
       {
         start: 14.5,
@@ -1159,6 +1303,11 @@
           "aksh-afternoon.3.mov"
       },
 
+
+      /* -------------------------------------------------------
+         AFTERNOON — 4:00 PM → 4:59 PM
+      ------------------------------------------------------- */
+
       {
         start: 16,
         end: 17,
@@ -1170,7 +1319,10 @@
           "aksh-afternoon.4.mov"
       },
 
-      /* EVENING */
+
+      /* -------------------------------------------------------
+         EVENING — 5:00 PM → 5:44 PM
+      ------------------------------------------------------- */
 
       {
         start: 17,
@@ -1183,6 +1335,11 @@
           "aksh-evening.1.mov"
       },
 
+
+      /* -------------------------------------------------------
+         EVENING — 5:45 PM → 6:59 PM
+      ------------------------------------------------------- */
+
       {
         start: 17.75,
         end: 19,
@@ -1193,6 +1350,11 @@
         video:
           "aksh-evening.2.mov"
       },
+
+
+      /* -------------------------------------------------------
+         EVENING — 7:00 PM → 7:59 PM
+      ------------------------------------------------------- */
 
       {
         start: 19,
@@ -1205,7 +1367,10 @@
           "aksh-evening.3.mov"
       },
 
-      /* NIGHT */
+
+      /* -------------------------------------------------------
+         NIGHT — 8:00 PM → 11:59 PM
+      ------------------------------------------------------- */
 
       {
         start: 20,
@@ -1226,43 +1391,46 @@
     ========================================================= */
 
     const video =
-      document.getElementById("backgroundVideo");
+      document.getElementById("arrivalVideo");
 
-    const loader =
-      document.getElementById("loader");
+    const loadingScreen =
+      document.getElementById("loadingScreen");
 
-    const dateElement =
-      document.getElementById("date");
+    const dateText =
+      document.getElementById("dateText");
 
-    const greetingElement =
+    const dayText =
+      document.getElementById("dayText");
+
+    const greeting =
       document.getElementById("greeting");
 
-    const quoteElement =
+    const quote =
       document.getElementById("quote");
 
-    const periodElement =
-      document.getElementById("period");
+    const timeLabel =
+      document.getElementById("timeLabel");
 
     const soundButton =
       document.getElementById("soundButton");
 
-    const beginButton =
-      document.getElementById("beginButton");
+    const skipButton =
+      document.getElementById("skipButton");
 
-    const transition =
-      document.getElementById("transition");
+    const pageTransition =
+      document.getElementById("pageTransition");
 
 
-    let currentVideo = "";
+    let activeVideo = "";
 
-    let audioAttempted = false;
+    let soundUnlocked = false;
 
 
     /* =========================================================
-       LOCAL TIME
+       GET LOCAL TIME
     ========================================================= */
 
-    function getLocalHour() {
+    function getLocalDecimalHour() {
 
       const now = new Date();
 
@@ -1276,43 +1444,74 @@
 
 
     /* =========================================================
-       CURRENT EXPERIENCE
+       FIND EXPERIENCE
     ========================================================= */
 
-    function getCurrentExperience() {
+    function getExperience() {
 
-      const hour = getLocalHour();
+      const hour =
+        getLocalDecimalHour();
 
-      return schedule.find(
-        item =>
-          hour >= item.start &&
-          hour < item.end
+      return EXPERIENCES.find(
+        experience =>
+          hour >= experience.start &&
+          hour < experience.end
       );
 
     }
 
 
     /* =========================================================
-       DATE
+       DATE + DAY
     ========================================================= */
 
-    function updateDate() {
+    function updateDateAndDay() {
 
       const now = new Date();
 
-      const formatted =
+      const dateFormatter =
         new Intl.DateTimeFormat(
-          undefined,
+          "en-IN",
           {
-            weekday: "long",
             day: "numeric",
             month: "long",
             year: "numeric"
           }
-        ).format(now);
+        );
 
-      dateElement.textContent =
-        formatted;
+      const dayFormatter =
+        new Intl.DateTimeFormat(
+          "en-IN",
+          {
+            weekday: "long"
+          }
+        );
+
+      dateText.textContent =
+        dateFormatter.format(now);
+
+      dayText.textContent =
+        dayFormatter.format(now);
+
+    }
+
+
+    /* =========================================================
+       UPDATE TEXT
+    ========================================================= */
+
+    function updateExperienceText(
+      experience
+    ) {
+
+      greeting.textContent =
+        experience.greeting;
+
+      quote.textContent =
+        experience.quote;
+
+      timeLabel.textContent =
+        `AKSH · ${experience.period}`;
 
     }
 
@@ -1324,40 +1523,36 @@
     function loadExperience() {
 
       const experience =
-        getCurrentExperience();
+        getExperience();
 
       if (!experience) {
         return;
       }
 
-      greetingElement.textContent =
-        experience.greeting;
 
-      quoteElement.textContent =
-        experience.quote;
-
-      periodElement.textContent =
-        `AKSH · ${experience.period}`;
+      updateExperienceText(
+        experience
+      );
 
 
       /*
-       * Don't reload the same video every second.
+       * Prevent unnecessary video reloads.
        */
 
       if (
-        currentVideo ===
+        activeVideo ===
         experience.video
       ) {
         return;
       }
 
 
-      currentVideo =
+      activeVideo =
         experience.video;
 
 
       video.classList.remove(
-        "visible"
+        "loaded"
       );
 
 
@@ -1371,30 +1566,28 @@
       video.load();
 
 
-      video.addEventListener(
-        "loadeddata",
-        function handleLoaded() {
+      const onLoaded =
+        () => {
 
           video.classList.add(
-            "visible"
+            "loaded"
           );
 
-          loader.classList.add(
+          loadingScreen.classList.add(
             "hidden"
           );
 
 
           /*
-           * First try:
-           * autoplay WITH sound.
+           * First attempt audio autoplay.
            */
 
-          attemptAudioPlayback();
+          attemptSound();
 
 
           /*
-           * If Safari blocks audio,
-           * fall back to muted autoplay.
+           * Always make sure the video itself
+           * can play.
            */
 
           video.play().catch(
@@ -1409,7 +1602,12 @@
             }
           );
 
-        },
+        };
+
+
+      video.addEventListener(
+        "loadeddata",
+        onLoaded,
         {
           once: true
         }
@@ -1418,9 +1616,9 @@
 
       video.addEventListener(
         "error",
-        function handleError() {
+        () => {
 
-          loader.classList.add(
+          loadingScreen.classList.add(
             "hidden"
           );
 
@@ -1434,46 +1632,41 @@
 
 
     /* =========================================================
-       AUTOMATIC SOUND ATTEMPT
+       SOUND AUTOPLAY
     ========================================================= */
 
-    function attemptAudioPlayback() {
-
-      if (audioAttempted) {
-        return;
-      }
-
-      audioAttempted = true;
-
+    function attemptSound() {
 
       /*
-       * Videos contain their own music.
-       *
-       * Safari may reject this because audio
-       * autoplay normally requires user interaction.
+       * iPhone/Safari may block sound autoplay.
+       * We try it first.
        */
 
       video.muted = false;
 
-
-      const promise =
+      const playPromise =
         video.play();
 
+      if (
+        playPromise &&
+        typeof playPromise.catch ===
+          "function"
+      ) {
 
-      if (promise !== undefined) {
-
-        promise.catch(
+        playPromise.catch(
           () => {
 
             /*
-             * Browser blocked autoplay audio.
-             *
-             * We keep video playback working
-             * and wait for the visitor's first
-             * interaction.
+             * Safari blocked automatic audio.
+             * Video continues muted until user
+             * taps the sound control or interacts.
              */
 
             video.muted = true;
+
+            updateSoundButton(
+              false
+            );
 
           }
         );
@@ -1487,7 +1680,7 @@
        SOUND BUTTON
     ========================================================= */
 
-    function setSoundIcon(
+    function updateSoundButton(
       enabled
     ) {
 
@@ -1534,23 +1727,34 @@
 
     soundButton.addEventListener(
       "click",
-      () => {
+      event => {
+
+        event.preventDefault();
+
+        event.stopPropagation();
+
 
         if (video.muted) {
 
           video.muted = false;
 
+          soundUnlocked = true;
+
           video.play().catch(
             () => {}
           );
 
-          setSoundIcon(true);
+          updateSoundButton(
+            true
+          );
 
         } else {
 
           video.muted = true;
 
-          setSoundIcon(false);
+          updateSoundButton(
+            false
+          );
 
         }
 
@@ -1560,47 +1764,69 @@
 
     /* =========================================================
        FIRST USER INTERACTION
-       Helps Safari unlock video audio.
     ========================================================= */
 
-    function unlockAudio() {
+    function unlockSound() {
 
-      if (!video.src) {
+      if (
+        soundUnlocked ||
+        !video.src
+      ) {
         return;
       }
 
-      if (
-        video.muted
-      ) {
+      video.muted = false;
 
-        video.muted = false;
+      video.play().then(
+        () => {
 
-        video.play().catch(
-          () => {}
-        );
+          soundUnlocked = true;
 
-        setSoundIcon(true);
+          updateSoundButton(
+            true
+          );
 
-      }
+        }
+      ).catch(
+        () => {
+
+          video.muted = true;
+
+        }
+      );
 
     }
 
 
     document.addEventListener(
       "touchstart",
-      unlockAudio,
+      unlockSound,
       {
-        once: true,
-        passive: true
+        passive: true,
+        once: true
       }
     );
 
 
     document.addEventListener(
-      "click",
-      unlockAudio,
+      "pointerdown",
+      unlockSound,
       {
         once: true
+      }
+    );
+
+
+    /* =========================================================
+       SKIP
+    ========================================================= */
+
+    skipButton.addEventListener(
+      "click",
+      () => {
+
+        goToHome();
+
       }
     );
 
@@ -1609,43 +1835,52 @@
        BEGIN JOURNEY
     ========================================================= */
 
-    beginButton.addEventListener(
-      "click",
-      () => {
+    document
+      .getElementById("beginButton")
+      .addEventListener(
+        "click",
+        event => {
 
-        transition.classList.add(
-          "active"
-        );
+          event.preventDefault();
 
+          goToHome();
 
-        /*
-         * Stage 1 homepage will be
-         * connected here after it is built.
-         */
-
-        setTimeout(
-          () => {
-
-            transition.classList.remove(
-              "active"
-            );
-
-          },
-          900
-        );
-
-      }
-    );
+        }
+      );
 
 
     /* =========================================================
-       KEEP TIME UPDATED
+       PAGE TRANSITION
+    ========================================================= */
+
+    function goToHome() {
+
+      pageTransition.classList.add(
+        "active"
+      );
+
+
+      setTimeout(
+        () => {
+
+          window.location.href =
+            "home.html";
+
+        },
+        700
+      );
+
+    }
+
+
+    /* =========================================================
+       KEEP TIME SYNCHRONISED
     ========================================================= */
 
     setInterval(
       () => {
 
-        updateDate();
+        updateDateAndDay();
 
         loadExperience();
 
@@ -1655,12 +1890,14 @@
 
 
     /* =========================================================
-       START
+       INITIALISE
     ========================================================= */
 
-    updateDate();
+    updateDateAndDay();
 
-    setSoundIcon(false);
+    updateSoundButton(
+      false
+    );
 
     loadExperience();
 
