@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://meghana-s-aksh.github.io/sitemap.xml
+Sitemap: https://helloakshmw.github.io/Meghana-s-aksh/sitemap.xml
