@@ -1,31 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="AKSH — A Safe Space For Every Mind">
   <title>AKSH — A Safe Space For Every Mind</title>
-
-  <meta
-    name="description"
-    content="AKSH — A Safe Space For Every Mind."
-  />
-
-  <meta name="theme-color" content="#11100f" />
 
   <style>
     :root {
       --white: #ffffff;
-      --soft-white: rgba(255, 255, 255, 0.92);
-      --muted-white: rgba(255, 255, 255, 0.68);
-      --line: rgba(255, 255, 255, 0.32);
+      --soft-white: rgba(255,255,255,0.92);
+      --muted-white: rgba(255,255,255,0.68);
       --dark: #11100f;
-      --overlay: rgba(0, 0, 0, 0.24);
-      --button-bg: rgba(255, 255, 255, 0.12);
-      --button-border: rgba(255, 255, 255, 0.65);
     }
 
     * {
@@ -40,6 +26,7 @@
       height: 100%;
       overflow: hidden;
       background: var(--dark);
+      color: var(--white);
       font-family:
         -apple-system,
         BlinkMacSystemFont,
@@ -47,23 +34,13 @@
         Helvetica,
         Arial,
         sans-serif;
-      color: var(--white);
       -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
     }
 
-    body {
-      position: relative;
-    }
-
-    button,
-    a {
+    button {
+      font: inherit;
       -webkit-tap-highlight-color: transparent;
     }
-
-    /* =========================================================
-       FULL-SCREEN VIDEO
-    ========================================================= */
 
     .experience {
       position: fixed;
@@ -72,10 +49,13 @@
       background: #11100f;
     }
 
+    /* =========================
+       BACKGROUND VIDEO
+    ========================= */
+
     .video-layer {
       position: absolute;
       inset: 0;
-      z-index: 0;
       overflow: hidden;
       background: #11100f;
     }
@@ -85,18 +65,19 @@
       inset: 0;
       width: 100%;
       height: 100%;
-
       object-fit: cover;
       object-position: center center;
 
       opacity: 0;
-      transform: scale(1.015);
+      transform: scale(1.02);
 
       transition:
         opacity 1.15s ease,
         transform 6s ease;
 
-      filter: saturate(0.94) contrast(0.98);
+      filter:
+        saturate(0.94)
+        contrast(0.98);
     }
 
     #backgroundVideo.visible {
@@ -104,9 +85,9 @@
       transform: scale(1);
     }
 
-    /* =========================================================
+    /* =========================
        CINEMATIC OVERLAY
-    ========================================================= */
+    ========================= */
 
     .cinematic-overlay {
       position: absolute;
@@ -117,15 +98,13 @@
       background:
         linear-gradient(
           to bottom,
-          rgba(0, 0, 0, 0.22) 0%,
-          rgba(0, 0, 0, 0.04) 27%,
-          rgba(0, 0, 0, 0.03) 55%,
-          rgba(0, 0, 0, 0.22) 100%
+          rgba(0,0,0,0.22) 0%,
+          rgba(0,0,0,0.04) 30%,
+          rgba(0,0,0,0.03) 55%,
+          rgba(0,0,0,0.25) 100%
         );
 
-      transition:
-        background 1.2s ease,
-        opacity 1.2s ease;
+      transition: background 1s ease;
     }
 
     .grain {
@@ -142,9 +121,9 @@
       mix-blend-mode: soft-light;
     }
 
-    /* =========================================================
-       MAIN CONTENT
-    ========================================================= */
+    /* =========================
+       CONTENT
+    ========================= */
 
     .content {
       position: relative;
@@ -153,9 +132,6 @@
       width: 100%;
       height: 100%;
 
-      display: flex;
-      flex-direction: column;
-
       padding:
         max(28px, env(safe-area-inset-top))
         max(28px, env(safe-area-inset-right))
@@ -163,15 +139,16 @@
         max(28px, env(safe-area-inset-left));
     }
 
-    /* =========================================================
+    /* =========================
        TOP BAR
-    ========================================================= */
+    ========================= */
 
     .top-bar {
       width: 100%;
 
       display: grid;
       grid-template-columns: 1fr auto 1fr;
+
       align-items: start;
 
       padding-top: 4px;
@@ -202,9 +179,9 @@
       opacity: 0.66;
     }
 
-    /* =========================================================
+    /* =========================
        AKSH ICON
-    ========================================================= */
+    ========================= */
 
     .brand-mark {
       justify-self: center;
@@ -226,17 +203,20 @@
       object-fit: contain;
 
       filter:
-        drop-shadow(0 2px 12px rgba(0, 0, 0, 0.28));
+        drop-shadow(0 2px 12px rgba(0,0,0,0.28));
 
       opacity: 0.98;
     }
+
+    /* =========================
+       SOUND
+    ========================= */
 
     .top-actions {
       justify-self: end;
 
       display: flex;
       align-items: center;
-      gap: 9px;
     }
 
     .icon-button {
@@ -247,10 +227,10 @@
       align-items: center;
       justify-content: center;
 
-      border: 1px solid rgba(255, 255, 255, 0.32);
+      border: 1px solid rgba(255,255,255,0.32);
       border-radius: 50%;
 
-      background: rgba(0, 0, 0, 0.08);
+      background: rgba(0,0,0,0.08);
 
       color: white;
 
@@ -266,8 +246,8 @@
     }
 
     .icon-button:hover {
-      background: rgba(255, 255, 255, 0.12);
-      border-color: rgba(255, 255, 255, 0.62);
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(255,255,255,0.62);
       transform: translateY(-1px);
     }
 
@@ -280,12 +260,13 @@
       height: 16px;
     }
 
-    /* =========================================================
-       CENTER BRAND
-    ========================================================= */
+    /* =========================
+       CENTER
+    ========================= */
 
     .center {
       position: absolute;
+
       top: 50%;
       left: 50%;
 
@@ -305,17 +286,14 @@
 
       font-size: clamp(35px, 5.2vw, 68px);
       font-weight: 300;
+
       letter-spacing: -0.035em;
       line-height: 1;
 
       color: #fff;
 
       text-shadow:
-        0 2px 22px rgba(0, 0, 0, 0.18);
-
-      transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
+        0 2px 22px rgba(0,0,0,0.18);
     }
 
     .quote {
@@ -323,25 +301,23 @@
 
       font-size: clamp(13px, 1.5vw, 17px);
       font-weight: 300;
+
       letter-spacing: 0.025em;
       line-height: 1.65;
 
-      color: rgba(255, 255, 255, 0.86);
+      color: rgba(255,255,255,0.86);
 
       text-shadow:
-        0 2px 18px rgba(0, 0, 0, 0.28);
-
-      transition:
-        opacity 0.7s ease,
-        transform 0.7s ease;
+        0 2px 18px rgba(0,0,0,0.28);
     }
 
-    /* =========================================================
-       BOTTOM CTA
-    ========================================================= */
+    /* =========================
+       BOTTOM
+    ========================= */
 
     .bottom-area {
       position: absolute;
+
       left: 50%;
       bottom: max(34px, env(safe-area-inset-bottom));
 
@@ -360,16 +336,16 @@
 
       padding: 15px 30px;
 
-      border: 1px solid var(--button-border);
+      border: 1px solid rgba(255,255,255,0.65);
       border-radius: 999px;
 
-      background: var(--button-bg);
+      background: rgba(255,255,255,0.12);
 
       color: #fff;
 
-      font-family: inherit;
       font-size: 12px;
       font-weight: 500;
+
       letter-spacing: 0.17em;
       text-transform: uppercase;
 
@@ -377,29 +353,24 @@
       -webkit-backdrop-filter: blur(15px);
 
       box-shadow:
-        0 10px 35px rgba(0, 0, 0, 0.14);
+        0 10px 35px rgba(0,0,0,0.14);
 
       cursor: pointer;
 
       transition:
         background 0.35s ease,
         border-color 0.35s ease,
-        transform 0.35s ease,
-        box-shadow 0.35s ease;
+        transform 0.35s ease;
     }
 
     .begin-button:hover {
-      background: rgba(255, 255, 255, 0.19);
-      border-color: rgba(255, 255, 255, 0.95);
-
+      background: rgba(255,255,255,0.19);
+      border-color: rgba(255,255,255,0.95);
       transform: translateY(-2px);
-
-      box-shadow:
-        0 15px 40px rgba(0, 0, 0, 0.20);
     }
 
     .begin-button:active {
-      transform: translateY(0) scale(0.97);
+      transform: scale(0.97);
     }
 
     .skip-button {
@@ -410,28 +381,24 @@
 
       background: transparent;
 
-      color: rgba(255, 255, 255, 0.67);
+      color: rgba(255,255,255,0.67);
 
-      font-family: inherit;
       font-size: 10px;
       font-weight: 400;
+
       letter-spacing: 0.18em;
       text-transform: uppercase;
 
       cursor: pointer;
-
-      transition:
-        color 0.25s ease,
-        opacity 0.25s ease;
     }
 
     .skip-button:hover {
       color: #fff;
     }
 
-    /* =========================================================
-       LOADING / TRANSITION
-    ========================================================= */
+    /* =========================
+       INTRO / EXIT
+    ========================= */
 
     .intro-cover {
       position: fixed;
@@ -462,24 +429,24 @@
 
       opacity: 0;
 
-      transition: opacity 0.9s ease;
+      transition: opacity 0.85s ease;
     }
 
     .page-exit.active {
       opacity: 1;
     }
 
-    /* =========================================================
+    /* =========================
        TIME ATMOSPHERE
-    ========================================================= */
+    ========================= */
 
     body.morning .cinematic-overlay {
       background:
         linear-gradient(
           to bottom,
-          rgba(35, 25, 18, 0.13),
-          rgba(255, 245, 225, 0.02) 52%,
-          rgba(35, 25, 18, 0.18)
+          rgba(35,25,18,0.13),
+          rgba(255,245,225,0.02) 52%,
+          rgba(35,25,18,0.18)
         );
     }
 
@@ -487,9 +454,9 @@
       background:
         linear-gradient(
           to bottom,
-          rgba(45, 25, 10, 0.14),
-          rgba(255, 180, 80, 0.02) 50%,
-          rgba(45, 25, 10, 0.18)
+          rgba(45,25,10,0.14),
+          rgba(255,180,80,0.02) 50%,
+          rgba(45,25,10,0.18)
         );
     }
 
@@ -497,9 +464,9 @@
       background:
         linear-gradient(
           to bottom,
-          rgba(65, 35, 70, 0.24),
-          rgba(115, 75, 135, 0.04) 50%,
-          rgba(30, 15, 45, 0.28)
+          rgba(65,35,70,0.24),
+          rgba(115,75,135,0.04) 50%,
+          rgba(30,15,45,0.28)
         );
     }
 
@@ -507,27 +474,24 @@
       background:
         linear-gradient(
           to bottom,
-          rgba(5, 7, 18, 0.38),
-          rgba(10, 8, 28, 0.12) 50%,
-          rgba(3, 4, 12, 0.48)
+          rgba(5,7,18,0.38),
+          rgba(10,8,28,0.12) 50%,
+          rgba(3,4,12,0.48)
         );
     }
 
-    /* =========================================================
+    /* =========================
        MOBILE
-    ========================================================= */
+    ========================= */
 
     @media (max-width: 700px) {
+
       .content {
         padding:
           max(22px, env(safe-area-inset-top))
           max(20px, env(safe-area-inset-right))
           max(26px, env(safe-area-inset-bottom))
           max(20px, env(safe-area-inset-left));
-      }
-
-      .top-bar {
-        grid-template-columns: 1fr auto 1fr;
       }
 
       .date-block {
@@ -564,13 +528,10 @@
         width: min(220px, 88vw);
         min-height: 52px;
       }
-
-      #backgroundVideo {
-        object-position: center center;
-      }
     }
 
     @media (orientation: landscape) and (max-height: 550px) {
+
       .center {
         top: 52%;
       }
@@ -598,27 +559,12 @@
         margin-top: 8px;
       }
     }
-
-    /* =========================================================
-       REDUCED MOTION
-    ========================================================= */
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        transition-duration: 0.01ms !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-      }
-    }
   </style>
 </head>
 
 <body>
 
-  <main class="experience" id="experience">
+  <main class="experience">
 
     <!-- BACKGROUND VIDEO -->
     <div class="video-layer">
@@ -629,43 +575,39 @@
         muted
         loop
         preload="auto"
-        aria-hidden="true"
-      ></video>
+        aria-hidden="true">
+      </video>
     </div>
 
     <!-- CINEMATIC LAYERS -->
     <div class="cinematic-overlay"></div>
     <div class="grain"></div>
 
-    <!-- MAIN UI -->
+    <!-- CONTENT -->
     <div class="content">
 
-      <!-- TOP -->
+      <!-- TOP BAR -->
       <header class="top-bar">
 
-        <!-- DATE + DAY -->
-        <div class="date-block" aria-label="Current date">
+        <div class="date-block">
           <span class="date-day" id="dayText"></span>
           <span class="date-number" id="dateText"></span>
         </div>
 
         <!-- AKSH ICON -->
         <div class="brand-mark">
-          <img
-            src="aksh-icon.PNG"
-            alt="AKSH"
-          />
+          <img src="aksh-icon.PNG" alt="AKSH">
         </div>
 
         <!-- SOUND -->
         <div class="top-actions">
+
           <button
             class="icon-button"
             id="soundButton"
             type="button"
-            aria-label="Turn sound on"
-            title="Sound"
-          >
+            aria-label="Turn sound on">
+
             <svg
               class="sound-icon"
               id="soundOnIcon"
@@ -674,11 +616,12 @@
               stroke="currentColor"
               stroke-width="1.5"
               stroke-linecap="round"
-              stroke-linejoin="round"
-            >
+              stroke-linejoin="round">
+
               <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
               <path d="M15.5 8.5a5 5 0 0 1 0 7"></path>
               <path d="M18.5 5.5a9 9 0 0 1 0 13"></path>
+
             </svg>
 
             <svg
@@ -690,13 +633,16 @@
               stroke-width="1.5"
               stroke-linecap="round"
               stroke-linejoin="round"
-              style="display:none;"
-            >
+              style="display:none">
+
               <path d="M11 5 6 9H3v6h3l5 4V5Z"></path>
               <path d="m18 9-6 6"></path>
               <path d="m12 9 6 6"></path>
+
             </svg>
+
           </button>
+
         </div>
 
       </header>
@@ -720,16 +666,14 @@
         <button
           class="begin-button"
           id="beginButton"
-          type="button"
-        >
+          type="button">
           Begin Your Journey
         </button>
 
         <button
           class="skip-button"
           id="skipButton"
-          type="button"
-        >
+          type="button">
           Skip
         </button>
 
@@ -739,72 +683,62 @@
 
   </main>
 
-  <!-- INITIAL COVER -->
   <div class="intro-cover" id="introCover"></div>
-
-  <!-- PAGE EXIT -->
   <div class="page-exit" id="pageExit"></div>
 
 
   <script>
-    /*
-      ============================================================
-      AKSH — ZERO PAGE
-      FINAL TIME-BASED VIDEO ENGINE
-      ============================================================
-
-      IMPORTANT:
-      The filenames below exactly match the supplied AKSH assets.
-
-      Time mapping:
-
-      05:00–06:00  morning 1
-      06:00–08:00  morning 2
-      08:00–10:00  morning 3
-      10:00–11:59 morning 4
-
-      12:00–13:00  afternoon 1
-      13:00–14:30  afternoon 2
-      14:30–16:00  afternoon 3
-      16:00–17:00  afternoon 4
-
-      17:00–17:45  evening 1
-      17:45–19:00  evening 2
-      19:00–20:00  evening 3
-
-      20:00–00:00  night 1
-      00:00–05:00  night 2
-    */
-
     (() => {
+
       "use strict";
 
-      const video = document.getElementById("backgroundVideo");
-      const greeting = document.getElementById("greeting");
-      const quote = document.getElementById("quote");
-      const dayText = document.getElementById("dayText");
-      const dateText = document.getElementById("dateText");
+      const video =
+        document.getElementById("backgroundVideo");
 
-      const beginButton = document.getElementById("beginButton");
-      const skipButton = document.getElementById("skipButton");
+      const greeting =
+        document.getElementById("greeting");
 
-      const soundButton = document.getElementById("soundButton");
-      const soundOnIcon = document.getElementById("soundOnIcon");
-      const soundOffIcon = document.getElementById("soundOffIcon");
+      const quote =
+        document.getElementById("quote");
 
-      const introCover = document.getElementById("introCover");
-      const pageExit = document.getElementById("pageExit");
+      const dayText =
+        document.getElementById("dayText");
 
-      let currentVideo = "";
-      let soundEnabled = false;
+      const dateText =
+        document.getElementById("dateText");
+
+      const soundButton =
+        document.getElementById("soundButton");
+
+      const soundOnIcon =
+        document.getElementById("soundOnIcon");
+
+      const soundOffIcon =
+        document.getElementById("soundOffIcon");
+
+      const beginButton =
+        document.getElementById("beginButton");
+
+      const skipButton =
+        document.getElementById("skipButton");
+
+      const introCover =
+        document.getElementById("introCover");
+
+      const pageExit =
+        document.getElementById("pageExit");
+
 
       /*
-        ------------------------------------------------------------
-        EXACT VIDEO ASSET MAP
-        ------------------------------------------------------------
+        ==========================================================
+        VIDEO FILES
+        ==========================================================
+
+        These filenames must exactly match your GitHub files.
       */
 
       const videos = {
+
         morning1: "aksh-morning.1.mov",
         morning2: "aksh-morning.2.mov",
         morning3: "aksh-morning.3.mov",
@@ -821,15 +755,18 @@
 
         night1: "aksh-night.1.mov",
         night2: "aksh-night.2.mov"
+
       };
 
+
       /*
-        ------------------------------------------------------------
-        SHORT TIME-SPECIFIC MESSAGES
-        ------------------------------------------------------------
+        ==========================================================
+        MESSAGES
+        ==========================================================
       */
 
       const messages = {
+
         morning: [
           "Take a breath. You are allowed to arrive exactly as you are.",
           "Let the morning be gentle with you.",
@@ -854,15 +791,22 @@
           "The world can wait. Give yourself a quiet moment.",
           "Rest. Breathe. You are safe to slow down."
         ]
+
       };
 
+
+      let currentVideo = "";
+      let soundEnabled = false;
+
+
       /*
-        ------------------------------------------------------------
-        GET CURRENT LOCAL TIME
-        ------------------------------------------------------------
+        ==========================================================
+        CURRENT TIME
+        ==========================================================
       */
 
       function getTimeInMinutes() {
+
         const now = new Date();
 
         return (
@@ -870,217 +814,372 @@
           now.getMinutes() +
           now.getSeconds() / 60
         );
+
       }
 
+
       /*
-        ------------------------------------------------------------
-        DETERMINE CURRENT EXPERIENCE
-        ------------------------------------------------------------
+        ==========================================================
+        TIME → VIDEO
+        ==========================================================
       */
 
       function getExperience() {
-        const minutes = getTimeInMinutes();
 
-        /*
-          NIGHT 2
-          00:00–04:59
-        */
-        if (minutes >= 0 && minutes < 300) {
+        const minutes =
+          getTimeInMinutes();
+
+
+        /* 00:00 – 04:59 */
+
+        if (minutes < 300) {
+
           return {
             period: "night",
             greeting: "Good Night",
             video: videos.night2,
             messageIndex: 1
           };
+
         }
 
-        /*
-          MORNING 1
-          05:00–05:59
-        */
-        if (minutes >= 300 && minutes < 360) {
+
+        /* 05:00 – 05:59 */
+
+        if (minutes < 360) {
+
           return {
             period: "morning",
             greeting: "Good Morning",
             video: videos.morning1,
             messageIndex: 0
           };
+
         }
 
-        /*
-          MORNING 2
-          06:00–07:59
-        */
-        if (minutes >= 360 && minutes < 480) {
+
+        /* 06:00 – 07:59 */
+
+        if (minutes < 480) {
+
           return {
             period: "morning",
             greeting: "Good Morning",
             video: videos.morning2,
             messageIndex: 1
           };
+
         }
 
-        /*
-          MORNING 3
-          08:00–09:59
-        */
-        if (minutes >= 480 && minutes < 600) {
+
+        /* 08:00 – 09:59 */
+
+        if (minutes < 600) {
+
           return {
             period: "morning",
             greeting: "Good Morning",
             video: videos.morning3,
             messageIndex: 2
           };
+
         }
 
-        /*
-          MORNING 4
-          10:00–11:59
-        */
-        if (minutes >= 600 && minutes < 720) {
+
+        /* 10:00 – 11:59 */
+
+        if (minutes < 720) {
+
           return {
             period: "morning",
             greeting: "Good Morning",
             video: videos.morning4,
             messageIndex: 3
           };
+
         }
 
-        /*
-          AFTERNOON 1
-          12:00–12:59
-        */
-        if (minutes >= 720 && minutes < 780) {
+
+        /* 12:00 – 12:59 */
+
+        if (minutes < 780) {
+
           return {
             period: "afternoon",
             greeting: "Good Afternoon",
             video: videos.afternoon1,
             messageIndex: 0
           };
+
         }
 
-        /*
-          AFTERNOON 2
-          13:00–14:29
-        */
-        if (minutes >= 780 && minutes < 870) {
+
+        /* 13:00 – 14:29 */
+
+        if (minutes < 870) {
+
           return {
             period: "afternoon",
             greeting: "Good Afternoon",
             video: videos.afternoon2,
             messageIndex: 1
           };
+
         }
 
-        /*
-          AFTERNOON 3
-          14:30–15:59
-        */
-        if (minutes >= 870 && minutes < 960) {
+
+        /* 14:30 – 15:59 */
+
+        if (minutes < 960) {
+
           return {
             period: "afternoon",
             greeting: "Good Afternoon",
             video: videos.afternoon3,
             messageIndex: 2
           };
+
         }
 
-        /*
-          AFTERNOON 4
-          16:00–16:59
-        */
-        if (minutes >= 960 && minutes < 1020) {
+
+        /* 16:00 – 16:59 */
+
+        if (minutes < 1020) {
+
           return {
             period: "afternoon",
             greeting: "Good Afternoon",
             video: videos.afternoon4,
             messageIndex: 3
           };
+
         }
 
-        /*
-          EVENING 1
-          17:00–17:44
-        */
-        if (minutes >= 1020 && minutes < 1065) {
+
+        /* 17:00 – 17:44 */
+
+        if (minutes < 1065) {
+
           return {
             period: "evening",
             greeting: "Good Evening",
             video: videos.evening1,
             messageIndex: 0
           };
+
         }
 
-        /*
-          EVENING 2
-          17:45–18:59
-        */
-        if (minutes >= 1065 && minutes < 1140) {
+
+        /* 17:45 – 18:59 */
+
+        if (minutes < 1140) {
+
           return {
             period: "evening",
             greeting: "Good Evening",
             video: videos.evening2,
             messageIndex: 1
           };
+
         }
 
-        /*
-          EVENING 3
-          19:00–19:59
-        */
-        if (minutes >= 1140 && minutes < 1200) {
+
+        /* 19:00 – 19:59 */
+
+        if (minutes < 1200) {
+
           return {
             period: "evening",
             greeting: "Good Evening",
             video: videos.evening3,
             messageIndex: 2
           };
+
         }
 
-        /*
-          NIGHT 1
-          20:00–23:59
-        */
+
+        /* 20:00 – 23:59 */
+
         return {
+
           period: "night",
           greeting: "Good Night",
           video: videos.night1,
           messageIndex: 0
+
         };
+
       }
 
+
       /*
-        ------------------------------------------------------------
-        DATE + DAY
-        ------------------------------------------------------------
+        ==========================================================
+        DATE
+        ==========================================================
       */
 
       function updateDate() {
+
         const now = new Date();
 
-        const dayFormatter = new Intl.DateTimeFormat(undefined, {
-          weekday: "long"
-        });
+        dayText.textContent =
+          new Intl.DateTimeFormat(undefined, {
+            weekday: "long"
+          }).format(now);
 
-        const dateFormatter = new Intl.DateTimeFormat(undefined, {
-          day: "2-digit",
-          month: "long",
-          year: "numeric"
-        });
+        dateText.textContent =
+          new Intl.DateTimeFormat(undefined, {
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+          }).format(now);
 
-        dayText.textContent = dayFormatter.format(now);
-
-        dateText.textContent = dateFormatter.format(now);
       }
 
+
       /*
-        ------------------------------------------------------------
-        APPLY EXPERIENCE
-        ------------------------------------------------------------
+        ==========================================================
+        SOUND UI
+        ==========================================================
+      */
+
+      function updateSoundUI() {
+
+        if (soundEnabled) {
+
+          soundOnIcon.style.display = "block";
+          soundOffIcon.style.display = "none";
+
+          soundButton.setAttribute(
+            "aria-label",
+            "Turn sound off"
+          );
+
+        } else {
+
+          soundOnIcon.style.display = "none";
+          soundOffIcon.style.display = "block";
+
+          soundButton.setAttribute(
+            "aria-label",
+            "Turn sound on"
+          );
+
+        }
+
+      }
+
+
+      /*
+        ==========================================================
+        PLAY VIDEO
+        ==========================================================
+      */
+
+      async function playVideo() {
+
+        try {
+
+          video.muted = !soundEnabled;
+
+          await video.play();
+
+        } catch (error) {
+
+          try {
+
+            video.muted = true;
+
+            await video.play();
+
+          } catch (ignored) {}
+
+        }
+
+      }
+
+
+      /*
+        ==========================================================
+        LOAD VIDEO
+        ==========================================================
+      */
+
+      function loadVideo(source) {
+
+        if (!source) return;
+
+        if (currentVideo === source) {
+
+          if (video.paused) {
+            playVideo();
+          }
+
+          return;
+
+        }
+
+        currentVideo = source;
+
+        video.classList.remove("visible");
+
+        video.pause();
+
+        video.src = source;
+
+        video.load();
+
+
+        const reveal = () => {
+
+          video.classList.add("visible");
+
+          playVideo();
+
+        };
+
+
+        video.addEventListener(
+          "canplay",
+          reveal,
+          { once: true }
+        );
+
+
+        video.addEventListener(
+          "loadeddata",
+          reveal,
+          { once: true }
+        );
+
+
+        setTimeout(() => {
+
+          if (
+            video.readyState >= 2 &&
+            !video.classList.contains("visible")
+          ) {
+
+            reveal();
+
+          }
+
+        }, 2500);
+
+      }
+
+
+      /*
+        ==========================================================
+        APPLY CURRENT EXPERIENCE
+        ==========================================================
       */
 
       function applyExperience() {
-        const experience = getExperience();
+
+        const experience =
+          getExperience();
+
 
         document.body.classList.remove(
           "morning",
@@ -1089,274 +1188,163 @@
           "night"
         );
 
-        document.body.classList.add(experience.period);
 
-        greeting.textContent = experience.greeting;
-
-        quote.textContent =
-          messages[experience.period][experience.messageIndex];
-
-        /*
-          Only change video when the actual time window changes.
-        */
-
-        if (currentVideo !== experience.video) {
-          loadVideo(experience.video);
-        }
-      }
-
-      /*
-        ------------------------------------------------------------
-        LOAD VIDEO
-        ------------------------------------------------------------
-      */
-
-      function loadVideo(source) {
-        currentVideo = source;
-
-        video.classList.remove("visible");
-
-        /*
-          Stop previous video.
-        */
-
-        video.pause();
-
-        /*
-          Set the new exact supplied file.
-        */
-
-        video.src = source;
-        video.load();
-
-        /*
-          When the video is ready, reveal it.
-        */
-
-        const reveal = () => {
-          video.classList.add("visible");
-
-          attemptPlayback();
-        };
-
-        video.addEventListener(
-          "canplay",
-          reveal,
-          { once: true }
+        document.body.classList.add(
+          experience.period
         );
 
-        /*
-          Fallback in case canplay has already fired.
-        */
 
-        setTimeout(() => {
-          if (!video.classList.contains("visible")) {
-            video.classList.add("visible");
-            attemptPlayback();
-          }
-        }, 2200);
+        greeting.textContent =
+          experience.greeting;
+
+
+        quote.textContent =
+          messages[
+            experience.period
+          ][
+            experience.messageIndex
+          ];
+
+
+        loadVideo(
+          experience.video
+        );
+
       }
+
 
       /*
-        ------------------------------------------------------------
-        AUTOPLAY
-        ------------------------------------------------------------
-
-        Browsers may block autoplay WITH SOUND.
-
-        We first attempt sound.
-        If the browser blocks it, the video still starts muted.
-        The sound button can immediately enable the original audio.
+        ==========================================================
+        SOUND BUTTON
+        ==========================================================
       */
-
-      async function attemptPlayback() {
-        try {
-          video.muted = !soundEnabled;
-
-          await video.play();
-        } catch (error) {
-          /*
-            Browser autoplay policy prevented playback.
-
-            Retry muted so the visual experience still starts.
-          */
-
-          try {
-            video.muted = true;
-            soundEnabled = false;
-
-            updateSoundUI();
-
-            await video.play();
-          } catch (secondError) {
-            /*
-              Nothing else required.
-            */
-          }
-        }
-      }
-
-      /*
-        ------------------------------------------------------------
-        SOUND CONTROL
-        ------------------------------------------------------------
-      */
-
-      function updateSoundUI() {
-        if (soundEnabled) {
-          soundOnIcon.style.display = "block";
-          soundOffIcon.style.display = "none";
-
-          soundButton.setAttribute(
-            "aria-label",
-            "Turn sound off"
-          );
-        } else {
-          soundOnIcon.style.display = "none";
-          soundOffIcon.style.display = "block";
-
-          soundButton.setAttribute(
-            "aria-label",
-            "Turn sound on"
-          );
-        }
-      }
 
       async function toggleSound() {
-        soundEnabled = !soundEnabled;
 
-        video.muted = !soundEnabled;
+        soundEnabled =
+          !soundEnabled;
+
+
+        video.muted =
+          !soundEnabled;
+
 
         updateSoundUI();
 
+
         try {
+
           await video.play();
-        } catch (error) {
-          /*
-            If playback is blocked, the next user interaction
-            will allow it.
-          */
-        }
+
+        } catch (error) {}
+
       }
+
 
       soundButton.addEventListener(
         "click",
         toggleSound
       );
 
+
       /*
-        ------------------------------------------------------------
-        BEGIN JOURNEY
-        ------------------------------------------------------------
-
-        Page 1 will be built separately.
-
-        The destination is intentionally kept as:
-        home.html
-
-        so the Zero Page does not need to be rebuilt when Page 1
-        is added.
+        ==========================================================
+        BEGIN / SKIP
+        ==========================================================
       */
 
       function enterWebsite() {
-        pageExit.classList.add("active");
+
+        pageExit.classList.add(
+          "active"
+        );
+
 
         setTimeout(() => {
-          window.location.href = "home.html";
+
+          window.location.href =
+            "home.html";
+
         }, 850);
+
       }
+
 
       beginButton.addEventListener(
         "click",
         enterWebsite
       );
 
+
       skipButton.addEventListener(
         "click",
         enterWebsite
       );
 
+
       /*
-        ------------------------------------------------------------
+        ==========================================================
         INITIALISE
-        ------------------------------------------------------------
+        ==========================================================
       */
 
       updateDate();
+
       updateSoundUI();
+
       applyExperience();
 
-      /*
-        Re-check every second.
 
-        This means the correct video changes automatically when
-        the visitor crosses a time boundary.
+      /*
+        Check the time every second.
       */
 
       setInterval(() => {
+
         updateDate();
+
         applyExperience();
+
       }, 1000);
 
+
       /*
-        ------------------------------------------------------------
-        PAGE VISIBILITY
-        ------------------------------------------------------------
+        Resume video when visitor returns
+        to the tab.
       */
 
       document.addEventListener(
         "visibilitychange",
         () => {
+
           if (!document.hidden) {
+
             updateDate();
+
             applyExperience();
-            attemptPlayback();
+
           }
+
         }
       );
 
-      /*
-        ------------------------------------------------------------
-        FIRST TOUCH
-        ------------------------------------------------------------
-
-        If the browser initially blocks sound, the first interaction
-        anywhere on the page attempts to enable the video/audio.
-      */
-
-      const firstInteraction = async () => {
-        if (!soundEnabled) {
-          return;
-        }
-
-        try {
-          video.muted = false;
-          await video.play();
-        } catch (error) {
-          /*
-            Browser policy may still require explicit sound control.
-          */
-        }
-      };
-
-      document.addEventListener(
-        "pointerdown",
-        firstInteraction,
-        { once: true, passive: true }
-      );
 
       /*
-        ------------------------------------------------------------
-        REMOVE INITIAL COVER
-        ------------------------------------------------------------
+        Remove initial black cover.
       */
 
       window.addEventListener(
         "load",
         () => {
+
           setTimeout(() => {
-            introCover.classList.add("loaded");
+
+            introCover.classList.add(
+              "loaded"
+            );
+
           }, 350);
+
         }
       );
 
@@ -1364,4 +1352,4 @@
   </script>
 
 </body>
-</html>
+</html> 
