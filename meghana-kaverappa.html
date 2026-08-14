@@ -1,40 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-    >
-
-    <meta
-        name="theme-color"
-        content="#181816"
-    >
-
-    <meta
-        name="description"
-        content="Meet Meghana Kaverappa, Founder & Chief Psychologist of AKSH Mental Wellness."
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#171714">
+    <meta name="description" content="Meet Meghana Kaverappa, Founder & Chief Psychologist of AKSH Mental Wellness.">
     <title>Meghana Kaverappa — AKSH</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap"
-        rel="stylesheet"
-    >
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
     <style>
+        :root {
+            --dark: #171714;
+            --dark-soft: #24231f;
+            --ivory: #f2ede4;
+            --cream: #e9e1d7;
+            --earth: #d1c2af;
+            --text-dark: #24231f;
+            --muted-dark: rgba(36,35,31,.56);
+            --muted-light: rgba(242,237,228,.55);
+        }
 
         * {
             margin: 0;
@@ -43,13 +30,13 @@
         }
 
         html {
-            background: #181816;
             scroll-behavior: smooth;
+            background: var(--dark);
         }
 
         body {
-            background: #181816;
-            color: #f2ede4;
+            background: var(--dark);
+            color: var(--ivory);
             font-family: "Inter", sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
@@ -57,12 +44,7 @@
 
         img {
             display: block;
-            max-width: 100%;
-        }
-
-        button,
-        a {
-            -webkit-tap-highlight-color: transparent;
+            width: 100%;
         }
 
         a {
@@ -70,40 +52,41 @@
             text-decoration: none;
         }
 
+        button {
+            font: inherit;
+        }
 
-        /* =========================================
+        /* =========================
            HEADER
-        ========================================= */
+        ========================= */
 
-        .site-header {
+        .header {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 100;
+            inset: 0 0 auto;
+            z-index: 1000;
 
             display: flex;
             align-items: center;
             justify-content: space-between;
 
             padding:
-                max(22px, env(safe-area-inset-top))
+                max(20px, env(safe-area-inset-top))
                 max(24px, env(safe-area-inset-right))
-                18px
+                20px
                 max(24px, env(safe-area-inset-left));
 
             background:
                 linear-gradient(
                     to bottom,
-                    rgba(24,24,22,0.88),
-                    rgba(24,24,22,0)
+                    rgba(23,23,20,.9),
+                    rgba(23,23,20,0)
                 );
         }
 
         .brand {
             display: flex;
             align-items: center;
-            gap: 11px;
+            gap: 10px;
         }
 
         .brand img {
@@ -112,92 +95,73 @@
             object-fit: contain;
         }
 
-        .brand-name {
+        .brand span {
             font-size: 10px;
-            letter-spacing: 0.38em;
-            font-weight: 500;
+            letter-spacing: .4em;
         }
 
-        .menu-button {
+        .menu {
             width: 45px;
             height: 45px;
-
-            border: 1px solid rgba(242,237,228,0.2);
+            border: 1px solid rgba(242,237,228,.22);
             border-radius: 50%;
-
-            background: rgba(255,255,255,0.035);
-            color: #f2ede4;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
+            background: rgba(255,255,255,.035);
+            color: var(--ivory);
+            display: grid;
+            place-items: center;
             cursor: pointer;
-
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
         }
 
-        .menu-icon {
+        .menu-lines {
             width: 17px;
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
         }
 
-        .menu-icon span {
+        .menu-lines span {
             display: block;
-            width: 100%;
             height: 1px;
             background: currentColor;
+            margin: 5px 0;
         }
 
-
-        /* =========================================
+        /* =========================
            HERO
-        ========================================= */
+        ========================= */
 
         .hero {
-            position: relative;
             min-height: 100svh;
+            position: relative;
+            overflow: hidden;
 
             display: flex;
             align-items: flex-end;
 
-            padding:
-                150px 7vw 9vh;
-
-            overflow: hidden;
+            padding: 150px 7vw 10vh;
 
             background:
                 radial-gradient(
-                    ellipse at 72% 28%,
-                    rgba(171,145,116,0.16),
-                    transparent 35%
+                    circle at 78% 25%,
+                    rgba(180,151,117,.18),
+                    transparent 32%
                 ),
                 radial-gradient(
-                    ellipse at 15% 75%,
-                    rgba(117,129,119,0.12),
-                    transparent 36%
+                    circle at 12% 80%,
+                    rgba(108,119,110,.11),
+                    transparent 34%
                 ),
-                #181816;
+                var(--dark);
         }
 
-        .hero::before {
+        .hero::after {
             content: "";
             position: absolute;
-
-            width: 55vw;
-            height: 55vw;
-
-            right: -28vw;
-            top: 8vh;
-
+            width: 500px;
+            height: 500px;
+            right: -220px;
+            top: 15%;
             border-radius: 50%;
-
-            background:
-                rgba(211,188,155,0.055);
-
+            background: rgba(214,187,151,.05);
             filter: blur(80px);
             pointer-events: none;
         }
@@ -205,87 +169,55 @@
         .hero-content {
             position: relative;
             z-index: 2;
-
             width: min(1200px, 100%);
         }
 
         .eyebrow {
-            margin-bottom: 35px;
-
-            color: rgba(242,237,228,0.42);
-
+            margin-bottom: 34px;
             font-size: 9px;
-            letter-spacing: 0.30em;
+            letter-spacing: .3em;
             text-transform: uppercase;
+            color: rgba(242,237,228,.4);
         }
 
-        .hero-name {
-            max-width: 1100px;
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
-            font-size:
-                clamp(
-                    65px,
-                    11vw,
-                    150px
-                );
-
+        .hero h1 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(66px, 11vw, 150px);
             font-weight: 300;
-            line-height: 0.82;
-
-            letter-spacing: -0.055em;
+            line-height: .8;
+            letter-spacing: -.055em;
         }
 
-        .hero-name span {
+        .hero h1 span {
             display: block;
         }
 
-        .hero-name .last-name {
-            color: rgba(242,237,228,0.48);
-            font-style: italic;
-            margin-left: 8vw;
-        }
-
-        .designation {
-            margin-top: 52px;
+        .hero h1 .surname {
             margin-left: 9vw;
-
-            color: rgba(242,237,228,0.65);
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
-            font-size:
-                clamp(
-                    21px,
-                    2.5vw,
-                    29px
-                );
-
-            font-weight: 300;
-            line-height: 1.35;
+            color: rgba(242,237,228,.46);
+            font-style: italic;
         }
 
+        .role {
+            margin: 52px 0 0 9vw;
+            max-width: 500px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(21px, 2.5vw, 29px);
+            line-height: 1.3;
+            color: rgba(242,237,228,.68);
+        }
 
-        /* =========================================
+        /* =========================
            INTRO
-        ========================================= */
+        ========================= */
 
         .intro {
             min-height: 90svh;
-
             display: flex;
             align-items: center;
-
-            padding:
-                140px 7vw;
-
-            background: #e9e1d7;
-            color: #20201d;
+            padding: 140px 7vw;
+            background: var(--cream);
+            color: var(--text-dark);
         }
 
         .intro-inner {
@@ -293,220 +225,128 @@
             margin: auto;
         }
 
-        .section-label {
+        .label {
             margin-bottom: 48px;
-
-            color: rgba(32,32,29,0.42);
-
             font-size: 9px;
-            letter-spacing: 0.3em;
+            letter-spacing: .3em;
             text-transform: uppercase;
+            color: rgba(36,35,31,.4);
         }
 
-        .intro-title {
+        .intro h2 {
             max-width: 1000px;
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
-            font-size:
-                clamp(
-                    45px,
-                    7vw,
-                    91px
-                );
-
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(48px, 7vw, 92px);
             font-weight: 300;
-            line-height: 0.98;
-
-            letter-spacing: -0.035em;
+            line-height: .98;
+            letter-spacing: -.035em;
         }
 
-        .intro-title em {
-            color: rgba(32,32,29,0.43);
+        .intro h2 em {
+            color: rgba(36,35,31,.4);
             font-style: italic;
         }
 
-        .intro-copy {
+        .intro p {
             max-width: 650px;
-
-            margin:
-                65px
-                0
-                0
-                auto;
-
-            color: rgba(32,32,29,0.56);
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
+            margin: 65px 0 0 auto;
+            font-family: "Cormorant Garamond", serif;
             font-size: 23px;
             line-height: 1.48;
+            color: var(--muted-dark);
         }
 
+        /* =========================
+           PHOTOGRAPH
+        ========================= */
 
-        /* =========================================
-           PORTRAIT
-        ========================================= */
-
-        .portrait-section {
+        .portrait {
             min-height: 100svh;
-
-            padding:
-                110px 7vw;
-
-            background: #d4c7b7;
-
-            color: #20201d;
+            padding: 110px 7vw;
+            background: #d4c8b9;
+            color: var(--text-dark);
         }
 
-        .portrait-layout {
+        .portrait-grid {
             width: min(1180px, 100%);
             margin: auto;
 
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-
+            grid-template-columns: 1.02fr .98fr;
             gap: 7vw;
-
             align-items: center;
         }
 
-        .portrait-frame {
+        .photo-wrap {
             position: relative;
-
-            width: 100%;
-
             aspect-ratio: 4 / 5;
-
             overflow: hidden;
-
-            background: #b8aa99;
+            background: #b9aa98;
         }
 
-        /*
-           REAL PHOTO SLOT
-
-           Replace the filename below ONLY if your
-           approved Meghana photo has a different
-           filename.
-
-           No AI-generated image is used here.
-        */
-
-        .portrait-frame img {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-
-            object-position: center;
-
-            filter: saturate(0.88);
-        }
-
-        .portrait-placeholder {
+        .photo-wrap img {
             position: absolute;
             inset: 0;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding: 30px;
-
-            text-align: center;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(32,32,29,0.08),
-                    rgba(32,32,29,0.22)
-                );
-
-            color: rgba(255,255,255,0.72);
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
-            font-size: 20px;
-
-            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
         }
 
-        .portrait-content {
-            padding: 20px 0;
+        .photo-secondary {
+            position: absolute;
+            width: 34%;
+            aspect-ratio: 1 / 1.2;
+            right: 5%;
+            bottom: 5%;
+            z-index: 3;
+            border: 5px solid #d4c8b9;
+            box-shadow: 0 18px 50px rgba(0,0,0,.18);
         }
 
-        .portrait-label {
-            margin-bottom: 35px;
-
-            color: rgba(32,32,29,0.42);
-
-            font-size: 9px;
-            letter-spacing: 0.28em;
-            text-transform: uppercase;
-        }
-
-        .portrait-heading {
-            margin-bottom: 35px;
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
-            font-size:
-                clamp(
-                    40px,
-                    5vw,
-                    65px
-                );
-
-            font-weight: 300;
-
-            line-height: 1;
-
-            letter-spacing: -0.025em;
+        .photo-secondary img {
+            position: relative;
+            object-fit: cover;
         }
 
         .portrait-copy {
-            max-width: 470px;
-
-            color: rgba(32,32,29,0.58);
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
-            font-size: 22px;
-            line-height: 1.5;
+            padding: 20px 0;
         }
 
+        .portrait-copy h2 {
+            margin-bottom: 34px;
+            max-width: 570px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(43px, 5vw, 67px);
+            font-weight: 300;
+            line-height: .98;
+            letter-spacing: -.03em;
+        }
 
-        /* =========================================
+        .portrait-copy p {
+            max-width: 470px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 22px;
+            line-height: 1.5;
+            color: var(--muted-dark);
+        }
+
+        /* =========================
            PHILOSOPHY
-        ========================================= */
+        ========================= */
 
         .philosophy {
             min-height: 100svh;
-
             display: flex;
             align-items: center;
-
-            padding:
-                150px 7vw;
-
+            padding: 140px 7vw;
             background:
                 radial-gradient(
-                    ellipse at 75% 25%,
-                    rgba(177,144,111,0.13),
+                    ellipse at 75% 20%,
+                    rgba(182,146,108,.14),
                     transparent 38%
                 ),
-                #181816;
+                var(--dark);
         }
 
         .philosophy-inner {
@@ -514,148 +354,82 @@
             margin: auto;
         }
 
-        .philosophy-label {
-            margin-bottom: 50px;
-
-            color: rgba(242,237,228,0.36);
-
-            font-size: 9px;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-        }
-
-        .philosophy-heading {
+        .philosophy h2 {
             max-width: 1050px;
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
-            font-size:
-                clamp(
-                    48px,
-                    7.2vw,
-                    96px
-                );
-
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(49px, 7.2vw, 96px);
             font-weight: 300;
-
-            line-height: 0.98;
-
-            letter-spacing: -0.035em;
+            line-height: .98;
+            letter-spacing: -.035em;
         }
 
-        .philosophy-heading em {
-            color: rgba(242,237,228,0.44);
+        .philosophy h2 em {
+            color: rgba(242,237,228,.43);
             font-style: italic;
         }
 
-        .philosophy-copy {
+        .philosophy p {
             max-width: 620px;
-
-            margin:
-                70px
-                0
-                0
-                auto;
-
-            color: rgba(242,237,228,0.57);
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
+            margin: 70px 0 0 auto;
+            font-family: "Cormorant Garamond", serif;
             font-size: 23px;
             line-height: 1.5;
+            color: var(--muted-light);
         }
 
+        /* =========================
+           VISION
+        ========================= */
 
-        /* =========================================
-           HUMAN SIDE
-        ========================================= */
-
-        .human {
+        .vision {
             min-height: 88svh;
-
             display: flex;
             align-items: center;
-
-            padding:
-                130px 7vw;
-
-            background: #f2ece3;
-            color: #20201d;
+            padding: 130px 7vw;
+            background: #f1ebe2;
+            color: var(--text-dark);
         }
 
-        .human-inner {
+        .vision-inner {
             width: min(1100px, 100%);
             margin: auto;
         }
 
-        .human-quote {
+        .vision h2 {
             max-width: 1000px;
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
-            font-size:
-                clamp(
-                    42px,
-                    6.5vw,
-                    84px
-                );
-
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(44px, 6.5vw, 84px);
             font-weight: 300;
-
             line-height: 1;
-
-            letter-spacing: -0.03em;
+            letter-spacing: -.03em;
         }
 
-        .human-quote em {
-            color: rgba(32,32,29,0.43);
+        .vision h2 em {
+            color: rgba(36,35,31,.4);
             font-style: italic;
         }
 
-        .human-note {
-            max-width: 520px;
-
-            margin:
-                65px
-                0
-                0
-                auto;
-
-            color: rgba(32,32,29,0.53);
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
+        .vision p {
+            max-width: 540px;
+            margin: 65px 0 0 auto;
+            font-family: "Cormorant Garamond", serif;
             font-size: 22px;
-            line-height: 1.48;
+            line-height: 1.5;
+            color: var(--muted-dark);
         }
 
-
-        /* =========================================
+        /* =========================
            CLOSING
-        ========================================= */
+        ========================= */
 
         .closing {
             min-height: 80svh;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            padding:
-                120px 24px;
-
+            display: grid;
+            place-items: center;
+            padding: 120px 24px;
             text-align: center;
-
-            background: #cfc0ad;
-            color: #20201d;
+            background: #cfc1ae;
+            color: var(--text-dark);
         }
 
         .closing-inner {
@@ -664,85 +438,53 @@
 
         .closing-icon {
             width: 48px;
-            margin: 0 auto 35px;
+            margin: 0 auto 34px;
         }
 
-        .closing-title {
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
-            font-size:
-                clamp(
-                    45px,
-                    7vw,
-                    82px
-                );
-
+        .closing h2 {
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(48px, 7vw, 84px);
             font-weight: 300;
             line-height: 1;
         }
 
-        .closing-text {
+        .closing p {
             max-width: 500px;
-
-            margin:
-                30px auto 0;
-
-            color: rgba(32,32,29,0.54);
-
-            font-family:
-                "Cormorant Garamond",
-                serif;
-
+            margin: 30px auto 0;
+            font-family: "Cormorant Garamond", serif;
             font-size: 22px;
             line-height: 1.45;
+            color: var(--muted-dark);
         }
 
-        .begin-button {
+        .cta {
             display: inline-flex;
-
             align-items: center;
             justify-content: center;
-
             min-height: 52px;
-
-            margin-top: 42px;
-
             padding: 0 28px;
-
-            border:
-                1px solid
-                rgba(32,32,29,0.30);
-
+            margin-top: 42px;
+            border: 1px solid rgba(36,35,31,.28);
             border-radius: 999px;
-
-            transition:
-                background 250ms ease,
-                color 250ms ease,
-                transform 250ms ease;
+            font-size: 10px;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            transition: .25s ease;
         }
 
-        .begin-button:hover {
-            background: #20201d;
-            color: #f2ede4;
+        .cta:hover {
+            background: var(--text-dark);
+            color: var(--ivory);
             transform: translateY(-2px);
         }
 
-        .begin-button span {
-            font-size: 10px;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-        }
-
-
-        /* =========================================
+        /* =========================
            MOBILE
-        ========================================= */
+        ========================= */
 
         @media (max-width: 767px) {
 
-            .site-header {
+            .header {
                 padding-left: 20px;
                 padding-right: 20px;
             }
@@ -752,189 +494,131 @@
                 height: 30px;
             }
 
-            .menu-button {
+            .menu {
                 width: 43px;
                 height: 43px;
             }
 
             .hero {
-                min-height: 100svh;
-                padding:
-                    140px 22px 70px;
+                padding: 140px 22px 70px;
             }
 
-            .hero-name {
-                font-size:
-                    clamp(
-                        62px,
-                        19vw,
-                        95px
-                    );
+            .hero h1 {
+                font-size: clamp(62px, 19vw, 96px);
             }
 
-            .hero-name .last-name {
-                margin-left: 15vw;
+            .hero h1 .surname {
+                margin-left: 14vw;
             }
 
-            .designation {
-                margin:
-                    42px 0 0 8vw;
-
+            .role {
+                margin: 42px 0 0 8vw;
                 font-size: 21px;
             }
 
             .intro {
-                padding:
-                    110px 22px
-                    120px;
+                padding: 110px 22px 120px;
             }
 
-            .intro-copy {
+            .intro p {
                 margin-top: 50px;
                 font-size: 21px;
             }
 
-            .portrait-section {
-                padding:
-                    80px 22px
-                    110px;
+            .portrait {
+                padding: 80px 22px 110px;
             }
 
-            .portrait-layout {
+            .portrait-grid {
                 display: block;
             }
 
-            .portrait-frame {
-                aspect-ratio: 4 / 5;
-                margin-bottom: 65px;
+            .photo-wrap {
+                margin-bottom: 70px;
             }
 
-            .portrait-heading {
-                font-size: 43px;
+            .portrait-copy h2 {
+                font-size: 44px;
             }
 
-            .portrait-copy {
+            .portrait-copy p {
                 font-size: 21px;
             }
 
             .philosophy {
-                padding:
-                    110px 22px
-                    120px;
+                padding: 110px 22px 120px;
             }
 
-            .philosophy-copy {
+            .philosophy p {
                 margin-top: 55px;
                 font-size: 21px;
             }
 
-            .human {
-                padding:
-                    110px 22px
-                    120px;
+            .vision {
+                padding: 110px 22px 120px;
             }
 
-            .human-note {
+            .vision p {
                 margin-top: 50px;
                 font-size: 21px;
             }
 
             .closing {
-                min-height: 70svh;
+                min-height: 72svh;
             }
-
         }
 
-
-        /* =========================================
+        /* =========================
            ACCESSIBILITY
-        ========================================= */
+        ========================= */
 
-        .menu-button:focus-visible,
-        .begin-button:focus-visible {
-            outline:
-                2px solid currentColor;
-
+        .menu:focus-visible,
+        .cta:focus-visible {
+            outline: 2px solid currentColor;
             outline-offset: 5px;
         }
 
-
-        /* =========================================
-           REDUCED MOTION
-        ========================================= */
-
         @media (prefers-reduced-motion: reduce) {
-
             html {
                 scroll-behavior: auto;
             }
 
-            *,
-            *::before,
-            *::after {
-                animation: none !important;
+            * {
                 transition: none !important;
+                animation: none !important;
             }
-
         }
-
     </style>
-
 </head>
-
 
 <body>
 
+    <!-- HEADER -->
+    <header class="header">
 
-    <!-- =========================================
-         HEADER
-    ========================================= -->
-
-    <header class="site-header">
-
-        <a
-            href="index.html"
-            class="brand"
-            aria-label="AKSH Home"
-        >
-
-            <img
-                src="aksh-icon.PNG"
-                alt="AKSH"
-            >
-
-            <span class="brand-name">
-                AKSH
-            </span>
-
+        <a href="index.html" class="brand" aria-label="AKSH Home">
+            <img src="aksh-icon.PNG" alt="AKSH">
+            <span>AKSH</span>
         </a>
 
-
         <button
-            class="menu-button"
+            class="menu"
             id="menuButton"
             type="button"
             aria-label="Open navigation"
         >
-
-            <span class="menu-icon">
+            <span class="menu-lines">
                 <span></span>
                 <span></span>
             </span>
-
         </button>
 
     </header>
 
 
-
     <main>
 
-
-        <!-- =========================================
-             HERO
-        ========================================= -->
-
+        <!-- HERO -->
         <section class="hero">
 
             <div class="hero-content">
@@ -943,25 +627,14 @@
                     Founder & Chief Psychologist
                 </p>
 
-
-                <h1 class="hero-name">
-
-                    <span>
-                        Meghana
-                    </span>
-
-                    <span class="last-name">
-                        Kaverappa
-                    </span>
-
+                <h1>
+                    <span>Meghana</span>
+                    <span class="surname">Kaverappa</span>
                 </h1>
 
-
-                <p class="designation">
-
+                <p class="role">
                     Founder & Chief Psychologist,
                     AKSH Mental Wellness
-
                 </p>
 
             </div>
@@ -969,41 +642,29 @@
         </section>
 
 
-
-        <!-- =========================================
-             INTRODUCTION
-        ========================================= -->
-
+        <!-- INTRODUCTION -->
         <section class="intro">
 
             <div class="intro-inner">
 
-                <p class="section-label">
+                <p class="label">
                     The person behind AKSH
                 </p>
 
-
-                <h2 class="intro-title">
-
+                <h2>
                     AKSH began with
                     <em>a belief</em> —
-
-                    that every mind
-                    deserves a space
-                    where it can be
+                    that every mind deserves
+                    a space where it can be
                     understood.
-
                 </h2>
 
-
-                <p class="intro-copy">
-
+                <p>
                     Meghana Kaverappa is the Founder
                     and Chief Psychologist of AKSH
                     Mental Wellness. Her work forms
                     the human foundation from which
                     AKSH is beginning to grow.
-
                 </p>
 
             </div>
@@ -1011,73 +672,53 @@
         </section>
 
 
+        <!-- REAL PHOTOGRAPHS -->
+        <section class="portrait">
 
-        <!-- =========================================
-             PORTRAIT
-        ========================================= -->
+            <div class="portrait-grid">
 
-        <section class="portrait-section">
-
-            <div class="portrait-layout">
-
-
-                <div class="portrait-frame">
-
-                    <!--
-                        REAL APPROVED MEGHANA PHOTO
-
-                        Replace the filename below with
-                        the exact approved photo filename
-                        from your repository.
-
-                        Do not use an AI-generated image.
-                    -->
+                <div class="photo-wrap">
 
                     <img
-                        src="meghana-photo-1.jpg"
+                        src="meghana.kaverappa.jpg"
                         alt="Meghana Kaverappa, Founder & Chief Psychologist of AKSH Mental Wellness"
                         loading="lazy"
                     >
 
-                    <div
-                        class="portrait-placeholder"
-                        id="portraitPlaceholder"
-                        aria-hidden="true"
-                    >
-                        Approved photograph of
-                        Meghana Kaverappa
+                    <div class="photo-secondary">
+
+                        <img
+                            src="meghana.kaverappa.PNG"
+                            alt="Meghana Kaverappa"
+                            loading="lazy"
+                        >
+
                     </div>
 
                 </div>
 
 
-                <div class="portrait-content">
+                <div class="portrait-copy">
 
-                    <p class="portrait-label">
+                    <p class="label">
                         A human beginning
                     </p>
 
-
-                    <h2 class="portrait-heading">
-
+                    <h2>
                         Before AKSH
                         becomes a world,
                         it begins with
                         one person
                         listening.
-
                     </h2>
 
-
-                    <p class="portrait-copy">
-
+                    <p>
                         The early journey of AKSH is
                         intentionally personal. Today,
                         Meghana leads the psychological
                         work herself, creating a
                         foundation built on professional
                         care, trust and human connection.
-
                     </p>
 
                 </div>
@@ -1087,41 +728,30 @@
         </section>
 
 
-
-        <!-- =========================================
-             PHILOSOPHY
-        ========================================= -->
-
+        <!-- PHILOSOPHY -->
         <section class="philosophy">
 
             <div class="philosophy-inner">
 
-                <p class="philosophy-label">
+                <p class="label">
                     A way of seeing
                 </p>
 
-
-                <h2 class="philosophy-heading">
-
+                <h2>
                     You don't always need
                     to have the answers.
-
                     Sometimes you need
                     <em>a safe place to
                     find them.</em>
-
                 </h2>
 
-
-                <p class="philosophy-copy">
-
+                <p>
                     AKSH is being built around the
                     understanding that seeking support
                     is not a sign that something is
                     wrong with you. It can simply be
                     a decision to understand yourself
                     a little better.
-
                 </p>
 
             </div>
@@ -1129,36 +759,25 @@
         </section>
 
 
+        <!-- VISION -->
+        <section class="vision">
 
-        <!-- =========================================
-             HUMAN SIDE
-        ========================================= -->
+            <div class="vision-inner">
 
-        <section class="human">
-
-            <div class="human-inner">
-
-                <h2 class="human-quote">
-
+                <h2>
                     There is a person
                     behind every story.
-
-                    And every person
-                    deserves to be
-                    <em>heard.</em>
-
+                    And every person deserves
+                    to be <em>heard.</em>
                 </h2>
 
-
-                <p class="human-note">
-
+                <p>
                     As AKSH grows, the vision is to
-                    bring together more psychologists,
+                    bring together psychologists,
                     counsellors, educators, researchers
                     and people who believe in building
                     a healthier relationship with
                     mental wellbeing.
-
                 </p>
 
             </div>
@@ -1166,11 +785,7 @@
         </section>
 
 
-
-        <!-- =========================================
-             CLOSING
-        ========================================= -->
-
+        <!-- CLOSING -->
         <section class="closing">
 
             <div class="closing-inner">
@@ -1181,124 +796,44 @@
                     alt="AKSH"
                 >
 
-
-                <h2 class="closing-title">
-
+                <h2>
                     Come as you are.
-
                 </h2>
 
-
-                <p class="closing-text">
-
+                <p>
                     Your journey doesn't have to
                     begin perfectly.
-
                     It just has to begin.
-
                 </p>
 
-
                 <a
-                    class="begin-button"
                     href="booking.html"
+                    class="cta"
                 >
-
-                    <span>
-                        Begin Your Journey
-                    </span>
-
+                    Begin Your Journey
                 </a>
 
             </div>
 
         </section>
 
-
     </main>
 
 
-
     <script>
+        document.addEventListener("DOMContentLoaded", () => {
 
-        document.addEventListener(
-            "DOMContentLoaded",
-            () => {
+            const menuButton =
+                document.getElementById("menuButton");
 
-                const menuButton =
-                    document.getElementById(
-                        "menuButton"
-                    );
-
-
-                if (menuButton) {
-
-                    menuButton.addEventListener(
-                        "click",
-                        () => {
-
-                            window.location.href =
-                                "navigation.html";
-
-                        }
-                    );
-
-                }
-
-
-                /*
-                    Photo fallback.
-
-                    If the approved photo filename
-                    does not exist yet, the page will
-                    remain visually clean instead of
-                    showing a broken-image icon.
-                */
-
-                const portrait =
-                    document.querySelector(
-                        ".portrait-frame img"
-                    );
-
-                const placeholder =
-                    document.getElementById(
-                        "portraitPlaceholder"
-                    );
-
-
-                if (portrait && placeholder) {
-
-                    portrait.addEventListener(
-                        "load",
-                        () => {
-
-                            placeholder.style.display =
-                                "none";
-
-                        }
-                    );
-
-
-                    portrait.addEventListener(
-                        "error",
-                        () => {
-
-                            portrait.style.display =
-                                "none";
-
-                            placeholder.style.display =
-                                "flex";
-
-                        }
-                    );
-
-                }
-
+            if (menuButton) {
+                menuButton.addEventListener("click", () => {
+                    window.location.href = "navigation.html";
+                });
             }
-        );
 
+        });
     </script>
-
 
 </body>
 </html>
