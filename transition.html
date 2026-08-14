@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#080808"
+    >
+
+    <meta
+        name="description"
+        content="AKSH — A Safe Space for Every Mind."
+    >
+
+    <title>AKSH — A Safe Space for Every Mind</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+
+            overflow: hidden;
+
+            background: #080808;
+
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+        }
+
+        .transition {
+            position: relative;
+
+            width: 100%;
+            height: 100svh;
+
+            min-height: 100svh;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    rgba(255,255,255,0.045),
+                    transparent 42%
+                ),
+                #080808;
+
+            color: #fff;
+        }
+
+        .transition::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    transparent 25%,
+                    rgba(0,0,0,0.48) 100%
+                );
+
+            pointer-events: none;
+        }
+
+        .transition-content {
+            position: relative;
+
+            z-index: 2;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            width: min(720px, 88%);
+
+            text-align: center;
+
+            animation:
+                entrance
+                1400ms
+                cubic-bezier(0.22, 1, 0.36, 1)
+                both;
+        }
+
+        @keyframes entrance {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(24px);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0);
+            }
+        }
+
+        .transition-mark {
+            width: clamp(48px, 6vw, 72px);
+
+            height: auto;
+
+            margin-bottom: 28px;
+
+            opacity: 0.94;
+        }
+
+        .transition-title {
+            margin: 0;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    42px,
+                    7vw,
+                    82px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.025em;
+        }
+
+        .transition-line {
+            width: 42px;
+
+            height: 1px;
+
+            margin: 28px 0;
+
+            background:
+                rgba(255,255,255,0.48);
+
+            transform-origin: center;
+
+            animation:
+                lineReveal
+                1100ms
+                500ms
+                cubic-bezier(0.22,1,0.36,1)
+                both;
+        }
+
+        @keyframes lineReveal {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    scaleX(0);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    scaleX(1);
+            }
+        }
+
+        .transition-text {
+            margin: 0;
+
+            max-width: 500px;
+
+            color:
+                rgba(255,255,255,0.78);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    20px,
+                    2.6vw,
+                    28px
+                );
+
+            font-weight: 300;
+
+            line-height: 1.35;
+
+            letter-spacing: 0.015em;
+        }
+
+        .transition-progress {
+            position: absolute;
+
+            left: 50%;
+
+            bottom:
+                max(
+                    34px,
+                    env(safe-area-inset-bottom)
+                );
+
+            width: 100px;
+
+            height: 1px;
+
+            overflow: hidden;
+
+            background:
+                rgba(255,255,255,0.14);
+
+            transform:
+                translateX(-50%);
+        }
+
+        .transition-progress span {
+            display: block;
+
+            width: 100%;
+
+            height: 100%;
+
+            background:
+                rgba(255,255,255,0.72);
+
+            transform:
+                translateX(-100%);
+
+            animation:
+                progress
+                1600ms
+                cubic-bezier(0.22,1,0.36,1)
+                forwards;
+        }
+
+        @keyframes progress {
+
+            to {
+                transform:
+                    translateX(0);
+            }
+        }
+
+        @media (max-width: 767px) {
+
+            .transition-content {
+                width: 86%;
+            }
+
+            .transition-mark {
+                width: 54px;
+
+                margin-bottom: 24px;
+            }
+
+            .transition-line {
+                margin: 24px 0;
+            }
+
+            .transition-progress {
+                width: 82px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.001ms !important;
+
+                animation-iteration-count: 1 !important;
+
+                transition-duration: 0.001ms !important;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main
+        class="transition"
+        aria-label="Entering AKSH"
+    >
+
+        <section class="transition-content">
+
+            <img
+                class="transition-mark"
+                src="aksh-icon.PNG"
+                alt="AKSH"
+                draggable="false"
+            >
+
+            <h1 class="transition-title">
+                Come as you are.
+            </h1>
+
+            <div
+                class="transition-line"
+                aria-hidden="true"
+            ></div>
+
+            <p class="transition-text">
+                There is a little more to discover.
+            </p>
+
+        </section>
+
+        <div
+            class="transition-progress"
+            aria-hidden="true"
+        >
+            <span></span>
+        </div>
+
+    </main>
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                window.setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "pages/aksh.html";
+
+                    },
+                    1700
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
