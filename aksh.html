@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#f2eee7"
+    >
+
+    <meta
+        name="description"
+        content="AKSH — A Safe Space for Every Mind."
+    >
+
+    <title>AKSH — A Safe Space for Every Mind</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            width: 100%;
+            min-height: 100%;
+
+            scroll-behavior: smooth;
+
+            background: #f2eee7;
+        }
+
+        body {
+            width: 100%;
+            min-height: 100%;
+
+            margin: 0;
+            padding: 0;
+
+            overflow-x: hidden;
+
+            background: #f2eee7;
+
+            color: #171614;
+
+            font-family: "Inter", sans-serif;
+
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button {
+            font: inherit;
+        }
+
+
+        /* ==================================================
+           NAVIGATION
+           ================================================== */
+
+        .navigation {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 100;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding:
+                max(22px, env(safe-area-inset-top))
+                max(24px, env(safe-area-inset-right))
+                18px
+                max(24px, env(safe-area-inset-left));
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(242,238,231,0.92),
+                    rgba(242,238,231,0)
+                );
+
+            pointer-events: none;
+        }
+
+        .nav-brand,
+        .menu-button {
+            pointer-events: auto;
+        }
+
+        .nav-brand {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #171614;
+
+            text-decoration: none;
+        }
+
+        .nav-brand img {
+            width: 34px;
+            height: 34px;
+
+            object-fit: contain;
+        }
+
+        .nav-brand span {
+            font-size: 11px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.38em;
+        }
+
+        .menu-button {
+            width: 46px;
+            height: 46px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid rgba(23,22,20,0.18);
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.22);
+
+            color: #171614;
+
+            cursor: pointer;
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            transition:
+                transform 300ms ease,
+                background 300ms ease;
+        }
+
+        .menu-button:active {
+            transform: scale(0.94);
+        }
+
+        .menu-lines {
+            width: 17px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+        }
+
+        .menu-lines span {
+            display: block;
+
+            width: 100%;
+            height: 1px;
+
+            background: currentColor;
+        }
+
+
+        /* ==================================================
+           HERO
+           ================================================== */
+
+        .hero {
+            position: relative;
+
+            min-height: 100svh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                140px
+                24px
+                100px;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 72% 32%,
+                    rgba(255,255,255,0.68),
+                    transparent 32%
+                ),
+                #f2eee7;
+        }
+
+        .hero::before {
+            content: "";
+
+            position: absolute;
+
+            width: 65vw;
+            height: 65vw;
+
+            max-width: 800px;
+            max-height: 800px;
+
+            border-radius: 50%;
+
+            top: 10%;
+            right: -30%;
+
+            background:
+                rgba(216,201,178,0.20);
+
+            filter: blur(50px);
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+
+            z-index: 2;
+
+            width: min(1000px, 100%);
+
+            text-align: center;
+        }
+
+        .eyebrow {
+            margin: 0 0 28px;
+
+            font-size: 9px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.28em;
+
+            text-transform: uppercase;
+
+            color: rgba(23,22,20,0.56);
+        }
+
+        .hero-title {
+            margin: 0;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    62px,
+                    12vw,
+                    160px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.82;
+
+            letter-spacing: -0.045em;
+        }
+
+        .hero-title span {
+            display: block;
+        }
+
+        .hero-title .soft {
+            font-style: italic;
+
+            color: rgba(23,22,20,0.58);
+        }
+
+        .hero-description {
+            width: min(510px, 100%);
+
+            margin:
+                46px
+                auto
+                0;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    21px,
+                    3vw,
+                    31px
+                );
+
+            font-weight: 300;
+
+            line-height: 1.35;
+
+            color: rgba(23,22,20,0.76);
+        }
+
+        .hero-scroll {
+            position: absolute;
+
+            left: 50%;
+
+            bottom:
+                max(
+                    32px,
+                    env(safe-area-inset-bottom)
+                );
+
+            transform:
+                translateX(-50%);
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 11px;
+
+            color: rgba(23,22,20,0.48);
+
+            font-size: 8px;
+
+            letter-spacing: 0.25em;
+
+            text-transform: uppercase;
+        }
+
+        .hero-scroll-line {
+            width: 1px;
+            height: 38px;
+
+            background:
+                rgba(23,22,20,0.30);
+        }
+
+
+        /* ==================================================
+           INTRO
+           ================================================== */
+
+        .intro {
+            position: relative;
+
+            padding:
+                150px
+                24px
+                160px;
+
+            background: #171614;
+
+            color: #f3eee5;
+        }
+
+        .intro-inner {
+            width: min(1100px, 100%);
+
+            margin: 0 auto;
+        }
+
+        .section-number {
+            margin: 0 0 50px;
+
+            color:
+                rgba(243,238,229,0.42);
+
+            font-size: 9px;
+
+            letter-spacing: 0.28em;
+        }
+
+        .intro-title {
+            width: min(900px, 100%);
+
+            margin: 0;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    45px,
+                    7vw,
+                    92px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.025em;
+        }
+
+        .intro-title em {
+            font-style: italic;
+
+            color:
+                rgba(243,238,229,0.56);
+        }
+
+        .intro-body {
+            width: min(600px, 100%);
+
+            margin:
+                70px
+                0
+                0
+                auto;
+
+            color:
+                rgba(243,238,229,0.70);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    20px,
+                    2.5vw,
+                    28px
+                );
+
+            font-weight: 300;
+
+            line-height: 1.45;
+        }
+
+
+        /* ==================================================
+           PHILOSOPHY
+           ================================================== */
+
+        .philosophy {
+            min-height: 80svh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding:
+                130px
+                24px;
+
+            background:
+                #e7dfd2;
+        }
+
+        .philosophy-inner {
+            width: min(1050px, 100%);
+
+            margin: 0 auto;
+        }
+
+        .philosophy-label {
+            margin: 0 0 34px;
+
+            color:
+                rgba(23,22,20,0.48);
+
+            font-size: 9px;
+
+            letter-spacing: 0.27em;
+
+            text-transform: uppercase;
+        }
+
+        .philosophy-statement {
+            margin: 0;
+
+            max-width: 950px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    44px,
+                    7vw,
+                    94px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.035em;
+        }
+
+        .philosophy-statement span {
+            color:
+                rgba(23,22,20,0.46);
+        }
+
+
+        /* ==================================================
+           CLOSING
+           ================================================== */
+
+        .closing {
+            min-height: 70svh;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding:
+                120px
+                24px;
+
+            text-align: center;
+
+            background: #f2eee7;
+        }
+
+        .closing-inner {
+            width: min(720px, 100%);
+        }
+
+        .closing-icon {
+            width: 48px;
+
+            margin-bottom: 30px;
+        }
+
+        .closing-title {
+            margin: 0;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    44px,
+                    7vw,
+                    82px
+                );
+
+            font-weight: 300;
+
+            line-height: 1;
+
+            letter-spacing: -0.025em;
+        }
+
+        .closing-text {
+            margin:
+                30px
+                auto
+                0;
+
+            max-width: 480px;
+
+            color:
+                rgba(23,22,20,0.60);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 22px;
+
+            line-height: 1.4;
+        }
+
+
+        /* ==================================================
+           MOBILE
+           ================================================== */
+
+        @media (max-width: 767px) {
+
+            .navigation {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .nav-brand img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .nav-brand span {
+                font-size: 10px;
+            }
+
+            .menu-button {
+                width: 43px;
+                height: 43px;
+            }
+
+            .hero {
+                padding:
+                    130px
+                    22px
+                    90px;
+            }
+
+            .eyebrow {
+                margin-bottom: 24px;
+            }
+
+            .hero-title {
+                font-size:
+                    clamp(
+                        60px,
+                        18vw,
+                        100px
+                    );
+            }
+
+            .hero-description {
+                margin-top: 38px;
+
+                font-size: 21px;
+            }
+
+            .intro {
+                padding:
+                    110px
+                    22px
+                    120px;
+            }
+
+            .section-number {
+                margin-bottom: 38px;
+            }
+
+            .intro-body {
+                margin-top: 55px;
+            }
+
+            .philosophy {
+                min-height: 72svh;
+
+                padding:
+                    100px
+                    22px;
+            }
+
+            .closing {
+                min-height: 65svh;
+
+                padding:
+                    100px
+                    22px;
+            }
+
+        }
+
+
+        /* ==================================================
+           REDUCED MOTION
+           ================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+
+                transition: none !important;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <!-- ======================================================
+         NAVIGATION
+         ====================================================== -->
+
+    <header class="navigation">
+
+        <a
+            class="nav-brand"
+            href="../index.html"
+            aria-label="AKSH Home"
+        >
+
+            <img
+                src="../aksh-icon.PNG"
+                alt="AKSH"
+            >
+
+            <span>AKSH</span>
+
+        </a>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open menu"
+        >
+
+            <span class="menu-lines">
+                <span></span>
+                <span></span>
+            </span>
+
+        </button>
+
+    </header>
+
+
+    <!-- ======================================================
+         HERO
+         ====================================================== -->
+
+    <main>
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    This is AKSH
+                </p>
+
+                <h1 class="hero-title">
+
+                    <span>
+                        A space
+                    </span>
+
+                    <span class="soft">
+                        to be.
+                    </span>
+
+                </h1>
+
+                <p class="hero-description">
+                    Not a place where you have to become
+                    someone else before you belong.
+                </p>
+
+            </div>
+
+
+            <div class="hero-scroll">
+
+                <span>
+                    Explore
+                </span>
+
+                <span
+                    class="hero-scroll-line"
+                    aria-hidden="true"
+                ></span>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             INTRO
+             ================================================== -->
+
+        <section class="intro">
+
+            <div class="intro-inner">
+
+                <p class="section-number">
+                    01 / AKSH
+                </p>
+
+                <h2 class="intro-title">
+
+                    We believe every mind
+                    deserves a place where it
+                    can be <em>heard.</em>
+
+                </h2>
+
+                <p class="intro-body">
+                    AKSH begins with psychology and
+                    human connection. But the journey
+                    is larger than a single conversation.
+                    We are building a space where
+                    understanding, education, support
+                    and possibility can grow together.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             PHILOSOPHY
+             ================================================== -->
+
+        <section class="philosophy">
+
+            <div class="philosophy-inner">
+
+                <p class="philosophy-label">
+                    Our beginning
+                </p>
+
+                <h2 class="philosophy-statement">
+
+                    You don't need to
+                    have everything figured
+                    out.
+
+                    <span>
+                        You can simply begin
+                        where you are.
+                    </span>
+
+                </h2>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             CLOSING
+             ================================================== -->
+
+        <section class="closing">
+
+            <div class="closing-inner">
+
+                <img
+                    class="closing-icon"
+                    src="../aksh-icon.PNG"
+                    alt="AKSH"
+                >
+
+                <h2 class="closing-title">
+                    Come as you are.
+                </h2>
+
+                <p class="closing-text">
+                    There is no perfect way to begin.
+                    There is only your way.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                const menuButton =
+                    document.getElementById(
+                        "menuButton"
+                    );
+
+                menuButton.addEventListener(
+                    "click",
+                    () => {
+
+                        window.location.href =
+                            "../navigation.html";
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
