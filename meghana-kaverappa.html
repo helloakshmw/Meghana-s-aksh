@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#181816"
+    >
+
+    <meta
+        name="description"
+        content="Meet Meghana Kaverappa, Founder & Chief Psychologist of AKSH Mental Wellness."
+    >
+
+    <title>Meghana Kaverappa — AKSH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            background: #181816;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #181816;
+            color: #f2ede4;
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+        }
+
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        /* =========================================
+           HEADER
+        ========================================= */
+
+        .site-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding:
+                max(22px, env(safe-area-inset-top))
+                max(24px, env(safe-area-inset-right))
+                18px
+                max(24px, env(safe-area-inset-left));
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(24,24,22,0.88),
+                    rgba(24,24,22,0)
+                );
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .brand img {
+            width: 34px;
+            height: 34px;
+            object-fit: contain;
+        }
+
+        .brand-name {
+            font-size: 10px;
+            letter-spacing: 0.38em;
+            font-weight: 500;
+        }
+
+        .menu-button {
+            width: 45px;
+            height: 45px;
+
+            border: 1px solid rgba(242,237,228,0.2);
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.035);
+            color: #f2ede4;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            cursor: pointer;
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+        }
+
+        .menu-icon {
+            width: 17px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 1px;
+            background: currentColor;
+        }
+
+
+        /* =========================================
+           HERO
+        ========================================= */
+
+        .hero {
+            position: relative;
+            min-height: 100svh;
+
+            display: flex;
+            align-items: flex-end;
+
+            padding:
+                150px 7vw 9vh;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    ellipse at 72% 28%,
+                    rgba(171,145,116,0.16),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    ellipse at 15% 75%,
+                    rgba(117,129,119,0.12),
+                    transparent 36%
+                ),
+                #181816;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+
+            width: 55vw;
+            height: 55vw;
+
+            right: -28vw;
+            top: 8vh;
+
+            border-radius: 50%;
+
+            background:
+                rgba(211,188,155,0.055);
+
+            filter: blur(80px);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+
+            width: min(1200px, 100%);
+        }
+
+        .eyebrow {
+            margin-bottom: 35px;
+
+            color: rgba(242,237,228,0.42);
+
+            font-size: 9px;
+            letter-spacing: 0.30em;
+            text-transform: uppercase;
+        }
+
+        .hero-name {
+            max-width: 1100px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    65px,
+                    11vw,
+                    150px
+                );
+
+            font-weight: 300;
+            line-height: 0.82;
+
+            letter-spacing: -0.055em;
+        }
+
+        .hero-name span {
+            display: block;
+        }
+
+        .hero-name .last-name {
+            color: rgba(242,237,228,0.48);
+            font-style: italic;
+            margin-left: 8vw;
+        }
+
+        .designation {
+            margin-top: 52px;
+            margin-left: 9vw;
+
+            color: rgba(242,237,228,0.65);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    21px,
+                    2.5vw,
+                    29px
+                );
+
+            font-weight: 300;
+            line-height: 1.35;
+        }
+
+
+        /* =========================================
+           INTRO
+        ========================================= */
+
+        .intro {
+            min-height: 90svh;
+
+            display: flex;
+            align-items: center;
+
+            padding:
+                140px 7vw;
+
+            background: #e9e1d7;
+            color: #20201d;
+        }
+
+        .intro-inner {
+            width: min(1150px, 100%);
+            margin: auto;
+        }
+
+        .section-label {
+            margin-bottom: 48px;
+
+            color: rgba(32,32,29,0.42);
+
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .intro-title {
+            max-width: 1000px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    45px,
+                    7vw,
+                    91px
+                );
+
+            font-weight: 300;
+            line-height: 0.98;
+
+            letter-spacing: -0.035em;
+        }
+
+        .intro-title em {
+            color: rgba(32,32,29,0.43);
+            font-style: italic;
+        }
+
+        .intro-copy {
+            max-width: 650px;
+
+            margin:
+                65px
+                0
+                0
+                auto;
+
+            color: rgba(32,32,29,0.56);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 23px;
+            line-height: 1.48;
+        }
+
+
+        /* =========================================
+           PORTRAIT
+        ========================================= */
+
+        .portrait-section {
+            min-height: 100svh;
+
+            padding:
+                110px 7vw;
+
+            background: #d4c7b7;
+
+            color: #20201d;
+        }
+
+        .portrait-layout {
+            width: min(1180px, 100%);
+            margin: auto;
+
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+
+            gap: 7vw;
+
+            align-items: center;
+        }
+
+        .portrait-frame {
+            position: relative;
+
+            width: 100%;
+
+            aspect-ratio: 4 / 5;
+
+            overflow: hidden;
+
+            background: #b8aa99;
+        }
+
+        /*
+           REAL PHOTO SLOT
+
+           Replace the filename below ONLY if your
+           approved Meghana photo has a different
+           filename.
+
+           No AI-generated image is used here.
+        */
+
+        .portrait-frame img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            object-position: center;
+
+            filter: saturate(0.88);
+        }
+
+        .portrait-placeholder {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(32,32,29,0.08),
+                    rgba(32,32,29,0.22)
+                );
+
+            color: rgba(255,255,255,0.72);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 20px;
+
+            pointer-events: none;
+        }
+
+        .portrait-content {
+            padding: 20px 0;
+        }
+
+        .portrait-label {
+            margin-bottom: 35px;
+
+            color: rgba(32,32,29,0.42);
+
+            font-size: 9px;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+        }
+
+        .portrait-heading {
+            margin-bottom: 35px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    40px,
+                    5vw,
+                    65px
+                );
+
+            font-weight: 300;
+
+            line-height: 1;
+
+            letter-spacing: -0.025em;
+        }
+
+        .portrait-copy {
+            max-width: 470px;
+
+            color: rgba(32,32,29,0.58);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 22px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================================
+           PHILOSOPHY
+        ========================================= */
+
+        .philosophy {
+            min-height: 100svh;
+
+            display: flex;
+            align-items: center;
+
+            padding:
+                150px 7vw;
+
+            background:
+                radial-gradient(
+                    ellipse at 75% 25%,
+                    rgba(177,144,111,0.13),
+                    transparent 38%
+                ),
+                #181816;
+        }
+
+        .philosophy-inner {
+            width: min(1150px, 100%);
+            margin: auto;
+        }
+
+        .philosophy-label {
+            margin-bottom: 50px;
+
+            color: rgba(242,237,228,0.36);
+
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+        }
+
+        .philosophy-heading {
+            max-width: 1050px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    48px,
+                    7.2vw,
+                    96px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.035em;
+        }
+
+        .philosophy-heading em {
+            color: rgba(242,237,228,0.44);
+            font-style: italic;
+        }
+
+        .philosophy-copy {
+            max-width: 620px;
+
+            margin:
+                70px
+                0
+                0
+                auto;
+
+            color: rgba(242,237,228,0.57);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 23px;
+            line-height: 1.5;
+        }
+
+
+        /* =========================================
+           HUMAN SIDE
+        ========================================= */
+
+        .human {
+            min-height: 88svh;
+
+            display: flex;
+            align-items: center;
+
+            padding:
+                130px 7vw;
+
+            background: #f2ece3;
+            color: #20201d;
+        }
+
+        .human-inner {
+            width: min(1100px, 100%);
+            margin: auto;
+        }
+
+        .human-quote {
+            max-width: 1000px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    42px,
+                    6.5vw,
+                    84px
+                );
+
+            font-weight: 300;
+
+            line-height: 1;
+
+            letter-spacing: -0.03em;
+        }
+
+        .human-quote em {
+            color: rgba(32,32,29,0.43);
+            font-style: italic;
+        }
+
+        .human-note {
+            max-width: 520px;
+
+            margin:
+                65px
+                0
+                0
+                auto;
+
+            color: rgba(32,32,29,0.53);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 22px;
+            line-height: 1.48;
+        }
+
+
+        /* =========================================
+           CLOSING
+        ========================================= */
+
+        .closing {
+            min-height: 80svh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding:
+                120px 24px;
+
+            text-align: center;
+
+            background: #cfc0ad;
+            color: #20201d;
+        }
+
+        .closing-inner {
+            width: min(720px, 100%);
+        }
+
+        .closing-icon {
+            width: 48px;
+            margin: 0 auto 35px;
+        }
+
+        .closing-title {
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    45px,
+                    7vw,
+                    82px
+                );
+
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .closing-text {
+            max-width: 500px;
+
+            margin:
+                30px auto 0;
+
+            color: rgba(32,32,29,0.54);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 22px;
+            line-height: 1.45;
+        }
+
+        .begin-button {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 52px;
+
+            margin-top: 42px;
+
+            padding: 0 28px;
+
+            border:
+                1px solid
+                rgba(32,32,29,0.30);
+
+            border-radius: 999px;
+
+            transition:
+                background 250ms ease,
+                color 250ms ease,
+                transform 250ms ease;
+        }
+
+        .begin-button:hover {
+            background: #20201d;
+            color: #f2ede4;
+            transform: translateY(-2px);
+        }
+
+        .begin-button span {
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+        }
+
+
+        /* =========================================
+           MOBILE
+        ========================================= */
+
+        @media (max-width: 767px) {
+
+            .site-header {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .brand img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .menu-button {
+                width: 43px;
+                height: 43px;
+            }
+
+            .hero {
+                min-height: 100svh;
+                padding:
+                    140px 22px 70px;
+            }
+
+            .hero-name {
+                font-size:
+                    clamp(
+                        62px,
+                        19vw,
+                        95px
+                    );
+            }
+
+            .hero-name .last-name {
+                margin-left: 15vw;
+            }
+
+            .designation {
+                margin:
+                    42px 0 0 8vw;
+
+                font-size: 21px;
+            }
+
+            .intro {
+                padding:
+                    110px 22px
+                    120px;
+            }
+
+            .intro-copy {
+                margin-top: 50px;
+                font-size: 21px;
+            }
+
+            .portrait-section {
+                padding:
+                    80px 22px
+                    110px;
+            }
+
+            .portrait-layout {
+                display: block;
+            }
+
+            .portrait-frame {
+                aspect-ratio: 4 / 5;
+                margin-bottom: 65px;
+            }
+
+            .portrait-heading {
+                font-size: 43px;
+            }
+
+            .portrait-copy {
+                font-size: 21px;
+            }
+
+            .philosophy {
+                padding:
+                    110px 22px
+                    120px;
+            }
+
+            .philosophy-copy {
+                margin-top: 55px;
+                font-size: 21px;
+            }
+
+            .human {
+                padding:
+                    110px 22px
+                    120px;
+            }
+
+            .human-note {
+                margin-top: 50px;
+                font-size: 21px;
+            }
+
+            .closing {
+                min-height: 70svh;
+            }
+
+        }
+
+
+        /* =========================================
+           ACCESSIBILITY
+        ========================================= */
+
+        .menu-button:focus-visible,
+        .begin-button:focus-visible {
+            outline:
+                2px solid currentColor;
+
+            outline-offset: 5px;
+        }
+
+
+        /* =========================================
+           REDUCED MOTION
+        ========================================= */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation: none !important;
+                transition: none !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================
+         HEADER
+    ========================================= -->
+
+    <header class="site-header">
+
+        <a
+            href="index.html"
+            class="brand"
+            aria-label="AKSH Home"
+        >
+
+            <img
+                src="aksh-icon.PNG"
+                alt="AKSH"
+            >
+
+            <span class="brand-name">
+                AKSH
+            </span>
+
+        </a>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+        >
+
+            <span class="menu-icon">
+                <span></span>
+                <span></span>
+            </span>
+
+        </button>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- =========================================
+             HERO
+        ========================================= -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    Founder & Chief Psychologist
+                </p>
+
+
+                <h1 class="hero-name">
+
+                    <span>
+                        Meghana
+                    </span>
+
+                    <span class="last-name">
+                        Kaverappa
+                    </span>
+
+                </h1>
+
+
+                <p class="designation">
+
+                    Founder & Chief Psychologist,
+                    AKSH Mental Wellness
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             INTRODUCTION
+        ========================================= -->
+
+        <section class="intro">
+
+            <div class="intro-inner">
+
+                <p class="section-label">
+                    The person behind AKSH
+                </p>
+
+
+                <h2 class="intro-title">
+
+                    AKSH began with
+                    <em>a belief</em> —
+
+                    that every mind
+                    deserves a space
+                    where it can be
+                    understood.
+
+                </h2>
+
+
+                <p class="intro-copy">
+
+                    Meghana Kaverappa is the Founder
+                    and Chief Psychologist of AKSH
+                    Mental Wellness. Her work forms
+                    the human foundation from which
+                    AKSH is beginning to grow.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             PORTRAIT
+        ========================================= -->
+
+        <section class="portrait-section">
+
+            <div class="portrait-layout">
+
+
+                <div class="portrait-frame">
+
+                    <!--
+                        REAL APPROVED MEGHANA PHOTO
+
+                        Replace the filename below with
+                        the exact approved photo filename
+                        from your repository.
+
+                        Do not use an AI-generated image.
+                    -->
+
+                    <img
+                        src="meghana-photo-1.jpg"
+                        alt="Meghana Kaverappa, Founder & Chief Psychologist of AKSH Mental Wellness"
+                        loading="lazy"
+                    >
+
+                    <div
+                        class="portrait-placeholder"
+                        id="portraitPlaceholder"
+                        aria-hidden="true"
+                    >
+                        Approved photograph of
+                        Meghana Kaverappa
+                    </div>
+
+                </div>
+
+
+                <div class="portrait-content">
+
+                    <p class="portrait-label">
+                        A human beginning
+                    </p>
+
+
+                    <h2 class="portrait-heading">
+
+                        Before AKSH
+                        becomes a world,
+                        it begins with
+                        one person
+                        listening.
+
+                    </h2>
+
+
+                    <p class="portrait-copy">
+
+                        The early journey of AKSH is
+                        intentionally personal. Today,
+                        Meghana leads the psychological
+                        work herself, creating a
+                        foundation built on professional
+                        care, trust and human connection.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             PHILOSOPHY
+        ========================================= -->
+
+        <section class="philosophy">
+
+            <div class="philosophy-inner">
+
+                <p class="philosophy-label">
+                    A way of seeing
+                </p>
+
+
+                <h2 class="philosophy-heading">
+
+                    You don't always need
+                    to have the answers.
+
+                    Sometimes you need
+                    <em>a safe place to
+                    find them.</em>
+
+                </h2>
+
+
+                <p class="philosophy-copy">
+
+                    AKSH is being built around the
+                    understanding that seeking support
+                    is not a sign that something is
+                    wrong with you. It can simply be
+                    a decision to understand yourself
+                    a little better.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             HUMAN SIDE
+        ========================================= -->
+
+        <section class="human">
+
+            <div class="human-inner">
+
+                <h2 class="human-quote">
+
+                    There is a person
+                    behind every story.
+
+                    And every person
+                    deserves to be
+                    <em>heard.</em>
+
+                </h2>
+
+
+                <p class="human-note">
+
+                    As AKSH grows, the vision is to
+                    bring together more psychologists,
+                    counsellors, educators, researchers
+                    and people who believe in building
+                    a healthier relationship with
+                    mental wellbeing.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================================
+             CLOSING
+        ========================================= -->
+
+        <section class="closing">
+
+            <div class="closing-inner">
+
+                <img
+                    class="closing-icon"
+                    src="aksh-icon.PNG"
+                    alt="AKSH"
+                >
+
+
+                <h2 class="closing-title">
+
+                    Come as you are.
+
+                </h2>
+
+
+                <p class="closing-text">
+
+                    Your journey doesn't have to
+                    begin perfectly.
+
+                    It just has to begin.
+
+                </p>
+
+
+                <a
+                    class="begin-button"
+                    href="booking.html"
+                >
+
+                    <span>
+                        Begin Your Journey
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                const menuButton =
+                    document.getElementById(
+                        "menuButton"
+                    );
+
+
+                if (menuButton) {
+
+                    menuButton.addEventListener(
+                        "click",
+                        () => {
+
+                            window.location.href =
+                                "navigation.html";
+
+                        }
+                    );
+
+                }
+
+
+                /*
+                    Photo fallback.
+
+                    If the approved photo filename
+                    does not exist yet, the page will
+                    remain visually clean instead of
+                    showing a broken-image icon.
+                */
+
+                const portrait =
+                    document.querySelector(
+                        ".portrait-frame img"
+                    );
+
+                const placeholder =
+                    document.getElementById(
+                        "portraitPlaceholder"
+                    );
+
+
+                if (portrait && placeholder) {
+
+                    portrait.addEventListener(
+                        "load",
+                        () => {
+
+                            placeholder.style.display =
+                                "none";
+
+                        }
+                    );
+
+
+                    portrait.addEventListener(
+                        "error",
+                        () => {
+
+                            portrait.style.display =
+                                "none";
+
+                            placeholder.style.display =
+                                "flex";
+
+                        }
+                    );
+
+                }
+
+            }
+        );
+
+    </script>
+
+
+</body>
+</html>
