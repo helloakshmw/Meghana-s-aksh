@@ -20,31 +20,33 @@
 
     <title>AKSH — A Safe Space for Every Mind</title>
 
-    <!-- =========================================================
-         AKSH — ARRIVAL
-         Free typography
-         ========================================================= -->
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet"
     >
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 </head>
 
 <body>
 
-    <!-- =========================================================
-         00 — ARRIVAL
-         ========================================================= -->
+    <main
+        class="arrival"
+        id="arrival"
+        aria-label="AKSH"
+    >
 
-    <main id="arrival" class="arrival">
+        <!-- ==================================================
+             BACKGROUND VIDEO
+             ================================================== -->
 
-        <!-- Cinematic background video -->
         <video
             id="backgroundVideo"
             class="background-video"
@@ -57,10 +59,14 @@
             aria-hidden="true"
         ></video>
 
-        <!-- Atmospheric layers -->
+
+        <!-- ==================================================
+             ATMOSPHERE
+             ================================================== -->
+
         <div
-            id="atmosphere"
             class="atmosphere"
+            id="atmosphere"
             aria-hidden="true"
         ></div>
 
@@ -74,22 +80,22 @@
             aria-hidden="true"
         ></div>
 
-        <!-- =====================================================
-             TOP CONTROL
-             ===================================================== -->
 
-        <header class="top-bar">
+        <!-- ==================================================
+             SOUND
+             ================================================== -->
+
+        <div class="top-bar">
 
             <button
-                id="soundToggle"
                 class="sound-toggle"
+                id="soundToggle"
                 type="button"
                 aria-label="Turn sound on"
                 aria-pressed="false"
             >
 
                 <span
-                    id="soundIcon"
                     class="sound-icon"
                     aria-hidden="true"
                 >
@@ -98,27 +104,23 @@
                     <span></span>
                 </span>
 
-                <span
-                    id="soundLabel"
-                    class="sound-label"
-                >
+                <span id="soundLabel">
                     SOUND OFF
                 </span>
 
             </button>
 
-        </header>
+        </div>
 
-        <!-- =====================================================
+
+        <!-- ==================================================
              MAIN ARRIVAL CONTENT
-             ===================================================== -->
+             ================================================== -->
 
-        <section
-            class="arrival-content"
-            aria-labelledby="brandName"
-        >
+        <section class="arrival-content">
 
-            <!-- AKSH identity -->
+            <!-- BRAND -->
+
             <div class="brand">
 
                 <img
@@ -129,51 +131,49 @@
                     draggable="false"
                 >
 
-                <div class="brand-name" id="brandName">
+                <p class="brand-name">
                     AKSH
-                </div>
+                </p>
 
-                <div class="tagline">
+                <p class="tagline">
                     A Safe Space for Every Mind
-                </div>
+                </p>
 
             </div>
 
-            <!-- =================================================
-                 TIME / GREETING
-                 ================================================= -->
+
+            <!-- GREETING -->
 
             <div class="greeting-area">
 
                 <div
-                    id="timeDisplay"
                     class="time-display"
+                    id="timeDisplay"
                     aria-live="polite"
                 ></div>
 
                 <h1
-                    id="greeting"
                     class="greeting"
-                    aria-live="polite"
-                ></h1>
+                    id="greeting"
+                >
+                    Good Morning
+                </h1>
 
                 <p
-                    id="reflection"
                     class="reflection"
-                    aria-live="polite"
+                    id="reflection"
                 ></p>
 
             </div>
 
-            <!-- =================================================
-                 BEGIN
-                 ================================================= -->
+
+            <!-- BEGIN -->
 
             <div class="begin-area">
 
                 <button
-                    id="beginButton"
                     class="begin-button"
+                    id="beginButton"
                     type="button"
                 >
 
@@ -194,34 +194,10 @@
 
         </section>
 
-        <!-- =====================================================
-             ARRIVAL FOOTER
-             ===================================================== -->
-
-        <footer class="arrival-footer">
-
-            <span class="arrival-number">
-                00
-            </span>
-
-            <span
-                class="footer-line"
-                aria-hidden="true"
-            ></span>
-
-            <span class="arrival-label">
-                ARRIVAL
-            </span>
-
-        </footer>
-
     </main>
 
-    <!-- =========================================================
-         JAVASCRIPT
-         ========================================================= -->
 
-    <script src="script.js" defer></script>
+    <script src="script.js"></script>
 
 </body>
 </html>
