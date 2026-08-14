@@ -1,11 +1,11 @@
 /* ============================================================
    AKSH — 00 ARRIVAL
-   Premium cinematic responsive system
+   FINAL CINEMATIC RESPONSIVE DESIGN
    ============================================================ */
 
 
 /* ============================================================
-   01 — RESET
+   RESET
    ============================================================ */
 
 *,
@@ -19,7 +19,9 @@ html {
     min-height: 100%;
     margin: 0;
     padding: 0;
+
     background: #09090b;
+
     scroll-behavior: smooth;
 }
 
@@ -28,53 +30,63 @@ body {
     min-height: 100%;
     margin: 0;
     padding: 0;
+
     overflow: hidden;
+
     background: #09090b;
+
     color: #ffffff;
+
     font-family: "Inter", sans-serif;
+
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
     text-rendering: optimizeLegibility;
 }
 
 
 /* ============================================================
-   02 — ARRIVAL ROOT
+   ARRIVAL
    ============================================================ */
 
 .arrival {
     position: relative;
+
     width: 100%;
     height: 100svh;
     min-height: 100svh;
+
     overflow: hidden;
+
     isolation: isolate;
+
     background: #09090b;
 }
 
 
 /* ============================================================
-   03 — BACKGROUND VIDEO
+   BACKGROUND VIDEO
    ============================================================ */
 
 .background-video {
     position: absolute;
+
     inset: 0;
 
     width: 100%;
     height: 100%;
 
+    display: block;
+
     object-fit: cover;
     object-position: center center;
-
-    display: block;
 
     background: #09090b;
 
     opacity: 1;
 
     transform: scale(1.015);
-    transform-origin: center center;
 
     z-index: -10;
 
@@ -84,6 +96,7 @@ body {
     -webkit-user-select: none;
 
     -webkit-touch-callout: none;
+    -webkit-user-drag: none;
 
     will-change: transform, opacity;
 
@@ -93,11 +106,12 @@ body {
 
 
 /* ============================================================
-   04 — ATMOSPHERIC OVERLAY
+   ATMOSPHERE
    ============================================================ */
 
 .atmosphere {
     position: absolute;
+
     inset: 0;
 
     z-index: -8;
@@ -126,11 +140,12 @@ body {
 
 
 /* ============================================================
-   05 — VIGNETTE
+   VIGNETTE
    ============================================================ */
 
 .vignette {
     position: absolute;
+
     inset: 0;
 
     z-index: -7;
@@ -150,11 +165,12 @@ body {
 
 
 /* ============================================================
-   06 — FILM GRAIN
+   GRAIN
    ============================================================ */
 
 .grain {
     position: absolute;
+
     inset: -50%;
 
     z-index: 20;
@@ -174,6 +190,7 @@ body {
 }
 
 @keyframes grainMove {
+
     0% {
         transform: translate3d(0, 0, 0);
     }
@@ -197,7 +214,7 @@ body {
 
 
 /* ============================================================
-   07 — TOP BAR
+   TOP BAR
    ============================================================ */
 
 .top-bar {
@@ -210,6 +227,7 @@ body {
     z-index: 30;
 
     display: flex;
+
     justify-content: flex-end;
     align-items: center;
 
@@ -224,15 +242,17 @@ body {
 
 
 /* ============================================================
-   08 — SOUND CONTROL
+   SOUND
    ============================================================ */
 
 .sound-toggle {
     pointer-events: auto;
 
     display: inline-flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 10px;
 
     min-width: 112px;
@@ -241,6 +261,7 @@ body {
     padding: 9px 13px;
 
     border: 1px solid rgba(255, 255, 255, 0.28);
+
     border-radius: 999px;
 
     background: rgba(0, 0, 0, 0.14);
@@ -248,10 +269,12 @@ body {
     color: rgba(255, 255, 255, 0.92);
 
     font-family: "Inter", sans-serif;
+
     font-size: 9px;
     font-weight: 500;
 
     letter-spacing: 0.17em;
+
     line-height: 1;
 
     cursor: pointer;
@@ -270,7 +293,9 @@ body {
 
 .sound-toggle:hover {
     background: rgba(255, 255, 255, 0.10);
-    border-color: rgba(255, 255, 255, 0.48);
+
+    border-color:
+        rgba(255, 255, 255, 0.48);
 }
 
 .sound-toggle:active {
@@ -279,13 +304,16 @@ body {
 
 .sound-toggle:focus-visible {
     outline: 2px solid rgba(255, 255, 255, 0.9);
+
     outline-offset: 4px;
 }
 
 .sound-icon {
     display: inline-flex;
+
     align-items: center;
     justify-content: center;
+
     gap: 2px;
 
     width: 15px;
@@ -332,7 +360,7 @@ body {
 
 
 /* ============================================================
-   09 — MAIN CONTENT
+   MAIN CONTENT
    ============================================================ */
 
 .arrival-content {
@@ -344,7 +372,9 @@ body {
     height: 100%;
 
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
 
     text-align: center;
@@ -359,41 +389,52 @@ body {
 
 
 /* ============================================================
-   10 — BRAND
+   BRAND
    ============================================================ */
 
 .brand {
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
 
     pointer-events: none;
 
     animation:
-        brandEnter 1400ms cubic-bezier(0.22, 1, 0.36, 1) both;
+        brandEnter
+        1400ms
+        cubic-bezier(0.22, 1, 0.36, 1)
+        both;
 }
 
 @keyframes brandEnter {
+
     from {
         opacity: 0;
-        transform: translateY(-18px);
+
+        transform:
+            translateY(-18px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
 }
 
 
 /* ============================================================
-   11 — AKSH ICON
+   ICON
    ============================================================ */
 
 .aksh-icon {
     display: block;
 
     width: clamp(54px, 7vw, 86px);
+
     height: auto;
 
     max-height: 86px;
@@ -417,7 +458,7 @@ body {
 
 
 /* ============================================================
-   12 — BRAND NAME
+   BRAND NAME
    ============================================================ */
 
 .brand-name {
@@ -428,6 +469,7 @@ body {
     font-family: "Inter", sans-serif;
 
     font-size: clamp(13px, 1.25vw, 17px);
+
     font-weight: 500;
 
     letter-spacing: 0.48em;
@@ -442,7 +484,7 @@ body {
 
 
 /* ============================================================
-   13 — TAGLINE
+   TAGLINE
    ============================================================ */
 
 .tagline {
@@ -453,6 +495,7 @@ body {
     font-family: "Cormorant Garamond", serif;
 
     font-size: clamp(17px, 2vw, 25px);
+
     font-weight: 300;
 
     letter-spacing: 0.055em;
@@ -465,57 +508,79 @@ body {
 
 
 /* ============================================================
-   14 — GREETING AREA
+   GREETING AREA
    ============================================================ */
 
 .greeting-area {
     display: flex;
+
     flex-direction: column;
+
     align-items: center;
 
     width: min(720px, 100%);
 
-    margin-top: clamp(58px, 9vh, 105px);
+    margin-top:
+        clamp(58px, 9vh, 105px);
 
     pointer-events: none;
 
     animation:
-        contentEnter 1500ms 180ms cubic-bezier(0.22, 1, 0.36, 1)
+        contentEnter
+        1500ms
+        180ms
+        cubic-bezier(0.22, 1, 0.36, 1)
         both;
 }
 
 @keyframes contentEnter {
+
     from {
         opacity: 0;
-        transform: translateY(24px);
+
+        transform:
+            translateY(24px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
 }
 
 
 /* ============================================================
-   15 — TIME
+   DATE + DAY
    ============================================================ */
 
 .time-display {
-    min-height: 15px;
+    display: flex;
 
-    margin: 0 0 13px;
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    min-height: 34px;
+
+    margin: 0 0 16px;
 
     color: rgba(255, 255, 255, 0.82);
 
     font-family: "Inter", sans-serif;
 
-    font-size: clamp(9px, 0.9vw, 12px);
+    font-size: 9px;
+
     font-weight: 400;
 
-    letter-spacing: 0.25em;
+    letter-spacing: 0.22em;
 
-    line-height: 1;
+    line-height: 1.2;
 
     text-transform: uppercase;
 
@@ -523,9 +588,31 @@ body {
         0 2px 14px rgba(0, 0, 0, 0.30);
 }
 
+.date-display {
+    display: block;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    letter-spacing: 0.20em;
+}
+
+.day-display {
+    display: block;
+
+    font-size: 8px;
+
+    font-weight: 400;
+
+    letter-spacing: 0.28em;
+
+    opacity: 0.82;
+}
+
 
 /* ============================================================
-   16 — GREETING
+   GREETING
    ============================================================ */
 
 .greeting {
@@ -538,6 +625,7 @@ body {
     font-family: "Cormorant Garamond", serif;
 
     font-size: clamp(46px, 7vw, 96px);
+
     font-weight: 300;
 
     letter-spacing: -0.025em;
@@ -552,7 +640,7 @@ body {
 
 
 /* ============================================================
-   17 — REFLECTION
+   REFLECTION
    ============================================================ */
 
 .reflection {
@@ -568,6 +656,7 @@ body {
     font-family: "Cormorant Garamond", serif;
 
     font-size: clamp(18px, 2vw, 24px);
+
     font-weight: 300;
 
     letter-spacing: 0.015em;
@@ -580,7 +669,7 @@ body {
 
 
 /* ============================================================
-   18 — BEGIN AREA
+   BEGIN
    ============================================================ */
 
 .begin-area {
@@ -589,52 +678,73 @@ body {
     pointer-events: auto;
 
     animation:
-        beginEnter 1500ms 450ms cubic-bezier(0.22, 1, 0.36, 1)
+        beginEnter
+        1500ms
+        450ms
+        cubic-bezier(0.22, 1, 0.36, 1)
         both;
 }
 
 @keyframes beginEnter {
+
     from {
         opacity: 0;
-        transform: translateY(18px);
+
+        transform:
+            translateY(18px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0);
+
+        transform:
+            translateY(0);
     }
 }
 
 
 /* ============================================================
-   19 — BEGIN BUTTON
+   BEGIN BUTTON
    ============================================================ */
 
 .begin-button {
     position: relative;
 
     display: inline-flex;
+
     align-items: center;
+
     justify-content: center;
 
     min-width: 220px;
+
     min-height: 54px;
 
-    padding: 15px 22px 15px 25px;
+    padding:
+        15px
+        22px
+        15px
+        25px;
 
-    border: 1px solid rgba(255, 255, 255, 0.52);
+    border:
+        1px solid
+        rgba(255, 255, 255, 0.52);
+
     border-radius: 999px;
 
-    background: rgba(255, 255, 255, 0.055);
+    background:
+        rgba(255, 255, 255, 0.055);
 
     color: #ffffff;
 
     font-family: "Inter", sans-serif;
 
     font-size: 10px;
+
     font-weight: 500;
 
     letter-spacing: 0.18em;
+
     text-transform: uppercase;
 
     cursor: pointer;
@@ -642,6 +752,7 @@ body {
     -webkit-tap-highlight-color: transparent;
 
     backdrop-filter: blur(13px);
+
     -webkit-backdrop-filter: blur(13px);
 
     overflow: hidden;
@@ -657,6 +768,7 @@ body {
     content: "";
 
     position: absolute;
+
     inset: 0;
 
     background:
@@ -667,18 +779,21 @@ body {
             transparent 100%
         );
 
-    transform: translateX(-110%);
+    transform:
+        translateX(-110%);
 
     transition:
         transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .begin-button:hover::before {
-    transform: translateX(110%);
+    transform:
+        translateX(110%);
 }
 
 .begin-button:hover {
-    background: rgba(255, 255, 255, 0.12);
+    background:
+        rgba(255, 255, 255, 0.12);
 
     border-color:
         rgba(255, 255, 255, 0.82);
@@ -686,30 +801,38 @@ body {
     box-shadow:
         0 12px 40px rgba(0, 0, 0, 0.18);
 
-    transform: translateY(-2px);
+    transform:
+        translateY(-2px);
 }
 
 .begin-button:active {
-    transform: scale(0.97);
+    transform:
+        scale(0.97);
 }
 
 .begin-button:focus-visible {
-    outline: 2px solid rgba(255, 255, 255, 0.95);
+    outline:
+        2px solid
+        rgba(255, 255, 255, 0.95);
+
     outline-offset: 5px;
 }
 
 .begin-text {
     position: relative;
+
     z-index: 2;
 }
 
 .begin-arrow {
     position: relative;
+
     z-index: 2;
 
     margin-left: 13px;
 
     font-size: 17px;
+
     font-weight: 300;
 
     line-height: 1;
@@ -719,75 +842,13 @@ body {
 }
 
 .begin-button:hover .begin-arrow {
-    transform: translateX(5px);
+    transform:
+        translateX(5px);
 }
 
 
 /* ============================================================
-   20 — FOOTER
-   ============================================================ */
-
-.arrival-footer {
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    z-index: 25;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 13px;
-
-    padding:
-        0
-        max(24px, env(safe-area-inset-right))
-        max(22px, env(safe-area-inset-bottom))
-        max(24px, env(safe-area-inset-left));
-
-    color: rgba(255, 255, 255, 0.62);
-
-    font-family: "Inter", sans-serif;
-
-    font-size: 8px;
-    font-weight: 500;
-
-    letter-spacing: 0.30em;
-
-    pointer-events: none;
-
-    animation:
-        footerEnter 1400ms 650ms cubic-bezier(0.22, 1, 0.36, 1)
-        both;
-}
-
-@keyframes footerEnter {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-.footer-line {
-    width: 32px;
-    height: 1px;
-
-    background: rgba(255, 255, 255, 0.32);
-}
-
-.arrival-label {
-    padding-left: 0.30em;
-}
-
-
-/* ============================================================
-   21 — VIDEO TRANSITION
+   VIDEO TRANSITION
    ============================================================ */
 
 .arrival.video-transitioning .background-video {
@@ -799,27 +860,31 @@ body {
 
 
 /* ============================================================
-   22 — PAGE EXIT
+   PAGE EXIT
    ============================================================ */
 
 .arrival.is-exiting {
     pointer-events: none;
 }
 
-.arrival.is-exiting .arrival-content,
-.arrival.is-exiting .top-bar,
-.arrival.is-exiting .arrival-footer {
+.arrival.is-exiting
+.arrival-content,
+.arrival.is-exiting
+.top-bar {
     opacity: 0;
 
-    transform: translateY(-10px);
+    transform:
+        translateY(-10px);
 
     transition:
         opacity 650ms ease,
         transform 650ms ease;
 }
 
-.arrival.is-exiting .background-video {
-    transform: scale(1.06);
+.arrival.is-exiting
+.background-video {
+    transform:
+        scale(1.06);
 
     opacity: 0;
 
@@ -828,17 +893,9 @@ body {
         opacity 1000ms ease;
 }
 
-.arrival.is-exiting .atmosphere {
-    opacity: 1;
-
-    transition:
-        opacity 900ms ease;
-}
-
 
 /* ============================================================
-   23 — SMALL MOBILE
-   320px–374px
+   SMALL MOBILE
    ============================================================ */
 
 @media (max-width: 374px) {
@@ -855,6 +912,7 @@ body {
 
     .sound-toggle {
         min-width: 104px;
+
         min-height: 40px;
 
         padding-left: 11px;
@@ -874,7 +932,12 @@ body {
     }
 
     .greeting {
-        font-size: clamp(41px, 14vw, 54px);
+        font-size:
+            clamp(
+                41px,
+                14vw,
+                54px
+            );
     }
 
     .reflection {
@@ -883,6 +946,7 @@ body {
 
     .begin-button {
         min-width: 205px;
+
         min-height: 52px;
 
         padding-left: 18px;
@@ -890,16 +954,11 @@ body {
 
         font-size: 9px;
     }
-
-    .arrival-footer {
-        font-size: 7px;
-    }
 }
 
 
 /* ============================================================
-   24 — STANDARD MOBILE
-   375px–767px
+   STANDARD MOBILE
    ============================================================ */
 
 @media (min-width: 375px) and (max-width: 767px) {
@@ -910,11 +969,21 @@ body {
     }
 
     .greeting-area {
-        margin-top: clamp(55px, 8vh, 78px);
+        margin-top:
+            clamp(
+                55px,
+                8vh,
+                78px
+            );
     }
 
     .greeting {
-        font-size: clamp(48px, 14vw, 70px);
+        font-size:
+            clamp(
+                48px,
+                14vw,
+                70px
+            );
     }
 
     .reflection {
@@ -924,7 +993,7 @@ body {
 
 
 /* ============================================================
-   25 — TABLET
+   TABLET
    ============================================================ */
 
 @media (min-width: 768px) {
@@ -935,7 +1004,12 @@ body {
     }
 
     .greeting-area {
-        margin-top: clamp(70px, 10vh, 120px);
+        margin-top:
+            clamp(
+                70px,
+                10vh,
+                120px
+            );
     }
 
     .begin-button {
@@ -945,13 +1019,14 @@ body {
 
 
 /* ============================================================
-   26 — DESKTOP
+   DESKTOP
    ============================================================ */
 
 @media (min-width: 1200px) {
 
     .top-bar {
         padding-top: 30px;
+
         padding-right: 34px;
     }
 
@@ -960,21 +1035,22 @@ body {
     }
 
     .greeting {
-        font-size: clamp(72px, 6.3vw, 104px);
+        font-size:
+            clamp(
+                72px,
+                6.3vw,
+                104px
+            );
     }
 
     .reflection {
         max-width: 600px;
     }
-
-    .arrival-footer {
-        padding-bottom: 28px;
-    }
 }
 
 
 /* ============================================================
-   27 — LARGE DESKTOP
+   LARGE DESKTOP
    ============================================================ */
 
 @media (min-width: 1440px) {
@@ -998,18 +1074,20 @@ body {
 
 
 /* ============================================================
-   28 — LANDSCAPE MOBILE
+   LANDSCAPE MOBILE
    ============================================================ */
 
 @media (max-height: 600px) and (orientation: landscape) {
 
     .arrival-content {
         padding-top: 74px;
+
         padding-bottom: 55px;
     }
 
     .aksh-icon {
         width: 44px;
+
         margin-bottom: 8px;
     }
 
@@ -1019,6 +1097,7 @@ body {
 
     .tagline {
         margin-top: 7px;
+
         font-size: 16px;
     }
 
@@ -1031,28 +1110,31 @@ body {
     }
 
     .greeting {
-        font-size: clamp(38px, 7vw, 62px);
+        font-size:
+            clamp(
+                38px,
+                7vw,
+                62px
+            );
     }
 
     .reflection {
         margin-top: 10px;
+
         font-size: 16px;
     }
 
     .begin-button {
         min-height: 44px;
+
         padding-top: 10px;
         padding-bottom: 10px;
-    }
-
-    .arrival-footer {
-        display: none;
     }
 }
 
 
 /* ============================================================
-   29 — REDUCED MOTION
+   REDUCED MOTION
    ============================================================ */
 
 @media (prefers-reduced-motion: reduce) {
@@ -1065,7 +1147,9 @@ body {
     *::before,
     *::after {
         animation-duration: 0.001ms !important;
+
         animation-iteration-count: 1 !important;
+
         transition-duration: 0.001ms !important;
     }
 
@@ -1080,15 +1164,20 @@ body {
 
 
 /* ============================================================
-   30 — TOUCH DEVICES
+   TOUCH DEVICES
    ============================================================ */
 
 @media (hover: none) {
 
     .begin-button:hover {
-        background: rgba(255, 255, 255, 0.055);
-        border-color: rgba(255, 255, 255, 0.52);
+        background:
+            rgba(255, 255, 255, 0.055);
+
+        border-color:
+            rgba(255, 255, 255, 0.52);
+
         box-shadow: none;
+
         transform: none;
     }
 
@@ -1097,37 +1186,47 @@ body {
     }
 
     .begin-button:active {
-        background: rgba(255, 255, 255, 0.13);
-        transform: scale(0.97);
+        background:
+            rgba(255, 255, 255, 0.13);
+
+        transform:
+            scale(0.97);
     }
 
     .sound-toggle:hover {
-        background: rgba(0, 0, 0, 0.14);
-        border-color: rgba(255, 255, 255, 0.28);
+        background:
+            rgba(0, 0, 0, 0.14);
+
+        border-color:
+            rgba(255, 255, 255, 0.28);
     }
 
     .sound-toggle:active {
-        background: rgba(255, 255, 255, 0.10);
+        background:
+            rgba(255, 255, 255, 0.10);
     }
 }
 
 
 /* ============================================================
-   31 — HIGH CONTRAST / DARK PREFERENCE SUPPORT
+   HIGH CONTRAST
    ============================================================ */
 
 @media (prefers-contrast: more) {
 
     .sound-toggle {
-        border-color: rgba(255, 255, 255, 0.65);
+        border-color:
+            rgba(255, 255, 255, 0.65);
     }
 
     .begin-button {
-        border-color: rgba(255, 255, 255, 0.80);
+        border-color:
+            rgba(255, 255, 255, 0.80);
     }
 
     .reflection,
     .tagline {
-        color: rgba(255, 255, 255, 0.96);
+        color:
+            rgba(255, 255, 255, 0.96);
     }
 }
