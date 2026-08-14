@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#11100f"
+    >
+
+    <title>AKSH — Explore</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: #11100f;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            color: #f4efe7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .navigation-page {
+            position: relative;
+
+            width: 100%;
+            height: 100svh;
+
+            min-height: 100svh;
+
+            overflow: hidden;
+
+            background:
+                radial-gradient(
+                    circle at 75% 25%,
+                    rgba(190,170,140,0.10),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 20% 80%,
+                    rgba(255,255,255,0.035),
+                    transparent 35%
+                ),
+                #11100f;
+        }
+
+        .navigation-page::after {
+            content: "";
+
+            position: absolute;
+            inset: 0;
+
+            pointer-events: none;
+
+            background:
+                radial-gradient(
+                    ellipse at center,
+                    transparent 35%,
+                    rgba(0,0,0,0.38) 100%
+                );
+        }
+
+        .top {
+            position: absolute;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 10;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding:
+                max(24px, env(safe-area-inset-top))
+                max(24px, env(safe-area-inset-right))
+                20px
+                max(24px, env(safe-area-inset-left));
+        }
+
+        .brand {
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            color: #f4efe7;
+
+            text-decoration: none;
+        }
+
+        .brand img {
+            width: 34px;
+            height: 34px;
+
+            object-fit: contain;
+        }
+
+        .brand span {
+            font-size: 10px;
+
+            letter-spacing: 0.38em;
+
+            font-weight: 400;
+        }
+
+        .close-button {
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid rgba(244,239,231,0.22);
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.035);
+
+            color: #f4efe7;
+
+            cursor: pointer;
+
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+
+            transition:
+                transform 250ms ease,
+                background 250ms ease;
+        }
+
+        .close-button:active {
+            transform: scale(0.93);
+        }
+
+        .close-icon {
+            position: relative;
+
+            width: 16px;
+            height: 16px;
+        }
+
+        .close-icon::before,
+        .close-icon::after {
+            content: "";
+
+            position: absolute;
+
+            top: 50%;
+            left: 0;
+
+            width: 100%;
+            height: 1px;
+
+            background: currentColor;
+        }
+
+        .close-icon::before {
+            transform: rotate(45deg);
+        }
+
+        .close-icon::after {
+            transform: rotate(-45deg);
+        }
+
+        .content {
+            position: relative;
+
+            z-index: 5;
+
+            width: min(1200px, 100%);
+
+            height: 100%;
+
+            margin: 0 auto;
+
+            padding:
+                130px
+                7vw
+                70px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+        }
+
+        .label {
+            margin: 0 0 30px;
+
+            color: rgba(244,239,231,0.42);
+
+            font-size: 9px;
+
+            letter-spacing: 0.3em;
+
+            text-transform: uppercase;
+        }
+
+        .title {
+            margin: 0 0 42px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    48px,
+                    7vw,
+                    92px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.9;
+
+            letter-spacing: -0.035em;
+        }
+
+        .links {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            gap: 0;
+
+            width: min(850px, 100%);
+        }
+
+        .nav-link {
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            min-height: 66px;
+
+            padding: 0 20px 0 0;
+
+            border: 0;
+
+            border-bottom:
+                1px solid
+                rgba(244,239,231,0.12);
+
+            background: transparent;
+
+            color: #f4efe7;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    22px,
+                    2.5vw,
+                    30px
+                );
+
+            font-weight: 300;
+
+            transition:
+                padding 300ms ease,
+                color 300ms ease;
+        }
+
+        .nav-link::after {
+            content: "↗";
+
+            font-family: "Inter", sans-serif;
+
+            font-size: 13px;
+
+            color: rgba(244,239,231,0.42);
+
+            transform:
+                translate(0, 0);
+
+            transition:
+                transform 300ms ease,
+                color 300ms ease;
+        }
+
+        .nav-link:hover,
+        .nav-link:focus-visible {
+            padding-left: 10px;
+
+            outline: none;
+        }
+
+        .nav-link:hover::after,
+        .nav-link:focus-visible::after {
+            transform:
+                translate(5px, -5px);
+
+            color: #f4efe7;
+        }
+
+        .nav-link.disabled {
+            opacity: 0.36;
+            cursor: default;
+        }
+
+        .nav-link.disabled::after {
+            content: "Soon";
+            font-size: 8px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .footer-note {
+            position: absolute;
+
+            left: 7vw;
+            bottom: 30px;
+
+            z-index: 6;
+
+            color:
+                rgba(244,239,231,0.32);
+
+            font-size: 8px;
+
+            letter-spacing: 0.22em;
+
+            text-transform: uppercase;
+        }
+
+        @media (max-width: 767px) {
+
+            .top {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .brand img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .close-button {
+                width: 43px;
+                height: 43px;
+            }
+
+            .content {
+                padding:
+                    120px
+                    22px
+                    70px;
+            }
+
+            .title {
+                margin-bottom: 30px;
+            }
+
+            .links {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-link {
+                min-height: 58px;
+
+                font-size: 25px;
+            }
+
+            .footer-note {
+                left: 22px;
+                bottom: 24px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                transition: none !important;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main class="navigation-page">
+
+        <header class="top">
+
+            <a
+                class="brand"
+                href="index.html"
+                aria-label="Return to AKSH arrival"
+            >
+                <img
+                    src="aksh-icon.PNG"
+                    alt="AKSH"
+                >
+
+                <span>AKSH</span>
+            </a>
+
+            <button
+                class="close-button"
+                id="closeButton"
+                type="button"
+                aria-label="Close navigation"
+            >
+                <span
+                    class="close-icon"
+                    aria-hidden="true"
+                ></span>
+            </button>
+
+        </header>
+
+
+        <section class="content">
+
+            <p class="label">
+                Explore AKSH
+            </p>
+
+            <h1 class="title">
+                Take your time.
+            </h1>
+
+
+            <nav
+                class="links"
+                aria-label="AKSH main navigation"
+            >
+
+                <a
+                    class="nav-link"
+                    href="pages/world.html"
+                >
+                    <span>The World</span>
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="pages/mind.html"
+                >
+                    <span>The Mind</span>
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="pages/with-you.html"
+                >
+                    <span>With You</span>
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="pages/meghana.html"
+                >
+                    <span>Meghana</span>
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="pages/journey.html"
+                >
+                    <span>The Journey</span>
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="pages/stories.html"
+                >
+                    <span>Stories</span>
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="pages/journal.html"
+                >
+                    <span>Journal</span>
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="pages/ai.html"
+                >
+                    <span>AKSH AI</span>
+                </a>
+
+                <a
+                    class="nav-link"
+                    href="pages/booking.html"
+                >
+                    <span>Begin</span>
+                </a>
+
+            </nav>
+
+        </section>
+
+
+        <p class="footer-note">
+            A Safe Space for Every Mind
+        </p>
+
+    </main>
+
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                const closeButton =
+                    document.getElementById(
+                        "closeButton"
+                    );
+
+                closeButton.addEventListener(
+                    "click",
+                    () => {
+
+                        window.history.back();
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
