@@ -1,0 +1,1435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#20201d"
+    >
+
+    <meta
+        name="description"
+        content="With You — AKSH Mental Wellness."
+    >
+
+    <title>With You — AKSH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background: #20201d;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+
+            overflow-x: hidden;
+
+            background: #20201d;
+            color: #f3eee5;
+
+            font-family: "Inter", sans-serif;
+
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a,
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button {
+            font: inherit;
+        }
+
+
+        /* ==========================================
+           HEADER
+        ========================================== */
+
+        .header {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 100;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding:
+                max(22px, env(safe-area-inset-top))
+                max(24px, env(safe-area-inset-right))
+                18px
+                max(24px, env(safe-area-inset-left));
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(32,32,29,0.92),
+                    rgba(32,32,29,0)
+                );
+        }
+
+        .brand {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #f3eee5;
+
+            text-decoration: none;
+        }
+
+        .brand img {
+
+            width: 34px;
+            height: 34px;
+
+            object-fit: contain;
+        }
+
+        .brand span {
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.38em;
+        }
+
+        .menu-button {
+
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid rgba(243,238,229,0.20);
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.035);
+
+            color: #f3eee5;
+
+            cursor: pointer;
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .menu-lines {
+
+            width: 17px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+        }
+
+        .menu-lines span {
+
+            width: 100%;
+            height: 1px;
+
+            background: currentColor;
+        }
+
+
+        /* ==========================================
+           HERO
+        ========================================== */
+
+        .hero {
+
+            position: relative;
+
+            min-height: 100svh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding:
+                150px
+                7vw
+                100px;
+
+            overflow: hidden;
+
+            background:
+
+                radial-gradient(
+                    ellipse at 76% 30%,
+                    rgba(172,142,113,0.16),
+                    transparent 38%
+                ),
+
+                radial-gradient(
+                    ellipse at 12% 78%,
+                    rgba(113,132,125,0.10),
+                    transparent 40%
+                ),
+
+                #20201d;
+        }
+
+        .hero::after {
+
+            content: "";
+
+            position: absolute;
+
+            width: 520px;
+            height: 520px;
+
+            right: -200px;
+            bottom: -160px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(215,190,158,0.045);
+
+            filter: blur(70px);
+
+            pointer-events: none;
+        }
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: min(1100px, 100%);
+        }
+
+        .eyebrow {
+
+            margin: 0 0 32px;
+
+            color:
+                rgba(243,238,229,0.42);
+
+            font-size: 9px;
+
+            letter-spacing: 0.30em;
+
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+
+            margin: 0;
+
+            max-width: 1050px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    66px,
+                    12vw,
+                    158px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.82;
+
+            letter-spacing: -0.055em;
+        }
+
+        .hero-title em {
+
+            font-style: italic;
+
+            color:
+                rgba(243,238,229,0.48);
+        }
+
+        .hero-description {
+
+            width: min(610px, 100%);
+
+            margin:
+                52px
+                0
+                0
+                9vw;
+
+            color:
+                rgba(243,238,229,0.65);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    21px,
+                    2.6vw,
+                    29px
+                );
+
+            font-weight: 300;
+
+            line-height: 1.42;
+        }
+
+
+        /* ==========================================
+           SUPPORT INTRO
+        ========================================== */
+
+        .support-intro {
+
+            min-height: 88svh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding:
+                140px
+                7vw;
+
+            background:
+                #ebe4da;
+
+            color: #20201d;
+        }
+
+        .support-intro-inner {
+
+            width: min(1150px, 100%);
+
+            margin: 0 auto;
+        }
+
+        .section-label {
+
+            margin: 0 0 44px;
+
+            color:
+                rgba(32,32,29,0.42);
+
+            font-size: 9px;
+
+            letter-spacing: 0.29em;
+
+            text-transform: uppercase;
+        }
+
+        .support-title {
+
+            margin: 0;
+
+            max-width: 1050px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    44px,
+                    7vw,
+                    92px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.035em;
+        }
+
+        .support-title em {
+
+            font-style: italic;
+
+            color:
+                rgba(32,32,29,0.42);
+        }
+
+
+        /* ==========================================
+           PEOPLE
+        ========================================== */
+
+        .people {
+
+            min-height: 100svh;
+
+            padding:
+                150px
+                7vw;
+
+            background:
+                #f3eee5;
+
+            color: #20201d;
+        }
+
+        .people-inner {
+
+            width: min(1180px, 100%);
+
+            margin: 0 auto;
+        }
+
+        .people-heading {
+
+            display: flex;
+
+            align-items: flex-end;
+            justify-content: space-between;
+
+            gap: 50px;
+
+            margin-bottom: 90px;
+        }
+
+        .people-title {
+
+            margin: 0;
+
+            max-width: 700px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    42px,
+                    6vw,
+                    76px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.025em;
+        }
+
+        .people-note {
+
+            width: min(310px, 100%);
+
+            margin: 0;
+
+            color:
+                rgba(32,32,29,0.50);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 20px;
+
+            line-height: 1.35;
+        }
+
+
+        /* ==========================================
+           AGE / LIFE STAGES
+        ========================================== */
+
+        .people-list {
+
+            border-top:
+                1px solid
+                rgba(32,32,29,0.18);
+        }
+
+        .people-item {
+
+            display: grid;
+
+            grid-template-columns:
+                100px
+                1fr
+                45px;
+
+            align-items: center;
+
+            min-height: 108px;
+
+            border-bottom:
+                1px solid
+                rgba(32,32,29,0.14);
+
+            cursor: pointer;
+
+            transition:
+                padding 300ms ease,
+                background 300ms ease;
+        }
+
+        .people-item:hover {
+
+            padding-left: 14px;
+
+            background:
+                rgba(32,32,29,0.025);
+        }
+
+        .people-number {
+
+            color:
+                rgba(32,32,29,0.34);
+
+            font-size: 9px;
+
+            letter-spacing: 0.18em;
+        }
+
+        .people-name {
+
+            margin: 0;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    27px,
+                    3.4vw,
+                    40px
+                );
+
+            font-weight: 300;
+        }
+
+        .people-arrow {
+
+            color:
+                rgba(32,32,29,0.35);
+
+            font-size: 18px;
+
+            transition:
+                transform 300ms ease;
+        }
+
+        .people-item:hover
+        .people-arrow {
+
+            transform:
+                translate(5px,-5px);
+        }
+
+
+        /* ==========================================
+           SUPPORT
+        ========================================== */
+
+        .support {
+
+            min-height: 100svh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding:
+                150px
+                7vw;
+
+            background:
+
+                radial-gradient(
+                    ellipse at 22% 25%,
+                    rgba(120,143,145,0.13),
+                    transparent 36%
+                ),
+
+                radial-gradient(
+                    ellipse at 82% 80%,
+                    rgba(190,148,112,0.10),
+                    transparent 38%
+                ),
+
+                #20201d;
+        }
+
+        .support-inner {
+
+            width: min(1150px, 100%);
+
+            margin: 0 auto;
+        }
+
+        .support-label {
+
+            margin: 0 0 50px;
+
+            color:
+                rgba(243,238,229,0.38);
+
+            font-size: 9px;
+
+            letter-spacing: 0.30em;
+
+            text-transform: uppercase;
+        }
+
+        .support-heading {
+
+            margin: 0;
+
+            max-width: 980px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    48px,
+                    7vw,
+                    94px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.035em;
+        }
+
+        .support-heading em {
+
+            font-style: italic;
+
+            color:
+                rgba(243,238,229,0.46);
+        }
+
+        .support-copy {
+
+            width: min(590px, 100%);
+
+            margin:
+                70px
+                0
+                0
+                auto;
+
+            color:
+                rgba(243,238,229,0.59);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 23px;
+
+            line-height: 1.45;
+        }
+
+
+        /* ==========================================
+           CLOSING
+        ========================================== */
+
+        .closing {
+
+            min-height: 78svh;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding:
+                120px
+                24px;
+
+            text-align: center;
+
+            background:
+                #d9cdbd;
+
+            color: #20201d;
+        }
+
+        .closing-inner {
+
+            width: min(720px, 100%);
+        }
+
+        .closing-icon {
+
+            width: 48px;
+
+            margin-bottom: 34px;
+        }
+
+        .closing-title {
+
+            margin: 0;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    44px,
+                    7vw,
+                    82px
+                );
+
+            font-weight: 300;
+
+            line-height: 1;
+        }
+
+        .closing-text {
+
+            max-width: 520px;
+
+            margin:
+                32px auto 0;
+
+            color:
+                rgba(32,32,29,0.54);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 22px;
+
+            line-height: 1.42;
+        }
+
+        .begin-button {
+
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            min-height: 52px;
+
+            margin-top: 42px;
+
+            padding:
+                0 28px;
+
+            border:
+                1px solid
+                rgba(32,32,29,0.32);
+
+            border-radius: 999px;
+
+            background: transparent;
+
+            color: #20201d;
+
+            text-decoration: none;
+
+            font-size: 10px;
+
+            letter-spacing: 0.18em;
+
+            text-transform: uppercase;
+
+            transition:
+                background 250ms ease,
+                color 250ms ease,
+                transform 250ms ease;
+        }
+
+        .begin-button:hover {
+
+            background: #20201d;
+
+            color: #f3eee5;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 767px) {
+
+            .header {
+
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .brand img {
+
+                width: 30px;
+                height: 30px;
+            }
+
+            .menu-button {
+
+                width: 43px;
+                height: 43px;
+            }
+
+            .hero {
+
+                min-height: 100svh;
+
+                padding:
+                    140px
+                    22px
+                    85px;
+            }
+
+            .hero-title {
+
+                font-size:
+                    clamp(
+                        68px,
+                        20vw,
+                        105px
+                    );
+            }
+
+            .hero-description {
+
+                margin:
+                    42px
+                    0
+                    0;
+
+                font-size: 21px;
+            }
+
+            .support-intro {
+
+                padding:
+                    110px
+                    22px
+                    120px;
+            }
+
+            .people {
+
+                padding:
+                    110px
+                    22px
+                    120px;
+            }
+
+            .people-heading {
+
+                display: block;
+
+                margin-bottom: 65px;
+            }
+
+            .people-note {
+
+                margin-top: 30px;
+
+                font-size: 19px;
+            }
+
+            .people-item {
+
+                grid-template-columns:
+                    45px
+                    1fr
+                    30px;
+
+                min-height: 88px;
+            }
+
+            .people-name {
+
+                font-size: 28px;
+            }
+
+            .support {
+
+                padding:
+                    120px
+                    22px;
+            }
+
+            .support-copy {
+
+                margin-top: 55px;
+
+                font-size: 21px;
+            }
+
+            .closing {
+
+                min-height: 68svh;
+            }
+
+        }
+
+
+        /* ==========================================
+           ACCESSIBILITY
+        ========================================== */
+
+        .people-item:focus-visible,
+        .menu-button:focus-visible,
+        .begin-button:focus-visible {
+
+            outline:
+                2px solid
+                currentColor;
+
+            outline-offset: 5px;
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+
+                transition: none !important;
+                animation: none !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         HEADER
+    ========================================== -->
+
+    <header class="header">
+
+        <a
+            class="brand"
+            href="index.html"
+            aria-label="AKSH Home"
+        >
+
+            <img
+                src="aksh-icon.PNG"
+                alt="AKSH"
+            >
+
+            <span>AKSH</span>
+
+        </a>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+        >
+
+            <span class="menu-lines">
+                <span></span>
+                <span></span>
+            </span>
+
+        </button>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- ==========================================
+             HERO
+        ========================================== -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    With You
+                </p>
+
+
+                <h1 class="hero-title">
+
+                    Wherever you are,
+                    <em>begin there.</em>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    There is no right age,
+                    right moment or perfect reason
+                    to ask for support.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             INTRO
+        ========================================== -->
+
+        <section class="support-intro">
+
+            <div class="support-intro-inner">
+
+                <p class="section-label">
+                    Support without judgement
+                </p>
+
+
+                <h2 class="support-title">
+
+                    You don't have to
+                    <em>figure everything out</em>
+                    alone.
+
+                </h2>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             PEOPLE
+        ========================================== -->
+
+        <section class="people">
+
+            <div class="people-inner">
+
+
+                <div class="people-heading">
+
+                    <h2 class="people-title">
+
+                        Support can look
+                        different at
+                        different stages
+                        of life.
+
+                    </h2>
+
+
+                    <p class="people-note">
+
+                        Every person brings
+                        a different story.
+                        AKSH is designed to
+                        meet people where
+                        they are.
+
+                    </p>
+
+                </div>
+
+
+
+                <div class="people-list">
+
+
+                    <div
+                        class="people-item"
+                        tabindex="0"
+                        role="button"
+                        data-path="Children"
+                    >
+
+                        <span class="people-number">
+                            01
+                        </span>
+
+                        <p class="people-name">
+                            Children
+                        </p>
+
+                        <span class="people-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="people-item"
+                        tabindex="0"
+                        role="button"
+                        data-path="Teenagers"
+                    >
+
+                        <span class="people-number">
+                            02
+                        </span>
+
+                        <p class="people-name">
+                            Teenagers
+                        </p>
+
+                        <span class="people-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="people-item"
+                        tabindex="0"
+                        role="button"
+                        data-path="Students and young adults"
+                    >
+
+                        <span class="people-number">
+                            03
+                        </span>
+
+                        <p class="people-name">
+                            Students & Young Adults
+                        </p>
+
+                        <span class="people-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="people-item"
+                        tabindex="0"
+                        role="button"
+                        data-path="Working professionals"
+                    >
+
+                        <span class="people-number">
+                            04
+                        </span>
+
+                        <p class="people-name">
+                            Working Professionals
+                        </p>
+
+                        <span class="people-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="people-item"
+                        tabindex="0"
+                        role="button"
+                        data-path="Parents and families"
+                    >
+
+                        <span class="people-number">
+                            05
+                        </span>
+
+                        <p class="people-name">
+                            Parents & Families
+                        </p>
+
+                        <span class="people-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="people-item"
+                        tabindex="0"
+                        role="button"
+                        data-path="Older adults"
+                    >
+
+                        <span class="people-number">
+                            06
+                        </span>
+
+                        <p class="people-name">
+                            Older Adults
+                        </p>
+
+                        <span class="people-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             SUPPORT MESSAGE
+        ========================================== -->
+
+        <section class="support">
+
+            <div class="support-inner">
+
+                <p class="support-label">
+                    The AKSH approach
+                </p>
+
+
+                <h2 class="support-heading">
+
+                    Sometimes support
+                    begins with simply
+                    being <em>heard.</em>
+
+                </h2>
+
+
+                <p class="support-copy">
+
+                    AKSH creates space for honest
+                    conversations, thoughtful
+                    understanding and professional
+                    psychological support — without
+                    judgement.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             CLOSING
+        ========================================== -->
+
+        <section class="closing">
+
+            <div class="closing-inner">
+
+                <img
+                    class="closing-icon"
+                    src="aksh-icon.PNG"
+                    alt="AKSH"
+                >
+
+
+                <h2 class="closing-title">
+
+                    Come as you are.
+
+                </h2>
+
+
+                <p class="closing-text">
+
+                    You don't need to have
+                    the right words before
+                    you begin.
+
+                </p>
+
+
+                <a
+                    class="begin-button"
+                    href="booking.html"
+                >
+                    Begin Your Journey
+                </a>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                const menuButton =
+                    document.getElementById(
+                        "menuButton"
+                    );
+
+
+                menuButton.addEventListener(
+                    "click",
+                    () => {
+
+                        window.location.href =
+                            "navigation.html";
+
+                    }
+                );
+
+
+                const peopleItems =
+                    document.querySelectorAll(
+                        ".people-item"
+                    );
+
+
+                peopleItems.forEach(
+                    (item) => {
+
+                        const activate =
+                            () => {
+
+                                item.animate(
+                                    [
+                                        {
+                                            transform:
+                                                "translateX(0)",
+                                            opacity: 0.55
+                                        },
+                                        {
+                                            transform:
+                                                "translateX(8px)",
+                                            opacity: 1
+                                        },
+                                        {
+                                            transform:
+                                                "translateX(0)",
+                                            opacity: 1
+                                        }
+                                    ],
+                                    {
+                                        duration: 420,
+                                        easing: "ease-out"
+                                    }
+                                );
+
+                            };
+
+
+                        item.addEventListener(
+                            "click",
+                            activate
+                        );
+
+
+                        item.addEventListener(
+                            "keydown",
+                            (event) => {
+
+                                if (
+                                    event.key === "Enter" ||
+                                    event.key === " "
+                                ) {
+
+                                    event.preventDefault();
+
+                                    activate();
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+
+</body>
+</html>
