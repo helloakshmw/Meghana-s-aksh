@@ -12,12 +12,12 @@
 
     <meta
         name="theme-color"
-        content="#0b0b0b"
+        content="#0b0b0a"
     >
 
     <meta
         name="description"
-        content="AKSH — a growing space for mental wellness, understanding, education and human connection."
+        content="AKSH Mental Wellness — A Safe Space For Every Mind."
     >
 
     <meta
@@ -25,7 +25,7 @@
         content="index, follow"
     >
 
-    <title>AKSH — The World</title>
+    <title>AKSH — A Safe Space For Every Mind</title>
 
 
     <!-- =================================================
@@ -40,7 +40,7 @@
 
 
     <!-- =================================================
-         GOOGLE FONTS
+         FONTS
     ================================================== -->
 
     <link
@@ -55,1200 +55,19 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet"
     >
 
 
     <!-- =================================================
-         PAGE STYLES
+         PAGE CSS
     ================================================== -->
 
-    <style>
-
-        :root {
-            --ink: #151311;
-            --soft-ink: #49443f;
-            --paper: #f2eee7;
-            --warm: #e6ded2;
-            --line: rgba(21, 19, 17, 0.16);
-            --white: #faf8f4;
-        }
-
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-
-        body {
-            width: 100%;
-            min-height: 100%;
-            overflow-x: hidden;
-            background: var(--paper);
-            color: var(--ink);
-            font-family: "Inter", sans-serif;
-            font-weight: 300;
-            -webkit-font-smoothing: antialiased;
-            text-rendering: optimizeLegibility;
-        }
-
-
-        body.is-menu-open {
-            overflow: hidden;
-        }
-
-
-        button,
-        a {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-
-        button {
-            font: inherit;
-        }
-
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-
-        /* =================================================
-           PAGE TRANSITION
-        ================================================== */
-
-        #pageTransition {
-            position: fixed;
-            inset: 0;
-            z-index: 9999;
-            background: #0b0b0b;
-            pointer-events: none;
-            opacity: 1;
-            transform: translateY(0);
-            transition:
-                opacity 0.8s cubic-bezier(.22,1,.36,1),
-                transform 0.8s cubic-bezier(.22,1,.36,1);
-        }
-
-
-        #pageTransition.is-ready {
-            opacity: 0;
-            transform: translateY(-100%);
-        }
-
-
-        #pageTransition.is-active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-
-        /* =================================================
-           HEADER
-        ================================================== */
-
-        .world-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 88px;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding:
-                env(safe-area-inset-top)
-                34px
-                0;
-            pointer-events: none;
-        }
-
-
-        .world-brand,
-        #worldMenuButton {
-            pointer-events: auto;
-        }
-
-
-        .world-brand {
-            width: 48px;
-            height: 48px;
-            display: grid;
-            place-items: center;
-        }
-
-
-        .world-brand img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            display: block;
-        }
-
-
-        #worldMenuButton {
-            width: 48px;
-            height: 48px;
-            border: 0;
-            background: transparent;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-end;
-            justify-content: center;
-            gap: 7px;
-            cursor: pointer;
-        }
-
-
-        .menu-line {
-            display: block;
-            height: 1px;
-            background: var(--ink);
-            transition:
-                width 0.35s ease,
-                transform 0.35s ease;
-        }
-
-
-        .menu-line:first-child {
-            width: 29px;
-        }
-
-
-        .menu-line:last-child {
-            width: 19px;
-        }
-
-
-        #worldMenuButton:hover .menu-line:first-child {
-            width: 19px;
-        }
-
-
-        #worldMenuButton:hover .menu-line:last-child {
-            width: 29px;
-        }
-
-
-        /* =================================================
-           HERO
-        ================================================== */
-
-        .world-hero {
-            position: relative;
-            min-height: 100svh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            background:
-                radial-gradient(
-                    circle at 75% 35%,
-                    rgba(255,255,255,0.55),
-                    transparent 34%
-                ),
-                linear-gradient(
-                    135deg,
-                    #eee8df 0%,
-                    #e8e0d6 48%,
-                    #d9cec1 100%
-                );
-        }
-
-
-        .hero-light {
-            position: absolute;
-            width: 70vw;
-            height: 70vw;
-            max-width: 850px;
-            max-height: 850px;
-            border-radius: 50%;
-            right: -18%;
-            top: 7%;
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(255,255,255,0.62) 0%,
-                    rgba(255,255,255,0.18) 42%,
-                    transparent 70%
-                );
-            filter: blur(8px);
-            pointer-events: none;
-        }
-
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            width: min(1240px, calc(100% - 68px));
-            margin: 0 auto;
-            padding:
-                140px 0
-                80px;
-        }
-
-
-        .hero-eyebrow {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 30px;
-            color: var(--soft-ink);
-            font-size: 10px;
-            letter-spacing: 0.22em;
-            text-transform: uppercase;
-        }
-
-
-        .hero-eyebrow::before {
-            content: "";
-            width: 42px;
-            height: 1px;
-            background: currentColor;
-        }
-
-
-        .hero-title {
-            max-width: 980px;
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                70px,
-                12vw,
-                170px
-            );
-            font-weight: 400;
-            line-height: 0.84;
-            letter-spacing: -0.055em;
-        }
-
-
-        .hero-title span {
-            display: block;
-        }
-
-
-        .hero-title .italic {
-            font-style: italic;
-            margin-left: clamp(25px, 10vw, 150px);
-        }
-
-
-        .hero-intro {
-            width: min(520px, 100%);
-            margin-top: 54px;
-            margin-left: clamp(0px, 12vw, 170px);
-            font-size: 15px;
-            line-height: 1.9;
-            color: var(--soft-ink);
-        }
-
-
-        .hero-scroll {
-            position: absolute;
-            left: 50%;
-            bottom: 38px;
-            transform: translateX(-50%);
-            z-index: 3;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 12px;
-            color: var(--soft-ink);
-            font-size: 9px;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-        }
-
-
-        .scroll-line {
-            width: 1px;
-            height: 46px;
-            background: rgba(21,19,17,0.32);
-            transform-origin: top;
-            animation: scrollPulse 2.4s ease-in-out infinite;
-        }
-
-
-        @keyframes scrollPulse {
-
-            0%,
-            100% {
-                transform: scaleY(0.35);
-                opacity: 0.35;
-            }
-
-            50% {
-                transform: scaleY(1);
-                opacity: 1;
-            }
-
-        }
-
-
-        /* =================================================
-           INTRODUCTION
-        ================================================== */
-
-        .world-introduction {
-            position: relative;
-            background: var(--ink);
-            color: var(--white);
-            padding:
-                clamp(110px, 15vw, 220px)
-                0;
-        }
-
-
-        .world-introduction-inner {
-            width: min(1180px, calc(100% - 68px));
-            margin: 0 auto;
-        }
-
-
-        .section-number {
-            display: block;
-            margin-bottom: 40px;
-            color: rgba(250,248,244,0.48);
-            font-size: 10px;
-            letter-spacing: 0.25em;
-        }
-
-
-        .world-statement {
-            max-width: 1050px;
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                48px,
-                7vw,
-                105px
-            );
-            font-weight: 400;
-            line-height: 0.98;
-            letter-spacing: -0.035em;
-        }
-
-
-        .world-statement em {
-            color: #cfc3b5;
-            font-style: italic;
-        }
-
-
-        .world-description {
-            max-width: 590px;
-            margin-top: 72px;
-            margin-left: auto;
-            color: rgba(250,248,244,0.64);
-            font-size: 15px;
-            line-height: 1.9;
-        }
-
-
-        /* =================================================
-           THE LARGER WORLD
-        ================================================== */
-
-        .world-ecosystem {
-            position: relative;
-            background: #e9e3db;
-            padding:
-                clamp(110px, 14vw, 210px)
-                0;
-        }
-
-
-        .ecosystem-inner {
-            width: min(1240px, calc(100% - 68px));
-            margin: 0 auto;
-        }
-
-
-        .ecosystem-heading {
-            max-width: 820px;
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                46px,
-                6vw,
-                86px
-            );
-            font-weight: 400;
-            line-height: 1;
-            letter-spacing: -0.035em;
-        }
-
-
-        .ecosystem-heading em {
-            font-style: italic;
-        }
-
-
-        .ecosystem-copy {
-            max-width: 570px;
-            margin-top: 35px;
-            color: var(--soft-ink);
-            font-size: 15px;
-            line-height: 1.9;
-        }
-
-
-        /* =================================================
-           ECOSYSTEM WORLDS
-        ================================================== */
-
-        .world-fields {
-            margin-top: 100px;
-            border-top: 1px solid var(--line);
-        }
-
-
-        .world-field {
-            position: relative;
-            min-height: 180px;
-            display: grid;
-            grid-template-columns:
-                90px
-                minmax(180px, 0.8fr)
-                minmax(260px, 1.2fr);
-            align-items: center;
-            gap: 35px;
-            border-bottom: 1px solid var(--line);
-            transition:
-                background 0.5s ease,
-                padding 0.5s ease;
-        }
-
-
-        .world-field:hover {
-            padding-left: 18px;
-            padding-right: 18px;
-            background: rgba(255,255,255,0.26);
-        }
-
-
-        .field-number {
-            color: rgba(21,19,17,0.45);
-            font-size: 10px;
-            letter-spacing: 0.18em;
-        }
-
-
-        .field-title {
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                30px,
-                4vw,
-                52px
-            );
-            font-weight: 400;
-            line-height: 1;
-        }
-
-
-        .field-description {
-            max-width: 430px;
-            color: var(--soft-ink);
-            font-size: 13px;
-            line-height: 1.8;
-        }
-
-
-        /* =================================================
-           COME AS YOU ARE
-        ================================================== */
-
-        .come-as-you-are {
-            position: relative;
-            min-height: 85svh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            background:
-                radial-gradient(
-                    circle at 20% 30%,
-                    rgba(196,173,148,0.2),
-                    transparent 32%
-                ),
-                #181614;
-            color: var(--white);
-        }
-
-
-        .come-glow {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            right: -180px;
-            bottom: -220px;
-            border-radius: 50%;
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(219,198,173,0.22),
-                    transparent 68%
-                );
-            filter: blur(15px);
-        }
-
-
-        .come-inner {
-            position: relative;
-            z-index: 2;
-            width: min(1180px, calc(100% - 68px));
-            margin: 0 auto;
-            padding:
-                130px 0;
-        }
-
-
-        .come-label {
-            color: rgba(250,248,244,0.48);
-            font-size: 10px;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-        }
-
-
-        .come-title {
-            max-width: 950px;
-            margin-top: 35px;
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                62px,
-                10vw,
-                145px
-            );
-            font-weight: 400;
-            line-height: 0.86;
-            letter-spacing: -0.05em;
-        }
-
-
-        .come-title em {
-            color: #d6c6b5;
-            font-style: italic;
-        }
-
-
-        .come-copy {
-            max-width: 520px;
-            margin-top: 60px;
-            margin-left: auto;
-            color: rgba(250,248,244,0.62);
-            font-size: 14px;
-            line-height: 1.9;
-        }
-
-
-        /* =================================================
-           NEXT DOOR
-        ================================================== */
-
-        .next-door {
-            background: #f5f1eb;
-            padding:
-                clamp(100px, 14vw, 190px)
-                0;
-        }
-
-
-        .next-door-inner {
-            width: min(1180px, calc(100% - 68px));
-            margin: 0 auto;
-        }
-
-
-        .next-door-title {
-            max-width: 820px;
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                45px,
-                6vw,
-                82px
-            );
-            font-weight: 400;
-            line-height: 1;
-            letter-spacing: -0.035em;
-        }
-
-
-        .next-door-title em {
-            font-style: italic;
-        }
-
-
-        .next-door-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            margin-top: 80px;
-            background: var(--line);
-            border: 1px solid var(--line);
-        }
-
-
-        .next-door-link {
-            min-height: 230px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 30px;
-            background: #f5f1eb;
-            transition:
-                background 0.45s ease,
-                transform 0.45s ease;
-        }
-
-
-        .next-door-link:hover {
-            background: #e8e0d6;
-        }
-
-
-        .next-door-link-number {
-            color: rgba(21,19,17,0.42);
-            font-size: 10px;
-            letter-spacing: 0.18em;
-        }
-
-
-        .next-door-link-name {
-            font-family: "Cormorant Garamond", serif;
-            font-size: 34px;
-            line-height: 1;
-        }
-
-
-        .next-door-link-arrow {
-            align-self: flex-end;
-            font-size: 22px;
-            transition: transform 0.3s ease;
-        }
-
-
-        .next-door-link:hover
-        .next-door-link-arrow {
-            transform: translateX(6px);
-        }
-
-
-        /* =================================================
-           FOOTER
-        ================================================== */
-
-        .world-footer {
-            background: #0d0c0b;
-            color: var(--white);
-            padding:
-                75px 0
-                calc(
-                    75px +
-                    env(safe-area-inset-bottom)
-                );
-        }
-
-
-        .footer-inner {
-            width: min(1180px, calc(100% - 68px));
-            margin: 0 auto;
-        }
-
-
-        .footer-brand {
-            width: 55px;
-            height: 55px;
-            margin-bottom: 35px;
-        }
-
-
-        .footer-brand img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-
-        .footer-tagline {
-            max-width: 560px;
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                35px,
-                5vw,
-                64px
-            );
-            line-height: 0.95;
-        }
-
-
-        .footer-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 30px;
-            margin-top: 100px;
-            padding-top: 25px;
-            border-top: 1px solid rgba(250,248,244,0.14);
-            color: rgba(250,248,244,0.45);
-            font-size: 10px;
-            letter-spacing: 0.08em;
-        }
-
-
-        /* =================================================
-           FULLSCREEN NAVIGATION
-        ================================================== */
-
-        #worldNavigation {
-            position: fixed;
-            inset: 0;
-            z-index: 500;
-            display: flex;
-            align-items: center;
-            background: #11100f;
-            color: var(--white);
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-            transition:
-                opacity 0.5s ease,
-                visibility 0.5s ease;
-        }
-
-
-        #worldNavigation.is-open {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-
-
-        #closeWorldMenu {
-            position: absolute;
-            top: 30px;
-            right: 34px;
-            width: 48px;
-            height: 48px;
-            border: 0;
-            background: transparent;
-            cursor: pointer;
-        }
-
-
-        #closeWorldMenu::before,
-        #closeWorldMenu::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 29px;
-            height: 1px;
-            background: var(--white);
-        }
-
-
-        #closeWorldMenu::before {
-            transform: translate(-50%, -50%) rotate(45deg);
-        }
-
-
-        #closeWorldMenu::after {
-            transform: translate(-50%, -50%) rotate(-45deg);
-        }
-
-
-        .navigation-inner {
-            width: min(1100px, calc(100% - 68px));
-            margin: 0 auto;
-        }
-
-
-        .navigation-caption {
-            margin-bottom: 35px;
-            color: rgba(250,248,244,0.42);
-            font-size: 10px;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-        }
-
-
-        .navigation-links {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            column-gap: 80px;
-        }
-
-
-        .navigation-links a {
-            padding:
-                17px 0;
-            border-bottom: 1px solid rgba(250,248,244,0.12);
-            font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                30px,
-                4vw,
-                50px
-            );
-            line-height: 1;
-            transition:
-                color 0.3s ease,
-                padding-left 0.3s ease;
-        }
-
-
-        .navigation-links a:hover {
-            padding-left: 10px;
-            color: #d6c6b5;
-        }
-
-
-        /* =================================================
-           RESPONSIVE
-        ================================================== */
-
-        @media (max-width: 900px) {
-
-            .world-header {
-                height: 76px;
-                padding:
-                    env(safe-area-inset-top)
-                    22px
-                    0;
-            }
-
-
-            .world-brand {
-                width: 42px;
-                height: 42px;
-            }
-
-
-            #worldMenuButton {
-                width: 44px;
-                height: 44px;
-            }
-
-
-            .hero-content,
-            .world-introduction-inner,
-            .ecosystem-inner,
-            .come-inner,
-            .next-door-inner,
-            .footer-inner {
-                width: min(
-                    100% - 44px,
-                    720px
-                );
-            }
-
-
-            .hero-title {
-                font-size: clamp(
-                    64px,
-                    16vw,
-                    110px
-                );
-            }
-
-
-            .hero-title .italic {
-                margin-left: 7vw;
-            }
-
-
-            .world-field {
-                grid-template-columns:
-                    55px
-                    1fr;
-                gap: 20px;
-                padding: 35px 0;
-            }
-
-
-            .field-description {
-                grid-column: 2;
-            }
-
-
-            .next-door-grid {
-                grid-template-columns: 1fr;
-            }
-
-
-            .navigation-links {
-                grid-template-columns: 1fr;
-                column-gap: 0;
-            }
-
-        }
-
-
-        @media (max-width: 600px) {
-
-            .world-header {
-                height: 70px;
-                padding:
-                    env(safe-area-inset-top)
-                    17px
-                    0;
-            }
-
-
-            .world-brand {
-                width: 38px;
-                height: 38px;
-            }
-
-
-            #worldMenuButton {
-                width: 42px;
-                height: 42px;
-            }
-
-
-            .hero-content,
-            .world-introduction-inner,
-            .ecosystem-inner,
-            .come-inner,
-            .next-door-inner,
-            .footer-inner {
-                width: calc(100% - 36px);
-            }
-
-
-            .world-hero {
-                min-height: 100svh;
-            }
-
-
-            .hero-content {
-                padding:
-                    120px 0
-                    100px;
-            }
-
-
-            .hero-eyebrow {
-                margin-bottom: 24px;
-            }
-
-
-            .hero-title {
-                font-size: clamp(
-                    62px,
-                    19vw,
-                    92px
-                );
-            }
-
-
-            .hero-title .italic {
-                margin-left: 6vw;
-            }
-
-
-            .hero-intro {
-                margin-top: 42px;
-                margin-left: 0;
-                font-size: 14px;
-            }
-
-
-            .hero-scroll {
-                bottom: 25px;
-            }
-
-
-            .world-introduction {
-                padding:
-                    100px 0
-                    120px;
-            }
-
-
-            .world-statement {
-                font-size: clamp(
-                    45px,
-                    13vw,
-                    68px
-                );
-            }
-
-
-            .world-description {
-                margin-top: 50px;
-                margin-left: 0;
-                font-size: 14px;
-            }
-
-
-            .world-ecosystem {
-                padding:
-                    100px 0
-                    120px;
-            }
-
-
-            .ecosystem-heading {
-                font-size: clamp(
-                    43px,
-                    12vw,
-                    64px
-                );
-            }
-
-
-            .ecosystem-copy {
-                font-size: 14px;
-            }
-
-
-            .world-fields {
-                margin-top: 70px;
-            }
-
-
-            .world-field {
-                min-height: 0;
-                grid-template-columns: 38px 1fr;
-                gap: 13px;
-                padding: 28px 0;
-            }
-
-
-            .field-title {
-                font-size: 36px;
-            }
-
-
-            .field-description {
-                grid-column: 2;
-                font-size: 13px;
-                line-height: 1.75;
-            }
-
-
-            .come-as-you-are {
-                min-height: 90svh;
-            }
-
-
-            .come-inner {
-                padding:
-                    105px 0
-                    110px;
-            }
-
-
-            .come-title {
-                font-size: clamp(
-                    58px,
-                    18vw,
-                    82px
-                );
-            }
-
-
-            .come-copy {
-                margin-top: 48px;
-                margin-left: 0;
-                font-size: 14px;
-            }
-
-
-            .next-door {
-                padding:
-                    100px 0
-                    110px;
-            }
-
-
-            .next-door-title {
-                font-size: clamp(
-                    43px,
-                    12vw,
-                    62px
-                );
-            }
-
-
-            .next-door-grid {
-                margin-top: 55px;
-            }
-
-
-            .next-door-link {
-                min-height: 190px;
-                padding: 25px;
-            }
-
-
-            .next-door-link-name {
-                font-size: 31px;
-            }
-
-
-            .world-footer {
-                padding-top: 65px;
-            }
-
-
-            .footer-bottom {
-                align-items: flex-start;
-                flex-direction: column;
-                margin-top: 70px;
-            }
-
-
-            #closeWorldMenu {
-                top: 17px;
-                right: 17px;
-            }
-
-
-            .navigation-inner {
-                width: calc(100% - 44px);
-            }
-
-
-            .navigation-links a {
-                font-size: 34px;
-                padding: 14px 0;
-            }
-
-        }
-
-
-        /* =================================================
-           REDUCED MOTION
-        ================================================== */
-
-        @media (prefers-reduced-motion: reduce) {
-
-            html {
-                scroll-behavior: auto;
-            }
-
-
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-
-        }
-
-    </style>
+    <link
+        rel="stylesheet"
+        href="aksh.css"
+    >
 
 </head>
 
@@ -1257,120 +76,136 @@
 
 
     <!-- =================================================
-         PAGE TRANSITION
+         PAGE
     ================================================== -->
 
-    <div
-        id="pageTransition"
-        aria-hidden="true"
-    ></div>
+    <main id="akshPage">
 
 
-    <!-- =================================================
-         HEADER
-    ================================================== -->
+        <!-- =================================================
+             AMBIENT BACKGROUND
+        ================================================== -->
 
-    <header class="world-header">
-
-        <a
-            href="index.html"
-            class="world-brand"
-            aria-label="Return to AKSH arrival"
+        <div
+            class="aksh-background"
+            aria-hidden="true"
         >
 
-            <img
-                src="aksh-icon.PNG"
-                alt="AKSH"
+            <div class="background-glow glow-one"></div>
+
+            <div class="background-glow glow-two"></div>
+
+            <div class="background-grain"></div>
+
+        </div>
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <header class="aksh-header">
+
+
+            <!-- BRAND -->
+
+            <a
+                href="index.html"
+                class="aksh-brand"
+                aria-label="Return to AKSH arrival"
             >
 
-        </a>
-
-
-        <button
-            id="worldMenuButton"
-            type="button"
-            aria-label="Open navigation"
-            aria-expanded="false"
-            aria-controls="worldNavigation"
-        >
-
-            <span
-                class="menu-line"
-                aria-hidden="true"
-            ></span>
-
-            <span
-                class="menu-line"
-                aria-hidden="true"
-            ></span>
-
-        </button>
-
-    </header>
-
-
-    <!-- =================================================
-         HERO
-    ================================================== -->
-
-    <main>
-
-
-        <section
-            class="world-hero"
-            aria-labelledby="worldHeroTitle"
-        >
-
-            <div
-                class="hero-light"
-                aria-hidden="true"
-            ></div>
-
-
-            <div class="hero-content">
-
-                <div class="hero-eyebrow">
-                    The World of AKSH
-                </div>
-
-
-                <h1
-                    id="worldHeroTitle"
-                    class="hero-title"
+                <img
+                    src="aksh-icon.PNG"
+                    alt="AKSH"
                 >
 
-                    <span>
-                        A space
-                    </span>
+                <span>AKSH</span>
 
-                    <span class="italic">
-                        to begin.
-                    </span>
-
-                </h1>
+            </a>
 
 
-                <p class="hero-intro">
-                    AKSH begins with one simple belief:
-                    every mind deserves a space where it
-                    can be understood without judgment.
-                </p>
+            <!-- MENU -->
 
-            </div>
-
-
-            <div
-                class="hero-scroll"
-                aria-hidden="true"
+            <button
+                id="akshMenuButton"
+                class="aksh-menu-button"
+                type="button"
+                aria-label="Open navigation"
+                aria-expanded="false"
             >
 
-                <span>Explore</span>
+                <span></span>
+                <span></span>
 
-                <span class="scroll-line"></span>
+            </button>
 
+        </header>
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section
+            class="aksh-hero"
+            aria-labelledby="akshHeroTitle"
+        >
+
+
+            <div class="hero-eyebrow">
+                AKSH MENTAL WELLNESS
             </div>
 
+
+            <h1 id="akshHeroTitle">
+
+                A safe space
+                <br>
+
+                <em>for every mind.</em>
+
+            </h1>
+
+
+            <p class="hero-introduction">
+
+                Somewhere between the noise of the world
+                and the quiet within, there is a space
+                where you can simply be.
+
+            </p>
+
+
+            <div class="hero-line"></div>
+
+
+            <p class="hero-subtext">
+
+                Welcome to AKSH.
+
+            </p>
+
+
         </section>
+
+
+        <!-- =================================================
+             SCROLL INDICATOR
+        ================================================== -->
+
+        <div
+            class="scroll-indicator"
+            aria-hidden="true"
+        >
+
+            <span class="scroll-line"></span>
+
+            <span>
+                Explore
+            </span>
+
+        </div>
 
 
         <!-- =================================================
@@ -1378,34 +213,48 @@
         ================================================== -->
 
         <section
-            class="world-introduction"
-            aria-labelledby="worldStatement"
+            class="aksh-introduction"
+            aria-labelledby="introductionTitle"
         >
 
-            <div class="world-introduction-inner">
-
-                <span class="section-number">
-                    01 — WHY AKSH
-                </span>
+            <div class="section-number">
+                01
+            </div>
 
 
-                <h2
-                    id="worldStatement"
-                    class="world-statement"
-                >
+            <div class="introduction-content">
 
-                    Mental wellness is not only
-                    about <em>when something feels wrong.</em>
+                <p class="section-label">
+                    WHY AKSH EXISTS
+                </p>
+
+
+                <h2 id="introductionTitle">
+
+                    Because every mind
+                    <br>
+                    deserves to be heard.
 
                 </h2>
 
 
-                <p class="world-description">
-                    It is also about understanding ourselves,
-                    caring for our minds, building healthier
-                    relationships and creating environments
-                    where people can grow with greater awareness.
+                <p>
+
+                    AKSH is a mental wellness space created
+                    around one simple belief — that seeking
+                    support should feel human, safe and free
+                    from judgement.
+
                 </p>
+
+
+                <p>
+
+                    Here, you don't have to have everything
+                    figured out before you begin.
+
+                </p>
+
 
             </div>
 
@@ -1413,160 +262,93 @@
 
 
         <!-- =================================================
-             THE LARGER WORLD
+             THE AKSH EXPERIENCE
         ================================================== -->
 
         <section
-            class="world-ecosystem"
-            aria-labelledby="ecosystemHeading"
+            class="aksh-experience"
+            aria-labelledby="experienceTitle"
         >
 
-            <div class="ecosystem-inner">
 
-                <span class="section-number">
-                    02 — THE BIGGER PICTURE
-                </span>
+            <div class="experience-heading">
 
-
-                <h2
-                    id="ecosystemHeading"
-                    class="ecosystem-heading"
-                >
-
-                    Psychology is the beginning.
-                    <em>The world around us matters too.</em>
-
-                </h2>
-
-
-                <p class="ecosystem-copy">
-                    AKSH begins with psychological support,
-                    while looking toward a wider future —
-                    one where mental wellness can become part
-                    of everyday life, learning, work and community.
+                <p class="section-label">
+                    THE AKSH EXPERIENCE
                 </p>
 
 
-                <div class="world-fields">
+                <h2 id="experienceTitle">
+
+                    A space to pause.
+                    <br>
+                    A space to understand.
+                    <br>
+                    A space to grow.
+
+                </h2>
+
+            </div>
 
 
-                    <article class="world-field">
-
-                        <span class="field-number">
-                            01
-                        </span>
-
-                        <h3 class="field-title">
-                            Individuals
-                        </h3>
-
-                        <p class="field-description">
-                            A space for children, teenagers,
-                            students, young adults, professionals,
-                            parents, families and older adults.
-                        </p>
-
-                    </article>
+            <div class="experience-grid">
 
 
-                    <article class="world-field">
+                <article class="experience-card">
 
-                        <span class="field-number">
-                            02
-                        </span>
+                    <span class="card-number">
+                        01
+                    </span>
 
-                        <h3 class="field-title">
-                            Education
-                        </h3>
+                    <h3>
+                        Be Heard
+                    </h3>
 
-                        <p class="field-description">
-                            A future where mental wellness education,
-                            awareness and preventive support can
-                            become part of schools, colleges and
-                            educational spaces.
-                        </p>
+                    <p>
+                        A place where your thoughts,
+                        feelings and experiences can be
+                        expressed without judgement.
+                    </p>
 
-                    </article>
-
-
-                    <article class="world-field">
-
-                        <span class="field-number">
-                            03
-                        </span>
-
-                        <h3 class="field-title">
-                            Work
-                        </h3>
-
-                        <p class="field-description">
-                            Supporting healthier workplaces through
-                            mental wellness programs, education,
-                            counselling support and wellbeing initiatives.
-                        </p>
-
-                    </article>
+                </article>
 
 
-                    <article class="world-field">
+                <article class="experience-card">
 
-                        <span class="field-number">
-                            04
-                        </span>
+                    <span class="card-number">
+                        02
+                    </span>
 
-                        <h3 class="field-title">
-                            Knowledge
-                        </h3>
+                    <h3>
+                        Understand
+                    </h3>
 
-                        <p class="field-description">
-                            Creating accessible resources, learning
-                            experiences and conversations that help
-                            people understand the mind more deeply.
-                        </p>
+                    <p>
+                        Discover a deeper understanding
+                        of yourself, your emotions and
+                        the patterns that shape your life.
+                    </p>
 
-                    </article>
-
-
-                    <article class="world-field">
-
-                        <span class="field-number">
-                            05
-                        </span>
-
-                        <h3 class="field-title">
-                            Community
-                        </h3>
-
-                        <p class="field-description">
-                            Building spaces where awareness,
-                            compassion and meaningful human connection
-                            can exist beyond the counselling room.
-                        </p>
-
-                    </article>
+                </article>
 
 
-                    <article class="world-field">
+                <article class="experience-card">
 
-                        <span class="field-number">
-                            06
-                        </span>
+                    <span class="card-number">
+                        03
+                    </span>
 
-                        <h3 class="field-title">
-                            Possibility
-                        </h3>
+                    <h3>
+                        Move Forward
+                    </h3>
 
-                        <p class="field-description">
-                            Over time, AKSH may grow to include
-                            psychologists, counsellors, educators,
-                            researchers, creators, program teams and
-                            technology that can widen its reach.
-                        </p>
+                    <p>
+                        With the right support, small steps
+                        can become meaningful change.
+                    </p>
 
-                    </article>
+                </article>
 
-
-                </div>
 
             </div>
 
@@ -1574,165 +356,55 @@
 
 
         <!-- =================================================
-             COME AS YOU ARE
+             CLOSING STATEMENT
         ================================================== -->
 
         <section
-            class="come-as-you-are"
-            aria-labelledby="comeTitle"
+            class="aksh-closing"
+            aria-labelledby="closingTitle"
         >
 
-            <div
-                class="come-glow"
-                aria-hidden="true"
-            ></div>
+            <p class="section-label">
+                YOUR SPACE
+            </p>
 
 
-            <div class="come-inner">
+            <h2 id="closingTitle">
 
-                <span class="come-label">
-                    The AKSH philosophy
+                You don't have to
+                <br>
+                walk through it alone.
+
+            </h2>
+
+
+            <a
+                href="with-you.html"
+                class="primary-link"
+            >
+
+                <span>
+                    Find Your Space
                 </span>
 
-
-                <h2
-                    id="comeTitle"
-                    class="come-title"
+                <span
+                    class="link-arrow"
+                    aria-hidden="true"
                 >
+                    →
+                </span>
 
-                    Come as <em>you are.</em>
-
-                </h2>
-
-
-                <p class="come-copy">
-                    You do not have to arrive with the right words.
-                    You do not have to have everything figured out.
-                    AKSH is being built as a space where beginning
-                    can be simple.
-                </p>
-
-            </div>
+            </a>
 
         </section>
 
 
         <!-- =================================================
-             CONTINUE EXPLORING
+             FOOTER
         ================================================== -->
 
-        <section
-            class="next-door"
-            aria-labelledby="nextDoorTitle"
-        >
+        <footer class="aksh-footer">
 
-            <div class="next-door-inner">
-
-                <span class="section-number">
-                    03 — CONTINUE
-                </span>
-
-
-                <h2
-                    id="nextDoorTitle"
-                    class="next-door-title"
-                >
-
-                    There is more
-                    <em>to explore.</em>
-
-                </h2>
-
-
-                <div class="next-door-grid">
-
-
-                    <a
-                        href="the-mind.html"
-                        class="next-door-link"
-                    >
-
-                        <span class="next-door-link-number">
-                            01
-                        </span>
-
-                        <span class="next-door-link-name">
-                            The Mind
-                        </span>
-
-                        <span
-                            class="next-door-link-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </span>
-
-                    </a>
-
-
-                    <a
-                        href="with-you.html"
-                        class="next-door-link"
-                    >
-
-                        <span class="next-door-link-number">
-                            02
-                        </span>
-
-                        <span class="next-door-link-name">
-                            With You
-                        </span>
-
-                        <span
-                            class="next-door-link-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </span>
-
-                    </a>
-
-
-                    <a
-                        href="meghana-kaverappa.html"
-                        class="next-door-link"
-                    >
-
-                        <span class="next-door-link-number">
-                            03
-                        </span>
-
-                        <span class="next-door-link-name">
-                            Meghana
-                        </span>
-
-                        <span
-                            class="next-door-link-arrow"
-                            aria-hidden="true"
-                        >
-                            →
-                        </span>
-
-                    </a>
-
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-    </main>
-
-
-    <!-- =================================================
-         FOOTER
-    ================================================== -->
-
-    <footer class="world-footer">
-
-        <div class="footer-inner">
 
             <div class="footer-brand">
 
@@ -1741,74 +413,22 @@
                     alt="AKSH"
                 >
 
-            </div>
+                <div>
 
+                    <strong>
+                        AKSH
+                    </strong>
 
-            <p class="footer-tagline">
-                A Safe Space for Every Mind.
-            </p>
+                    <span>
+                        A Safe Space For Every Mind
+                    </span>
 
-
-            <div class="footer-bottom">
-
-                <span>
-                    AKSH
-                </span>
-
-                <span>
-                    Mental Wellness
-                </span>
-
-                <span>
-                    © <span id="footerYear"></span>
-                </span>
+                </div>
 
             </div>
 
-        </div>
 
-    </footer>
-
-
-    <!-- =================================================
-         FULLSCREEN NAVIGATION
-    ================================================== -->
-
-    <aside
-        id="worldNavigation"
-        aria-hidden="true"
-    >
-
-        <button
-            id="closeWorldMenu"
-            type="button"
-            aria-label="Close navigation"
-        ></button>
-
-
-        <div class="navigation-inner">
-
-            <div class="navigation-caption">
-                Explore AKSH
-            </div>
-
-
-            <nav
-                class="navigation-links"
-                aria-label="AKSH navigation"
-            >
-
-                <a href="aksh.html">
-                    The World
-                </a>
-
-                <a href="the-mind.html">
-                    The Mind
-                </a>
-
-                <a href="with-you.html">
-                    With You
-                </a>
+            <div class="footer-links">
 
                 <a href="meghana-kaverappa.html">
                     Meghana
@@ -1826,15 +446,111 @@
                     Journal
                 </a>
 
-                <a href="ai.html">
-                    AKSH AI
-                </a>
-
                 <a href="booking.html">
                     Book
                 </a>
 
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 AKSH Mental Wellness
+                </span>
+
+                <span>
+                    A Safe Space For Every Mind
+                </span>
+
+            </div>
+
+
+        </footer>
+
+
+    </main>
+
+
+    <!-- =================================================
+         FULL SCREEN NAVIGATION
+    ================================================== -->
+
+    <aside
+        id="akshNavigation"
+        aria-hidden="true"
+    >
+
+
+        <button
+            id="akshCloseMenu"
+            type="button"
+            aria-label="Close navigation"
+        >
+
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <div class="navigation-content">
+
+
+            <p class="navigation-label">
+                EXPLORE AKSH
+            </p>
+
+
+            <nav aria-label="AKSH navigation">
+
+                <a href="aksh.html">
+                    <span>01</span>
+                    The World
+                </a>
+
+                <a href="the-mind.html">
+                    <span>02</span>
+                    The Mind
+                </a>
+
+                <a href="with-you.html">
+                    <span>03</span>
+                    With You
+                </a>
+
+                <a href="meghana-kaverappa.html">
+                    <span>04</span>
+                    Meghana
+                </a>
+
+                <a href="journey.html">
+                    <span>05</span>
+                    Journey
+                </a>
+
+                <a href="stories.html">
+                    <span>06</span>
+                    Stories
+                </a>
+
+                <a href="journal.html">
+                    <span>07</span>
+                    Journal
+                </a>
+
+                <a href="ai.html">
+                    <span>08</span>
+                    AKSH AI
+                </a>
+
+                <a href="booking.html">
+                    <span>09</span>
+                    Book a Session
+                </a>
+
             </nav>
+
 
         </div>
 
@@ -1842,328 +558,21 @@
 
 
     <!-- =================================================
+         PAGE TRANSITION
+    ================================================== -->
+
+    <div
+        id="akshPageTransition"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- =================================================
          JAVASCRIPT
     ================================================== -->
 
-    <script>
+    <script src="aksh.js"></script>
 
-        document.addEventListener(
-            "DOMContentLoaded",
-            () => {
-
-                const transition =
-                    document.getElementById(
-                        "pageTransition"
-                    );
-
-
-                const menuButton =
-                    document.getElementById(
-                        "worldMenuButton"
-                    );
-
-
-                const closeMenu =
-                    document.getElementById(
-                        "closeWorldMenu"
-                    );
-
-
-                const navigation =
-                    document.getElementById(
-                        "worldNavigation"
-                    );
-
-
-                const footerYear =
-                    document.getElementById(
-                        "footerYear"
-                    );
-
-
-                /* =========================================
-                   PAGE ARRIVAL
-                ========================================== */
-
-                requestAnimationFrame(
-                    () => {
-
-                        if (transition) {
-
-                            transition.classList.add(
-                                "is-ready"
-                            );
-
-                        }
-
-                    }
-                );
-
-
-                /* =========================================
-                   PAGE LINKS
-                ========================================== */
-
-                document
-                    .querySelectorAll(
-                        'a[href$=".html"]'
-                    )
-                    .forEach(
-                        (link) => {
-
-                            link.addEventListener(
-                                "click",
-                                (event) => {
-
-                                    const destination =
-                                        link.getAttribute(
-                                            "href"
-                                        );
-
-
-                                    if (
-                                        !destination ||
-                                        destination.startsWith(
-                                            "#"
-                                        )
-                                    ) {
-                                        return;
-                                    }
-
-
-                                    if (
-                                        link.target ===
-                                        "_blank"
-                                    ) {
-                                        return;
-                                    }
-
-
-                                    event.preventDefault();
-
-
-                                    if (transition) {
-
-                                        transition.classList.remove(
-                                            "is-ready"
-                                        );
-
-                                        transition.classList.add(
-                                            "is-active"
-                                        );
-
-                                    }
-
-
-                                    setTimeout(
-                                        () => {
-
-                                            window.location.href =
-                                                destination;
-
-                                        },
-                                        700
-                                    );
-
-                                }
-                            );
-
-                        }
-                    );
-
-
-                /* =========================================
-                   OPEN NAVIGATION
-                ========================================== */
-
-                function openNavigation() {
-
-                    if (!navigation) {
-                        return;
-                    }
-
-
-                    navigation.classList.add(
-                        "is-open"
-                    );
-
-
-                    navigation.setAttribute(
-                        "aria-hidden",
-                        "false"
-                    );
-
-
-                    if (menuButton) {
-
-                        menuButton.setAttribute(
-                            "aria-expanded",
-                            "true"
-                        );
-
-                    }
-
-
-                    document.body.classList.add(
-                        "is-menu-open"
-                    );
-
-                }
-
-
-                /* =========================================
-                   CLOSE NAVIGATION
-                ========================================== */
-
-                function closeNavigation() {
-
-                    if (!navigation) {
-                        return;
-                    }
-
-
-                    navigation.classList.remove(
-                        "is-open"
-                    );
-
-
-                    navigation.setAttribute(
-                        "aria-hidden",
-                        "true"
-                    );
-
-
-                    if (menuButton) {
-
-                        menuButton.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                    }
-
-
-                    document.body.classList.remove(
-                        "is-menu-open"
-                    );
-
-                }
-
-
-                /* =========================================
-                   MENU BUTTON
-                ========================================== */
-
-                if (menuButton) {
-
-                    menuButton.addEventListener(
-                        "click",
-                        openNavigation
-                    );
-
-                }
-
-
-                /* =========================================
-                   CLOSE BUTTON
-                ========================================== */
-
-                if (closeMenu) {
-
-                    closeMenu.addEventListener(
-                        "click",
-                        closeNavigation
-                    );
-
-                }
-
-
-                /* =========================================
-                   NAVIGATION LINKS
-                ========================================== */
-
-                if (navigation) {
-
-                    navigation
-                        .querySelectorAll("a")
-                        .forEach(
-                            (link) => {
-
-                                link.addEventListener(
-                                    "click",
-                                    () => {
-
-                                        closeNavigation();
-
-                                    }
-                                );
-
-                            }
-                        );
-
-                }
-
-
-                /* =========================================
-                   ESCAPE KEY
-                ========================================== */
-
-                document.addEventListener(
-                    "keydown",
-                    (event) => {
-
-                        if (
-                            event.key ===
-                            "Escape"
-                        ) {
-
-                            closeNavigation();
-
-                        }
-
-                    }
-                );
-
-
-                /* =========================================
-                   CURRENT YEAR
-                ========================================== */
-
-                if (footerYear) {
-
-                    footerYear.textContent =
-                        new Date()
-                            .getFullYear();
-
-                }
-
-
-                /* =========================================
-                   BACK / FORWARD CACHE
-                ========================================== */
-
-                window.addEventListener(
-                    "pageshow",
-                    (event) => {
-
-                        if (
-                            event.persisted &&
-                            transition
-                        ) {
-
-                            transition.classList.add(
-                                "is-ready"
-                            );
-
-                        }
-
-                    }
-                );
-
-            }
-        );
-
-    </script>
 
 </body>
 
