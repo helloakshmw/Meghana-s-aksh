@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#171614"
+    >
+
+    <meta
+        name="description"
+        content="The Mind — AKSH Mental Wellness."
+    >
+
+    <title>The Mind — AKSH</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+            background: #171614;
+        }
+
+
+        body {
+            margin: 0;
+            padding: 0;
+
+            overflow-x: hidden;
+
+            background: #171614;
+            color: #f3eee5;
+
+            font-family: "Inter", sans-serif;
+
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+
+        a,
+        button {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        button {
+            font: inherit;
+        }
+
+
+        /* ==========================================
+           HEADER
+        ========================================== */
+
+        .header {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+            right: 0;
+
+            z-index: 100;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            padding:
+                max(22px, env(safe-area-inset-top))
+                max(24px, env(safe-area-inset-right))
+                18px
+                max(24px, env(safe-area-inset-left));
+
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(23,22,20,0.92),
+                    rgba(23,22,20,0)
+                );
+        }
+
+
+        .brand {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #f3eee5;
+
+            text-decoration: none;
+        }
+
+
+        .brand img {
+
+            width: 34px;
+            height: 34px;
+
+            object-fit: contain;
+        }
+
+
+        .brand span {
+
+            font-size: 10px;
+
+            font-weight: 500;
+
+            letter-spacing: 0.38em;
+        }
+
+
+        .menu-button {
+
+            width: 45px;
+            height: 45px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid rgba(243,238,229,0.20);
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.035);
+
+            color: #f3eee5;
+
+            cursor: pointer;
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+
+        .menu-lines {
+
+            width: 17px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+        }
+
+
+        .menu-lines span {
+
+            width: 100%;
+            height: 1px;
+
+            background: currentColor;
+        }
+
+
+        /* ==========================================
+           HERO
+        ========================================== */
+
+        .hero {
+
+            position: relative;
+
+            min-height: 100svh;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            padding:
+                150px
+                7vw
+                100px;
+
+            overflow: hidden;
+
+            background:
+
+                radial-gradient(
+                    ellipse at 72% 20%,
+                    rgba(121,142,157,0.16),
+                    transparent 38%
+                ),
+
+                radial-gradient(
+                    ellipse at 15% 75%,
+                    rgba(210,188,153,0.08),
+                    transparent 40%
+                ),
+
+                #171614;
+        }
+
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 650px;
+            height: 650px;
+
+            right: -260px;
+            top: 10%;
+
+            border-radius: 50%;
+
+            background:
+                rgba(145,164,176,0.045);
+
+            filter: blur(60px);
+
+            pointer-events: none;
+        }
+
+
+        .hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            width: min(1050px, 100%);
+        }
+
+
+        .eyebrow {
+
+            margin: 0 0 30px;
+
+            color:
+                rgba(243,238,229,0.42);
+
+            font-size: 9px;
+
+            letter-spacing: 0.30em;
+
+            text-transform: uppercase;
+        }
+
+
+        .hero-title {
+
+            margin: 0;
+
+            max-width: 1000px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    70px,
+                    13vw,
+                    170px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.80;
+
+            letter-spacing: -0.055em;
+        }
+
+
+        .hero-title em {
+
+            font-style: italic;
+
+            color:
+                rgba(243,238,229,0.48);
+        }
+
+
+        .hero-description {
+
+            width: min(590px, 100%);
+
+            margin:
+                50px
+                0
+                0
+                9vw;
+
+            color:
+                rgba(243,238,229,0.68);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    21px,
+                    2.7vw,
+                    30px
+                );
+
+            font-weight: 300;
+
+            line-height: 1.42;
+        }
+
+
+        /* ==========================================
+           INTRO
+        ========================================== */
+
+        .intro {
+
+            min-height: 90svh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding:
+                140px
+                7vw;
+
+            background:
+                #e8e0d4;
+
+            color: #171614;
+        }
+
+
+        .intro-inner {
+
+            width: min(1150px, 100%);
+
+            margin: 0 auto;
+        }
+
+
+        .section-label {
+
+            margin: 0 0 45px;
+
+            color:
+                rgba(23,22,20,0.45);
+
+            font-size: 9px;
+
+            letter-spacing: 0.28em;
+
+            text-transform: uppercase;
+        }
+
+
+        .intro-title {
+
+            margin: 0;
+
+            max-width: 1050px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    43px,
+                    7vw,
+                    92px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.035em;
+        }
+
+
+        .intro-title span {
+
+            color:
+                rgba(23,22,20,0.42);
+        }
+
+
+        /* ==========================================
+           MIND QUESTIONS
+        ========================================== */
+
+        .questions {
+
+            min-height: 100svh;
+
+            padding:
+                150px
+                7vw;
+
+            background:
+                #f3eee5;
+
+            color: #171614;
+        }
+
+
+        .questions-inner {
+
+            width: min(1150px, 100%);
+
+            margin: 0 auto;
+        }
+
+
+        .questions-title {
+
+            max-width: 720px;
+
+            margin: 0 0 85px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    40px,
+                    6vw,
+                    76px
+                );
+
+            font-weight: 300;
+
+            line-height: 1;
+
+            letter-spacing: -0.025em;
+        }
+
+
+        .question-list {
+
+            border-top:
+                1px solid
+                rgba(23,22,20,0.18);
+        }
+
+
+        .question-item {
+
+            display: grid;
+
+            grid-template-columns:
+                80px
+                1fr
+                40px;
+
+            align-items: center;
+
+            min-height: 100px;
+
+            border-bottom:
+                1px solid
+                rgba(23,22,20,0.15);
+
+            cursor: pointer;
+
+            transition:
+                padding 300ms ease;
+        }
+
+
+        .question-item:hover {
+
+            padding-left: 12px;
+        }
+
+
+        .question-number {
+
+            color:
+                rgba(23,22,20,0.36);
+
+            font-size: 9px;
+
+            letter-spacing: 0.18em;
+        }
+
+
+        .question-text {
+
+            margin: 0;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    27px,
+                    3.5vw,
+                    42px
+                );
+
+            font-weight: 300;
+        }
+
+
+        .question-arrow {
+
+            font-size: 18px;
+
+            color:
+                rgba(23,22,20,0.38);
+
+            transition:
+                transform 300ms ease;
+        }
+
+
+        .question-item:hover
+        .question-arrow {
+
+            transform:
+                translate(5px,-5px);
+        }
+
+
+        /* ==========================================
+           EXPLORATION
+        ========================================== */
+
+        .exploration {
+
+            min-height: 95svh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding:
+                150px
+                7vw;
+
+            background:
+
+                radial-gradient(
+                    circle at 75% 30%,
+                    rgba(180,151,121,0.11),
+                    transparent 34%
+                ),
+
+                #171614;
+        }
+
+
+        .exploration-inner {
+
+            width: min(1150px, 100%);
+
+            margin: 0 auto;
+        }
+
+
+        .exploration-label {
+
+            margin: 0 0 50px;
+
+            color:
+                rgba(243,238,229,0.38);
+
+            font-size: 9px;
+
+            letter-spacing: 0.30em;
+
+            text-transform: uppercase;
+        }
+
+
+        .exploration-title {
+
+            margin: 0;
+
+            max-width: 950px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    47px,
+                    7vw,
+                    95px
+                );
+
+            font-weight: 300;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.035em;
+        }
+
+
+        .exploration-title em {
+
+            font-style: italic;
+
+            color:
+                rgba(243,238,229,0.48);
+        }
+
+
+        .exploration-text {
+
+            width: min(580px, 100%);
+
+            margin:
+                70px
+                0
+                0
+                auto;
+
+            color:
+                rgba(243,238,229,0.60);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 23px;
+
+            line-height: 1.45;
+        }
+
+
+        /* ==========================================
+           CLOSING
+        ========================================== */
+
+        .closing {
+
+            min-height: 75svh;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            padding:
+                120px
+                24px;
+
+            text-align: center;
+
+            background:
+                #dcd1c2;
+
+            color: #171614;
+        }
+
+
+        .closing-inner {
+
+            width: min(700px, 100%);
+        }
+
+
+        .closing-icon {
+
+            width: 48px;
+
+            margin-bottom: 32px;
+        }
+
+
+        .closing-title {
+
+            margin: 0;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    45px,
+                    7vw,
+                    82px
+                );
+
+            font-weight: 300;
+
+            line-height: 1;
+        }
+
+
+        .closing-text {
+
+            margin:
+                30px auto 0;
+
+            max-width: 500px;
+
+            color:
+                rgba(23,22,20,0.56);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 22px;
+
+            line-height: 1.4;
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 767px) {
+
+            .header {
+
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+
+            .brand img {
+
+                width: 30px;
+                height: 30px;
+            }
+
+
+            .menu-button {
+
+                width: 43px;
+                height: 43px;
+            }
+
+
+            .hero {
+
+                padding:
+                    140px
+                    22px
+                    85px;
+            }
+
+
+            .hero-title {
+
+                font-size:
+                    clamp(
+                        68px,
+                        20vw,
+                        105px
+                    );
+            }
+
+
+            .hero-description {
+
+                margin:
+                    42px
+                    0
+                    0
+                    0;
+
+                font-size: 21px;
+            }
+
+
+            .intro {
+
+                padding:
+                    110px
+                    22px
+                    120px;
+            }
+
+
+            .questions {
+
+                padding:
+                    110px
+                    22px
+                    120px;
+            }
+
+
+            .questions-title {
+
+                margin-bottom: 60px;
+            }
+
+
+            .question-item {
+
+                grid-template-columns:
+                    45px
+                    1fr
+                    30px;
+
+                min-height: 88px;
+            }
+
+
+            .question-text {
+
+                font-size: 28px;
+            }
+
+
+            .exploration {
+
+                padding:
+                    120px
+                    22px;
+            }
+
+
+            .exploration-text {
+
+                margin-top: 55px;
+            }
+
+
+            .closing {
+
+                min-height: 65svh;
+            }
+
+        }
+
+
+        /* ==========================================
+           REDUCED MOTION
+        ========================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+
+            *,
+            *::before,
+            *::after {
+
+                transition: none !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         HEADER
+    ========================================== -->
+
+    <header class="header">
+
+        <a
+            class="brand"
+            href="index.html"
+            aria-label="AKSH Home"
+        >
+
+            <img
+                src="aksh-icon.PNG"
+                alt="AKSH"
+            >
+
+            <span>AKSH</span>
+
+        </a>
+
+
+        <button
+            class="menu-button"
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+        >
+
+            <span class="menu-lines">
+
+                <span></span>
+                <span></span>
+
+            </span>
+
+        </button>
+
+    </header>
+
+
+
+    <main>
+
+
+        <!-- ==========================================
+             HERO
+        ========================================== -->
+
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    The Mind
+                </p>
+
+
+                <h1 class="hero-title">
+
+                    There is a world
+                    <em>within you.</em>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    Thoughts.
+                    Feelings.
+                    Memories.
+                    Questions.
+                    Quiet moments that no one else can see.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             INTRO
+        ========================================== -->
+
+        <section class="intro">
+
+            <div class="intro-inner">
+
+                <p class="section-label">
+                    Understanding ourselves
+                </p>
+
+
+                <h2 class="intro-title">
+
+                    The mind is not something
+                    to <span>fix.</span>
+
+                </h2>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             QUESTIONS
+        ========================================== -->
+
+        <section class="questions">
+
+            <div class="questions-inner">
+
+                <h2 class="questions-title">
+
+                    Sometimes,
+                    understanding begins
+                    with a question.
+
+                </h2>
+
+
+                <div class="question-list">
+
+
+                    <div
+                        class="question-item"
+                        tabindex="0"
+                        role="button"
+                        data-message="It is okay not to have everything figured out."
+                    >
+
+                        <span class="question-number">
+                            01
+                        </span>
+
+
+                        <p class="question-text">
+                            Why do I feel this way?
+                        </p>
+
+
+                        <span class="question-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="question-item"
+                        tabindex="0"
+                        role="button"
+                        data-message="Your feelings deserve space, not judgment."
+                    >
+
+                        <span class="question-number">
+                            02
+                        </span>
+
+
+                        <p class="question-text">
+                            Why can't I switch my mind off?
+                        </p>
+
+
+                        <span class="question-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="question-item"
+                        tabindex="0"
+                        role="button"
+                        data-message="You do not have to carry everything alone."
+                    >
+
+                        <span class="question-number">
+                            03
+                        </span>
+
+
+                        <p class="question-text">
+                            Why does everything feel overwhelming?
+                        </p>
+
+
+                        <span class="question-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="question-item"
+                        tabindex="0"
+                        role="button"
+                        data-message="Sometimes the first step is simply allowing yourself to be heard."
+                    >
+
+                        <span class="question-number">
+                            04
+                        </span>
+
+
+                        <p class="question-text">
+                            What if I just need someone to listen?
+                        </p>
+
+
+                        <span class="question-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+
+                    <div
+                        class="question-item"
+                        tabindex="0"
+                        role="button"
+                        data-message="Curiosity about yourself can be a beginning too."
+                    >
+
+                        <span class="question-number">
+                            05
+                        </span>
+
+
+                        <p class="question-text">
+                            What can I learn about myself?
+                        </p>
+
+
+                        <span class="question-arrow">
+                            ↗
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             EXPLORATION
+        ========================================== -->
+
+        <section class="exploration">
+
+            <div class="exploration-inner">
+
+                <p class="exploration-label">
+                    Keep exploring
+                </p>
+
+
+                <h2 class="exploration-title">
+
+                    Understanding the mind
+                    can create
+                    <em>more space</em>
+                    to live.
+
+                </h2>
+
+
+                <p class="exploration-text">
+
+                    AKSH will bring together thoughtful
+                    conversations, educational resources,
+                    practical knowledge and experiences
+                    that help make mental wellness easier
+                    to understand.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ==========================================
+             CLOSING
+        ========================================== -->
+
+        <section class="closing">
+
+            <div class="closing-inner">
+
+                <img
+                    class="closing-icon"
+                    src="aksh-icon.PNG"
+                    alt="AKSH"
+                >
+
+
+                <h2 class="closing-title">
+
+                    You can begin
+                    anywhere.
+
+                </h2>
+
+
+                <p class="closing-text">
+
+                    Sometimes a little understanding
+                    is the beginning of something bigger.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+
+                /* ======================================
+                   NAVIGATION
+                ====================================== */
+
+                const menuButton =
+                    document.getElementById(
+                        "menuButton"
+                    );
+
+
+                menuButton.addEventListener(
+                    "click",
+                    () => {
+
+                        window.location.href =
+                            "navigation.html";
+
+                    }
+                );
+
+
+
+                /* ======================================
+                   QUESTION INTERACTIONS
+                ====================================== */
+
+                const questions =
+                    document.querySelectorAll(
+                        ".question-item"
+                    );
+
+
+                questions.forEach(
+                    (question) => {
+
+                        const activate =
+                            () => {
+
+                                const message =
+                                    question.dataset.message;
+
+                                if (!message) {
+                                    return;
+                                }
+
+
+                                question.animate(
+                                    [
+                                        {
+                                            opacity: 0.55
+                                        },
+                                        {
+                                            opacity: 1
+                                        }
+                                    ],
+                                    {
+                                        duration: 350,
+                                        easing: "ease-out"
+                                    }
+                                );
+
+                            };
+
+
+                        question.addEventListener(
+                            "click",
+                            activate
+                        );
+
+
+                        question.addEventListener(
+                            "keydown",
+                            (event) => {
+
+                                if (
+                                    event.key === "Enter" ||
+                                    event.key === " "
+                                ) {
+
+                                    event.preventDefault();
+
+                                    activate();
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+
+</body>
+</html>
