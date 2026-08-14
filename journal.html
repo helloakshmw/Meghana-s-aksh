@@ -1,0 +1,2891 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#0b0b0a"
+    >
+
+    <meta
+        name="description"
+        content="AKSH Journal — a quiet space for reflection, awareness, emotional wellbeing and everyday mental wellness."
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <title>AKSH — Journal</title>
+
+
+    <!-- =================================================
+         FAVICON
+    ================================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="aksh-icon.PNG"
+    >
+
+
+    <!-- =================================================
+         FONTS
+    ================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =================================================
+         JOURNAL STYLES
+    ================================================== -->
+
+    <style>
+
+        :root {
+
+            --ink: #151311;
+            --soft-ink: #625b54;
+            --paper: #f3eee7;
+            --warm: #ded2c3;
+            --light: #faf8f4;
+            --dark: #11100f;
+            --line: rgba(21, 19, 17, 0.14);
+
+        }
+
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+
+        body {
+
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+
+            background: var(--paper);
+            color: var(--ink);
+
+            font-family: "Inter", sans-serif;
+            font-weight: 300;
+
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+
+        }
+
+
+        body.menu-open {
+
+            overflow: hidden;
+
+        }
+
+
+        a {
+
+            color: inherit;
+            text-decoration: none;
+
+        }
+
+
+        button {
+
+            font: inherit;
+            -webkit-tap-highlight-color: transparent;
+
+        }
+
+
+        /* =================================================
+           PAGE TRANSITION
+        ================================================== */
+
+        #pageTransition {
+
+            position: fixed;
+            inset: 0;
+
+            z-index: 9999;
+
+            background: var(--dark);
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+            pointer-events: none;
+
+            transition:
+                opacity 0.8s cubic-bezier(.22,1,.36,1),
+                transform 0.8s cubic-bezier(.22,1,.36,1);
+
+        }
+
+
+        #pageTransition.ready {
+
+            opacity: 0;
+
+            transform: translateY(-100%);
+
+        }
+
+
+        #pageTransition.active {
+
+            opacity: 1;
+
+            transform: translateY(0);
+
+        }
+
+
+        /* =================================================
+           HEADER
+        ================================================== */
+
+        .journal-header {
+
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 88px;
+
+            z-index: 100;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding:
+                env(safe-area-inset-top)
+                34px
+                0;
+
+            pointer-events: none;
+
+        }
+
+
+        .journal-brand,
+        #menuButton {
+
+            pointer-events: auto;
+
+        }
+
+
+        .journal-brand {
+
+            width: 48px;
+            height: 48px;
+
+            display: block;
+
+        }
+
+
+        .journal-brand img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: contain;
+
+            display: block;
+
+        }
+
+
+        #menuButton {
+
+            width: 48px;
+            height: 48px;
+
+            border: 0;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: flex-end;
+
+            gap: 7px;
+
+        }
+
+
+        #menuButton span {
+
+            display: block;
+
+            height: 1px;
+
+            background: var(--ink);
+
+            transition: width 0.3s ease;
+
+        }
+
+
+        #menuButton span:first-child {
+
+            width: 29px;
+
+        }
+
+
+        #menuButton span:last-child {
+
+            width: 19px;
+
+        }
+
+
+        #menuButton:hover span:first-child {
+
+            width: 19px;
+
+        }
+
+
+        #menuButton:hover span:last-child {
+
+            width: 29px;
+
+        }
+
+
+        /* =================================================
+           HERO
+        ================================================== */
+
+        .journal-hero {
+
+            min-height: 100svh;
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            overflow: hidden;
+
+            background:
+
+                radial-gradient(
+                    circle at 78% 24%,
+                    rgba(255,255,255,0.72),
+                    transparent 32%
+                ),
+
+                linear-gradient(
+                    135deg,
+                    #eee8df,
+                    #d9cdbd
+                );
+
+        }
+
+
+        .hero-orbit {
+
+            position: absolute;
+
+            width: 65vw;
+            height: 65vw;
+
+            max-width: 850px;
+            max-height: 850px;
+
+            right: -20%;
+            top: 8%;
+
+            border-radius: 50%;
+
+            border:
+                1px solid rgba(21,19,17,0.08);
+
+            box-shadow:
+                0 0 0 70px rgba(255,255,255,0.06),
+                0 0 0 140px rgba(255,255,255,0.035);
+
+            pointer-events: none;
+
+        }
+
+
+        .journal-hero-content {
+
+            position: relative;
+
+            z-index: 2;
+
+            width:
+                min(
+                    1180px,
+                    calc(100% - 68px)
+                );
+
+            margin: 0 auto;
+
+            padding:
+                150px 0
+                110px;
+
+        }
+
+
+        .hero-label {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-bottom: 32px;
+
+            color: var(--soft-ink);
+
+            font-size: 10px;
+
+            letter-spacing: 0.24em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .hero-label::before {
+
+            content: "";
+
+            width: 42px;
+            height: 1px;
+
+            background: currentColor;
+
+        }
+
+
+        .hero-title {
+
+            max-width: 1100px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    78px,
+                    14vw,
+                    180px
+                );
+
+            font-weight: 400;
+
+            line-height: 0.82;
+
+            letter-spacing: -0.065em;
+
+        }
+
+
+        .hero-title em {
+
+            display: block;
+
+            margin-left:
+                clamp(
+                    25px,
+                    10vw,
+                    150px
+                );
+
+            font-style: italic;
+
+        }
+
+
+        .hero-intro {
+
+            width:
+                min(
+                    570px,
+                    100%
+                );
+
+            margin-top: 62px;
+
+            margin-left:
+                clamp(
+                    0px,
+                    12vw,
+                    170px
+                );
+
+            color: var(--soft-ink);
+
+            font-size: 15px;
+
+            line-height: 1.9;
+
+        }
+
+
+        .hero-scroll {
+
+            position: absolute;
+
+            left: 50%;
+            bottom: 35px;
+
+            transform:
+                translateX(-50%);
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color: var(--soft-ink);
+
+            font-size: 9px;
+
+            letter-spacing: 0.2em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .scroll-line {
+
+            width: 1px;
+            height: 45px;
+
+            background:
+                rgba(21,19,17,0.3);
+
+            transform-origin: top;
+
+            animation:
+                journalScroll 2.4s
+                ease-in-out infinite;
+
+        }
+
+
+        @keyframes journalScroll {
+
+            0%,
+            100% {
+
+                opacity: 0.3;
+
+                transform:
+                    scaleY(0.35);
+
+            }
+
+            50% {
+
+                opacity: 1;
+
+                transform:
+                    scaleY(1);
+
+            }
+
+        }
+
+
+        /* =================================================
+           INTRODUCTION
+        ================================================== */
+
+        .journal-introduction {
+
+            background: var(--dark);
+
+            color: var(--light);
+
+            padding:
+                clamp(
+                    110px,
+                    15vw,
+                    220px
+                )
+                0;
+
+        }
+
+
+        .content-width {
+
+            width:
+                min(
+                    1180px,
+                    calc(100% - 68px)
+                );
+
+            margin: 0 auto;
+
+        }
+
+
+        .section-number {
+
+            display: block;
+
+            margin-bottom: 40px;
+
+            color:
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.42
+                );
+
+            font-size: 10px;
+
+            letter-spacing: 0.25em;
+
+        }
+
+
+        .introduction-title {
+
+            max-width: 1020px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    50px,
+                    7vw,
+                    105px
+                );
+
+            font-weight: 400;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.04em;
+
+        }
+
+
+        .introduction-title em {
+
+            color: #d5c6b5;
+
+            font-style: italic;
+
+        }
+
+
+        .introduction-copy {
+
+            max-width: 600px;
+
+            margin-top: 70px;
+
+            margin-left: auto;
+
+            color:
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.62
+                );
+
+            font-size: 15px;
+
+            line-height: 1.9;
+
+        }
+
+
+        /* =================================================
+           JOURNAL ENTRIES
+        ================================================== */
+
+        .journal-library {
+
+            background: #e9e3db;
+
+            padding:
+                clamp(
+                    110px,
+                    14vw,
+                    200px
+                )
+                0;
+
+        }
+
+
+        .library-heading {
+
+            max-width: 850px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    48px,
+                    6vw,
+                    86px
+                );
+
+            font-weight: 400;
+
+            line-height: 1;
+
+            letter-spacing: -0.04em;
+
+        }
+
+
+        .library-heading em {
+
+            font-style: italic;
+
+        }
+
+
+        .library-copy {
+
+            max-width: 570px;
+
+            margin-top: 35px;
+
+            color: var(--soft-ink);
+
+            font-size: 15px;
+
+            line-height: 1.9;
+
+        }
+
+
+        .journal-list {
+
+            margin-top: 90px;
+
+            border-top:
+                1px solid var(--line);
+
+        }
+
+
+        .journal-entry {
+
+            display: grid;
+
+            grid-template-columns:
+                110px
+                1fr
+                70px;
+
+            gap: 35px;
+
+            align-items: center;
+
+            padding:
+                42px 0;
+
+            border-bottom:
+                1px solid var(--line);
+
+            transition:
+                padding 0.4s ease,
+                background 0.4s ease;
+
+        }
+
+
+        .journal-entry:hover {
+
+            padding-left: 15px;
+            padding-right: 15px;
+
+        }
+
+
+        .entry-number {
+
+            color:
+                rgba(
+                    21,
+                    19,
+                    17,
+                    0.38
+                );
+
+            font-size: 10px;
+
+            letter-spacing: 0.2em;
+
+        }
+
+
+        .entry-content {
+
+            max-width: 720px;
+
+        }
+
+
+        .entry-category {
+
+            margin-bottom: 14px;
+
+            color: var(--soft-ink);
+
+            font-size: 9px;
+
+            letter-spacing: 0.2em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .entry-title {
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    35px,
+                    4vw,
+                    58px
+                );
+
+            font-weight: 400;
+
+            line-height: 0.98;
+
+            letter-spacing: -0.025em;
+
+        }
+
+
+        .entry-description {
+
+            max-width: 590px;
+
+            margin-top: 18px;
+
+            color: var(--soft-ink);
+
+            font-size: 13px;
+
+            line-height: 1.8;
+
+        }
+
+
+        .entry-arrow {
+
+            justify-self: end;
+
+            font-size: 25px;
+
+            transition:
+                transform 0.3s ease;
+
+        }
+
+
+        .journal-entry:hover
+        .entry-arrow {
+
+            transform:
+                translateX(7px);
+
+        }
+
+
+        /* =================================================
+           REFLECTION
+        ================================================== */
+
+        .journal-reflection {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ded2c3,
+                    #eee8df
+                );
+
+            padding:
+                clamp(
+                    120px,
+                    17vw,
+                    240px
+                )
+                0;
+
+        }
+
+
+        .reflection-layout {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                1fr;
+
+            gap: 100px;
+
+            align-items: center;
+
+        }
+
+
+        .reflection-title {
+
+            max-width: 700px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    55px,
+                    7vw,
+                    105px
+                );
+
+            font-weight: 400;
+
+            line-height: 0.9;
+
+            letter-spacing: -0.05em;
+
+        }
+
+
+        .reflection-title em {
+
+            font-style: italic;
+
+        }
+
+
+        .reflection-copy {
+
+            max-width: 500px;
+
+            color: var(--soft-ink);
+
+            font-size: 15px;
+
+            line-height: 1.95;
+
+        }
+
+
+        .reflection-mark {
+
+            margin-top: 45px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 38px;
+
+            font-style: italic;
+
+        }
+
+
+        /* =================================================
+           CLOSING
+        ================================================== */
+
+        .journal-closing {
+
+            background: #171513;
+
+            color: var(--light);
+
+            padding:
+                clamp(
+                    120px,
+                    17vw,
+                    240px
+                )
+                0;
+
+        }
+
+
+        .closing-label {
+
+            color:
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.42
+                );
+
+            font-size: 10px;
+
+            letter-spacing: 0.24em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .closing-title {
+
+            max-width: 950px;
+
+            margin-top: 35px;
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    60px,
+                    9vw,
+                    135px
+                );
+
+            font-weight: 400;
+
+            line-height: 0.87;
+
+            letter-spacing: -0.05em;
+
+        }
+
+
+        .closing-title em {
+
+            color: #d5c5b3;
+
+            font-style: italic;
+
+        }
+
+
+        .closing-copy {
+
+            max-width: 520px;
+
+            margin-top: 60px;
+
+            margin-left: auto;
+
+            color:
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.62
+                );
+
+            font-size: 14px;
+
+            line-height: 1.9;
+
+        }
+
+
+        .closing-link {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+            margin-top: 55px;
+
+            padding-bottom: 10px;
+
+            border-bottom:
+                1px solid
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.45
+                );
+
+            font-size: 11px;
+
+            letter-spacing: 0.16em;
+
+            text-transform: uppercase;
+
+            transition:
+                gap 0.3s ease,
+                border-color 0.3s ease;
+
+        }
+
+
+        .closing-link:hover {
+
+            gap: 26px;
+
+            border-color:
+                var(--light);
+
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================== */
+
+        .journal-footer {
+
+            background: #0c0b0a;
+
+            color: var(--light);
+
+            padding:
+                75px 0
+                calc(
+                    75px +
+                    env(
+                        safe-area-inset-bottom
+                    )
+                );
+
+        }
+
+
+        .footer-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+        }
+
+
+        .footer-brand img {
+
+            width: 52px;
+            height: 52px;
+
+            object-fit: contain;
+
+        }
+
+
+        .footer-brand-text {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 5px;
+
+        }
+
+
+        .footer-brand-text strong {
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size: 27px;
+
+            font-weight: 500;
+
+        }
+
+
+        .footer-brand-text span {
+
+            color:
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.45
+                );
+
+            font-size: 9px;
+
+            letter-spacing: 0.12em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .footer-bottom {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            gap: 25px;
+
+            margin-top: 85px;
+
+            padding-top: 24px;
+
+            border-top:
+                1px solid
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.13
+                );
+
+            color:
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.42
+                );
+
+            font-size: 10px;
+
+        }
+
+
+        /* =================================================
+           NAVIGATION
+        ================================================== */
+
+        #navigation {
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 500;
+
+            display: flex;
+
+            align-items: center;
+
+            background: #11100f;
+
+            color: var(--light);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition:
+                opacity 0.45s ease,
+                visibility 0.45s ease;
+
+        }
+
+
+        #navigation.open {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+
+        }
+
+
+        #closeMenu {
+
+            position: absolute;
+
+            top: 30px;
+
+            right: 34px;
+
+            width: 48px;
+            height: 48px;
+
+            border: 0;
+
+            background: transparent;
+
+            cursor: pointer;
+
+        }
+
+
+        #closeMenu::before,
+        #closeMenu::after {
+
+            content: "";
+
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            width: 29px;
+            height: 1px;
+
+            background: var(--light);
+
+        }
+
+
+        #closeMenu::before {
+
+            transform:
+                translate(-50%, -50%)
+                rotate(45deg);
+
+        }
+
+
+        #closeMenu::after {
+
+            transform:
+                translate(-50%, -50%)
+                rotate(-45deg);
+
+        }
+
+
+        .navigation-inner {
+
+            width:
+                min(
+                    1100px,
+                    calc(100% - 68px)
+                );
+
+            margin: 0 auto;
+
+        }
+
+
+        .navigation-label {
+
+            margin-bottom: 35px;
+
+            color:
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.4
+                );
+
+            font-size: 10px;
+
+            letter-spacing: 0.24em;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .navigation-links {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap:
+                0 80px;
+
+        }
+
+
+        .navigation-links a {
+
+            display: flex;
+
+            align-items: baseline;
+
+            gap: 18px;
+
+            padding: 17px 0;
+
+            border-bottom:
+                1px solid
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.12
+                );
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    30px,
+                    4vw,
+                    50px
+                );
+
+            line-height: 1;
+
+            transition:
+                color 0.3s ease,
+                padding-left 0.3s ease;
+
+        }
+
+
+        .navigation-links a span {
+
+            color:
+                rgba(
+                    250,
+                    248,
+                    244,
+                    0.32
+                );
+
+            font-family:
+                "Inter",
+                sans-serif;
+
+            font-size: 9px;
+
+            letter-spacing: 0.12em;
+
+        }
+
+
+        .navigation-links a:hover {
+
+            padding-left: 10px;
+
+            color: #d5c5b3;
+
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 900px) {
+
+            .journal-header {
+
+                height: 76px;
+
+                padding:
+                    env(safe-area-inset-top)
+                    22px
+                    0;
+
+            }
+
+
+            .journal-brand {
+
+                width: 42px;
+                height: 42px;
+
+            }
+
+
+            #menuButton {
+
+                width: 44px;
+                height: 44px;
+
+            }
+
+
+            .content-width,
+            .journal-hero-content,
+            .navigation-inner {
+
+                width:
+                    min(
+                        calc(100% - 44px),
+                        720px
+                    );
+
+            }
+
+
+            .hero-title {
+
+                font-size:
+                    clamp(
+                        64px,
+                        16vw,
+                        110px
+                    );
+
+            }
+
+
+            .reflection-layout {
+
+                grid-template-columns: 1fr;
+
+                gap: 60px;
+
+            }
+
+
+            .navigation-links {
+
+                grid-template-columns: 1fr;
+
+                gap: 0;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .journal-header {
+
+                height: 70px;
+
+                padding:
+                    env(safe-area-inset-top)
+                    17px
+                    0;
+
+            }
+
+
+            .journal-brand {
+
+                width: 38px;
+                height: 38px;
+
+            }
+
+
+            #menuButton {
+
+                width: 42px;
+                height: 42px;
+
+            }
+
+
+            .content-width,
+            .journal-hero-content {
+
+                width:
+                    calc(100% - 36px);
+
+            }
+
+
+            .journal-hero-content {
+
+                padding:
+                    120px 0
+                    100px;
+
+            }
+
+
+            .hero-title {
+
+                font-size:
+                    clamp(
+                        61px,
+                        19vw,
+                        90px
+                    );
+
+            }
+
+
+            .hero-title em {
+
+                margin-left: 6vw;
+
+            }
+
+
+            .hero-intro {
+
+                margin-top: 43px;
+
+                margin-left: 0;
+
+                font-size: 14px;
+
+            }
+
+
+            .hero-scroll {
+
+                bottom: 24px;
+
+            }
+
+
+            .journal-introduction {
+
+                padding:
+                    100px 0
+                    120px;
+
+            }
+
+
+            .introduction-title {
+
+                font-size:
+                    clamp(
+                        45px,
+                        13vw,
+                        68px
+                    );
+
+            }
+
+
+            .introduction-copy {
+
+                margin-top: 50px;
+
+                margin-left: 0;
+
+                font-size: 14px;
+
+            }
+
+
+            .journal-library {
+
+                padding:
+                    100px 0
+                    120px;
+
+            }
+
+
+            .library-heading {
+
+                font-size:
+                    clamp(
+                        43px,
+                        12vw,
+                        64px
+                    );
+
+            }
+
+
+            .library-copy {
+
+                font-size: 14px;
+
+            }
+
+
+            .journal-list {
+
+                margin-top: 60px;
+
+            }
+
+
+            .journal-entry {
+
+                grid-template-columns:
+                    45px
+                    1fr
+                    25px;
+
+                gap: 15px;
+
+                padding:
+                    32px 0;
+
+            }
+
+
+            .entry-title {
+
+                font-size: 35px;
+
+            }
+
+
+            .entry-description {
+
+                font-size: 13px;
+
+            }
+
+
+            .journal-reflection {
+
+                padding:
+                    105px 0
+                    120px;
+
+            }
+
+
+            .reflection-title {
+
+                font-size:
+                    clamp(
+                        54px,
+                        16vw,
+                        80px
+                    );
+
+            }
+
+
+            .reflection-copy {
+
+                font-size: 14px;
+
+            }
+
+
+            .journal-closing {
+
+                padding:
+                    105px 0
+                    120px;
+
+            }
+
+
+            .closing-title {
+
+                font-size:
+                    clamp(
+                        57px,
+                        18vw,
+                        82px
+                    );
+
+            }
+
+
+            .closing-copy {
+
+                margin-top: 48px;
+
+                margin-left: 0;
+
+                font-size: 14px;
+
+            }
+
+
+            .footer-bottom {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                margin-top: 65px;
+
+            }
+
+
+            #closeMenu {
+
+                top: 17px;
+
+                right: 17px;
+
+            }
+
+
+            .navigation-inner {
+
+                width:
+                    calc(100% - 44px);
+
+            }
+
+
+            .navigation-links a {
+
+                font-size: 34px;
+
+                padding: 14px 0;
+
+            }
+
+        }
+
+
+        /* =================================================
+           REDUCED MOTION
+        ================================================== */
+
+        @media (
+            prefers-reduced-motion: reduce
+        ) {
+
+            html {
+
+                scroll-behavior: auto;
+
+            }
+
+
+            *,
+            *::before,
+            *::after {
+
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================================
+         PAGE TRANSITION
+    ================================================== -->
+
+    <div
+        id="pageTransition"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <header class="journal-header">
+
+        <a
+            href="index.html"
+            class="journal-brand"
+            aria-label="Return to AKSH"
+        >
+
+            <img
+                src="aksh-icon.PNG"
+                alt="AKSH"
+            >
+
+        </a>
+
+
+        <button
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+            aria-expanded="false"
+            aria-controls="navigation"
+        >
+
+            <span aria-hidden="true"></span>
+
+            <span aria-hidden="true"></span>
+
+        </button>
+
+    </header>
+
+
+    <!-- =================================================
+         MAIN
+    ================================================== -->
+
+    <main>
+
+
+        <!-- =================================================
+             HERO
+        ================================================== -->
+
+        <section
+            class="journal-hero"
+            aria-labelledby="journalHeroTitle"
+        >
+
+            <div
+                class="hero-orbit"
+                aria-hidden="true"
+            ></div>
+
+
+            <div class="journal-hero-content">
+
+                <div class="hero-label">
+
+                    AKSH — JOURNAL
+
+                </div>
+
+
+                <h1
+                    id="journalHeroTitle"
+                    class="hero-title"
+                >
+
+                    A place to
+                    <em>pause.</em>
+
+                </h1>
+
+
+                <p class="hero-intro">
+
+                    Thoughts worth sitting with.
+                    Questions worth asking.
+                    Small moments that can sometimes
+                    change the way we understand
+                    ourselves.
+
+                </p>
+
+            </div>
+
+
+            <div
+                class="hero-scroll"
+                aria-hidden="true"
+            >
+
+                <span>
+                    Explore
+                </span>
+
+                <span class="scroll-line"></span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             INTRODUCTION
+        ================================================== -->
+
+        <section class="journal-introduction">
+
+            <div class="content-width">
+
+                <span class="section-number">
+
+                    01 — THE JOURNAL
+
+                </span>
+
+
+                <h2 class="introduction-title">
+
+                    Sometimes reflection
+                    creates <em>clarity.</em>
+
+                </h2>
+
+
+                <p class="introduction-copy">
+
+                    The AKSH Journal is a space for
+                    thoughtful writing about the
+                    experiences that make us human.
+
+                    <br><br>
+
+                    It explores emotions, relationships,
+                    self-understanding, growth and the
+                    quieter parts of everyday life.
+
+                    <br><br>
+
+                    Not everything here is meant to give
+                    you an answer.
+
+                    Some things are simply meant to give
+                    you a moment to think.
+
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             JOURNAL LIBRARY
+        ================================================== -->
+
+        <section class="journal-library">
+
+            <div class="content-width">
+
+                <span class="section-number">
+
+                    02 — READ
+
+                </span>
+
+
+                <h2 class="library-heading">
+
+                    Words for the
+                    <em>in-between moments.</em>
+
+                </h2>
+
+
+                <p class="library-copy">
+
+                    Explore reflections on emotions,
+                    relationships, identity, boundaries,
+                    growth and the everyday experiences
+                    that often go unnoticed.
+
+                </p>
+
+
+                <div class="journal-list">
+
+
+                    <!-- ENTRY 01 -->
+
+                    <article class="journal-entry">
+
+                        <span class="entry-number">
+                            01
+                        </span>
+
+
+                        <div class="entry-content">
+
+                            <p class="entry-category">
+                                Self Understanding
+                            </p>
+
+
+                            <h3 class="entry-title">
+
+                                The quiet
+                                things we feel.
+
+                            </h3>
+
+
+                            <p class="entry-description">
+
+                                Not every emotion arrives
+                                loudly. Some feelings
+                                quietly stay with us until
+                                we make enough space to
+                                notice them.
+
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="entry-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </span>
+
+                    </article>
+
+
+                    <!-- ENTRY 02 -->
+
+                    <article class="journal-entry">
+
+                        <span class="entry-number">
+                            02
+                        </span>
+
+
+                        <div class="entry-content">
+
+                            <p class="entry-category">
+                                Boundaries
+                            </p>
+
+
+                            <h3 class="entry-title">
+
+                                Saying no
+                                without guilt.
+
+                            </h3>
+
+
+                            <p class="entry-description">
+
+                                A boundary does not always
+                                mean pushing someone away.
+                                Sometimes it means making
+                                room for yourself too.
+
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="entry-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </span>
+
+                    </article>
+
+
+                    <!-- ENTRY 03 -->
+
+                    <article class="journal-entry">
+
+                        <span class="entry-number">
+                            03
+                        </span>
+
+
+                        <div class="entry-content">
+
+                            <p class="entry-category">
+                                Relationships
+                            </p>
+
+
+                            <h3 class="entry-title">
+
+                                When you are
+                                tired of being strong.
+
+                            </h3>
+
+
+                            <p class="entry-description">
+
+                                Being the person everyone
+                                depends on can sometimes
+                                make it difficult to admit
+                                when you need support too.
+
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="entry-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </span>
+
+                    </article>
+
+
+                    <!-- ENTRY 04 -->
+
+                    <article class="journal-entry">
+
+                        <span class="entry-number">
+                            04
+                        </span>
+
+
+                        <div class="entry-content">
+
+                            <p class="entry-category">
+                                Growth
+                            </p>
+
+
+                            <h3 class="entry-title">
+
+                                Growth can be
+                                uncomfortable.
+
+                            </h3>
+
+
+                            <p class="entry-description">
+
+                                Becoming more aware of
+                                ourselves can bring
+                                uncomfortable truths,
+                                but awareness can also
+                                become the beginning
+                                of change.
+
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="entry-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </span>
+
+                    </article>
+
+
+                    <!-- ENTRY 05 -->
+
+                    <article class="journal-entry">
+
+                        <span class="entry-number">
+                            05
+                        </span>
+
+
+                        <div class="entry-content">
+
+                            <p class="entry-category">
+                                Everyday Life
+                            </p>
+
+
+                            <h3 class="entry-title">
+
+                                You do not have
+                                to have it all figured out.
+
+                            </h3>
+
+
+                            <p class="entry-description">
+
+                                Life does not always need
+                                a complete plan. Sometimes
+                                the next small step is
+                                enough.
+
+                            </p>
+
+                        </div>
+
+
+                        <span
+                            class="entry-arrow"
+                            aria-hidden="true"
+                        >
+                            →
+                        </span>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             REFLECTION
+        ================================================== -->
+
+        <section class="journal-reflection">
+
+            <div class="content-width">
+
+                <div class="reflection-layout">
+
+
+                    <h2 class="reflection-title">
+
+                        Give yourself
+                        permission to
+                        <em>slow down.</em>
+
+                    </h2>
+
+
+                    <div>
+
+                        <p class="reflection-copy">
+
+                            There is a particular kind of
+                            clarity that appears when we
+                            stop rushing to solve everything.
+
+                            <br><br>
+
+                            A pause can create enough space
+                            to notice what we are feeling,
+                            what we need and what matters
+                            to us.
+
+                            <br><br>
+
+                            You do not need to turn every
+                            moment into a lesson.
+
+                            Sometimes simply noticing
+                            is enough.
+
+                        </p>
+
+
+                        <p class="reflection-mark">
+
+                            — AKSH
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CLOSING
+        ================================================== -->
+
+        <section class="journal-closing">
+
+            <div class="content-width">
+
+                <p class="closing-label">
+
+                    WHEN YOU NEED A LITTLE MORE SPACE
+
+                </p>
+
+
+                <h2 class="closing-title">
+
+                    You do not have
+                    to carry everything
+                    <em>alone.</em>
+
+                </h2>
+
+
+                <p class="closing-copy">
+
+                    Reading can help us understand
+                    ourselves.
+
+                    Sometimes, though, having someone
+                    walk beside us can make the journey
+                    feel different.
+
+                    <br><br>
+
+                    If you feel ready, there is a space
+                    for you at AKSH.
+
+                </p>
+
+
+                <a
+                    href="booking.html"
+                    class="closing-link"
+                >
+
+                    <span>
+                        Begin Your Journey
+                    </span>
+
+                    <span aria-hidden="true">
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="journal-footer">
+
+        <div class="content-width">
+
+            <div class="footer-brand">
+
+                <img
+                    src="aksh-icon.PNG"
+                    alt="AKSH"
+                >
+
+
+                <div class="footer-brand-text">
+
+                    <strong>
+                        AKSH
+                    </strong>
+
+                    <span>
+                        A Safe Space For Every Mind
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 AKSH Mental Wellness
+                </span>
+
+                <span>
+                    Journal
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =================================================
+         FULLSCREEN NAVIGATION
+    ================================================== -->
+
+    <aside
+        id="navigation"
+        aria-hidden="true"
+    >
+
+        <button
+            id="closeMenu"
+            type="button"
+            aria-label="Close navigation"
+        ></button>
+
+
+        <div class="navigation-inner">
+
+            <p class="navigation-label">
+
+                EXPLORE AKSH
+
+            </p>
+
+
+            <nav
+                class="navigation-links"
+                aria-label="AKSH navigation"
+            >
+
+                <a href="aksh.html">
+
+                    <span>01</span>
+
+                    The World
+
+                </a>
+
+
+                <a href="the-mind.html">
+
+                    <span>02</span>
+
+                    The Mind
+
+                </a>
+
+
+                <a href="with-you.html">
+
+                    <span>03</span>
+
+                    With You
+
+                </a>
+
+
+                <a href="meghana-kaverappa.html">
+
+                    <span>04</span>
+
+                    Meghana
+
+                </a>
+
+
+                <a href="journey.html">
+
+                    <span>05</span>
+
+                    Journey
+
+                </a>
+
+
+                <a href="stories.html">
+
+                    <span>06</span>
+
+                    Stories
+
+                </a>
+
+
+                <a href="journal.html">
+
+                    <span>07</span>
+
+                    Journal
+
+                </a>
+
+
+                <a href="ai.html">
+
+                    <span>08</span>
+
+                    AKSH AI
+
+                </a>
+
+
+                <a href="booking.html">
+
+                    <span>09</span>
+
+                    Book a Session
+
+                </a>
+
+            </nav>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+
+                const transition =
+                    document.getElementById(
+                        "pageTransition"
+                    );
+
+
+                const menuButton =
+                    document.getElementById(
+                        "menuButton"
+                    );
+
+
+                const closeMenu =
+                    document.getElementById(
+                        "closeMenu"
+                    );
+
+
+                const navigation =
+                    document.getElementById(
+                        "navigation"
+                    );
+
+
+                /* =========================================
+                   PAGE ARRIVAL
+                ========================================== */
+
+                requestAnimationFrame(
+                    () => {
+
+                        if (transition) {
+
+                            transition.classList.add(
+                                "ready"
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                /* =========================================
+                   PAGE TRANSITIONS
+                ========================================== */
+
+                document
+                    .querySelectorAll(
+                        'a[href$=".html"]'
+                    )
+                    .forEach(
+                        (link) => {
+
+                            link.addEventListener(
+                                "click",
+                                (event) => {
+
+                                    const destination =
+                                        link.getAttribute(
+                                            "href"
+                                        );
+
+
+                                    if (
+                                        !destination ||
+                                        destination.startsWith(
+                                            "#"
+                                        )
+                                    ) {
+
+                                        return;
+
+                                    }
+
+
+                                    if (
+                                        link.target ===
+                                        "_blank"
+                                    ) {
+
+                                        return;
+
+                                    }
+
+
+                                    event.preventDefault();
+
+
+                                    if (transition) {
+
+                                        transition.classList.remove(
+                                            "ready"
+                                        );
+
+                                        transition.classList.add(
+                                            "active"
+                                        );
+
+                                    }
+
+
+                                    setTimeout(
+                                        () => {
+
+                                            window.location.href =
+                                                destination;
+
+                                        },
+                                        700
+                                    );
+
+                                }
+                            );
+
+                        }
+                    );
+
+
+                /* =========================================
+                   OPEN NAVIGATION
+                ========================================== */
+
+                function openNavigation() {
+
+                    if (!navigation) {
+
+                        return;
+
+                    }
+
+
+                    navigation.classList.add(
+                        "open"
+                    );
+
+
+                    navigation.setAttribute(
+                        "aria-hidden",
+                        "false"
+                    );
+
+
+                    if (menuButton) {
+
+                        menuButton.setAttribute(
+                            "aria-expanded",
+                            "true"
+                        );
+
+                    }
+
+
+                    document.body.classList.add(
+                        "menu-open"
+                    );
+
+                }
+
+
+                /* =========================================
+                   CLOSE NAVIGATION
+                ========================================== */
+
+                function closeNavigation() {
+
+                    if (!navigation) {
+
+                        return;
+
+                    }
+
+
+                    navigation.classList.remove(
+                        "open"
+                    );
+
+
+                    navigation.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+
+                    if (menuButton) {
+
+                        menuButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    }
+
+
+                    document.body.classList.remove(
+                        "menu-open"
+                    );
+
+                }
+
+
+                /* =========================================
+                   MENU BUTTON
+                ========================================== */
+
+                if (menuButton) {
+
+                    menuButton.addEventListener(
+                        "click",
+                        openNavigation
+                    );
+
+                }
+
+
+                if (closeMenu) {
+
+                    closeMenu.addEventListener(
+                        "click",
+                        closeNavigation
+                    );
+
+                }
+
+
+                /* =========================================
+                   NAVIGATION LINKS
+                ========================================== */
+
+                if (navigation) {
+
+                    navigation
+                        .querySelectorAll("a")
+                        .forEach(
+                            (link) => {
+
+                                link.addEventListener(
+                                    "click",
+                                    closeNavigation
+                                );
+
+                            }
+                        );
+
+                }
+
+
+                /* =========================================
+                   ESCAPE KEY
+                ========================================== */
+
+                document.addEventListener(
+                    "keydown",
+                    (event) => {
+
+                        if (
+                            event.key ===
+                            "Escape"
+                        ) {
+
+                            closeNavigation();
+
+                        }
+
+                    }
+                );
+
+
+                /* =========================================
+                   BACK / FORWARD CACHE
+                ========================================== */
+
+                window.addEventListener(
+                    "pageshow",
+                    (event) => {
+
+                        if (
+                            event.persisted &&
+                            transition
+                        ) {
+
+                            transition.classList.add(
+                                "ready"
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
