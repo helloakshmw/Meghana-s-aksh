@@ -1,164 +1,151 @@
 /* ============================================================
-   AKSH — 00 ARRIVAL
-   Final production JavaScript
+   AKSH — ARRIVAL
+   FINAL PRODUCTION JAVASCRIPT
    ============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
 
     "use strict";
 
+
     /* ========================================================
-       01 — ELEMENTS
+       ELEMENTS
        ======================================================== */
 
-    const video = document.getElementById("backgroundVideo");
-    const atmosphere = document.getElementById("atmosphere");
+    const video =
+        document.getElementById("backgroundVideo");
 
-    const soundToggle = document.getElementById("soundToggle");
-    const soundLabel = document.getElementById("soundLabel");
+    const atmosphere =
+        document.getElementById("atmosphere");
 
-    const timeDisplay = document.getElementById("timeDisplay");
-    const greeting = document.getElementById("greeting");
-    const reflection = document.getElementById("reflection");
+    const soundToggle =
+        document.getElementById("soundToggle");
 
-    const beginButton = document.getElementById("beginButton");
-    const arrival = document.getElementById("arrival");
+    const soundLabel =
+        document.getElementById("soundLabel");
+
+    const timeDisplay =
+        document.getElementById("timeDisplay");
+
+    const greeting =
+        document.getElementById("greeting");
+
+    const reflection =
+        document.getElementById("reflection");
+
+    const beginButton =
+        document.getElementById("beginButton");
+
+    const arrival =
+        document.getElementById("arrival");
 
 
     /* ========================================================
-       02 — ARRIVAL VIDEO CONFIGURATION
-
-       Exact schedule supplied for AKSH.
-       All videos are 4-second cinematic clips with
-       their own original music.
+       VIDEO SCHEDULE
        ======================================================== */
 
     const VIDEO_SCHEDULE = [
 
-        /* ---------------- MORNING ---------------- */
-
         {
-            name: "morning-1",
             file: "aksh-morning.1.mov",
-            start: 300,      // 05:00
-            end: 360,        // 06:00
+            start: 300,
+            end: 360,
             greeting: "Good Morning",
             atmosphere: "morning"
         },
 
         {
-            name: "morning-2",
             file: "aksh-morning.2.mov",
-            start: 360,      // 06:00
-            end: 480,        // 08:00
+            start: 360,
+            end: 480,
             greeting: "Good Morning",
             atmosphere: "morning"
         },
 
         {
-            name: "morning-3",
             file: "aksh-morning.3.mov",
-            start: 480,      // 08:00
-            end: 600,        // 10:00
+            start: 480,
+            end: 600,
             greeting: "Good Morning",
             atmosphere: "morning"
         },
 
         {
-            name: "morning-4",
             file: "aksh-morning.4.mov",
-            start: 600,      // 10:00
-            end: 720,        // 12:00
+            start: 600,
+            end: 720,
             greeting: "Good Morning",
             atmosphere: "morning"
         },
 
-
-        /* ---------------- AFTERNOON ---------------- */
-
         {
-            name: "afternoon-1",
             file: "aksh-afternoon.1.mov",
-            start: 720,      // 12:00
-            end: 780,        // 13:00
+            start: 720,
+            end: 780,
             greeting: "Good Afternoon",
             atmosphere: "afternoon"
         },
 
         {
-            name: "afternoon-2",
             file: "aksh-afternoon.2.mov",
-            start: 780,      // 13:00
-            end: 870,        // 14:30
+            start: 780,
+            end: 870,
             greeting: "Good Afternoon",
             atmosphere: "afternoon"
         },
 
         {
-            name: "afternoon-3",
             file: "aksh-afternoon.3.mov",
-            start: 870,      // 14:30
-            end: 960,        // 16:00
+            start: 870,
+            end: 960,
             greeting: "Good Afternoon",
             atmosphere: "afternoon"
         },
 
         {
-            name: "afternoon-4",
             file: "aksh-afternoon.4.mov",
-            start: 960,      // 16:00
-            end: 1020,      // 17:00
+            start: 960,
+            end: 1020,
             greeting: "Good Afternoon",
             atmosphere: "afternoon"
         },
 
-
-        /* ---------------- EVENING ---------------- */
-
         {
-            name: "evening-1",
             file: "aksh-evening.1.mov",
-            start: 1020,     // 17:00
-            end: 1065,       // 17:45
+            start: 1020,
+            end: 1065,
             greeting: "Good Evening",
             atmosphere: "evening"
         },
 
         {
-            name: "evening-2",
             file: "aksh-evening.2.mov",
-            start: 1065,     // 17:45
-            end: 1140,       // 19:00
+            start: 1065,
+            end: 1140,
             greeting: "Good Evening",
             atmosphere: "evening"
         },
 
         {
-            name: "evening-3",
             file: "aksh-evening.3.mov",
-            start: 1140,     // 19:00
-            end: 1200,       // 20:00
+            start: 1140,
+            end: 1200,
             greeting: "Good Evening",
             atmosphere: "evening"
         },
 
-
-        /* ---------------- NIGHT ---------------- */
-
         {
-            name: "night-1",
             file: "aksh-night.1.mov",
-            start: 1200,     // 20:00
-            end: 1440,       // 00:00
+            start: 1200,
+            end: 1440,
             greeting: "Good Night",
             atmosphere: "night"
         },
 
         {
-            name: "night-2",
             file: "aksh-night.2.mov",
-            start: 0,        // 00:00
-            end: 300,        // 05:00
+            start: 0,
+            end: 300,
             greeting: "Good Night",
             atmosphere: "late-night"
         }
@@ -167,10 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       03 — DAILY THOUGHTS
-
-       The same thought remains throughout a calendar day.
-       A new thought is automatically selected the next day.
+       DAILY THOUGHTS
        ======================================================== */
 
     const DAILY_THOUGHTS = [
@@ -209,7 +193,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       04 — TIME UTILITIES
+       STATE
+       ======================================================== */
+
+    let activeVideoFile = null;
+
+    let soundEnabled = false;
+
+    let isLeaving = false;
+
+
+    /* ========================================================
+       CURRENT MINUTES
        ======================================================== */
 
     function getCurrentMinutes() {
@@ -220,23 +215,13 @@ document.addEventListener("DOMContentLoaded", () => {
             now.getHours() * 60 +
             now.getMinutes()
         );
+
     }
 
 
-    function getCurrentTimeText() {
-
-        const now = new Date();
-
-        return new Intl.DateTimeFormat(
-            undefined,
-            {
-                hour: "numeric",
-                minute: "2-digit",
-                hour12: true
-            }
-        ).format(now);
-    }
-
+    /* ========================================================
+       CURRENT DATE
+       ======================================================== */
 
     function getCurrentDateKey() {
 
@@ -252,12 +237,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       05 — FIND CURRENT VIDEO
+       DATE + DAY
+       ======================================================== */
+
+    function updateDateDisplay() {
+
+        const now = new Date();
+
+        const date =
+            String(now.getDate()).padStart(2, "0");
+
+        const month =
+            String(now.getMonth() + 1).padStart(2, "0");
+
+        const year =
+            now.getFullYear();
+
+        const day =
+            new Intl.DateTimeFormat(
+                "en-IN",
+                {
+                    weekday: "long"
+                }
+            ).format(now);
+
+        timeDisplay.innerHTML = `
+            <span class="date-display">
+                ${date}.${month}.${year}
+            </span>
+
+            <span class="day-display">
+                ${day}
+            </span>
+        `;
+
+    }
+
+
+    /* ========================================================
+       FIND CURRENT VIDEO
        ======================================================== */
 
     function getCurrentVideo() {
 
-        const minutes = getCurrentMinutes();
+        const minutes =
+            getCurrentMinutes();
 
         return VIDEO_SCHEDULE.find(item => {
 
@@ -270,10 +294,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-            /*
-             * Handles schedules crossing midnight.
-             */
-
             return (
                 minutes >= item.start ||
                 minutes < item.end
@@ -285,45 +305,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       06 — LOAD DAILY THOUGHT
+       DAILY THOUGHT
        ======================================================== */
 
     function getDailyThought() {
 
-        const dateKey = getCurrentDateKey();
+        const dateKey =
+            getCurrentDateKey();
 
         let hash = 0;
 
-        for (let i = 0; i < dateKey.length; i++) {
+        for (
+            let i = 0;
+            i < dateKey.length;
+            i++
+        ) {
 
             hash =
                 ((hash << 5) - hash) +
                 dateKey.charCodeAt(i);
 
             hash |= 0;
+
         }
 
         const index =
-            Math.abs(hash) % DAILY_THOUGHTS.length;
+            Math.abs(hash) %
+            DAILY_THOUGHTS.length;
 
         return DAILY_THOUGHTS[index];
-    }
-
-
-    /* ========================================================
-       07 — UPDATE TIME DISPLAY
-       ======================================================== */
-
-    function updateTimeDisplay() {
-
-        timeDisplay.textContent =
-            getCurrentTimeText();
 
     }
 
 
     /* ========================================================
-       08 — UPDATE GREETING
+       GREETING
        ======================================================== */
 
     function updateGreeting(currentVideo) {
@@ -338,7 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       09 — ATMOSPHERE SYSTEM
+       ATMOSPHERE
        ======================================================== */
 
     function updateAtmosphere(type) {
@@ -350,18 +366,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       10 — LOAD VIDEO
-
-       The current video is changed only when the visitor
-       enters a different time window.
-
-       The selected 4-second video then loops continuously.
+       LOAD VIDEO
        ======================================================== */
 
-    let activeVideoFile = null;
-
-
-    function loadVideo(currentVideo, immediate = false) {
+    function loadVideo(
+        currentVideo,
+        immediate = false
+    ) {
 
         if (!currentVideo) {
             return;
@@ -381,12 +392,11 @@ document.addEventListener("DOMContentLoaded", () => {
             "video-transitioning"
         );
 
-        const newSource =
-            currentVideo.file;
 
         const applySource = () => {
 
-            video.src = newSource;
+            video.src =
+                currentVideo.file;
 
             video.load();
 
@@ -395,18 +405,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (
                 playPromise &&
-                typeof playPromise.catch === "function"
+                typeof playPromise.catch ===
+                "function"
             ) {
 
-                playPromise.catch(() => {
-                    /*
-                     * Browser autoplay restrictions are
-                     * expected on some devices.
-                     *
-                     * The sound control / user interaction
-                     * will attempt playback again.
-                     */
-                });
+                playPromise.catch(() => {});
 
             }
 
@@ -429,11 +432,10 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        window.setTimeout(() => {
-
-            applySource();
-
-        }, 250);
+        window.setTimeout(
+            applySource,
+            250
+        );
 
 
         window.setTimeout(() => {
@@ -448,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       11 — INITIALISE ARRIVAL
+       INITIALISE
        ======================================================== */
 
     function initialiseArrival() {
@@ -456,7 +458,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const currentVideo =
             getCurrentVideo();
 
-        updateTimeDisplay();
+        updateDateDisplay();
 
         updateGreeting(
             currentVideo
@@ -475,10 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       12 — CHECK TIME
-
-       The clock is checked regularly so the correct
-       video automatically changes at exact boundaries.
+       REFRESH
        ======================================================== */
 
     function refreshArrivalState() {
@@ -486,13 +485,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const currentVideo =
             getCurrentVideo();
 
-        updateTimeDisplay();
-
-        const currentFile =
-            currentVideo.file;
+        updateDateDisplay();
 
         if (
-            activeVideoFile !== currentFile
+            activeVideoFile !==
+            currentVideo.file
         ) {
 
             updateGreeting(
@@ -513,11 +510,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       13 — SOUND SYSTEM
+       SOUND UI
        ======================================================== */
-
-    let soundEnabled = false;
-
 
     function updateSoundUI() {
 
@@ -546,6 +540,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* ========================================================
+       SOUND ON
+       ======================================================== */
+
     async function enableSound() {
 
         try {
@@ -562,12 +560,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         } catch (error) {
 
-            /*
-             * Some browsers require a direct user gesture.
-             * The control itself is already a user gesture,
-             * so this is only a defensive fallback.
-             */
-
             video.muted = true;
 
             soundEnabled = false;
@@ -578,6 +570,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
+    /* ========================================================
+       SOUND OFF
+       ======================================================== */
 
     function disableSound() {
 
@@ -590,6 +586,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* ========================================================
+       SOUND BUTTON
+       ======================================================== */
+
     soundToggle.addEventListener(
         "click",
         async () => {
@@ -598,23 +598,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 disableSound();
 
-                return;
+            } else {
+
+                await enableSound();
 
             }
-
-            await enableSound();
 
         }
     );
 
 
     /* ========================================================
-       14 — USER INTERACTION AUDIO FALLBACK
-
-       If the browser blocks video playback until interaction,
-       the first meaningful interaction attempts to resume it.
-
-       It does NOT automatically force sound on.
+       VIDEO RESUME
        ======================================================== */
 
     function resumeVideoAfterInteraction() {
@@ -630,7 +625,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (
                 playPromise &&
-                typeof playPromise.catch === "function"
+                typeof playPromise.catch ===
+                "function"
             ) {
 
                 playPromise.catch(() => {});
@@ -653,24 +649,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       15 — VIDEO ERROR RECOVERY
+       VIDEO ERROR RECOVERY
        ======================================================== */
 
     video.addEventListener(
         "error",
         () => {
 
-            /*
-             * Retry the currently selected asset once the
-             * browser has recovered.
-             */
-
             const currentVideo =
                 getCurrentVideo();
 
             if (
                 currentVideo &&
-                activeVideoFile === currentVideo.file
+                activeVideoFile ===
+                currentVideo.file
             ) {
 
                 window.setTimeout(() => {
@@ -682,7 +674,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     if (
                         playPromise &&
-                        typeof playPromise.catch === "function"
+                        typeof playPromise.catch ===
+                        "function"
                     ) {
 
                         playPromise.catch(() => {});
@@ -698,11 +691,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       16 — BEGIN YOUR JOURNEY
+       BEGIN JOURNEY
        ======================================================== */
-
-    let isLeaving = false;
-
 
     function beginJourney() {
 
@@ -715,18 +705,6 @@ document.addEventListener("DOMContentLoaded", () => {
         arrival.classList.add(
             "is-exiting"
         );
-
-        /*
-         * Page 1 will be created separately.
-         *
-         * Once 01 — AKSH exists, this becomes:
-         *
-         * window.location.href = "pages/aksh.html";
-         *
-         * For the final Arrival build we keep the destination
-         * isolated here so it can be changed without touching
-         * the rest of the Arrival system.
-         */
 
         window.setTimeout(() => {
 
@@ -745,7 +723,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       17 — KEYBOARD ACCESS
+       KEYBOARD ACCESS
        ======================================================== */
 
     document.addEventListener(
@@ -754,7 +732,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
             if (
                 event.key === "Enter" &&
-                document.activeElement === beginButton
+                document.activeElement ===
+                beginButton
             ) {
 
                 beginJourney();
@@ -766,10 +745,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       18 — PAGE VISIBILITY
-
-       When the visitor leaves the tab and returns, refresh
-       the correct time/video state.
+       PAGE VISIBILITY
        ======================================================== */
 
     document.addEventListener(
@@ -777,7 +753,8 @@ document.addEventListener("DOMContentLoaded", () => {
         () => {
 
             if (
-                document.visibilityState === "visible"
+                document.visibilityState ===
+                "visible"
             ) {
 
                 refreshArrivalState();
@@ -791,10 +768,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       19 — MIDNIGHT / TIME BOUNDARY CHECK
-
-       A 15-second interval gives us reliable switching while
-       keeping CPU usage extremely low.
+       CLOCK CHECK
        ======================================================== */
 
     window.setInterval(
@@ -804,19 +778,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* ========================================================
-       20 — CLOCK REFRESH
-
-       The displayed clock updates every second.
-       ======================================================== */
-
-    window.setInterval(
-        updateTimeDisplay,
-        1000
-    );
-
-
-    /* ========================================================
-       21 — START
+       START
        ======================================================== */
 
     updateSoundUI();
