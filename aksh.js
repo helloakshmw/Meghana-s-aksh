@@ -1,6 +1,6 @@
 /* =========================================================
    AKSH — THE WORLD
-   PAGE JAVASCRIPT
+   FINAL JAVASCRIPT
 ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const menuButton =
         document.getElementById("akshMenuButton");
 
-    const closeMenu =
+    const closeMenuButton =
         document.getElementById("akshCloseMenu");
 
     const navigation =
@@ -20,34 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const pageTransition =
         document.getElementById("akshPageTransition");
-
-
-    /* =====================================================
-       SAFETY
-    ===================================================== */
-
-    if (!navigation) {
-        console.warn(
-            "AKSH: Navigation element not found."
-        );
-    }
-
-
-    /* =====================================================
-       PAGE ARRIVAL
-    ===================================================== */
-
-    requestAnimationFrame(() => {
-
-        if (pageTransition) {
-
-            pageTransition.classList.add(
-                "is-ready"
-            );
-
-        }
-
-    });
 
 
     /* =====================================================
@@ -67,20 +39,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         navigationOpen = true;
 
-
-        navigation.classList.add(
-            "is-open"
-        );
-
+        navigation.classList.add("is-open");
 
         navigation.setAttribute(
             "aria-hidden",
             "false"
         );
-
 
         if (menuButton) {
 
@@ -95,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
         }
-
 
         document.body.classList.add(
             "is-menu-open"
@@ -114,20 +79,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         navigationOpen = false;
 
-
-        navigation.classList.remove(
-            "is-open"
-        );
-
+        navigation.classList.remove("is-open");
 
         navigation.setAttribute(
             "aria-hidden",
             "true"
         );
-
 
         if (menuButton) {
 
@@ -142,7 +101,6 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
         }
-
 
         document.body.classList.remove(
             "is-menu-open"
@@ -165,8 +123,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     closeNavigation();
 
-                }
-                else {
+                } else {
 
                     openNavigation();
 
@@ -182,9 +139,9 @@ document.addEventListener("DOMContentLoaded", () => {
        CLOSE BUTTON
     ===================================================== */
 
-    if (closeMenu) {
+    if (closeMenuButton) {
 
-        closeMenu.addEventListener(
+        closeMenuButton.addEventListener(
             "click",
             closeNavigation
         );
@@ -199,67 +156,16 @@ document.addEventListener("DOMContentLoaded", () => {
     if (navigation) {
 
         const navigationLinks =
-            navigation.querySelectorAll(
-                "a"
-            );
-
+            navigation.querySelectorAll("a");
 
         navigationLinks.forEach(
             (link) => {
 
                 link.addEventListener(
                     "click",
-                    (event) => {
-
-                        const destination =
-                            link.getAttribute(
-                                "href"
-                            );
-
-
-                        if (
-                            !destination ||
-                            destination.startsWith("#")
-                        ) {
-
-                            closeNavigation();
-
-                            return;
-
-                        }
-
-
-                        /*
-                           Allow browser to complete
-                           normal navigation after the
-                           page transition begins.
-                        */
-
-                        event.preventDefault();
-
+                    () => {
 
                         closeNavigation();
-
-
-                        if (pageTransition) {
-
-                            pageTransition.classList.remove(
-                                "is-ready"
-                            );
-
-                            pageTransition.classList.add(
-                                "is-active"
-                            );
-
-                        }
-
-
-                        setTimeout(() => {
-
-                            window.location.href =
-                                destination;
-
-                        }, 700);
 
                     }
                 );
@@ -268,92 +174,6 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
-
-
-    /* =====================================================
-       ALL INTERNAL HTML LINKS
-    ===================================================== */
-
-    document
-        .querySelectorAll(
-            'a[href$=".html"]'
-        )
-        .forEach(
-            (link) => {
-
-                /*
-                   Navigation links already have their
-                   own handler, so do not duplicate it.
-                */
-
-                if (
-                    navigation &&
-                    navigation.contains(link)
-                ) {
-
-                    return;
-
-                }
-
-
-                link.addEventListener(
-                    "click",
-                    (event) => {
-
-                        const destination =
-                            link.getAttribute(
-                                "href"
-                            );
-
-
-                        if (
-                            !destination ||
-                            destination.startsWith("#")
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        if (
-                            link.target ===
-                            "_blank"
-                        ) {
-
-                            return;
-
-                        }
-
-
-                        event.preventDefault();
-
-
-                        if (pageTransition) {
-
-                            pageTransition.classList.remove(
-                                "is-ready"
-                            );
-
-                            pageTransition.classList.add(
-                                "is-active"
-                            );
-
-                        }
-
-
-                        setTimeout(() => {
-
-                            window.location.href =
-                                destination;
-
-                        }, 700);
-
-                    }
-                );
-
-            }
-        );
 
 
     /* =====================================================
@@ -378,32 +198,110 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CLICK OUTSIDE NAVIGATION
+       PAGE TRANSITION
     ===================================================== */
 
-    if (navigation) {
+    function startPageTransition(
+        destination
+    ) {
 
-        navigation.addEventListener(
-            "click",
-            (event) => {
+        if (!destination) {
+            return;
+        }
 
-                /*
-                   Only close when clicking the
-                   navigation background itself.
-                */
+        if (!pageTransition) {
 
-                if (
-                    event.target === navigation
-                ) {
+            window.location.href =
+                destination;
 
-                    closeNavigation();
+            return;
 
-                }
+        }
 
-            }
+        pageTransition.classList.add(
+            "is-active"
+        );
+
+        setTimeout(
+            () => {
+
+                window.location.href =
+                    destination;
+
+            },
+            700
         );
 
     }
+
+
+    /* =====================================================
+       INTERNAL PAGE LINKS
+    ===================================================== */
+
+    const internalLinks =
+        document.querySelectorAll(
+            'a[href$=".html"]'
+        );
+
+    internalLinks.forEach(
+        (link) => {
+
+            link.addEventListener(
+                "click",
+                (event) => {
+
+                    const destination =
+                        link.getAttribute("href");
+
+                    if (!destination) {
+                        return;
+                    }
+
+                    if (
+                        destination.startsWith("#")
+                    ) {
+                        return;
+                    }
+
+                    if (
+                        link.target === "_blank"
+                    ) {
+                        return;
+                    }
+
+                    event.preventDefault();
+
+                    closeNavigation();
+
+                    startPageTransition(
+                        destination
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =====================================================
+       INITIAL PAGE ARRIVAL
+    ===================================================== */
+
+    requestAnimationFrame(
+        () => {
+
+            if (pageTransition) {
+
+                pageTransition.classList.add(
+                    "is-ready"
+                );
+
+            }
+
+        }
+    );
 
 
     /* =====================================================
@@ -419,6 +317,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 pageTransition
             ) {
 
+                pageTransition.classList.remove(
+                    "is-active"
+                );
+
                 pageTransition.classList.add(
                     "is-ready"
                 );
@@ -430,40 +332,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       MOBILE MENU RESET
+       RESET MENU ON PAGE RESTORE
     ===================================================== */
 
     window.addEventListener(
-        "resize",
+        "pageshow",
         () => {
 
-            /*
-               Prevent the page remaining locked if
-               the viewport changes while navigating.
-            */
-
-            if (
-                window.innerWidth > 900 &&
-                navigationOpen
-            ) {
-
-                closeNavigation();
-
-            }
+            closeNavigation();
 
         }
     );
 
 
     /* =====================================================
-       INITIAL STATE
+       ACCESSIBILITY
     ===================================================== */
 
     if (navigation) {
-
-        navigation.classList.remove(
-            "is-open"
-        );
 
         navigation.setAttribute(
             "aria-hidden",
@@ -471,25 +357,5 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
-
-
-    if (menuButton) {
-
-        menuButton.setAttribute(
-            "aria-expanded",
-            "false"
-        );
-
-        menuButton.setAttribute(
-            "aria-label",
-            "Open navigation"
-        );
-
-    }
-
-
-    document.body.classList.remove(
-        "is-menu-open"
-    );
 
 });
