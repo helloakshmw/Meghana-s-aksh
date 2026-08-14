@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
     <meta charset="UTF-8">
@@ -11,7 +12,7 @@
 
     <meta
         name="theme-color"
-        content="#080908"
+        content="#080808"
     >
 
     <meta
@@ -19,21 +20,59 @@
         content="AKSH — A Safe Space for Every Mind."
     >
 
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
     <title>AKSH — A Safe Space for Every Mind</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- =================================================
+         FAVICON
+    ================================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="aksh-icon.PNG"
+    >
+
+
+    <!-- =================================================
+         PRECONNECT
+    ================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
     <link
         rel="preconnect"
         href="https://fonts.gstatic.com"
         crossorigin
     >
 
+
+    <!-- =================================================
+         FONTS
+    ================================================== -->
+
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap"
         rel="stylesheet"
     >
 
-    <link rel="stylesheet" href="style.css">
+
+    <!-- =================================================
+         CSS
+    ================================================== -->
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
@@ -41,18 +80,22 @@
 <body>
 
 
-    <!-- =========================================
-         ARRIVAL
-    ========================================== -->
+    <!-- =================================================
+         ARRIVAL PAGE
+    ================================================== -->
 
-    <main id="arrivalPage" class="arrival-page">
+    <main
+        id="arrival"
+        aria-label="AKSH arrival experience"
+    >
 
 
-        <!-- BACKGROUND VIDEO -->
+        <!-- =============================================
+             BACKGROUND VIDEO
+        ============================================== -->
 
         <video
             id="backgroundVideo"
-            class="background-video"
             autoplay
             muted
             playsinline
@@ -62,26 +105,24 @@
         ></video>
 
 
-        <!-- CINEMATIC OVERLAY -->
+        <!-- =============================================
+             GRAIN
+        ============================================== -->
 
         <div
-            id="videoOverlay"
-            class="video-overlay"
+            id="grain"
             aria-hidden="true"
         ></div>
 
 
-        <!-- GRAIN -->
+        <!-- =============================================
+             TOP BAR
+        ============================================== -->
 
-        <div
-            class="grain"
-            aria-hidden="true"
-        ></div>
+        <header class="arrival-top">
 
 
-        <!-- TOP BRAND -->
-
-        <header class="arrival-header">
+            <!-- AKSH ICON -->
 
             <a
                 href="index.html"
@@ -94,80 +135,90 @@
                     alt="AKSH"
                 >
 
-                <span>AKSH</span>
-
             </a>
 
 
+            <!-- MENU -->
+
             <button
                 id="menuButton"
-                class="menu-button"
                 type="button"
                 aria-label="Open navigation"
-                aria-controls="arrivalNavigation"
                 aria-expanded="false"
+                aria-controls="arrivalNavigation"
             >
 
-                <span></span>
-                <span></span>
+                <span
+                    class="menu-lines"
+                    aria-hidden="true"
+                >
+
+                    <span></span>
+                    <span></span>
+
+                </span>
 
             </button>
 
         </header>
 
 
-        <!-- MAIN ARRIVAL CONTENT -->
+        <!-- =============================================
+             ARRIVAL CONTENT
+        ============================================== -->
 
-        <section class="arrival-content">
+        <section
+            class="arrival-content"
+            aria-label="AKSH introduction"
+        >
 
 
-            <div class="arrival-brand-mark">
+            <!-- AKSH CENTRAL ICON -->
+
+            <div
+                class="arrival-mark"
+                aria-hidden="true"
+            >
 
                 <img
                     src="aksh-icon.PNG"
-                    alt="AKSH"
+                    alt=""
                 >
 
             </div>
 
 
-            <p
-                id="timeGreeting"
-                class="time-greeting"
-            >
+            <!-- GREETING -->
+
+            <h1 id="timeGreeting">
                 Good Evening
-            </p>
-
-
-            <h1
-                id="arrivalTitle"
-                class="arrival-title"
-            >
-                A Safe Space<br>
-                for Every Mind.
             </h1>
 
 
-            <p
-                id="arrivalMessage"
-                class="arrival-message"
-            >
-                Take a breath.<br>
-                There is no need to rush.
+            <!-- MESSAGE -->
+
+            <p id="arrivalMessage">
+                Take a breath. You are here.
             </p>
 
 
-            <!-- DATE -->
+            <!-- DATE + DAY -->
 
-            <div class="arrival-date">
+            <div
+                class="arrival-date"
+                aria-label="Current date"
+            >
 
                 <span id="currentDate">
                     14.08.2026
                 </span>
 
-                <span class="date-divider">
-                    /
-                </span>
+
+                <span
+                    class="arrival-date-separator"
+                    aria-hidden="true"
+                ></span>
+
 
                 <span id="currentDay">
                     Friday
@@ -180,51 +231,36 @@
 
             <button
                 id="beginButton"
-                class="begin-button"
                 type="button"
             >
 
-                <span class="begin-label">
-                    Begin Your Journey
-                </span>
-
-                <span
-                    class="begin-arrow"
-                    aria-hidden="true"
-                >
-                    →
-                </span>
+                Begin Your Journey
 
             </button>
-
 
         </section>
 
 
-        <!-- BOTTOM CONTROLS -->
+        <!-- =============================================
+             BOTTOM CONTROLS
+        ============================================== -->
 
-        <div class="arrival-controls">
+        <div class="arrival-bottom">
 
 
             <!-- SOUND -->
 
             <button
                 id="soundButton"
-                class="control-button"
                 type="button"
                 aria-label="Turn sound on"
                 aria-pressed="false"
             >
 
                 <span
-                    id="soundIcon"
                     class="sound-icon"
                     aria-hidden="true"
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </span>
+                ></span>
 
                 <span id="soundText">
                     Sound Off
@@ -233,30 +269,30 @@
             </button>
 
 
-            <!-- VIDEO PROGRESS -->
+            <!-- VIDEO INFO -->
 
-            <div
-                class="video-progress"
-                aria-hidden="true"
-            >
+            <div class="video-info">
 
                 <span
-                    id="videoProgressBar"
-                ></span>
+                    id="videoIndicator"
+                    aria-label="Current arrival video"
+                >
+                    01 / 13
+                </span>
+
+
+                <div
+                    class="video-progress"
+                    aria-hidden="true"
+                >
+
+                    <div
+                        id="videoProgressBar"
+                    ></div>
+
+                </div>
 
             </div>
-
-
-            <!-- VIDEO NUMBER -->
-
-            <div
-                id="videoIndicator"
-                class="video-indicator"
-                aria-live="polite"
-            >
-                01 / 13
-            </div>
-
 
         </div>
 
@@ -264,37 +300,40 @@
     </main>
 
 
-    <!-- =========================================
-         NAVIGATION
-    ========================================== -->
+    <!-- =================================================
+         FULL SCREEN NAVIGATION
+    ================================================== -->
 
     <aside
         id="arrivalNavigation"
-        class="arrival-navigation"
         aria-hidden="true"
     >
 
-        <div class="navigation-background"></div>
+
+        <!-- CLOSE -->
+
+        <button
+            id="closeMenuButton"
+            type="button"
+            aria-label="Close navigation"
+        >
+
+            <span
+                class="close-icon"
+                aria-hidden="true"
+            ></span>
+
+        </button>
 
 
         <div class="navigation-inner">
 
 
-            <div class="navigation-top">
-
-                <span>
-                    AKSH
-                </span>
-
-                <button
-                    id="closeMenuButton"
-                    class="close-menu-button"
-                    type="button"
-                    aria-label="Close navigation"
-                >
-                    ×
-                </button>
-
+            <div
+                class="navigation-heading"
+                aria-hidden="true"
+            >
+                Explore AKSH.
             </div>
 
 
@@ -304,65 +343,42 @@
             >
 
                 <a href="aksh.html">
-                    <span>01</span>
-                    <strong>AKSH</strong>
-                </a>
-
-                <a href="the-world.html">
-                    <span>02</span>
-                    <strong>THE WORLD</strong>
+                    The World
                 </a>
 
                 <a href="the-mind.html">
-                    <span>03</span>
-                    <strong>THE MIND</strong>
+                    The Mind
                 </a>
 
                 <a href="with-you.html">
-                    <span>04</span>
-                    <strong>WITH YOU</strong>
+                    With You
                 </a>
 
                 <a href="meghana-kaverappa.html">
-                    <span>05</span>
-                    <strong>MEGHANA</strong>
+                    Meghana
                 </a>
 
-                <a href="the-journey.html">
-                    <span>06</span>
-                    <strong>THE JOURNEY</strong>
+                <a href="journey.html">
+                    Journey
                 </a>
 
                 <a href="stories.html">
-                    <span>07</span>
-                    <strong>STORIES</strong>
+                    Stories
                 </a>
 
                 <a href="journal.html">
-                    <span>08</span>
-                    <strong>JOURNAL</strong>
+                    Journal
                 </a>
 
                 <a href="ai.html">
-                    <span>09</span>
-                    <strong>AKSH AI</strong>
+                    AKSH AI
                 </a>
 
                 <a href="booking.html">
-                    <span>10</span>
-                    <strong>BOOK</strong>
+                    Book
                 </a>
 
             </nav>
-
-
-            <div class="navigation-footer">
-
-                <span>
-                    A SAFE SPACE FOR EVERY MIND
-                </span>
-
-            </div>
 
 
         </div>
@@ -370,29 +386,26 @@
     </aside>
 
 
-    <!-- =========================================
+    <!-- =================================================
          PAGE TRANSITION
-    ========================================== -->
+    ================================================== -->
 
     <div
         id="pageTransition"
-        class="page-transition"
         aria-hidden="true"
-    >
-
-        <div class="transition-logo">
-
-            <img
-                src="aksh-icon.PNG"
-                alt=""
-            >
-
-        </div>
-
-    </div>
+    ></div>
 
 
-    <script src="script.js"></script>
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script
+        src="script.js"
+        defer
+    ></script>
+
 
 </body>
+
 </html>
