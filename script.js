@@ -9,26 +9,15 @@ document.addEventListener("DOMContentLoaded", () => {
        ELEMENTS
     ===================================================== */
 
-    const backgroundVideo =
-        document.getElementById("backgroundVideo");
+    const backgroundVideo = document.getElementById("backgroundVideo");
+    const timeGreeting = document.getElementById("timeGreeting");
+    const arrivalMessage = document.getElementById("arrivalMessage");
 
-    const timeGreeting =
-        document.getElementById("timeGreeting");
-
-    const arrivalMessage =
-        document.getElementById("arrivalMessage");
-
-    const beginButton =
-        document.getElementById("beginButton");
-
-    const soundButton =
-        document.getElementById("soundButton");
+    const beginButton = document.getElementById("beginButton");
+    const soundButton = document.getElementById("soundButton");
 
     const videoProgressBar =
         document.getElementById("videoProgressBar");
-
-    const videoIndicator =
-        document.getElementById("videoIndicator");
 
     const menuButton =
         document.getElementById("menuButton");
@@ -55,53 +44,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const CONFIG = {
         nextPage: "the-mind.html",
-        pageTransitionDuration: 850
+        videoDuration: 4000,
+        transitionDuration: 850
     };
-
-
-    /* =====================================================
-       TIME PERIOD
-    ===================================================== */
-
-    function getCurrentMinutes() {
-
-        const now = new Date();
-
-        return (
-            now.getHours() * 60 +
-            now.getMinutes()
-        );
-
-    }
-
-
-    function getTimePeriod() {
-
-        const minutes = getCurrentMinutes();
-
-        if (
-            minutes >= 300 &&
-            minutes < 720
-        ) {
-            return "morning";
-        }
-
-        if (
-            minutes >= 720 &&
-            minutes < 1020
-        ) {
-            return "afternoon";
-        }
-
-        if (
-            minutes >= 1020 &&
-            minutes < 1260
-        ) {
-            return "evening";
-        }
-
-        return "night";
-    }
 
 
     /* =====================================================
@@ -138,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       VIDEO COLLECTION
+       VIDEOS
     ===================================================== */
 
     const videos = {
@@ -175,57 +120,110 @@ document.addEventListener("DOMContentLoaded", () => {
        STATE
     ===================================================== */
 
-    let currentPeriod =
-        getTimePeriod();
-
+    let currentPeriod = getTimePeriod();
     let currentVideoIndex = 0;
 
-    let navigationOpen = false;
+    let videoTimer = null;
+    let progressTimer = null;
 
     let soundEnabled = false;
+    let navigationOpen = false;
 
     /*
-     * Prevents duplicate video changes.
+     * This ID prevents an old timer from changing
+     * the video after a new video has already loaded.
      */
-    let changingVideo = false;
+    let videoSequenceId = 0;
 
 
     /* =====================================================
-       DATE
+       TIME
+    ===================================================== */
+
+    function getCurrentMinutes() {
+
+        const now = new Date();
+
+        return (
+            now.getHours() * 60 +
+            now.getMinutes()
+        );
+
+    }
+
+
+    function getTimePeriod() {
+
+        const minutes = getCurrentMinutes();
+
+
+        if (
+            minutes >= 300 &&
+            minutes < 720
+        ) {
+
+            return "morning";
+
+        }
+
+
+        if (
+            minutes >= 720 &&
+            minutes < 1020
+        ) {
+
+            return "afternoon";
+
+        }
+
+
+        if (
+            minutes >= 1020 &&
+            minutes < 1260
+        ) {
+
+            return "evening";
+
+        }
+
+
+        return "night";
+
+    }
+
+
+    /* =====================================================
+       DATE + DAY
     ===================================================== */
 
     function updateDate() {
 
         const now = new Date();
 
-        const day =
-            String(now.getDate())
-                .padStart(2, "0");
-
-        const month =
-            String(now.getMonth() + 1)
-                .padStart(2, "0");
-
-        const year =
+        const date =
+            String(now.getDate()).padStart(2, "0") +
+            "." +
+            String(now.getMonth() + 1).padStart(2, "0") +
+            "." +
             now.getFullYear();
 
+
+        const day =
+            now.toLocaleDateString(
+                "en-IN",
+                {
+                    weekday: "long"
+                }
+            );
+
+
         if (dateElement) {
-
-            dateElement.textContent =
-                `${day}.${month}.${year}`;
-
+            dateElement.textContent = date;
         }
 
+
         if (dayElement) {
-
-            dayElement.textContent =
-                now.toLocaleDateString(
-                    "en-IN",
-                    {
-                        weekday: "long"
-                    }
-                );
-
+            dayElement.textContent = day;
         }
 
     }
@@ -237,11 +235,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function updateGreeting() {
 
-        currentPeriod =
-            getTimePeriod();
+        currentPeriod = getTimePeriod();
 
         const greeting =
             greetings[currentPeriod];
+
 
         if (timeGreeting) {
 
@@ -250,10 +248,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
         }
 
+
         if (arrivalMessage) {
 
             arrivalMessage.textContent =
                 greeting.message;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CLEAR ALL VIDEO TIMERS
+    ===================================================== */
+
+    function clearVideoTimers() {
+
+        if (videoTimer !== null) {
+
+            clearTimeout(videoTimer);
+
+            videoTimer = null;
+
+        }
+
+
+        if (progressTimer !== null) {
+
+            clearTimeout(progressTimer);
+
+            progressTimer = null;
 
         }
 
@@ -270,16 +295,8 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        videoProgressBar.style.transition =
-            "none";
-
-        videoProgressBar.style.width =
-            "0%";
-
-        /*
-         * Force browser reflow.
-         */
-        void videoProgressBar.offsetWidth;
+        videoProgressBar.style.transition = "none";
+        videoProgressBar.style.width = "0%";
 
     }
 
@@ -288,40 +305,34 @@ document.addEventListener("DOMContentLoaded", () => {
        START PROGRESS
     ===================================================== */
 
-    function startProgress() {
+    function startProgress(sequenceId) {
+
+        clearTimeout(progressTimer);
 
         if (!videoProgressBar) {
             return;
         }
 
-        resetProgress();
+
+        videoProgressBar.style.transition = "none";
+        videoProgressBar.style.width = "0%";
+
 
         requestAnimationFrame(() => {
 
             requestAnimationFrame(() => {
 
-                if (!videoProgressBar) {
+                if (
+                    sequenceId !== videoSequenceId
+                ) {
+
                     return;
+
                 }
 
-                videoProgressBar.style.transition =
-                    "width linear";
-
-                /*
-                 * Use the REAL video duration.
-                 * Do not use a fake 4000ms timer.
-                 */
-
-                const duration =
-                    backgroundVideo &&
-                    Number.isFinite(
-                        backgroundVideo.duration
-                    )
-                        ? backgroundVideo.duration
-                        : 4;
 
                 videoProgressBar.style.transition =
-                    `width ${duration}s linear`;
+                    `width ${CONFIG.videoDuration}ms linear`;
 
                 videoProgressBar.style.width =
                     "100%";
@@ -330,43 +341,64 @@ document.addEventListener("DOMContentLoaded", () => {
 
         });
 
+
+        progressTimer = setTimeout(() => {
+
+            if (
+                sequenceId !== videoSequenceId
+            ) {
+
+                return;
+
+            }
+
+        }, CONFIG.videoDuration);
+
     }
 
 
     /* =====================================================
-       LOAD VIDEO
-    ===================================================== */
+       LOAD ONE VIDEO
+       ===================================================== */
 
-    function loadVideo(
-        index = 0,
-        autoplay = true
-    ) {
+    function loadVideo(index = 0) {
 
         if (!backgroundVideo) {
             return;
         }
 
+
         const periodVideos =
             videos[currentPeriod];
+
 
         if (
             !periodVideos ||
             periodVideos.length === 0
         ) {
+
             return;
+
         }
 
+
         /*
-         * Keep index safely inside
-         * the current period.
+         * Every new video gets a new sequence ID.
+         * Any old timer becomes invalid immediately.
          */
 
+        videoSequenceId++;
+
+
+        const sequenceId =
+            videoSequenceId;
+
+
+        clearVideoTimers();
+
+
         currentVideoIndex =
-            (
-                index +
-                periodVideos.length
-            ) %
-            periodVideos.length;
+            index % periodVideos.length;
 
 
         const videoFile =
@@ -374,64 +406,53 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         /*
-         * Stop the current video FIRST.
+         * STOP the currently playing video first.
          */
 
         backgroundVideo.pause();
 
 
         /*
-         * Remove any previous source.
+         * Remove old source completely.
          */
 
-        backgroundVideo.removeAttribute(
-            "src"
-        );
+        while (
+            backgroundVideo.firstChild
+        ) {
 
+            backgroundVideo.removeChild(
+                backgroundVideo.firstChild
+            );
+
+        }
+
+
+        /*
+         * Create ONE source only.
+         */
 
         const source =
-            backgroundVideo.querySelector(
-                "source"
-            );
+            document.createElement("source");
 
 
-        if (source) {
+        source.src = videoFile;
+        source.type = "video/quicktime";
 
-            source.removeAttribute(
-                "src"
-            );
 
-        }
+        backgroundVideo.appendChild(source);
 
 
         /*
-         * Force the old media resource
-         * to be released.
+         * Make sure only one video element
+         * is controlling playback.
          */
 
-        backgroundVideo.load();
+        backgroundVideo.currentTime = 0;
+        backgroundVideo.muted = !soundEnabled;
+        backgroundVideo.loop = false;
+        backgroundVideo.autoplay = false;
+        backgroundVideo.playsInline = true;
 
-
-        /*
-         * Set ONLY ONE source.
-         */
-
-        if (source) {
-
-            source.src =
-                videoFile;
-
-        } else {
-
-            backgroundVideo.src =
-                videoFile;
-
-        }
-
-
-        /*
-         * Load the new video.
-         */
 
         backgroundVideo.load();
 
@@ -439,22 +460,27 @@ document.addEventListener("DOMContentLoaded", () => {
         resetProgress();
 
 
-        if (videoIndicator) {
-
-            videoIndicator.textContent =
-                "";
-
-        }
-
-
         /*
-         * Start only the selected video.
+         * Wait until the new source is ready.
          */
 
-        if (autoplay) {
+        const playVideo = () => {
+
+            if (
+                sequenceId !== videoSequenceId
+            ) {
+
+                return;
+
+            }
+
+
+            backgroundVideo.currentTime = 0;
+
 
             const playPromise =
                 backgroundVideo.play();
+
 
             if (
                 playPromise &&
@@ -466,7 +492,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
             }
 
-        }
+
+            startProgress(sequenceId);
+
+        };
+
+
+        backgroundVideo.addEventListener(
+            "canplay",
+            playVideo,
+            {
+                once: true
+            }
+        );
 
     }
 
@@ -477,33 +515,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function nextVideo() {
 
-        /*
-         * Prevent ended + another event
-         * from changing twice.
-         */
-
-        if (changingVideo) {
+        if (!backgroundVideo) {
             return;
         }
-
-        changingVideo = true;
 
 
         const periodVideos =
             videos[currentPeriod];
+
 
         if (
             !periodVideos ||
             periodVideos.length === 0
         ) {
 
-            changingVideo = false;
             return;
 
         }
 
 
         currentVideoIndex++;
+
 
         if (
             currentVideoIndex >=
@@ -516,64 +548,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         loadVideo(
-            currentVideoIndex,
-            true
+            currentVideoIndex
         );
-
-
-        /*
-         * Allow the next genuine
-         * ended event to advance.
-         */
-
-        setTimeout(() => {
-
-            changingVideo = false;
-
-        }, 150);
-
 
     }
 
 
     /* =====================================================
-       VIDEO EVENTS
+       VIDEO ENDED
     ===================================================== */
 
     if (backgroundVideo) {
-
-        /*
-         * THIS IS NOW THE ONLY THING
-         * THAT ADVANCES THE VIDEO.
-         */
 
         backgroundVideo.addEventListener(
             "ended",
             () => {
 
                 nextVideo();
-
-            }
-        );
-
-
-        backgroundVideo.addEventListener(
-            "loadedmetadata",
-            () => {
-
-                resetProgress();
-
-                startProgress();
-
-            }
-        );
-
-
-        backgroundVideo.addEventListener(
-            "play",
-            () => {
-
-                startProgress();
 
             }
         );
@@ -591,10 +582,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+
         soundButton.setAttribute(
             "aria-pressed",
             String(soundEnabled)
         );
+
 
         soundButton.setAttribute(
             "aria-label",
@@ -603,14 +596,16 @@ document.addEventListener("DOMContentLoaded", () => {
                 : "Enable sound"
         );
 
-        const text =
+
+        const soundText =
             soundButton.querySelector(
                 "[data-sound-text]"
             );
 
-        if (text) {
 
-            text.textContent =
+        if (soundText) {
+
+            soundText.textContent =
                 soundEnabled
                     ? "Sound On"
                     : "Sound Off";
@@ -626,11 +621,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+
         soundEnabled =
             !soundEnabled;
 
+
         backgroundVideo.muted =
             !soundEnabled;
+
 
         updateSoundButton();
 
@@ -642,6 +640,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const playPromise =
                 backgroundVideo.play();
+
 
             if (
                 playPromise &&
@@ -669,7 +668,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       NAVIGATION
+       NAVIGATION OPEN
     ===================================================== */
 
     function openNavigation() {
@@ -678,20 +677,25 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+
         navigationOpen = true;
+
 
         arrivalNavigation.classList.add(
             "is-open"
         );
+
 
         arrivalNavigation.setAttribute(
             "aria-hidden",
             "false"
         );
 
+
         document.body.classList.add(
             "menu-open"
         );
+
 
         if (menuButton) {
 
@@ -710,26 +714,35 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================================
+       NAVIGATION CLOSE
+    ===================================================== */
+
     function closeNavigation() {
 
         if (!arrivalNavigation) {
             return;
         }
 
+
         navigationOpen = false;
+
 
         arrivalNavigation.classList.remove(
             "is-open"
         );
+
 
         arrivalNavigation.setAttribute(
             "aria-hidden",
             "true"
         );
 
+
         document.body.classList.remove(
             "menu-open"
         );
+
 
         if (menuButton) {
 
@@ -747,6 +760,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
+    /* =====================================================
+       MENU BUTTON
+    ===================================================== */
 
     if (menuButton) {
 
@@ -770,6 +787,10 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    /* =====================================================
+       CLOSE MENU BUTTON
+    ===================================================== */
+
     if (closeMenuButton) {
 
         closeMenuButton.addEventListener(
@@ -779,6 +800,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+
+    /* =====================================================
+       ESCAPE
+    ===================================================== */
 
     document.addEventListener(
         "keydown",
@@ -807,14 +832,24 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+
         closeNavigation();
 
+
+        /*
+         * Stop the arrival video before leaving.
+         * This prevents audio/video from continuing
+         * during navigation.
+         */
 
         if (backgroundVideo) {
 
             backgroundVideo.pause();
 
         }
+
+
+        clearVideoTimers();
 
 
         if (pageTransition) {
@@ -837,7 +872,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     destination;
 
             },
-            CONFIG.pageTransitionDuration
+            CONFIG.transitionDuration
         );
 
     }
@@ -848,69 +883,61 @@ document.addEventListener("DOMContentLoaded", () => {
     ===================================================== */
 
     document
-        .querySelectorAll(
-            "a[href]"
-        )
-        .forEach(
-            (link) => {
+        .querySelectorAll("a[href]")
+        .forEach((link) => {
 
-                link.addEventListener(
-                    "click",
-                    (event) => {
+            link.addEventListener(
+                "click",
+                (event) => {
 
-                        const href =
-                            link.getAttribute(
-                                "href"
-                            );
+                    const href =
+                        link.getAttribute("href");
 
-                        if (!href) {
-                            return;
-                        }
 
-                        if (
-                            href.startsWith("#")
-                        ) {
-                            return;
-                        }
+                    if (!href) {
+                        return;
+                    }
 
-                        if (
-                            href.startsWith(
-                                "http://"
-                            ) ||
-                            href.startsWith(
-                                "https://"
-                            )
-                        ) {
-                            return;
-                        }
 
-                        if (
-                            href.startsWith(
-                                "mailto:"
-                            ) ||
-                            href.startsWith(
-                                "tel:"
-                            )
-                        ) {
-                            return;
-                        }
+                    if (
+                        href.startsWith("#")
+                    ) {
 
-                        if (
-                            link.target ===
-                            "_blank"
-                        ) {
-                            return;
-                        }
-
-                        event.preventDefault();
-
-                        goToPage(href);
+                        return;
 
                     }
-                );
 
-            }
-        );
+
+                    if (
+                        href.startsWith("http://") ||
+                        href.startsWith("https://") ||
+                        href.startsWith("mailto:") ||
+                        href.startsWith("tel:")
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    if (
+                        link.target === "_blank"
+                    ) {
+
+                        return;
+
+                    }
+
+
+                    event.preventDefault();
+
+
+                    goToPage(href);
+
+                }
+            );
+
+        });
 
 
     /* =====================================================
@@ -934,6 +961,44 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
+       TIME PERIOD CHANGE
+    ===================================================== */
+
+    setInterval(
+        () => {
+
+            updateDate();
+
+
+            const newPeriod =
+                getTimePeriod();
+
+
+            if (
+                newPeriod !==
+                currentPeriod
+            ) {
+
+                currentPeriod =
+                    newPeriod;
+
+
+                currentVideoIndex = 0;
+
+
+                updateGreeting();
+
+
+                loadVideo(0);
+
+            }
+
+        },
+        30000
+    );
+
+
+    /* =====================================================
        VISIBILITY CHANGE
     ===================================================== */
 
@@ -945,7 +1010,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.visibilityState !==
                 "visible"
             ) {
+
+                if (backgroundVideo) {
+
+                    backgroundVideo.pause();
+
+                }
+
+                clearVideoTimers();
+
                 return;
+
             }
 
 
@@ -966,20 +1041,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 updateGreeting();
 
-                loadVideo(
-                    0,
-                    true
-                );
+                loadVideo(0);
 
                 return;
 
             }
 
-
-            /*
-             * Resume ONLY the currently
-             * selected video.
-             */
 
             if (
                 backgroundVideo &&
@@ -988,6 +1055,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const playPromise =
                     backgroundVideo.play();
+
 
                 if (
                     playPromise &&
@@ -1006,7 +1074,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       BACK / FORWARD CACHE
+       PAGE SHOW
     ===================================================== */
 
     window.addEventListener(
@@ -1034,15 +1102,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentPeriod =
                     getTimePeriod();
 
-                currentVideoIndex =
-                    0;
+                currentVideoIndex = 0;
 
                 updateGreeting();
 
-                loadVideo(
-                    0,
-                    true
-                );
+                loadVideo(0);
 
             }
 
@@ -1062,57 +1126,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /*
-     * Start exactly ONE video.
+     * IMPORTANT:
+     * Only ONE video is loaded here.
      */
 
-    currentPeriod =
-        getTimePeriod();
-
-    currentVideoIndex =
-        0;
-
-    loadVideo(
-        0,
-        true
-    );
-
-
-    /* =====================================================
-       KEEP DATE / DAY CURRENT
-    ===================================================== */
-
-    setInterval(
-        () => {
-
-            updateDate();
-
-
-            const newPeriod =
-                getTimePeriod();
-
-
-            if (
-                newPeriod !==
-                currentPeriod
-            ) {
-
-                currentPeriod =
-                    newPeriod;
-
-                currentVideoIndex =
-                    0;
-
-                updateGreeting();
-
-                loadVideo(
-                    0,
-                    true
-                );
-
-            }
-
-        },
-        30000
-    );
+    loadVideo(0);
 
 });
