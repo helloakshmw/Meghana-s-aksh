@@ -1,13 +1,7 @@
 /* =========================================================
    AKSH — ARRIVAL PAGE
-   MASTER STYLE
-========================================================= */
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap');
-
-
-/* =========================================================
-   RESET
+   RESPONSIVE DESIGN
+   Mobile • Tablet • Desktop
 ========================================================= */
 
 * {
@@ -16,803 +10,446 @@
     box-sizing: border-box;
 }
 
-
 html,
 body {
     width: 100%;
-    min-height: 100%;
+    height: 100%;
+    overflow: hidden;
 }
-
-
-html {
-    scroll-behavior: smooth;
-}
-
 
 body {
-    overflow: hidden;
-    background: #080808;
-    color: #ffffff;
+    background: #000;
+    color: #fff;
     font-family: "Inter", sans-serif;
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
 }
-
-
-/* =========================================================
-   ARRIVAL
-========================================================= */
-
-#arrival {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100svh;
-    min-height: 100vh;
-    overflow: hidden;
-    background: #080808;
-    isolation: isolate;
-}
-
 
 /* =========================================================
    BACKGROUND VIDEO
 ========================================================= */
 
 #backgroundVideo {
-    position: absolute;
+    position: fixed;
     inset: 0;
-
-    width: 100%;
-    height: 100%;
-
+    width: 100vw;
+    height: 100vh;
+    height: 100svh;
     object-fit: cover;
-    object-position: center center;
-
-    z-index: -5;
-
-    background: #080808;
-
-    opacity: 1;
-
-    transform: scale(1.01);
-
-    will-change: opacity, transform;
-
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
+    object-position: center;
+    z-index: -10;
+    background: #000;
 }
 
-
 /* =========================================================
-   VIDEO CINEMATIC OVERLAY
+   DARK OVERLAY
 ========================================================= */
 
-#arrival::before {
-    content: "";
-    position: absolute;
+#overlay {
+    position: fixed;
     inset: 0;
-
-    z-index: -4;
+    z-index: -5;
+    pointer-events: none;
 
     background:
         linear-gradient(
-            180deg,
-            rgba(0, 0, 0, 0.38) 0%,
-            rgba(0, 0, 0, 0.04) 35%,
-            rgba(0, 0, 0, 0.10) 60%,
-            rgba(0, 0, 0, 0.62) 100%
+            to bottom,
+            rgba(0,0,0,0.30) 0%,
+            rgba(0,0,0,0.05) 35%,
+            rgba(0,0,0,0.12) 65%,
+            rgba(0,0,0,0.48) 100%
         );
-
-    pointer-events: none;
 }
-
-
-#arrival::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    z-index: -3;
-
-    background:
-        radial-gradient(
-            circle at center,
-            transparent 30%,
-            rgba(0, 0, 0, 0.22) 100%
-        );
-
-    pointer-events: none;
-}
-
 
 /* =========================================================
-   SUBTLE GRAIN
+   MAIN ARRIVAL PAGE
 ========================================================= */
 
-#grain {
+#arrivalPage {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    height: 100svh;
+    overflow: hidden;
+}
+
+/* =========================================================
+   TOP LEFT — DATE + DAY
+========================================================= */
+
+#dateContainer {
     position: absolute;
-    inset: -50%;
+    top: max(24px, env(safe-area-inset-top));
+    left: 24px;
+    z-index: 20;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    color: rgba(255,255,255,0.92);
+
+    text-shadow:
+        0 2px 12px rgba(0,0,0,0.45);
+
+    pointer-events: none;
+}
+
+#date {
+    font-family: "Inter", sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    line-height: 1.4;
+}
+
+#day {
+    margin-top: 3px;
+
+    font-family: "Inter", sans-serif;
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+
+    opacity: 0.72;
+}
+
+/* =========================================================
+   TOP CENTER — AKSH
+========================================================= */
+
+#brandContainer {
+    position: absolute;
+    top: max(25px, env(safe-area-inset-top));
+    left: 50%;
+    transform: translateX(-50%);
 
     z-index: 20;
 
-    pointer-events: none;
-
-    opacity: 0.035;
-
-    background-image:
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
-
-    animation: grainMove 0.25s steps(2) infinite;
-}
-
-
-@keyframes grainMove {
-
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-
-    25% {
-        transform: translate3d(-2%, 1%, 0);
-    }
-
-    50% {
-        transform: translate3d(1%, -2%, 0);
-    }
-
-    75% {
-        transform: translate3d(2%, 2%, 0);
-    }
-
-    100% {
-        transform: translate3d(-1%, -1%, 0);
-    }
-
-}
-
-
-/* =========================================================
-   TOP BAR
-========================================================= */
-
-.arrival-top {
-    position: absolute;
-
-    top: 0;
-    left: 0;
-    right: 0;
-
-    z-index: 30;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    padding:
-        clamp(22px, 3vw, 42px)
-        clamp(20px, 4vw, 60px);
-}
-
-
-/* =========================================================
-   AKSH ICON
-========================================================= */
-
-.arrival-brand {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    text-decoration: none;
-
-    color: #ffffff;
-}
-
-
-.arrival-brand img {
-    display: block;
-
-    width:
-        clamp(52px, 5vw, 76px);
-
-    height: auto;
-
-    object-fit: contain;
-
-    opacity: 0.92;
-
-    filter:
-        drop-shadow(
-            0 5px 18px rgba(0, 0, 0, 0.28)
-        );
-
-    transition:
-        transform 500ms cubic-bezier(.22, 1, .36, 1),
-        opacity 400ms ease;
-}
-
-
-.arrival-brand:hover img {
-    transform: scale(1.05);
-    opacity: 1;
-}
-
-
-/* =========================================================
-   MENU BUTTON
-========================================================= */
-
-#menuButton {
-    appearance: none;
-    -webkit-appearance: none;
-
-    border: 0;
-
-    background: rgba(255, 255, 255, 0.08);
-
-    color: #ffffff;
-
-    width: 48px;
-    height: 48px;
-
-    border-radius: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    cursor: pointer;
-
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-
-    border:
-        1px solid rgba(255, 255, 255, 0.18);
-
-    transition:
-        background 300ms ease,
-        transform 300ms ease,
-        border-color 300ms ease;
-}
-
-
-#menuButton:hover {
-    background: rgba(255, 255, 255, 0.16);
-
-    transform: scale(1.04);
-
-    border-color:
-        rgba(255, 255, 255, 0.35);
-}
-
-
-#menuButton:active {
-    transform: scale(0.94);
-}
-
-
-.menu-lines {
-    width: 18px;
-    height: 13px;
-
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-}
-
-
-.menu-lines span {
-    display: block;
-
-    width: 100%;
-    height: 1px;
-
-    background: #ffffff;
-
-    transform-origin: center;
-
-    transition:
-        transform 300ms ease,
-        opacity 300ms ease;
-}
-
-
-/* =========================================================
-   ARRIVAL CONTENT
-========================================================= */
-
-.arrival-content {
-    position: absolute;
-
-    inset: 0;
-
-    z-index: 10;
-
-    display: flex;
-
-    flex-direction: column;
-
     align-items: center;
-
-    justify-content: center;
 
     text-align: center;
 
-    padding:
-        120px 24px
-        150px;
-
     pointer-events: none;
 }
 
+/* ONLY ONE ICON */
 
-/* =========================================================
-   BRAND MARK
-========================================================= */
-
-.arrival-mark {
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    margin-bottom:
-        clamp(24px, 4vh, 48px);
-}
-
-
-.arrival-mark img {
-    width:
-        clamp(82px, 10vw, 130px);
-
-    height: auto;
+#brandIcon {
+    width: 34px;
+    height: 34px;
 
     object-fit: contain;
+    object-position: center;
 
-    opacity: 0.95;
+    display: block;
 
     filter:
         drop-shadow(
-            0 8px 28px rgba(0, 0, 0, 0.28)
+            0 3px 12px rgba(0,0,0,0.45)
         );
 }
 
+/* AKSH NAME */
+
+#brandName {
+    margin-top: 4px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 18px;
+    font-weight: 500;
+
+    letter-spacing: 0.17em;
+    line-height: 1;
+
+    text-shadow:
+        0 2px 12px rgba(0,0,0,0.45);
+}
+
+/* TAGLINE */
+
+#brandTagline {
+    margin-top: 5px;
+
+    font-family: "Inter", sans-serif;
+    font-size: 6px;
+    font-weight: 300;
+
+    letter-spacing: 0.22em;
+    line-height: 1.3;
+
+    white-space: nowrap;
+
+    opacity: 0.82;
+
+    text-shadow:
+        0 2px 10px rgba(0,0,0,0.5);
+}
+
+/* =========================================================
+   MEGHANA — SMALL ICON
+========================================================= */
+
+#meghanaIcon {
+    position: absolute;
+
+    right: 22px;
+    bottom: 24px;
+
+    z-index: 20;
+
+    width: 42px;
+    height: 42px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    display: block;
+
+    border: 1px solid rgba(255,255,255,0.55);
+
+    box-shadow:
+        0 4px 20px rgba(0,0,0,0.45);
+
+    pointer-events: auto;
+}
 
 /* =========================================================
    GREETING
 ========================================================= */
 
 #timeGreeting {
-    margin: 0;
+    position: absolute;
 
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
+    left: 50%;
+    top: 47%;
 
-    font-size:
-        clamp(48px, 8vw, 104px);
+    transform: translate(-50%, -50%);
 
-    font-weight: 400;
+    z-index: 10;
+
+    width: min(90%, 900px);
+
+    text-align: center;
+
+    font-family: "Cormorant Garamond", serif;
+
+    font-size: clamp(
+        48px,
+        9vw,
+        110px
+    );
+
+    font-weight: 300;
 
     line-height: 0.95;
 
-    letter-spacing:
-        -0.035em;
-
-    color: #ffffff;
+    letter-spacing: -0.025em;
 
     text-shadow:
-        0 3px 30px rgba(0, 0, 0, 0.28);
-
-    max-width: 1000px;
-
-    transition:
-        opacity 500ms ease,
-        transform 700ms cubic-bezier(.22, 1, .36, 1);
+        0 4px 30px rgba(0,0,0,0.45);
 }
-
 
 /* =========================================================
    ARRIVAL MESSAGE
 ========================================================= */
 
 #arrivalMessage {
-    margin-top:
-        clamp(18px, 2.5vh, 30px);
+    position: absolute;
 
-    max-width:
-        min(620px, 90vw);
+    left: 50%;
+    top: 58%;
 
-    font-family:
-        "Inter",
-        sans-serif;
+    transform: translateX(-50%);
 
-    font-size:
-        clamp(14px, 1.5vw, 18px);
+    z-index: 10;
 
+    width: min(88%, 560px);
+
+    text-align: center;
+
+    font-family: "Inter", sans-serif;
+
+    font-size: 12px;
     font-weight: 300;
 
-    line-height: 1.7;
+    line-height: 1.8;
 
-    letter-spacing:
-        0.015em;
+    letter-spacing: 0.08em;
 
-    color:
-        rgba(255, 255, 255, 0.88);
+    color: rgba(255,255,255,0.82);
 
     text-shadow:
-        0 2px 18px rgba(0, 0, 0, 0.30);
+        0 2px 15px rgba(0,0,0,0.5);
 }
-
 
 /* =========================================================
-   DATE + DAY
-========================================================= */
-
-.arrival-date {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 16px;
-
-    margin-top:
-        clamp(22px, 3vh, 36px);
-
-    font-size:
-        clamp(10px, 1vw, 12px);
-
-    font-weight: 400;
-
-    letter-spacing:
-        0.18em;
-
-    text-transform: uppercase;
-
-    color:
-        rgba(255, 255, 255, 0.72);
-
-    text-shadow:
-        0 2px 14px rgba(0, 0, 0, 0.30);
-}
-
-
-.arrival-date-separator {
-    width: 3px;
-    height: 3px;
-
-    border-radius: 50%;
-
-    background:
-        rgba(255, 255, 255, 0.55);
-}
-
-
-/* =========================================================
-   BEGIN BUTTON
+   BEGIN JOURNEY BUTTON
 ========================================================= */
 
 #beginButton {
-    pointer-events: auto;
+    position: absolute;
 
-    margin-top:
-        clamp(32px, 5vh, 58px);
+    left: 50%;
+    bottom: 11%;
 
-    appearance: none;
-    -webkit-appearance: none;
+    transform: translateX(-50%);
 
-    border: 1px solid
-        rgba(255, 255, 255, 0.45);
-
-    background:
-        rgba(255, 255, 255, 0.08);
-
-    color: #ffffff;
-
-    padding:
-        16px 30px;
+    z-index: 20;
 
     min-width: 190px;
+    min-height: 48px;
 
-    min-height: 52px;
+    padding: 14px 28px;
 
+    border: 1px solid rgba(255,255,255,0.55);
     border-radius: 999px;
 
-    font-family:
-        "Inter",
-        sans-serif;
+    background: rgba(0,0,0,0.10);
 
-    font-size: 11px;
+    color: #fff;
 
-    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    font-size: 10px;
+    font-weight: 400;
 
-    letter-spacing:
-        0.17em;
-
+    letter-spacing: 0.2em;
     text-transform: uppercase;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 
     cursor: pointer;
 
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-
-    box-shadow:
-        0 10px 40px
-        rgba(0, 0, 0, 0.15);
-
     transition:
-        background 400ms ease,
-        border-color 400ms ease,
-        transform 400ms cubic-bezier(.22, 1, .36, 1),
-        box-shadow 400ms ease;
+        background 0.35s ease,
+        border-color 0.35s ease,
+        transform 0.35s ease;
 }
-
 
 #beginButton:hover {
-    background:
-        rgba(255, 255, 255, 0.18);
+    background: rgba(255,255,255,0.14);
 
     border-color:
-        rgba(255, 255, 255, 0.75);
+        rgba(255,255,255,0.9);
 
     transform:
+        translateX(-50%)
         translateY(-3px);
-
-    box-shadow:
-        0 18px 50px
-        rgba(0, 0, 0, 0.25);
 }
-
 
 #beginButton:active {
     transform:
-        translateY(0)
-        scale(0.97);
+        translateX(-50%)
+        translateY(0);
 }
-
-
-#beginButton:focus-visible {
-    outline:
-        2px solid #ffffff;
-
-    outline-offset: 5px;
-}
-
-
-/* =========================================================
-   BOTTOM CONTROLS
-========================================================= */
-
-.arrival-bottom {
-    position: absolute;
-
-    left: 0;
-    right: 0;
-    bottom: 0;
-
-    z-index: 30;
-
-    display: flex;
-
-    align-items: flex-end;
-
-    justify-content: space-between;
-
-    padding:
-        30px
-        clamp(20px, 4vw, 60px);
-
-    pointer-events: none;
-}
-
 
 /* =========================================================
    SOUND BUTTON
 ========================================================= */
 
 #soundButton {
-    pointer-events: auto;
+    position: absolute;
 
-    appearance: none;
-    -webkit-appearance: none;
+    left: 22px;
+    bottom: 22px;
 
-    border: 1px solid
-        rgba(255, 255, 255, 0.20);
+    z-index: 20;
 
-    background:
-        rgba(0, 0, 0, 0.16);
+    width: 40px;
+    height: 40px;
 
-    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 50%;
 
-    min-height: 42px;
+    background: rgba(0,0,0,0.12);
 
-    padding:
-        0 17px;
+    color: #fff;
 
-    border-radius: 999px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 9px;
-
-    font-family:
-        "Inter",
-        sans-serif;
-
-    font-size: 10px;
-
-    font-weight: 400;
-
-    letter-spacing:
-        0.12em;
-
-    text-transform: uppercase;
+    display: grid;
+    place-items: center;
 
     cursor: pointer;
 
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-
-    transition:
-        background 300ms ease,
-        border-color 300ms ease,
-        transform 300ms ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
 }
-
-
-#soundButton:hover {
-    background:
-        rgba(255, 255, 255, 0.12);
-
-    border-color:
-        rgba(255, 255, 255, 0.42);
-}
-
-
-#soundButton:active {
-    transform: scale(0.96);
-}
-
-
-.sound-icon {
-    position: relative;
-
-    width: 14px;
-    height: 14px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-}
-
-
-.sound-icon::before {
-    content: "";
-
-    width: 5px;
-    height: 7px;
-
-    background: #ffffff;
-
-    clip-path:
-        polygon(
-            0 30%,
-            35% 30%,
-            100% 0,
-            100% 100%,
-            35% 70%,
-            0 70%
-        );
-}
-
-
-.sound-icon::after {
-    content: "";
-
-    position: absolute;
-
-    width: 11px;
-    height: 11px;
-
-    border:
-        1px solid transparent;
-
-    border-right-color:
-        rgba(255, 255, 255, 0.8);
-
-    border-radius: 50%;
-
-    transform:
-        translateX(2px);
-}
-
-
-#soundButton:not(.sound-on)
-.sound-icon::after {
-    width: 13px;
-    height: 1px;
-
-    border: 0;
-
-    background: #ffffff;
-
-    border-radius: 0;
-
-    transform:
-        rotate(45deg);
-}
-
 
 /* =========================================================
-   VIDEO INDICATOR
+   REMOVE VIDEO COUNTER
 ========================================================= */
 
-.video-info {
+#videoIndicator,
+#videoCounter,
+#videoNumber,
+#videoCount,
+#videoProgressBar {
+    display: none !important;
+}
+
+/* =========================================================
+   MENU BUTTON
+========================================================= */
+
+#menuButton {
+    position: absolute;
+
+    top: max(25px, env(safe-area-inset-top));
+    right: 22px;
+
+    z-index: 30;
+
+    width: 42px;
+    height: 42px;
+
+    border: 0;
+    background: transparent;
+
     display: flex;
-
     flex-direction: column;
-
     align-items: flex-end;
+    justify-content: center;
 
-    gap: 9px;
+    gap: 6px;
+
+    cursor: pointer;
 }
 
-
-#videoIndicator {
-    font-family:
-        "Inter",
-        sans-serif;
-
-    font-size: 9px;
-
-    font-weight: 400;
-
-    letter-spacing:
-        0.18em;
-
-    color:
-        rgba(255, 255, 255, 0.62);
-}
-
-
-.video-progress {
-    width:
-        clamp(80px, 10vw, 140px);
+#menuButton span {
+    display: block;
 
     height: 1px;
 
-    background:
-        rgba(255, 255, 255, 0.22);
+    background: #fff;
 
-    overflow: hidden;
+    box-shadow:
+        0 1px 6px rgba(0,0,0,0.5);
+
+    transition:
+        width 0.3s ease;
 }
 
-
-#videoProgressBar {
-    width: 0%;
-
-    height: 100%;
-
-    background:
-        rgba(255, 255, 255, 0.88);
-
-    transform-origin: left center;
+#menuButton span:first-child {
+    width: 26px;
 }
 
+#menuButton span:last-child {
+    width: 17px;
+}
+
+#menuButton:hover span:first-child {
+    width: 17px;
+}
+
+#menuButton:hover span:last-child {
+    width: 26px;
+}
 
 /* =========================================================
-   MOBILE NAVIGATION
+   NAVIGATION
 ========================================================= */
 
 #arrivalNavigation {
@@ -822,192 +459,43 @@ body {
 
     z-index: 100;
 
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
     background:
-        rgba(12, 12, 12, 0.96);
+        rgba(12,11,10,0.96);
 
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    color: #fff;
 
     opacity: 0;
-
     visibility: hidden;
-
     pointer-events: none;
 
-    transform:
-        translateY(20px);
-
     transition:
-        opacity 500ms ease,
-        transform 700ms cubic-bezier(.22, 1, .36, 1),
-        visibility 500ms ease;
+        opacity 0.45s ease,
+        visibility 0.45s ease;
 }
-
 
 #arrivalNavigation.is-open {
     opacity: 1;
-
     visibility: visible;
-
     pointer-events: auto;
-
-    transform:
-        translateY(0);
 }
-
-
-.navigation-inner {
-    width: min(1100px, 90vw);
-
-    max-height: 90svh;
-
-    overflow-y: auto;
-
-    padding:
-        50px 0;
-
-    -webkit-overflow-scrolling: touch;
-}
-
-
-.navigation-heading {
-    margin-bottom: 45px;
-
-    font-family:
-        "Cormorant Garamond",
-        Georgia,
-        serif;
-
-    font-size:
-        clamp(42px, 7vw, 82px);
-
-    font-weight: 400;
-
-    line-height: 0.95;
-
-    letter-spacing:
-        -0.035em;
-}
-
-
-.navigation-links {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    gap: 0;
-
-    border-top:
-        1px solid
-        rgba(255, 255, 255, 0.12);
-}
-
-
-.navigation-links a {
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    min-height: 76px;
-
-    padding:
-        18px 0;
-
-    color: rgba(255, 255, 255, 0.82);
-
-    text-decoration: none;
-
-    border-bottom:
-        1px solid
-        rgba(255, 255, 255, 0.12);
-
-    font-size: 12px;
-
-    letter-spacing:
-        0.16em;
-
-    text-transform: uppercase;
-
-    transition:
-        color 300ms ease,
-        padding-left 400ms cubic-bezier(.22, 1, .36, 1);
-}
-
-
-.navigation-links a:hover {
-    color: #ffffff;
-
-    padding-left: 12px;
-}
-
 
 #closeMenuButton {
     position: absolute;
 
-    top:
-        clamp(22px, 3vw, 42px);
+    top: max(20px, env(safe-area-inset-top));
+    right: 20px;
 
-    right:
-        clamp(20px, 4vw, 60px);
+    width: 44px;
+    height: 44px;
 
-    width: 48px;
-    height: 48px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid
-        rgba(255, 255, 255, 0.20);
-
-    background:
-        rgba(255, 255, 255, 0.06);
-
-    color: #ffffff;
+    border: 0;
+    background: transparent;
 
     cursor: pointer;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-
-    transition:
-        background 300ms ease,
-        transform 300ms ease;
 }
 
-
-#closeMenuButton:hover {
-    background:
-        rgba(255, 255, 255, 0.14);
-
-    transform: rotate(90deg);
-}
-
-
-.close-icon {
-    position: relative;
-
-    width: 18px;
-    height: 18px;
-}
-
-
-.close-icon::before,
-.close-icon::after {
+#closeMenuButton::before,
+#closeMenuButton::after {
     content: "";
 
     position: absolute;
@@ -1015,26 +503,23 @@ body {
     top: 50%;
     left: 50%;
 
-    width: 20px;
+    width: 28px;
     height: 1px;
 
-    background: #ffffff;
+    background: #fff;
 }
 
-
-.close-icon::before {
+#closeMenuButton::before {
     transform:
         translate(-50%, -50%)
         rotate(45deg);
 }
 
-
-.close-icon::after {
+#closeMenuButton::after {
     transform:
         translate(-50%, -50%)
         rotate(-45deg);
 }
-
 
 /* =========================================================
    PAGE TRANSITION
@@ -1045,106 +530,24 @@ body {
 
     inset: 0;
 
-    z-index: 200;
+    z-index: 9999;
 
-    background:
-        #101010;
+    background: #11100f;
 
     opacity: 0;
-
     visibility: hidden;
 
     pointer-events: none;
 
-    transform:
-        translateY(100%);
-
     transition:
-        opacity 350ms ease,
-        transform 750ms cubic-bezier(.77, 0, .18, 1),
-        visibility 350ms ease;
+        opacity 0.65s ease,
+        visibility 0.65s ease;
 }
 
-
-#pageTransition.is-active {
+#pageTransition.active {
     opacity: 1;
-
     visibility: visible;
-
-    transform:
-        translateY(0);
 }
-
-
-/* =========================================================
-   VIDEO CHANGE
-========================================================= */
-
-.video-changing {
-    opacity: 0.82 !important;
-
-    transform:
-        scale(1.025) !important;
-
-    transition:
-        opacity 350ms ease,
-        transform 900ms cubic-bezier(.22, 1, .36, 1);
-}
-
-
-/* =========================================================
-   SELECTION
-========================================================= */
-
-::selection {
-    background:
-        rgba(255, 255, 255, 0.20);
-
-    color: #ffffff;
-}
-
-
-/* =========================================================
-   SCROLLBAR
-========================================================= */
-
-::-webkit-scrollbar {
-    width: 4px;
-}
-
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-
-::-webkit-scrollbar-thumb {
-    background:
-        rgba(255, 255, 255, 0.20);
-
-    border-radius: 20px;
-}
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 900px) {
-
-    .arrival-content {
-        padding:
-            110px 28px
-            130px;
-    }
-
-
-    .navigation-links {
-        grid-template-columns: 1fr;
-    }
-
-}
-
 
 /* =========================================================
    MOBILE
@@ -1152,190 +555,120 @@ body {
 
 @media (max-width: 600px) {
 
-    #arrival {
-        height: 100svh;
-        min-height: 100svh;
+    #dateContainer {
+        top: max(18px, env(safe-area-inset-top));
+        left: 16px;
     }
 
-
-    .arrival-top {
-        padding:
-            20px 20px;
+    #date {
+        font-size: 9px;
+        letter-spacing: 0.15em;
     }
 
-
-    .arrival-brand img {
-        width: 56px;
+    #day {
+        font-size: 8px;
+        letter-spacing: 0.2em;
     }
 
+    #brandContainer {
+        top: max(17px, env(safe-area-inset-top));
+    }
+
+    #brandIcon {
+        width: 28px;
+        height: 28px;
+    }
+
+    #brandName {
+        margin-top: 3px;
+        font-size: 16px;
+        letter-spacing: 0.14em;
+    }
+
+    #brandTagline {
+        margin-top: 4px;
+        font-size: 5px;
+        letter-spacing: 0.17em;
+    }
 
     #menuButton {
-        width: 44px;
-        height: 44px;
+        top: max(17px, env(safe-area-inset-top));
+        right: 14px;
     }
-
-
-    .arrival-content {
-        padding:
-            100px 22px
-            125px;
-    }
-
-
-    .arrival-mark {
-        margin-bottom: 24px;
-    }
-
-
-    .arrival-mark img {
-        width: 82px;
-    }
-
 
     #timeGreeting {
-        font-size:
-            clamp(48px, 14vw, 68px);
+        top: 45%;
 
-        line-height: 0.92;
+        width: calc(100% - 32px);
 
-        max-width: 92vw;
+        font-size: clamp(
+            46px,
+            14vw,
+            78px
+        );
     }
-
 
     #arrivalMessage {
-        max-width: 330px;
+        top: 56%;
 
-        font-size: 14px;
-
-        line-height: 1.65;
-    }
-
-
-    .arrival-date {
-        gap: 11px;
-
-        font-size: 9px;
-
-        letter-spacing:
-            0.15em;
-    }
-
-
-    #beginButton {
-        min-height: 50px;
-
-        min-width: 185px;
-
-        padding:
-            15px 25px;
+        width: calc(100% - 48px);
 
         font-size: 10px;
+        line-height: 1.7;
     }
 
+    #beginButton {
+        bottom: 10%;
 
-    .arrival-bottom {
-        padding:
-            20px;
+        min-width: 175px;
+        min-height: 45px;
+
+        padding: 12px 22px;
+
+        font-size: 9px;
     }
-
 
     #soundButton {
-        min-height: 40px;
-
-        padding:
-            0 14px;
-
-        font-size: 9px;
+        left: 15px;
+        bottom: 15px;
     }
 
+    #meghanaIcon {
+        right: 15px;
+        bottom: 15px;
 
-    .video-info {
-        gap: 7px;
+        width: 38px;
+        height: 38px;
     }
-
-
-    #videoIndicator {
-        font-size: 8px;
-    }
-
-
-    .video-progress {
-        width: 76px;
-    }
-
-
-    .navigation-inner {
-        width: 84vw;
-
-        padding:
-            70px 0 35px;
-    }
-
-
-    .navigation-heading {
-        font-size:
-            clamp(46px, 14vw, 64px);
-
-        margin-bottom: 32px;
-    }
-
-
-    .navigation-links a {
-        min-height: 68px;
-
-        font-size: 10px;
-
-        letter-spacing:
-            0.13em;
-    }
-
-
-    #closeMenuButton {
-        width: 44px;
-        height: 44px;
-
-        top: 20px;
-        right: 20px;
-    }
-
 }
-
 
 /* =========================================================
-   SMALL MOBILE
+   TABLET
 ========================================================= */
 
-@media (max-width: 380px) {
+@media (min-width: 601px) and (max-width: 1024px) {
 
-    .arrival-content {
-        padding:
-            90px 18px
-            115px;
+    #dateContainer {
+        left: 25px;
     }
 
+    #brandIcon {
+        width: 34px;
+        height: 34px;
+    }
 
     #timeGreeting {
-        font-size:
-            46px;
+        font-size: clamp(
+            65px,
+            10vw,
+            100px
+        );
     }
-
 
     #arrivalMessage {
-        font-size: 13px;
+        font-size: 12px;
     }
-
-
-    .arrival-date {
-        font-size: 8px;
-    }
-
-
-    #beginButton {
-        min-width: 170px;
-    }
-
 }
-
 
 /* =========================================================
    LANDSCAPE MOBILE
@@ -1347,85 +680,125 @@ body {
     orientation: landscape
 ) {
 
-    .arrival-content {
-        justify-content: center;
-
-        padding:
-            70px 80px;
+    #brandContainer {
+        top: 12px;
     }
 
-
-    .arrival-mark {
-        margin-bottom: 12px;
+    #brandIcon {
+        width: 24px;
+        height: 24px;
     }
 
-
-    .arrival-mark img {
-        width: 50px;
+    #brandName {
+        font-size: 14px;
     }
 
+    #brandTagline {
+        font-size: 4px;
+    }
 
     #timeGreeting {
-        font-size: 42px;
-    }
+        top: 43%;
 
+        font-size: clamp(
+            38px,
+            9vw,
+            70px
+        );
+    }
 
     #arrivalMessage {
-        margin-top: 8px;
+        top: 59%;
 
-        font-size: 12px;
+        font-size: 9px;
     }
-
-
-    .arrival-date {
-        margin-top: 10px;
-    }
-
 
     #beginButton {
-        margin-top: 15px;
+        bottom: 5%;
 
-        min-height: 42px;
-
-        padding:
-            10px 24px;
+        min-height: 38px;
+        padding: 9px 20px;
     }
 
+    #meghanaIcon {
+        bottom: 10px;
+    }
 
-    .arrival-bottom {
-        padding:
-            12px 25px;
+    #soundButton {
+        bottom: 10px;
+    }
+}
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1400px) {
+
+    #dateContainer {
+        top: 32px;
+        left: 35px;
+    }
+
+    #brandContainer {
+        top: 30px;
+    }
+
+    #brandIcon {
+        width: 42px;
+        height: 42px;
+    }
+
+    #brandName {
+        font-size: 21px;
+    }
+
+    #brandTagline {
+        font-size: 7px;
+    }
+
+    #menuButton {
+        top: 28px;
+        right: 32px;
+    }
+
+    #meghanaIcon {
+        right: 32px;
+        bottom: 32px;
+
+        width: 48px;
+        height: 48px;
+    }
+
+    #soundButton {
+        left: 32px;
+        bottom: 32px;
+    }
+}
+
+/* =========================================================
+   SAFE AREA
+========================================================= */
+
+@supports (padding: env(safe-area-inset-top)) {
+
+    #arrivalPage {
+        padding-top: env(safe-area-inset-top);
     }
 
 }
-
 
 /* =========================================================
    REDUCED MOTION
 ========================================================= */
 
-@media (
-    prefers-reduced-motion: reduce
-) {
-
-    html {
-        scroll-behavior: auto;
-    }
-
+@media (prefers-reduced-motion: reduce) {
 
     *,
     *::before,
     *::after {
         animation-duration: 0.01ms !important;
-
         animation-iteration-count: 1 !important;
-
         transition-duration: 0.01ms !important;
     }
-
-
-    #grain {
-        animation: none;
-    }
-
 }
