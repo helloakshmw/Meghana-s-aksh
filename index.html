@@ -1,877 +1,1268 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
-<meta charset="UTF-8">
-
-<meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
->
-
-<meta name="theme-color" content="#11100f">
-
-<title>AKSH — A Safe Space For Every Mind</title>
-
-<link rel="icon" type="image/png" href="aksh-icon.PNG">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
-    rel="stylesheet"
->
-
-
-<style>
-
-/* =========================================================
-   RESET
-========================================================= */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-    overflow: hidden;
-}
-
-body {
-    background: #000;
-    color: #fff;
-    font-family: "Inter", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-}
-
-button,
-a {
-    -webkit-tap-highlight-color: transparent;
-}
-
-button {
-    font: inherit;
-}
-
-
-/* =========================================================
-   VIDEO BACKGROUND
-========================================================= */
-
-#backgroundVideo {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    background: #000;
-    z-index: -5;
-}
-
-#videoOverlay {
-    position: fixed;
-    inset: 0;
-    background:
-        linear-gradient(
-            180deg,
-            rgba(0,0,0,0.30) 0%,
-            rgba(0,0,0,0.05) 35%,
-            rgba(0,0,0,0.16) 65%,
-            rgba(0,0,0,0.50) 100%
-        );
-    z-index: -4;
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   PAGE TRANSITION
-========================================================= */
-
-#pageTransition {
-    position: fixed;
-    inset: 0;
-    background: #11100f;
-    z-index: 9999;
-    opacity: 1;
-    visibility: visible;
-    pointer-events: none;
-    transition:
-        opacity .8s ease,
-        visibility .8s ease;
-}
-
-#pageTransition.ready {
-    opacity: 0;
-    visibility: hidden;
-}
-
-
-/* =========================================================
-   TOP AREA
-========================================================= */
-
-.top-area {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding:
-        calc(env(safe-area-inset-top) + 18px)
-        28px
-        0;
-    z-index: 20;
-
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: start;
-
-    pointer-events: none;
-}
-
-
-/* =========================================================
-   DATE — TOP LEFT
-========================================================= */
-
-.date-block {
-    justify-self: start;
-    text-align: left;
-    pointer-events: auto;
-    line-height: 1;
-}
-
-.date-text {
-    display: block;
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: .16em;
-    color: rgba(255,255,255,.92);
-}
-
-.day-text {
-    display: block;
-    margin-top: 7px;
-    font-size: 8px;
-    font-weight: 400;
-    letter-spacing: .28em;
-    color: rgba(255,255,255,.60);
-}
-
-
-/* =========================================================
-   CENTER BRAND
-========================================================= */
-
-.center-brand {
-    justify-self: center;
-    text-align: center;
-    pointer-events: none;
-}
-
-.center-icon {
-    width: 38px;
-    height: 38px;
-    object-fit: contain;
-    display: block;
-    margin: 0 auto 5px;
-}
-
-.center-name {
-    display: block;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 25px;
-    line-height: .8;
-    font-weight: 500;
-    letter-spacing: .10em;
-    color: #fff;
-}
-
-.center-tagline {
-    display: block;
-    margin-top: 7px;
-    font-size: 6px;
-    font-weight: 400;
-    letter-spacing: .20em;
-    white-space: nowrap;
-    color: rgba(255,255,255,.68);
-}
-
-
-/* =========================================================
-   MENU BUTTON — TOP RIGHT
-========================================================= */
-
-.menu-button {
-    justify-self: end;
-
-    width: 50px;
-    height: 50px;
-
-    border: 1px solid rgba(255,255,255,.35);
-    border-radius: 50%;
-
-    background: rgba(20,20,20,.16);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-
-    cursor: pointer;
-    pointer-events: auto;
-
-    transition:
-        background .3s ease,
-        transform .3s ease;
-}
-
-.menu-button:active {
-    transform: scale(.94);
-}
-
-.menu-line {
-    width: 23px;
-    height: 1px;
-    background: #fff;
-}
-
-
-/* =========================================================
-   MAIN CONTENT
-========================================================= */
-
-.content {
-    position: fixed;
-    inset: 0;
-    z-index: 5;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    padding:
-        150px
-        24px
-        170px;
-}
+    <meta charset="UTF-8">
 
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
-/* =========================================================
-   GREETING
-========================================================= */
+    <meta
+        name="theme-color"
+        content="#0b0a09"
+    >
 
-#greeting {
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(58px, 9vw, 125px);
-    font-weight: 400;
-    line-height: .9;
-    letter-spacing: -.035em;
+    <meta
+        name="description"
+        content="AKSH Mental Wellness — A Safe Space For Every Mind."
+    >
 
-    color: #fff;
+    <title>AKSH — A Safe Space For Every Mind</title>
 
-    text-shadow:
-        0 2px 20px rgba(0,0,0,.25);
-}
 
+    <!-- =====================================================
+         FAVICON
+    ====================================================== -->
 
-/* =========================================================
-   MESSAGE
-========================================================= */
+    <link
+        rel="icon"
+        type="image/png"
+        href="aksh-icon.PNG"
+    >
 
-#arrivalMessage {
-    margin-top: 28px;
 
-    max-width: 620px;
+    <!-- =====================================================
+         FONTS
+    ====================================================== -->
 
-    font-size: clamp(14px, 1.7vw, 18px);
-    line-height: 1.7;
-    font-weight: 300;
+    <link rel="preconnect" href="https://fonts.googleapis.com">
 
-    color: rgba(255,255,255,.86);
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-    text-shadow:
-        0 2px 15px rgba(0,0,0,.30);
-}
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Allura&display=swap"
+        rel="stylesheet"
+    >
 
 
-/* =========================================================
-   BEGIN BUTTON
-========================================================= */
+    <!-- =====================================================
+         STYLES
+    ====================================================== -->
 
-#beginButton {
-    margin-top: 42px;
+    <style>
 
-    min-width: 245px;
-    min-height: 58px;
+        :root {
+            --white: #ffffff;
+            --soft-white: rgba(255,255,255,0.92);
+            --muted-white: rgba(255,255,255,0.68);
+            --line: rgba(255,255,255,0.22);
+            --dark: #090807;
+            --overlay: rgba(0,0,0,0.30);
+        }
 
-    padding: 0 30px;
 
-    border-radius: 40px;
-    border: 1px solid rgba(255,255,255,.45);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    background: rgba(25,25,25,.25);
 
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
 
-    color: #fff;
 
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: .20em;
+        html {
+            overflow: hidden;
+        }
 
-    cursor: pointer;
 
-    transition:
-        background .3s ease,
-        transform .3s ease,
-        border-color .3s ease;
-}
+        body {
+            position: relative;
+            width: 100%;
+            height: 100svh;
+            min-height: 100svh;
+            overflow: hidden;
+            background: #000;
+            color: var(--white);
+            font-family: "Inter", sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
 
-#beginButton:hover {
-    background: rgba(255,255,255,.15);
-    border-color: rgba(255,255,255,.75);
-}
 
-#beginButton:active {
-    transform: scale(.97);
-}
+        body.menu-open {
+            overflow: hidden;
+        }
 
 
-/* =========================================================
-   BOTTOM LEFT — SOUND
-========================================================= */
+        button,
+        a {
+            -webkit-tap-highlight-color: transparent;
+        }
 
-.sound-button {
-    position: fixed;
 
-    left: 28px;
-    bottom:
-        calc(env(safe-area-inset-bottom) + 28px);
+        button {
+            font: inherit;
+        }
 
-    z-index: 30;
 
-    min-width: 150px;
-    height: 48px;
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    padding: 0 19px;
 
-    border-radius: 30px;
-    border: 1px solid rgba(255,255,255,.35);
+        /* =====================================================
+           SINGLE BACKGROUND VIDEO
+        ====================================================== */
 
-    background: rgba(20,20,20,.22);
+        #backgroundVideo {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
 
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+            display: block;
 
-    color: #fff;
+            width: 100vw;
+            height: 100svh;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
+            min-width: 100%;
+            min-height: 100%;
 
-    font-size: 10px;
-    letter-spacing: .17em;
+            object-fit: cover;
+            object-position: center center;
 
-    cursor: pointer;
+            background: #000;
 
-    transition:
-        background .3s ease,
-        transform .3s ease;
-}
+            opacity: 1;
 
-.sound-button:active {
-    transform: scale(.96);
-}
+            pointer-events: none;
+        }
 
-.sound-icon {
-    font-size: 14px;
-    line-height: 1;
-}
 
+        /*
+         * IMPORTANT:
+         * There is ONLY ONE video element.
+         * No second video.
+         * No video background layers.
+         */
 
-/* =========================================================
-   MEGHANA SMALL ICON
-   REPLACES VIDEO COUNT
-========================================================= */
 
-.meghana-corner {
-    position: fixed;
+        /* =====================================================
+           VIDEO OVERLAY
+        ====================================================== */
 
-    right: 28px;
-    bottom:
-        calc(env(safe-area-inset-bottom) + 28px);
+        #videoOverlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1;
 
-    z-index: 30;
+            background:
+                linear-gradient(
+                    180deg,
+                    rgba(0,0,0,0.18) 0%,
+                    rgba(0,0,0,0.06) 40%,
+                    rgba(0,0,0,0.35) 100%
+                );
 
-    width: 46px;
-    height: 46px;
+            pointer-events: none;
+        }
 
-    border-radius: 50%;
 
-    overflow: hidden;
+        /* =====================================================
+           TOP DATE
+        ====================================================== */
 
-    border: 1px solid rgba(255,255,255,.55);
+        .arrival-date {
+            position: fixed;
 
-    background: rgba(255,255,255,.12);
+            top:
+                calc(
+                    env(safe-area-inset-top) + 24px
+                );
 
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+            left: 22px;
 
-    box-shadow:
-        0 5px 25px rgba(0,0,0,.20);
-}
+            z-index: 20;
 
-.meghana-corner img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-}
+            display: flex;
+            flex-direction: column;
 
+            align-items: flex-start;
 
-/* =========================================================
-   PROGRESS BAR
-========================================================= */
+            pointer-events: none;
+        }
 
-.progress-area {
-    position: fixed;
 
-    left: 50%;
-    bottom:
-        calc(env(safe-area-inset-bottom) + 17px);
+        #arrivalDate {
+            font-size: 10px;
+            font-weight: 400;
 
-    transform: translateX(-50%);
+            letter-spacing: 0.18em;
 
-    width: min(150px, 28vw);
+            line-height: 1.4;
 
-    z-index: 25;
-}
+            color: var(--soft-white);
+        }
 
-.progress-track {
-    width: 100%;
-    height: 1px;
-    background: rgba(255,255,255,.28);
-    overflow: hidden;
-}
 
-.progress-fill {
-    width: 0%;
-    height: 100%;
-    background: rgba(255,255,255,.90);
-}
+        #arrivalDay {
+            margin-top: 3px;
 
+            font-family:
+                "Cormorant Garamond",
+                serif;
 
-/* =========================================================
-   NAVIGATION OVERLAY
-========================================================= */
+            font-size: 17px;
+            font-weight: 400;
 
-#navigation {
-    position: fixed;
-    inset: 0;
+            line-height: 1;
 
-    z-index: 100;
+            color: var(--soft-white);
+        }
 
-    background:
-        rgba(10,10,10,.96);
 
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+        /* =====================================================
+           TOP CENTER BRAND
+        ====================================================== */
 
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
+        .arrival-brand {
+            position: fixed;
 
-    transition:
-        opacity .45s ease,
-        visibility .45s ease;
-}
+            top:
+                calc(
+                    env(safe-area-inset-top) + 22px
+                );
 
-#navigation.open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
+            left: 50%;
 
-.close-menu {
-    position: absolute;
+            transform:
+                translateX(-50%);
 
-    top:
-        calc(env(safe-area-inset-top) + 18px);
+            z-index: 20;
 
-    right: 28px;
+            display: flex;
+            flex-direction: column;
 
-    width: 50px;
-    height: 50px;
+            align-items: center;
 
-    border-radius: 50%;
+            text-align: center;
 
-    border: 1px solid rgba(255,255,255,.30);
+            pointer-events: none;
+        }
 
-    background: transparent;
 
-    cursor: pointer;
-}
+        .arrival-brand-main {
+            display: flex;
 
-.close-menu::before,
-.close-menu::after {
-    content: "";
+            align-items: center;
+            justify-content: center;
 
-    position: absolute;
+            gap: 8px;
+        }
 
-    top: 50%;
-    left: 50%;
 
-    width: 24px;
-    height: 1px;
+        .arrival-brand-icon {
+            width: 31px;
+            height: 31px;
 
-    background: #fff;
-}
+            object-fit: contain;
 
-.close-menu::before {
-    transform:
-        translate(-50%, -50%)
-        rotate(45deg);
-}
+            display: block;
+        }
 
-.close-menu::after {
-    transform:
-        translate(-50%, -50%)
-        rotate(-45deg);
-}
 
-.navigation-inner {
-    width: min(900px, calc(100% - 50px));
-    height: 100%;
+        .arrival-brand-name {
+            font-family:
+                "Cormorant Garamond",
+                serif;
 
-    margin: auto;
+            font-size: 27px;
+            font-weight: 500;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+            letter-spacing: 0.08em;
 
-.navigation-label {
-    margin-bottom: 28px;
+            line-height: 1;
 
-    font-size: 9px;
-    letter-spacing: .25em;
+            color: var(--white);
+        }
 
-    color: rgba(255,255,255,.42);
-}
 
-.navigation-links {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0 60px;
-}
+        .arrival-brand-tagline {
+            margin-top: 6px;
 
-.navigation-links a {
-    padding: 18px 0;
+            font-size: 7px;
+            font-weight: 400;
 
-    border-bottom:
-        1px solid rgba(255,255,255,.12);
+            letter-spacing: 0.22em;
 
-    color: #fff;
+            text-transform: uppercase;
 
-    font-family:
-        "Cormorant Garamond",
-        serif;
+            white-space: nowrap;
 
-    font-size: clamp(28px, 4vw, 48px);
+            color:
+                rgba(255,255,255,0.72);
+        }
 
-    transition:
-        color .25s ease,
-        padding-left .25s ease;
-}
 
-.navigation-links a:hover {
-    color: #d4c4b1;
-    padding-left: 8px;
-}
+        /* =====================================================
+           MENU BUTTON
+        ====================================================== */
 
+        #menuButton {
+            position: fixed;
 
-/* =========================================================
-   TABLET
-========================================================= */
+            top:
+                calc(
+                    env(safe-area-inset-top) + 20px
+                );
 
-@media (max-width: 900px) {
+            right: 20px;
 
-    .top-area {
-        padding-left: 22px;
-        padding-right: 22px;
-    }
+            z-index: 30;
 
-    .content {
-        padding:
-            150px
-            25px
-            150px;
-    }
+            width: 44px;
+            height: 44px;
 
-    #greeting {
-        font-size: clamp(58px, 12vw, 100px);
-    }
+            border: 0;
 
-    #arrivalMessage {
-        max-width: 520px;
-    }
+            background:
+                rgba(0,0,0,0.08);
 
-    .navigation-links {
-        grid-template-columns: 1fr;
-    }
-}
+            backdrop-filter:
+                blur(8px);
 
+            -webkit-backdrop-filter:
+                blur(8px);
 
-/* =========================================================
-   MOBILE
-========================================================= */
+            border-radius: 50%;
 
-@media (max-width: 600px) {
+            display: flex;
 
-    #backgroundVideo {
-        object-position: center center;
-    }
+            flex-direction: column;
 
-    .top-area {
-        padding:
-            calc(env(safe-area-inset-top) + 14px)
-            16px
-            0;
-    }
+            justify-content: center;
 
-    .date-text {
-        font-size: 9px;
-        letter-spacing: .12em;
-    }
+            align-items: flex-end;
 
-    .day-text {
-        margin-top: 6px;
-        font-size: 7px;
-        letter-spacing: .22em;
-    }
+            gap: 6px;
 
-    .center-icon {
-        width: 32px;
-        height: 32px;
-        margin-bottom: 4px;
-    }
+            padding-right: 11px;
 
-    .center-name {
-        font-size: 21px;
-        letter-spacing: .09em;
-    }
+            cursor: pointer;
+        }
 
-    .center-tagline {
-        margin-top: 6px;
-        font-size: 5px;
-        letter-spacing: .15em;
-    }
 
-    .menu-button {
-        width: 44px;
-        height: 44px;
-    }
+        .menu-line {
+            display: block;
 
-    .menu-line {
-        width: 21px;
-    }
+            height: 1px;
 
-    .content {
-        padding:
-            135px
-            20px
-            145px;
-    }
+            background:
+                rgba(255,255,255,0.9);
 
-    #greeting {
-        font-size: clamp(52px, 16vw, 76px);
-        line-height: .88;
-    }
+            transition:
+                width 0.3s ease;
+        }
 
-    #arrivalMessage {
-        max-width: 320px;
 
-        margin-top: 22px;
+        .menu-line:first-child {
+            width: 22px;
+        }
 
-        font-size: 13px;
-        line-height: 1.7;
-    }
 
-    #beginButton {
-        min-width: 220px;
-        min-height: 54px;
+        .menu-line:last-child {
+            width: 15px;
+        }
 
-        margin-top: 32px;
 
-        font-size: 10px;
-        letter-spacing: .17em;
-    }
+        #menuButton:hover
+        .menu-line:first-child {
+            width: 15px;
+        }
 
-    .sound-button {
-        left: 16px;
 
-        bottom:
-            calc(env(safe-area-inset-bottom) + 18px);
+        #menuButton:hover
+        .menu-line:last-child {
+            width: 22px;
+        }
 
-        min-width: 135px;
-        height: 44px;
 
-        padding: 0 15px;
+        /* =====================================================
+           CENTER CONTENT
+        ====================================================== */
 
-        font-size: 9px;
-        letter-spacing: .13em;
-    }
+        .arrival-content {
+            position: fixed;
 
-    .meghana-corner {
-        right: 16px;
+            inset: 0;
 
-        bottom:
-            calc(env(safe-area-inset-bottom) + 18px);
+            z-index: 10;
 
-        width: 42px;
-        height: 42px;
-    }
+            display: flex;
 
-    .progress-area {
-        bottom:
-            calc(env(safe-area-inset-bottom) + 10px);
+            flex-direction: column;
 
-        width: 95px;
-    }
+            justify-content: center;
 
-    .navigation-inner {
-        width: calc(100% - 40px);
-    }
+            align-items: center;
 
-    .navigation-links a {
-        font-size: 32px;
-        padding: 15px 0;
-    }
+            text-align: center;
 
-    .close-menu {
-        right: 16px;
-    }
-}
+            padding:
+                130px 24px
+                170px;
 
+            pointer-events: none;
+        }
 
-/* =========================================================
-   VERY SMALL PHONES
-========================================================= */
 
-@media (max-width: 380px) {
+        #timeGreeting {
+            font-family:
+                "Cormorant Garamond",
+                serif;
 
-    .center-tagline {
-        display: none;
-    }
+            font-size:
+                clamp(
+                    48px,
+                    11vw,
+                    110px
+                );
 
-    .center-name {
-        font-size: 19px;
-    }
+            font-weight: 400;
 
-    #greeting {
-        font-size: 49px;
-    }
+            line-height: 0.95;
 
-    #arrivalMessage {
-        font-size: 12px;
-    }
+            letter-spacing: -0.025em;
 
-    #beginButton {
-        min-width: 205px;
-    }
+            color: var(--white);
 
-    .sound-button {
-        min-width: 125px;
-    }
+            text-shadow:
+                0 3px 25px
+                rgba(0,0,0,0.22);
+        }
 
-    .meghana-corner {
-        width: 39px;
-        height: 39px;
-    }
-}
 
+        #arrivalMessage {
+            max-width: 520px;
 
-/* =========================================================
-   LANDSCAPE MOBILE
-========================================================= */
+            margin-top: 24px;
 
-@media
-(max-height: 500px)
-and (orientation: landscape) {
+            font-size:
+                clamp(
+                    12px,
+                    2vw,
+                    15px
+                );
 
-    .top-area {
-        padding-top:
-            calc(env(safe-area-inset-top) + 8px);
-    }
+            font-weight: 300;
 
-    .center-icon {
-        width: 25px;
-        height: 25px;
-    }
+            line-height: 1.8;
 
-    .center-name {
-        font-size: 18px;
-    }
+            letter-spacing: 0.02em;
 
-    .center-tagline {
-        display: none;
-    }
+            color: var(--muted-white);
 
-    .content {
-        padding:
-            90px
-            30px
-            85px;
-    }
+            text-shadow:
+                0 2px 15px
+                rgba(0,0,0,0.30);
+        }
 
-    #greeting {
-        font-size: 55px;
-    }
 
-    #arrivalMessage {
-        margin-top: 12px;
-        font-size: 11px;
-    }
+        /* =====================================================
+           MEGHANA SIGNATURE
+        ====================================================== */
 
-    #beginButton {
-        margin-top: 15px;
-        min-height: 43px;
-    }
-}
+        .founder-credit {
+            display: flex;
 
+            flex-direction: column;
 
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
+            align-items: center;
 
-@media (prefers-reduced-motion: reduce) {
+            margin-top: 30px;
+        }
 
-    *,
-    *::before,
-    *::after {
-        animation: none !important;
-        transition: none !important;
-    }
-}
 
-</style>
+        .founder-name {
+            font-family: "Allura", cursive;
+
+            font-size:
+                clamp(
+                    25px,
+                    5vw,
+                    42px
+                );
+
+            line-height: 1;
+
+            color: var(--white);
+
+            text-shadow:
+                0 2px 14px
+                rgba(0,0,0,0.30);
+        }
+
+
+        .founder-photo {
+            width: 46px;
+            height: 46px;
+
+            margin-top: 10px;
+
+            object-fit: cover;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.55);
+
+            box-shadow:
+                0 5px 20px
+                rgba(0,0,0,0.22);
+        }
+
+
+        /* =====================================================
+           BOTTOM CONTROLS
+        ====================================================== */
+
+        .arrival-controls {
+            position: fixed;
+
+            left: 50%;
+            bottom:
+                calc(
+                    env(safe-area-inset-bottom) + 28px
+                );
+
+            transform:
+                translateX(-50%);
+
+            z-index: 20;
+
+            width:
+                min(
+                    440px,
+                    calc(100% - 40px)
+                );
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            gap: 14px;
+        }
+
+
+        #beginButton {
+            pointer-events: auto;
+
+            min-width: 185px;
+
+            padding:
+                14px 27px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.65);
+
+            border-radius: 999px;
+
+            background:
+                rgba(0,0,0,0.14);
+
+            backdrop-filter:
+                blur(10px);
+
+            -webkit-backdrop-filter:
+                blur(10px);
+
+            color: var(--white);
+
+            font-size: 10px;
+
+            font-weight: 400;
+
+            letter-spacing: 0.2em;
+
+            text-transform: uppercase;
+
+            cursor: pointer;
+
+            transition:
+                background 0.3s ease,
+                transform 0.3s ease;
+        }
+
+
+        #beginButton:hover {
+            background:
+                rgba(255,255,255,0.16);
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        #soundButton {
+            pointer-events: auto;
+
+            border: 0;
+
+            background: transparent;
+
+            color:
+                rgba(255,255,255,0.78);
+
+            font-size: 9px;
+
+            letter-spacing: 0.18em;
+
+            text-transform: uppercase;
+
+            cursor: pointer;
+        }
+
+
+        /* =====================================================
+           VIDEO PROGRESS
+        ====================================================== */
+
+        .video-progress {
+            position: fixed;
+
+            left: 0;
+            bottom: 0;
+
+            z-index: 25;
+
+            width: 100%;
+            height: 2px;
+
+            background:
+                rgba(255,255,255,0.18);
+
+            pointer-events: none;
+        }
+
+
+        #videoProgressBar {
+            width: 0%;
+            height: 100%;
+
+            background:
+                rgba(255,255,255,0.88);
+
+            transition:
+                width linear;
+        }
+
+
+        #videoIndicator {
+            display: none;
+        }
+
+
+        /* =====================================================
+           NAVIGATION
+        ====================================================== */
+
+        #arrivalNavigation {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 100;
+
+            display: flex;
+
+            align-items: center;
+
+            background:
+                rgba(10,9,8,0.97);
+
+            color: var(--white);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            pointer-events: none;
+
+            transition:
+                opacity 0.45s ease,
+                visibility 0.45s ease;
+        }
+
+
+        #arrivalNavigation.is-open {
+            opacity: 1;
+
+            visibility: visible;
+
+            pointer-events: auto;
+        }
+
+
+        #closeMenuButton {
+            position: absolute;
+
+            top:
+                calc(
+                    env(safe-area-inset-top) + 18px
+                );
+
+            right: 18px;
+
+            width: 48px;
+            height: 48px;
+
+            border: 0;
+
+            background: transparent;
+
+            cursor: pointer;
+        }
+
+
+        #closeMenuButton::before,
+        #closeMenuButton::after {
+            content: "";
+
+            position: absolute;
+
+            top: 50%;
+            left: 50%;
+
+            width: 27px;
+            height: 1px;
+
+            background: var(--white);
+        }
+
+
+        #closeMenuButton::before {
+            transform:
+                translate(-50%, -50%)
+                rotate(45deg);
+        }
+
+
+        #closeMenuButton::after {
+            transform:
+                translate(-50%, -50%)
+                rotate(-45deg);
+        }
+
+
+        .navigation-inner {
+            width:
+                min(
+                    1050px,
+                    calc(100% - 48px)
+                );
+
+            margin: 0 auto;
+        }
+
+
+        .navigation-caption {
+            margin-bottom: 30px;
+
+            color:
+                rgba(255,255,255,0.42);
+
+            font-size: 9px;
+
+            letter-spacing: 0.22em;
+
+            text-transform: uppercase;
+        }
+
+
+        .navigation-links {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap:
+                0 70px;
+        }
+
+
+        .navigation-links a {
+            display: flex;
+
+            align-items: baseline;
+
+            gap: 15px;
+
+            padding: 16px 0;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.12);
+
+            font-family:
+                "Cormorant Garamond",
+                serif;
+
+            font-size:
+                clamp(
+                    29px,
+                    4vw,
+                    49px
+                );
+
+            line-height: 1;
+
+            transition:
+                color 0.3s ease,
+                padding-left 0.3s ease;
+        }
+
+
+        .navigation-links a span {
+            color:
+                rgba(255,255,255,0.30);
+
+            font-family:
+                "Inter",
+                sans-serif;
+
+            font-size: 8px;
+
+            letter-spacing: 0.12em;
+        }
+
+
+        .navigation-links a:hover {
+            color: #d8c8b6;
+
+            padding-left: 8px;
+        }
+
+
+        /* =====================================================
+           PAGE TRANSITION
+        ====================================================== */
+
+        #pageTransition {
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 999;
+
+            background: #090807;
+
+            opacity: 1;
+
+            transform:
+                translateY(0);
+
+            pointer-events: none;
+
+            transition:
+                opacity 0.85s
+                cubic-bezier(.22,1,.36,1),
+
+                transform 0.85s
+                cubic-bezier(.22,1,.36,1);
+        }
+
+
+        #pageTransition.is-ready {
+            opacity: 0;
+
+            transform:
+                translateY(-100%);
+        }
+
+
+        #pageTransition.is-active {
+            opacity: 1;
+
+            transform:
+                translateY(0);
+        }
+
+
+        /* =====================================================
+           DESKTOP
+        ====================================================== */
+
+        @media (min-width: 901px) {
+
+            .arrival-date {
+                left: 34px;
+            }
+
+
+            .arrival-brand-icon {
+                width: 35px;
+                height: 35px;
+            }
+
+
+            .arrival-brand-name {
+                font-size: 31px;
+            }
+
+
+            .arrival-content {
+                padding:
+                    150px 60px
+                    170px;
+            }
+
+
+            .founder-photo {
+                width: 52px;
+                height: 52px;
+            }
+
+        }
+
+
+        /* =====================================================
+           TABLET
+        ====================================================== */
+
+        @media (
+            min-width: 601px
+        ) and (
+            max-width: 900px
+        ) {
+
+            .arrival-content {
+                padding:
+                    130px 40px
+                    160px;
+            }
+
+
+            #timeGreeting {
+                font-size: 72px;
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 600px) {
+
+            .arrival-date {
+                top:
+                    calc(
+                        env(safe-area-inset-top) + 19px
+                    );
+
+                left: 17px;
+            }
+
+
+            #arrivalDate {
+                font-size: 8px;
+
+                letter-spacing: 0.15em;
+            }
+
+
+            #arrivalDay {
+                font-size: 15px;
+            }
+
+
+            .arrival-brand {
+                top:
+                    calc(
+                        env(safe-area-inset-top) + 18px
+                    );
+            }
+
+
+            .arrival-brand-icon {
+                width: 27px;
+                height: 27px;
+            }
+
+
+            .arrival-brand-name {
+                font-size: 23px;
+            }
+
+
+            .arrival-brand-tagline {
+                margin-top: 5px;
+
+                font-size: 6px;
+
+                letter-spacing: 0.18em;
+            }
+
+
+            #menuButton {
+                top:
+                    calc(
+                        env(safe-area-inset-top) + 15px
+                    );
+
+                right: 13px;
+
+                width: 42px;
+                height: 42px;
+            }
+
+
+            .arrival-content {
+                padding:
+                    115px 20px
+                    155px;
+            }
+
+
+            #timeGreeting {
+                font-size:
+                    clamp(
+                        48px,
+                        14vw,
+                        75px
+                    );
+            }
+
+
+            #arrivalMessage {
+                max-width: 320px;
+
+                margin-top: 20px;
+
+                font-size: 12px;
+
+                line-height: 1.75;
+            }
+
+
+            .founder-credit {
+                margin-top: 26px;
+            }
+
+
+            .founder-name {
+                font-size: 29px;
+            }
+
+
+            .founder-photo {
+                width: 42px;
+                height: 42px;
+
+                margin-top: 8px;
+            }
+
+
+            .arrival-controls {
+                bottom:
+                    calc(
+                        env(safe-area-inset-bottom) + 23px
+                    );
+
+                width:
+                    calc(100% - 34px);
+            }
+
+
+            #beginButton {
+                min-width: 175px;
+
+                padding:
+                    13px 23px;
+
+                font-size: 9px;
+            }
+
+
+            #soundButton {
+                font-size: 8px;
+            }
+
+
+            .navigation-inner {
+                width:
+                    calc(100% - 42px);
+            }
+
+
+            .navigation-links {
+                grid-template-columns: 1fr;
+
+                gap: 0;
+            }
+
+
+            .navigation-links a {
+                font-size: 32px;
+
+                padding: 13px 0;
+            }
+
+        }
+
+
+        /* =====================================================
+           VERY SMALL PHONES
+        ====================================================== */
+
+        @media (max-width: 380px) {
+
+            .arrival-brand-icon {
+                width: 24px;
+                height: 24px;
+            }
+
+
+            .arrival-brand-name {
+                font-size: 21px;
+            }
+
+
+            .arrival-brand-tagline {
+                font-size: 5px;
+            }
+
+
+            #timeGreeting {
+                font-size: 45px;
+            }
+
+
+            #arrivalMessage {
+                font-size: 11px;
+            }
+
+
+            .founder-name {
+                font-size: 26px;
+            }
+
+        }
+
+
+        /* =====================================================
+           LANDSCAPE MOBILE
+        ====================================================== */
+
+        @media (
+            max-height: 520px
+        ) and (
+            orientation: landscape
+        ) {
+
+            .arrival-brand {
+                top:
+                    calc(
+                        env(safe-area-inset-top) + 10px
+                    );
+            }
+
+
+            .arrival-date {
+                top:
+                    calc(
+                        env(safe-area-inset-top) + 11px
+                    );
+            }
+
+
+            #menuButton {
+                top:
+                    calc(
+                        env(safe-area-inset-top) + 7px
+                    );
+            }
+
+
+            .arrival-content {
+                padding:
+                    80px 30px
+                    95px;
+            }
+
+
+            #timeGreeting {
+                font-size: 48px;
+            }
+
+
+            #arrivalMessage {
+                margin-top: 10px;
+            }
+
+
+            .founder-credit {
+                margin-top: 10px;
+            }
+
+
+            .founder-photo {
+                width: 32px;
+                height: 32px;
+                margin-top: 5px;
+            }
+
+
+            .arrival-controls {
+                bottom:
+                    calc(
+                        env(safe-area-inset-bottom) + 10px
+                    );
+            }
+
+        }
+
+
+        /* =====================================================
+           REDUCED MOTION
+        ====================================================== */
+
+        @media (
+            prefers-reduced-motion: reduce
+        ) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+            }
+
+        }
+
+    </style>
 
 </head>
 
@@ -879,981 +1270,325 @@ and (orientation: landscape) {
 <body>
 
 
-<!-- =======================================================
-     VIDEO
-======================================================= -->
+    <!-- =====================================================
+         SINGLE BACKGROUND VIDEO
+    ====================================================== -->
 
-<video
-    id="backgroundVideo"
-    autoplay
-    muted
-    playsinline
-    preload="auto"
-></video>
+    <video
+        id="backgroundVideo"
+        autoplay
+        muted
+        playsinline
+        webkit-playsinline
+        preload="auto"
+        aria-hidden="true"
+    >
 
-<div id="videoOverlay"></div>
-
-
-<!-- =======================================================
-     PAGE TRANSITION
-======================================================= -->
-
-<div id="pageTransition"></div>
-
-
-<!-- =======================================================
-     TOP AREA
-======================================================= -->
-
-<header class="top-area">
-
-
-    <!-- DATE / DAY -->
-
-    <div class="date-block">
-
-        <span
-            id="dateText"
-            class="date-text"
+        <source
+            src="aksh-evening.1.mov"
+            type="video/quicktime"
         >
-            15.08.2026
+
+    </video>
+
+
+    <!-- =====================================================
+         OVERLAY
+    ====================================================== -->
+
+    <div
+        id="videoOverlay"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- =====================================================
+         DATE + DAY
+    ====================================================== -->
+
+    <div
+        class="arrival-date"
+        aria-hidden="true"
+    >
+
+        <span id="arrivalDate">
+            14.08.2026
         </span>
 
-        <span
-            id="dayText"
-            class="day-text"
-        >
-            SATURDAY
+        <span id="arrivalDay">
+            Friday
         </span>
 
     </div>
 
 
-    <!-- CENTER BRAND -->
+    <!-- =====================================================
+         CENTER BRAND
+    ====================================================== -->
 
-    <div class="center-brand">
+    <div
+        class="arrival-brand"
+        aria-label="AKSH Mental Wellness"
+    >
 
-        <img
-            src="aksh-icon.PNG"
-            alt="AKSH"
-            class="center-icon"
-        >
+        <div class="arrival-brand-main">
 
-        <span class="center-name">
-            AKSH
-        </span>
+            <img
+                class="arrival-brand-icon"
+                src="aksh-icon.PNG"
+                alt=""
+            >
 
-        <span class="center-tagline">
-            A SAFE SPACE FOR EVERY MIND
+            <span class="arrival-brand-name">
+                AKSH
+            </span>
+
+        </div>
+
+
+        <span class="arrival-brand-tagline">
+            A Safe Space For Every Mind
         </span>
 
     </div>
 
 
-    <!-- MENU -->
+    <!-- =====================================================
+         MENU BUTTON
+    ====================================================== -->
 
     <button
         id="menuButton"
-        class="menu-button"
         type="button"
         aria-label="Open navigation"
         aria-expanded="false"
+        aria-controls="arrivalNavigation"
     >
 
-        <span class="menu-line"></span>
-        <span class="menu-line"></span>
+        <span
+            class="menu-line"
+            aria-hidden="true"
+        ></span>
+
+        <span
+            class="menu-line"
+            aria-hidden="true"
+        ></span>
 
     </button>
 
-</header>
 
+    <!-- =====================================================
+         MAIN ARRIVAL CONTENT
+    ====================================================== -->
 
-<!-- =======================================================
-     MAIN CONTENT
-======================================================= -->
-
-<main class="content">
-
-    <h1 id="greeting">
-        Good Evening
-    </h1>
-
-    <p id="arrivalMessage">
-        Take a breath. You are here.
-    </p>
-
-    <button
-        id="beginButton"
-        type="button"
-    >
-        BEGIN YOUR JOURNEY
-    </button>
-
-</main>
-
-
-<!-- =======================================================
-     SOUND
-======================================================= -->
-
-<button
-    id="soundButton"
-    class="sound-button"
-    type="button"
-    aria-label="Turn sound on"
->
-
-    <span
-        id="soundIcon"
-        class="sound-icon"
-    >
-        ◀
-    </span>
-
-    <span id="soundText">
-        SOUND ON
-    </span>
-
-</button>
-
-
-<!-- =======================================================
-     MEGHANA ICON
-     NO VIDEO COUNT
-======================================================= -->
-
-<div
-    class="meghana-corner"
-    aria-label="Meghana Kaverappa"
->
-
-    <img
-        src="meghana.kaverappa.PNG"
-        alt="Meghana Kaverappa"
+    <main
+        class="arrival-content"
     >
 
-</div>
+        <h1 id="timeGreeting">
+            Good Evening
+        </h1>
 
 
-<!-- =======================================================
-     VIDEO PROGRESS
-     NO 11 / 13 COUNTER
-======================================================= -->
+        <p id="arrivalMessage">
+            Let the day become quieter.
+            Give yourself a moment.
+        </p>
 
-<div class="progress-area">
 
-    <div class="progress-track">
+        <!-- =================================================
+             FOUNDER
+        ================================================== -->
 
         <div
-            id="progressFill"
-            class="progress-fill"
+            class="founder-credit"
+        >
+
+            <div
+                class="founder-name"
+            >
+                Meghana Kaverappa
+            </div>
+
+
+            <img
+                class="founder-photo"
+                src="meghana.kaverappa.PNG"
+                alt="Meghana Kaverappa"
+            >
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         BOTTOM CONTROLS
+    ====================================================== -->
+
+    <div
+        class="arrival-controls"
+    >
+
+        <button
+            id="beginButton"
+            type="button"
+        >
+            Begin Your Journey
+        </button>
+
+
+        <button
+            id="soundButton"
+            type="button"
+            aria-pressed="false"
+            aria-label="Enable sound"
+        >
+
+            <span data-sound-text>
+                Sound Off
+            </span>
+
+        </button>
+
+    </div>
+
+
+    <!-- =====================================================
+         VIDEO PROGRESS
+    ====================================================== -->
+
+    <div
+        class="video-progress"
+        aria-hidden="true"
+    >
+
+        <div
+            id="videoProgressBar"
         ></div>
 
     </div>
 
-</div>
+
+    <span
+        id="videoIndicator"
+        aria-hidden="true"
+    ></span>
 
 
-<!-- =======================================================
-     NAVIGATION
-======================================================= -->
+    <!-- =====================================================
+         NAVIGATION
+    ====================================================== -->
 
-<aside
-    id="navigation"
-    aria-hidden="true"
->
+    <aside
+        id="arrivalNavigation"
+        aria-hidden="true"
+    >
 
-    <button
-        id="closeMenu"
-        class="close-menu"
-        type="button"
-        aria-label="Close navigation"
-    ></button>
+        <button
+            id="closeMenuButton"
+            type="button"
+            aria-label="Close navigation"
+        ></button>
 
 
-    <div class="navigation-inner">
+        <div
+            class="navigation-inner"
+        >
 
-        <div class="navigation-label">
-            EXPLORE AKSH
+            <div
+                class="navigation-caption"
+            >
+                Explore AKSH
+            </div>
+
+
+            <nav
+                class="navigation-links"
+                aria-label="AKSH navigation"
+            >
+
+                <a href="aksh.html">
+                    <span>01</span>
+                    The World
+                </a>
+
+
+                <a href="the-mind.html">
+                    <span>02</span>
+                    The Mind
+                </a>
+
+
+                <a href="with-you.html">
+                    <span>03</span>
+                    With You
+                </a>
+
+
+                <a href="meghana-kaverappa.html">
+                    <span>04</span>
+                    Meghana
+                </a>
+
+
+                <a href="journey.html">
+                    <span>05</span>
+                    Journey
+                </a>
+
+
+                <a href="stories.html">
+                    <span>06</span>
+                    Stories
+                </a>
+
+
+                <a href="journal.html">
+                    <span>07</span>
+                    Journal
+                </a>
+
+
+                <a href="ai.html">
+                    <span>08</span>
+                    AKSH AI
+                </a>
+
+
+                <a href="booking.html">
+                    <span>09</span>
+                    Book a Session
+                </a>
+
+            </nav>
+
         </div>
 
+    </aside>
 
-        <nav class="navigation-links">
 
-            <a href="aksh.html">
-                The World
-            </a>
+    <!-- =====================================================
+         PAGE TRANSITION
+    ====================================================== -->
 
-            <a href="the-mind.html">
-                The Mind
-            </a>
+    <div
+        id="pageTransition"
+        aria-hidden="true"
+    ></div>
 
-            <a href="with-you.html">
-                With You
-            </a>
 
-            <a href="meghana-kaverappa.html">
-                Meghana
-            </a>
+    <!-- =====================================================
+         NOTE
+         JavaScript is intentionally loaded separately.
+    ====================================================== -->
 
-            <a href="journey.html">
-                Journey
-            </a>
-
-            <a href="stories.html">
-                Stories
-            </a>
-
-            <a href="journal.html">
-                Journal
-            </a>
-
-            <a href="ai.html">
-                AKSH AI
-            </a>
-
-            <a href="booking.html">
-                Book a Session
-            </a>
-
-        </nav>
-
-    </div>
-
-</aside>
-
-
-<script>
-
-/* =========================================================
-   ELEMENTS
-========================================================= */
-
-const video =
-    document.getElementById("backgroundVideo");
-
-const greeting =
-    document.getElementById("greeting");
-
-const arrivalMessage =
-    document.getElementById("arrivalMessage");
-
-const dateText =
-    document.getElementById("dateText");
-
-const dayText =
-    document.getElementById("dayText");
-
-const soundButton =
-    document.getElementById("soundButton");
-
-const soundIcon =
-    document.getElementById("soundIcon");
-
-const soundText =
-    document.getElementById("soundText");
-
-const beginButton =
-    document.getElementById("beginButton");
-
-const progressFill =
-    document.getElementById("progressFill");
-
-const menuButton =
-    document.getElementById("menuButton");
-
-const closeMenu =
-    document.getElementById("closeMenu");
-
-const navigation =
-    document.getElementById("navigation");
-
-const pageTransition =
-    document.getElementById("pageTransition");
-
-
-/* =========================================================
-   VIDEO LIST
-========================================================= */
-
-const videos = [
-
-    "aksh-morning.1.mov",
-    "aksh-morning.2.mov",
-    "aksh-morning.3.mov",
-    "aksh-morning.4.mov",
-
-    "aksh-afternoon.1.mov",
-    "aksh-afternoon.2.mov",
-    "aksh-afternoon.3.mov",
-    "aksh-afternoon.4.mov",
-
-    "aksh-evening.1.mov",
-    "aksh-evening.2.mov",
-    "aksh-evening.3.mov",
-
-    "aksh-night.1.mov",
-    "aksh-night.2.mov"
-
-];
-
-
-/* =========================================================
-   TIME PERIOD
-========================================================= */
-
-function getCurrentMinutes() {
-
-    const now = new Date();
-
-    return (
-        now.getHours() * 60 +
-        now.getMinutes()
-    );
-
-}
-
-
-function getTimePeriod() {
-
-    const minutes =
-        getCurrentMinutes();
-
-
-    if (
-        minutes >= 300 &&
-        minutes < 720
-    ) {
-
-        return "morning";
-
-    }
-
-
-    if (
-        minutes >= 720 &&
-        minutes < 1020
-    ) {
-
-        return "afternoon";
-
-    }
-
-
-    if (
-        minutes >= 1020 &&
-        minutes < 1200
-    ) {
-
-        return "evening";
-
-    }
-
-
-    return "night";
-
-}
-
-
-/* =========================================================
-   TIME CONTENT
-========================================================= */
-
-const timeContent = {
-
-    morning: {
-
-        greeting:
-            "Good Morning",
-
-        message:
-            "A new day is here. Take a breath. Begin gently."
-
-    },
-
-    afternoon: {
-
-        greeting:
-            "Good Afternoon",
-
-        message:
-            "Pause for a moment. You are allowed to slow down."
-
-    },
-
-    evening: {
-
-        greeting:
-            "Good Evening",
-
-        message:
-            "Take a breath. You are here."
-
-    },
-
-    night: {
-
-        greeting:
-            "Good Night",
-
-        message:
-            "Let the day become quiet. Give yourself some space."
-
-    }
-
-};
-
-
-/* =========================================================
-   VIDEO GROUPS
-========================================================= */
-
-const videoGroups = {
-
-    morning: [
-        "aksh-morning.1.mov",
-        "aksh-morning.2.mov",
-        "aksh-morning.3.mov",
-        "aksh-morning.4.mov"
-    ],
-
-    afternoon: [
-        "aksh-afternoon.1.mov",
-        "aksh-afternoon.2.mov",
-        "aksh-afternoon.3.mov",
-        "aksh-afternoon.4.mov"
-    ],
-
-    evening: [
-        "aksh-evening.1.mov",
-        "aksh-evening.2.mov",
-        "aksh-evening.3.mov"
-    ],
-
-    night: [
-        "aksh-night.1.mov",
-        "aksh-night.2.mov"
-    ]
-
-};
-
-
-/* =========================================================
-   DATE
-========================================================= */
-
-function updateDate() {
-
-    const now =
-        new Date();
-
-    const day =
-        String(
-            now.getDate()
-        ).padStart(2, "0");
-
-    const month =
-        String(
-            now.getMonth() + 1
-        ).padStart(2, "0");
-
-    const year =
-        now.getFullYear();
-
-    dateText.textContent =
-        `${day}.${month}.${year}`;
-
-
-    const weekday =
-        now
-        .toLocaleDateString(
-            "en-IN",
-            {
-                weekday: "long"
-            }
-        )
-        .toUpperCase();
-
-    dayText.textContent =
-        weekday;
-
-}
-
-
-/* =========================================================
-   UPDATE GREETING
-========================================================= */
-
-function updateGreeting() {
-
-    const period =
-        getTimePeriod();
-
-    const content =
-        timeContent[period];
-
-    greeting.textContent =
-        content.greeting;
-
-    arrivalMessage.textContent =
-        content.message;
-
-}
-
-
-/* =========================================================
-   VIDEO STATE
-========================================================= */
-
-let currentVideos = [];
-
-let currentVideoIndex = 0;
-
-let videoTimer = null;
-
-let progressTimer = null;
-
-const VIDEO_DURATION = 4000;
-
-
-/* =========================================================
-   LOAD VIDEO
-========================================================= */
-
-function loadVideo(
-    source,
-    autoplay = true
-) {
-
-    if (!source) {
-        return;
-    }
-
-
-    video.src = source;
-
-    video.load();
-
-
-    const playVideo =
-        () => {
-
-            if (!autoplay) {
-                return;
-            }
-
-            video.play()
-                .catch(
-                    () => {
-                        /*
-                         Autoplay may be blocked
-                         until the user interacts.
-                        */
-                    }
-                );
-
-        };
-
-
-    video.addEventListener(
-        "canplay",
-        playVideo,
-        {
-            once: true
-        }
-    );
-
-}
-
-
-/* =========================================================
-   START CURRENT VIDEO
-========================================================= */
-
-function startVideoSequence() {
-
-    const period =
-        getTimePeriod();
-
-    currentVideos =
-        videoGroups[period];
-
-    currentVideoIndex = 0;
-
-    loadVideo(
-        currentVideos[currentVideoIndex]
-    );
-
-    startVideoTimer();
-
-}
-
-
-/* =========================================================
-   VIDEO TIMER
-========================================================= */
-
-function startVideoTimer() {
-
-    clearTimeout(videoTimer);
-
-    clearInterval(progressTimer);
-
-
-    progressFill.style.width =
-        "0%";
-
-
-    const startTime =
-        Date.now();
-
-
-    progressTimer =
-        setInterval(
-            () => {
-
-                const elapsed =
-                    Date.now() -
-                    startTime;
-
-                const progress =
-                    Math.min(
-                        (elapsed /
-                        VIDEO_DURATION) *
-                        100,
-                        100
-                    );
-
-                progressFill.style.width =
-                    `${progress}%`;
-
-            },
-            40
-        );
-
-
-    videoTimer =
-        setTimeout(
-            nextVideo,
-            VIDEO_DURATION
-        );
-
-}
-
-
-/* =========================================================
-   NEXT VIDEO
-========================================================= */
-
-function nextVideo() {
-
-    clearInterval(progressTimer);
-
-    currentVideoIndex++;
-
-
-    if (
-        currentVideoIndex >=
-        currentVideos.length
-    ) {
-
-        currentVideoIndex = 0;
-
-    }
-
-
-    loadVideo(
-        currentVideos[currentVideoIndex]
-    );
-
-
-    startVideoTimer();
-
-}
-
-
-/* =========================================================
-   VIDEO ENDED
-========================================================= */
-
-video.addEventListener(
-    "ended",
-    () => {
-
-        nextVideo();
-
-    }
-);
-
-
-/* =========================================================
-   SOUND
-========================================================= */
-
-let soundEnabled = false;
-
-
-soundButton.addEventListener(
-    "click",
-    () => {
-
-        soundEnabled =
-            !soundEnabled;
-
-        video.muted =
-            !soundEnabled;
-
-
-        if (soundEnabled) {
-
-            soundText.textContent =
-                "SOUND OFF";
-
-            soundIcon.textContent =
-                "▶";
-
-            video.play()
-                .catch(
-                    () => {}
-                );
-
-        } else {
-
-            soundText.textContent =
-                "SOUND ON";
-
-            soundIcon.textContent =
-                "◀";
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   BEGIN JOURNEY
-========================================================= */
-
-beginButton.addEventListener(
-    "click",
-    () => {
-
-        pageTransition.classList.remove(
-            "ready"
-        );
-
-
-        pageTransition.style.pointerEvents =
-            "auto";
-
-
-        setTimeout(
-            () => {
-
-                window.location.href =
-                    "aksh.html";
-
-            },
-            700
-        );
-
-    }
-);
-
-
-/* =========================================================
-   NAVIGATION
-========================================================= */
-
-function openNavigation() {
-
-    navigation.classList.add(
-        "open"
-    );
-
-    navigation.setAttribute(
-        "aria-hidden",
-        "false"
-    );
-
-    menuButton.setAttribute(
-        "aria-expanded",
-        "true"
-    );
-
-}
-
-
-function closeNavigation() {
-
-    navigation.classList.remove(
-        "open"
-    );
-
-    navigation.setAttribute(
-        "aria-hidden",
-        "true"
-    );
-
-    menuButton.setAttribute(
-        "aria-expanded",
-        "false"
-    );
-
-}
-
-
-menuButton.addEventListener(
-    "click",
-    openNavigation
-);
-
-
-closeMenu.addEventListener(
-    "click",
-    closeNavigation
-);
-
-
-/* =========================================================
-   ESCAPE
-========================================================= */
-
-document.addEventListener(
-    "keydown",
-    (event) => {
-
-        if (
-            event.key === "Escape"
-        ) {
-
-            closeNavigation();
-
-        }
-
-    }
-);
-
-
-/* =========================================================
-   NAVIGATION PAGE TRANSITIONS
-========================================================= */
-
-navigation
-    .querySelectorAll("a")
-    .forEach(
-        (link) => {
-
-            link.addEventListener(
-                "click",
-                (event) => {
-
-                    const destination =
-                        link.getAttribute(
-                            "href"
-                        );
-
-
-                    if (!destination) {
-                        return;
-                    }
-
-
-                    event.preventDefault();
-
-
-                    closeNavigation();
-
-
-                    pageTransition.classList.remove(
-                        "ready"
-                    );
-
-
-                    setTimeout(
-                        () => {
-
-                            window.location.href =
-                                destination;
-
-                        },
-                        700
-                    );
-
-                }
-            );
-
-        }
-    );
-
-
-/* =========================================================
-   INITIALISE
-========================================================= */
-
-function initialise() {
-
-    updateDate();
-
-    updateGreeting();
-
-    startVideoSequence();
-
-
-    setTimeout(
-        () => {
-
-            pageTransition.classList.add(
-                "ready"
-            );
-
-        },
-        100
-    );
-
-}
-
-
-initialise();
-
-
-/* =========================================================
-   UPDATE DATE / TIME CONTENT
-   WITHOUT RELOADING THE PAGE
-========================================================= */
-
-setInterval(
-    () => {
-
-        updateDate();
-
-        updateGreeting();
-
-    },
-    60000
-);
-
-
-/* =========================================================
-   PAGE SHOW / BACK BUTTON
-========================================================= */
-
-window.addEventListener(
-    "pageshow",
-    () => {
-
-        pageTransition.classList.add(
-            "ready"
-        );
-
-        closeNavigation();
-
-    }
-);
-
-</script>
-
+    <script
+        src="script.js"
+        defer
+    ></script>
 
 </body>
+
 </html>
