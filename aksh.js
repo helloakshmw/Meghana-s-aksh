@@ -1,7 +1,7 @@
 /* =========================================================
-   AKSH — THE WORLD
-   FINAL JAVASCRIPT
-========================================================= */
+   AKSH — PAGE 1 JAVASCRIPT
+   File: aksh.js
+   ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -9,101 +9,74 @@ document.addEventListener("DOMContentLoaded", () => {
        ELEMENTS
     ===================================================== */
 
-    const menuButton =
-        document.getElementById("akshMenuButton");
-
-    const closeMenuButton =
-        document.getElementById("akshCloseMenu");
-
-    const navigation =
-        document.getElementById("akshNavigation");
-
-    const pageTransition =
-        document.getElementById("akshPageTransition");
+    const menuButton = document.getElementById("menuButton");
+    const closeMenuButton = document.getElementById("closeMenuButton");
+    const navigation = document.getElementById("navigation");
+    const pageTransition = document.getElementById("pageTransition");
 
 
     /* =====================================================
-       NAVIGATION STATE
+       PAGE TRANSITION — ARRIVAL
     ===================================================== */
 
-    let navigationOpen = false;
+    if (pageTransition) {
+
+        requestAnimationFrame(() => {
+            pageTransition.classList.add("ready");
+        });
+
+    }
 
 
     /* =====================================================
-       OPEN NAVIGATION
+       NAVIGATION OPEN
     ===================================================== */
 
-    function openNavigation() {
+    function openMenu() {
 
-        if (!navigation) {
-            return;
+        if (!navigation) return;
+
+        navigation.classList.add("open");
+
+        document.body.classList.add("menu-open");
+
+        if (menuButton) {
+            menuButton.setAttribute(
+                "aria-expanded",
+                "true"
+            );
         }
-
-        navigationOpen = true;
-
-        navigation.classList.add("is-open");
 
         navigation.setAttribute(
             "aria-hidden",
             "false"
         );
 
-        if (menuButton) {
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-
-            menuButton.setAttribute(
-                "aria-label",
-                "Close navigation"
-            );
-
-        }
-
-        document.body.classList.add(
-            "is-menu-open"
-        );
-
     }
 
 
     /* =====================================================
-       CLOSE NAVIGATION
+       NAVIGATION CLOSE
     ===================================================== */
 
-    function closeNavigation() {
+    function closeMenu() {
 
-        if (!navigation) {
-            return;
-        }
+        if (!navigation) return;
 
-        navigationOpen = false;
+        navigation.classList.remove("open");
 
-        navigation.classList.remove("is-open");
-
-        navigation.setAttribute(
-            "aria-hidden",
-            "true"
-        );
+        document.body.classList.remove("menu-open");
 
         if (menuButton) {
-
             menuButton.setAttribute(
                 "aria-expanded",
                 "false"
             );
-
-            menuButton.setAttribute(
-                "aria-label",
-                "Open navigation"
-            );
-
         }
 
-        document.body.classList.remove(
-            "is-menu-open"
+        navigation.setAttribute(
+            "aria-hidden",
+            "true"
         );
 
     }
@@ -117,19 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         menuButton.addEventListener(
             "click",
-            () => {
-
-                if (navigationOpen) {
-
-                    closeNavigation();
-
-                } else {
-
-                    openNavigation();
-
-                }
-
-            }
+            openMenu
         );
 
     }
@@ -143,34 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         closeMenuButton.addEventListener(
             "click",
-            closeNavigation
-        );
-
-    }
-
-
-    /* =====================================================
-       NAVIGATION LINKS
-    ===================================================== */
-
-    if (navigation) {
-
-        const navigationLinks =
-            navigation.querySelectorAll("a");
-
-        navigationLinks.forEach(
-            (link) => {
-
-                link.addEventListener(
-                    "click",
-                    () => {
-
-                        closeNavigation();
-
-                    }
-                );
-
-            }
+            closeMenu
         );
 
     }
@@ -184,13 +118,8 @@ document.addEventListener("DOMContentLoaded", () => {
         "keydown",
         (event) => {
 
-            if (
-                event.key === "Escape" &&
-                navigationOpen
-            ) {
-
-                closeNavigation();
-
+            if (event.key === "Escape") {
+                closeMenu();
             }
 
         }
@@ -198,110 +127,114 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       PAGE TRANSITION
+       NAVIGATION LINKS
     ===================================================== */
 
-    function startPageTransition(
-        destination
-    ) {
+    if (navigation) {
 
-        if (!destination) {
-            return;
-        }
+        navigation
+            .querySelectorAll("a")
+            .forEach((link) => {
 
-        if (!pageTransition) {
+                link.addEventListener(
+                    "click",
+                    () => {
 
-            window.location.href =
-                destination;
+                        closeMenu();
 
-            return;
+                    }
+                );
 
-        }
-
-        pageTransition.classList.add(
-            "is-active"
-        );
-
-        setTimeout(
-            () => {
-
-                window.location.href =
-                    destination;
-
-            },
-            700
-        );
+            });
 
     }
 
 
     /* =====================================================
-       INTERNAL PAGE LINKS
+       PAGE TRANSITIONS
     ===================================================== */
 
-    const internalLinks =
-        document.querySelectorAll(
-            'a[href$=".html"]'
-        );
-
-    internalLinks.forEach(
-        (link) => {
+    document
+        .querySelectorAll("a[href]")
+        .forEach((link) => {
 
             link.addEventListener(
                 "click",
                 (event) => {
 
-                    const destination =
+                    const href =
                         link.getAttribute("href");
 
-                    if (!destination) {
-                        return;
-                    }
+
+                    if (!href) return;
+
+
+                    /*
+                       Ignore:
+                       - anchors
+                       - javascript links
+                       - external links
+                       - new tabs
+                    */
 
                     if (
-                        destination.startsWith("#")
-                    ) {
-                        return;
-                    }
-
-                    if (
+                        href.startsWith("#") ||
+                        href.startsWith("javascript:") ||
+                        href.startsWith("http://") ||
+                        href.startsWith("https://") ||
                         link.target === "_blank"
                     ) {
+
                         return;
+
                     }
+
+
+                    /*
+                       Only animate actual
+                       HTML page navigation.
+                    */
+
+                    if (
+                        !href.endsWith(".html") &&
+                        !href.endsWith("/")
+                    ) {
+
+                        return;
+
+                    }
+
 
                     event.preventDefault();
 
-                    closeNavigation();
 
-                    startPageTransition(
-                        destination
-                    );
+                    closeMenu();
+
+
+                    if (pageTransition) {
+
+                        pageTransition.classList.remove(
+                            "ready"
+                        );
+
+                        pageTransition.classList.add(
+                            "active"
+                        );
+
+                    }
+
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            href;
+
+                    }, 700);
 
                 }
             );
 
-        }
-    );
-
-
-    /* =====================================================
-       INITIAL PAGE ARRIVAL
-    ===================================================== */
-
-    requestAnimationFrame(
-        () => {
-
-            if (pageTransition) {
-
-                pageTransition.classList.add(
-                    "is-ready"
-                );
-
-            }
-
-        }
-    );
+        });
 
 
     /* =====================================================
@@ -318,11 +251,11 @@ document.addEventListener("DOMContentLoaded", () => {
             ) {
 
                 pageTransition.classList.remove(
-                    "is-active"
+                    "active"
                 );
 
                 pageTransition.classList.add(
-                    "is-ready"
+                    "ready"
                 );
 
             }
@@ -332,30 +265,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       RESET MENU ON PAGE RESTORE
+       PREVENT SCROLL LOCK FROM GETTING STUCK
     ===================================================== */
 
     window.addEventListener(
         "pageshow",
         () => {
 
-            closeNavigation();
+            if (
+                navigation &&
+                !navigation.classList.contains("open")
+            ) {
+
+                document.body.classList.remove(
+                    "menu-open"
+                );
+
+            }
 
         }
     );
 
-
-    /* =====================================================
-       ACCESSIBILITY
-    ===================================================== */
-
-    if (navigation) {
-
-        navigation.setAttribute(
-            "aria-hidden",
-            "true"
-        );
-
-    }
 
 });
