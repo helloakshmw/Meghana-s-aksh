@@ -1,7 +1,7 @@
 /* =========================================================
-   AKSH — ARRIVAL
-   MASTER JAVASCRIPT
-========================================================= */
+   AKSH — ARRIVAL EXPERIENCE
+   script.js
+   ========================================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
 
@@ -9,18 +9,20 @@ document.addEventListener("DOMContentLoaded", () => {
        ELEMENTS
     ===================================================== */
 
-    const video = document.getElementById("backgroundVideo");
+    const backgroundVideo =
+        document.getElementById("backgroundVideo");
 
-    const greeting = document.getElementById("timeGreeting");
-    const arrivalMessage = document.getElementById("arrivalMessage");
+    const timeGreeting =
+        document.getElementById("timeGreeting");
 
-    const currentDate = document.getElementById("currentDate");
-    const currentDay = document.getElementById("currentDay");
+    const arrivalMessage =
+        document.getElementById("arrivalMessage");
 
-    const beginButton = document.getElementById("beginButton");
+    const beginButton =
+        document.getElementById("beginButton");
 
-    const soundButton = document.getElementById("soundButton");
-    const soundText = document.getElementById("soundText");
+    const soundButton =
+        document.getElementById("soundButton");
 
     const videoProgressBar =
         document.getElementById("videoProgressBar");
@@ -34,26 +36,133 @@ document.addEventListener("DOMContentLoaded", () => {
     const closeMenuButton =
         document.getElementById("closeMenuButton");
 
-    const navigation =
+    const arrivalNavigation =
         document.getElementById("arrivalNavigation");
 
     const pageTransition =
         document.getElementById("pageTransition");
 
+    const dateElement =
+        document.getElementById("arrivalDate");
+
+    const dayElement =
+        document.getElementById("arrivalDay");
+
 
     /* =====================================================
-       SAFETY CHECK
-    ===================================================== */
+       CONFIGURATION
+       ===================================================== */
 
-    if (!video) {
-        console.error("AKSH: Background video element not found.");
-        return;
+    const CONFIG = {
+
+        /* Page 1 */
+        nextPage: "the-mind.html",
+
+        /* Video duration */
+        videoDuration: 4000,
+
+        /* Transition duration */
+        pageTransitionDuration: 850
+
+    };
+
+
+    /* =====================================================
+       TIME PERIOD
+       ===================================================== */
+
+    function getCurrentMinutes() {
+
+        const now = new Date();
+
+        return (
+            now.getHours() * 60 +
+            now.getMinutes()
+        );
+
+    }
+
+
+    function getTimePeriod() {
+
+        const minutes = getCurrentMinutes();
+
+
+        /* 5:00 AM – 11:59 AM */
+        if (
+            minutes >= 300 &&
+            minutes < 720
+        ) {
+
+            return "morning";
+
+        }
+
+
+        /* 12:00 PM – 4:59 PM */
+        if (
+            minutes >= 720 &&
+            minutes < 1020
+        ) {
+
+            return "afternoon";
+
+        }
+
+
+        /* 5:00 PM – 8:59 PM */
+        if (
+            minutes >= 1020 &&
+            minutes < 1260
+        ) {
+
+            return "evening";
+
+        }
+
+
+        /* 9:00 PM – 4:59 AM */
+        return "night";
+
     }
 
 
     /* =====================================================
-       VIDEO LIBRARY
-    ===================================================== */
+       GREETINGS
+       ===================================================== */
+
+    const greetings = {
+
+        morning: {
+            title: "Good Morning",
+            message:
+                "A new day begins gently. Take a moment to arrive."
+        },
+
+        afternoon: {
+            title: "Good Afternoon",
+            message:
+                "Take a breath. You are allowed to slow down."
+        },
+
+        evening: {
+            title: "Good Evening",
+            message:
+                "Let the day become quieter. Give yourself a moment."
+        },
+
+        night: {
+            title: "Good Night",
+            message:
+                "The world can wait. This moment is yours."
+        }
+
+    };
+
+
+    /* =====================================================
+       VIDEO COLLECTION
+       ===================================================== */
 
     const videos = {
 
@@ -86,346 +195,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       TOTAL VIDEO COUNT
-    ===================================================== */
-
-    const totalVideos =
-        videos.morning.length +
-        videos.afternoon.length +
-        videos.evening.length +
-        videos.night.length;
-
-
-    /* =====================================================
        CURRENT STATE
-    ===================================================== */
+       ===================================================== */
 
-    let currentVideoPath = "";
-    let currentVideoNumber = 0;
+    let currentPeriod =
+        getTimePeriod();
+
+    let currentVideoIndex = 0;
+
+    let progressTimer = null;
+
+    let videoTimer = null;
 
     let soundEnabled = false;
-
-    let progressAnimation = null;
 
     let navigationOpen = false;
 
 
     /* =====================================================
-       TIME CALCULATION
-    ===================================================== */
-
-    function getCurrentMinutes() {
-
-        const now = new Date();
-
-        return (
-            now.getHours() * 60 +
-            now.getMinutes()
-        );
-
-    }
-
-
-    /* =====================================================
-       GET CURRENT PERIOD
-    ===================================================== */
-
-    function getTimePeriod() {
-
-        const time = getCurrentMinutes();
-
-
-        /*
-           05:00 – 11:59
-           GOOD MORNING
-        */
-
-        if (time >= 300 && time < 720) {
-
-            return "morning";
-
-        }
-
-
-        /*
-           12:00 – 16:59
-           GOOD AFTERNOON
-        */
-
-        if (time >= 720 && time < 1020) {
-
-            return "afternoon";
-
-        }
-
-
-        /*
-           17:00 – 19:59
-           GOOD EVENING
-        */
-
-        if (time >= 1020 && time < 1200) {
-
-            return "evening";
-
-        }
-
-
-        /*
-           20:00 – 04:59
-           GOOD NIGHT
-        */
-
-        return "night";
-
-    }
-
-
-    /* =====================================================
-       GET EXACT VIDEO FOR CURRENT TIME
-    ===================================================== */
-
-    function getVideoForCurrentTime() {
-
-        const time = getCurrentMinutes();
-
-        let videoFile = "";
-        let globalNumber = 1;
-        let greetingText = "";
-        let messageText = "";
-
-
-        /* ================================================
-           MORNING
-        ================================================= */
-
-        if (time >= 300 && time < 360) {
-
-            videoFile = videos.morning[0];
-
-            globalNumber = 1;
-
-            greetingText = "Good Morning";
-
-            messageText =
-                "A quiet beginning can be enough.";
-
-        }
-
-        else if (time >= 360 && time < 480) {
-
-            videoFile = videos.morning[1];
-
-            globalNumber = 2;
-
-            greetingText = "Good Morning";
-
-            messageText =
-                "Take your time. Let the morning unfold.";
-
-        }
-
-        else if (time >= 480 && time < 600) {
-
-            videoFile = videos.morning[2];
-
-            globalNumber = 3;
-
-            greetingText = "Good Morning";
-
-            messageText =
-                "There is nowhere you need to rush to.";
-
-        }
-
-        else if (time >= 600 && time < 720) {
-
-            videoFile = videos.morning[3];
-
-            globalNumber = 4;
-
-            greetingText = "Good Morning";
-
-            messageText =
-                "Make a little room for yourself today.";
-
-        }
-
-
-        /* ================================================
-           AFTERNOON
-        ================================================= */
-
-        else if (time >= 720 && time < 780) {
-
-            videoFile = videos.afternoon[0];
-
-            globalNumber = 5;
-
-            greetingText = "Good Afternoon";
-
-            messageText =
-                "Let the warmth find you.";
-
-        }
-
-        else if (time >= 780 && time < 870) {
-
-            videoFile = videos.afternoon[1];
-
-            globalNumber = 6;
-
-            greetingText = "Good Afternoon";
-
-            messageText =
-                "Pause for a moment. Breathe.";
-
-        }
-
-        else if (time >= 870 && time < 960) {
-
-            videoFile = videos.afternoon[2];
-
-            globalNumber = 7;
-
-            greetingText = "Good Afternoon";
-
-            messageText =
-                "A little stillness can change the day.";
-
-        }
-
-        else if (time >= 960 && time < 1020) {
-
-            videoFile = videos.afternoon[3];
-
-            globalNumber = 8;
-
-            greetingText = "Good Afternoon";
-
-            messageText =
-                "You made it this far. Keep going gently.";
-
-        }
-
-
-        /* ================================================
-           EVENING
-        ================================================= */
-
-        else if (time >= 1020 && time < 1065) {
-
-            videoFile = videos.evening[0];
-
-            globalNumber = 9;
-
-            greetingText = "Good Evening";
-
-            messageText =
-                "Let the day slowly become quiet.";
-
-        }
-
-        else if (time >= 1065 && time < 1140) {
-
-            videoFile = videos.evening[1];
-
-            globalNumber = 10;
-
-            greetingText = "Good Evening";
-
-            messageText =
-                "You don't have to carry everything tonight.";
-
-        }
-
-        else if (time >= 1140 && time < 1200) {
-
-            videoFile = videos.evening[2];
-
-            globalNumber = 11;
-
-            greetingText = "Good Evening";
-
-            messageText =
-                "Take a breath. You are here.";
-
-        }
-
-
-        /* ================================================
-           NIGHT
-        ================================================= */
-
-        else if (time >= 1200 || time < 1440) {
-
-            /*
-               20:00 – 23:59
-            */
-
-            if (time >= 1200 && time < 1440) {
-
-                videoFile = videos.night[0];
-
-                globalNumber = 12;
-
-                greetingText = "Good Night";
-
-                messageText =
-                    "Let the world grow quiet around you.";
-
-            }
-
-            /*
-               00:00 – 04:59
-            */
-
-            else {
-
-                videoFile = videos.night[1];
-
-                globalNumber = 13;
-
-                greetingText = "Good Night";
-
-                messageText =
-                    "May tonight give your mind some space.";
-
-            }
-
-        }
-
-
-        return {
-            videoFile,
-            globalNumber,
-            greetingText,
-            messageText
-        };
-
-    }
-
-
-    /* =====================================================
-       DATE + DAY
-    ===================================================== */
+       DATE
+       ===================================================== */
 
     function updateDate() {
 
         const now = new Date();
 
-        const day = String(
-            now.getDate()
-        ).padStart(2, "0");
+        const day =
+            String(
+                now.getDate()
+            ).padStart(2, "0");
 
-        const month = String(
-            now.getMonth() + 1
-        ).padStart(2, "0");
+        const month =
+            String(
+                now.getMonth() + 1
+            ).padStart(2, "0");
 
-        const year = now.getFullYear();
+        const year =
+            now.getFullYear();
+
 
         const formattedDate =
             `${day}.${month}.${year}`;
+
 
         const formattedDay =
             now.toLocaleDateString(
@@ -436,30 +247,42 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-        if (currentDate) {
-            currentDate.textContent =
+        if (dateElement) {
+
+            dateElement.textContent =
                 formattedDate;
+
         }
 
 
-        if (currentDay) {
-            currentDay.textContent =
+        if (dayElement) {
+
+            dayElement.textContent =
                 formattedDay;
+
         }
 
     }
 
 
     /* =====================================================
-       UPDATE ARRIVAL TEXT
-    ===================================================== */
+       GREETING
+       ===================================================== */
 
-    function updateArrivalText(data) {
+    function updateGreeting() {
 
-        if (greeting) {
+        currentPeriod =
+            getTimePeriod();
 
-            greeting.textContent =
-                data.greetingText;
+
+        const greeting =
+            greetings[currentPeriod];
+
+
+        if (timeGreeting) {
+
+            timeGreeting.textContent =
+                greeting.title;
 
         }
 
@@ -467,7 +290,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (arrivalMessage) {
 
             arrivalMessage.textContent =
-                data.messageText;
+                greeting.message;
 
         }
 
@@ -475,340 +298,356 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       LOAD VIDEO
-    ===================================================== */
+       VIDEO LOADING
+       ===================================================== */
 
-    function loadVideo(data, immediate = false) {
+    function loadVideo(
+        index = 0,
+        autoplay = true
+    ) {
 
-        if (!data.videoFile) {
+        if (!backgroundVideo) {
             return;
         }
 
 
-        const newPath = data.videoFile;
+        const periodVideos =
+            videos[currentPeriod];
+
+
+        if (
+            !periodVideos ||
+            periodVideos.length === 0
+        ) {
+
+            return;
+
+        }
+
+
+        currentVideoIndex =
+            index % periodVideos.length;
+
+
+        const videoFile =
+            periodVideos[currentVideoIndex];
+
+
+        const source =
+            backgroundVideo.querySelector(
+                "source"
+            );
 
 
         /*
-           Prevent unnecessary reload
-           when the same video is already playing.
-        */
+         * IMPORTANT:
+         * Completely replace the source.
+         * This prevents the previous period's
+         * video from continuing.
+         */
 
-        if (
-            currentVideoPath === newPath &&
-            !immediate
-        ) {
+        backgroundVideo.pause();
 
-            updateArrivalText(data);
 
-            return;
+        if (source) {
+
+            source.src =
+                videoFile;
+
+        } else {
+
+            backgroundVideo.src =
+                videoFile;
 
         }
 
 
-        currentVideoPath = newPath;
-
-        currentVideoNumber =
-            data.globalNumber;
+        backgroundVideo.load();
 
 
-        updateArrivalText(data);
+        if (videoIndicator) {
+
+            videoIndicator.textContent =
+                "";
+
+        }
 
 
-        video.classList.add(
-            "video-changing"
-        );
+        resetProgress();
 
 
-        setTimeout(() => {
-
-            video.src = newPath;
-
-            video.load();
-
+        if (autoplay) {
 
             const playPromise =
-                video.play();
+                backgroundVideo.play();
 
 
             if (
                 playPromise &&
-                typeof playPromise.catch === "function"
+                typeof playPromise.catch ===
+                "function"
             ) {
 
                 playPromise.catch(() => {
 
                     /*
-                       Autoplay with sound is blocked
-                       by many browsers.
-
-                       The video remains available
-                       and the user can enable sound
-                       using the sound button.
-                    */
-
-                    video.muted = true;
-
-                    video.play().catch(() => {});
+                     * Autoplay may be blocked
+                     * until the user interacts.
+                     */
 
                 });
 
             }
 
-
-            setTimeout(() => {
-
-                video.classList.remove(
-                    "video-changing"
-                );
-
-            }, 180);
-
-
-            updateVideoIndicator();
-
-
-            startProgress();
-
-        }, immediate ? 0 : 350);
-
-    }
-
-
-    /* =====================================================
-       VIDEO INDICATOR
-    ===================================================== */
-
-    function updateVideoIndicator() {
-
-        if (!videoIndicator) {
-            return;
         }
 
-
-        const number =
-            String(currentVideoNumber)
-                .padStart(2, "0");
-
-
-        const total =
-            String(totalVideos)
-                .padStart(2, "0");
-
-
-        videoIndicator.textContent =
-            `${number} / ${total}`;
-
     }
 
 
     /* =====================================================
-       4 SECOND PROGRESS
-    ===================================================== */
+       VIDEO PROGRESS
+       ===================================================== */
+
+    function resetProgress() {
+
+        clearTimeout(
+            progressTimer
+        );
+
+        clearTimeout(
+            videoTimer
+        );
+
+
+        if (videoProgressBar) {
+
+            videoProgressBar.style.width =
+                "0%";
+
+        }
+
+    }
+
 
     function startProgress() {
+
+        resetProgress();
+
 
         if (!videoProgressBar) {
             return;
         }
 
 
-        if (progressAnimation) {
-
-            cancelAnimationFrame(
-                progressAnimation
-            );
-
-        }
-
+        /*
+         * Force browser to recognise
+         * the starting position.
+         */
 
         videoProgressBar.style.width =
             "0%";
 
 
-        const duration = 4000;
+        requestAnimationFrame(() => {
 
-        const start =
-            performance.now();
+            requestAnimationFrame(() => {
 
+                videoProgressBar.style.transition =
+                    `width ${CONFIG.videoDuration}ms linear`;
 
-        function animateProgress(now) {
+                videoProgressBar.style.width =
+                    "100%";
 
-            const elapsed =
-                now - start;
+            });
 
-
-            const progress =
-                Math.min(
-                    elapsed / duration,
-                    1
-                );
+        });
 
 
-            videoProgressBar.style.width =
-                `${progress * 100}%`;
+        videoTimer =
+            setTimeout(() => {
 
+                nextVideo();
 
-            if (progress < 1) {
-
-                progressAnimation =
-                    requestAnimationFrame(
-                        animateProgress
-                    );
-
-            }
-
-        }
-
-
-        progressAnimation =
-            requestAnimationFrame(
-                animateProgress
-            );
+            }, CONFIG.videoDuration);
 
     }
 
 
     /* =====================================================
-       VIDEO ENDED
-    ===================================================== */
+       NEXT VIDEO
+       ===================================================== */
 
-    video.addEventListener(
-        "ended",
-        () => {
+    function nextVideo() {
 
-            /*
-               The video is intentionally not
-               automatically changed to another
-               time-period video.
-
-               The correct video is selected
-               according to the actual clock.
-            */
-
-            const data =
-                getVideoForCurrentTime();
+        const periodVideos =
+            videos[currentPeriod];
 
 
-            if (
-                data.videoFile !==
-                currentVideoPath
-            ) {
+        if (
+            !periodVideos ||
+            periodVideos.length === 0
+        ) {
 
-                loadVideo(data);
+            return;
+
+        }
+
+
+        currentVideoIndex++;
+
+
+        if (
+            currentVideoIndex >=
+            periodVideos.length
+        ) {
+
+            currentVideoIndex = 0;
+
+        }
+
+
+        loadVideo(
+            currentVideoIndex,
+            true
+        );
+
+
+        startProgress();
+
+    }
+
+
+    /* =====================================================
+       VIDEO EVENTS
+       ===================================================== */
+
+    if (backgroundVideo) {
+
+        backgroundVideo.addEventListener(
+            "ended",
+            () => {
+
+                nextVideo();
 
             }
-            else {
+        );
 
-                video.currentTime = 0;
 
-                video.play().catch(() => {});
+        backgroundVideo.addEventListener(
+            "loadedmetadata",
+            () => {
 
                 startProgress();
 
             }
+        );
 
-        }
-    );
+
+        backgroundVideo.addEventListener(
+            "play",
+            () => {
+
+                if (
+                    videoProgressBar &&
+                    !videoProgressBar.style.width
+                ) {
+
+                    startProgress();
+
+                }
+
+            }
+        );
+
+    }
 
 
     /* =====================================================
        SOUND
-    ===================================================== */
+       ===================================================== */
 
-    function updateSoundUI() {
+    function updateSoundButton() {
 
         if (!soundButton) {
             return;
         }
 
 
-        if (soundEnabled) {
-
-            soundButton.classList.add(
-                "sound-on"
-            );
-
-            soundButton.setAttribute(
-                "aria-pressed",
-                "true"
-            );
-
-            soundButton.setAttribute(
-                "aria-label",
-                "Turn sound off"
-            );
+        soundButton.setAttribute(
+            "aria-pressed",
+            String(soundEnabled)
+        );
 
 
-            if (soundText) {
+        soundButton.setAttribute(
+            "aria-label",
+            soundEnabled
+                ? "Mute sound"
+                : "Enable sound"
+        );
 
-                soundText.textContent =
-                    "Sound On";
 
-            }
+        /*
+         * If the button contains text,
+         * keep it simple and clean.
+         */
 
-        }
-
-        else {
-
-            soundButton.classList.remove(
-                "sound-on"
-            );
-
-            soundButton.setAttribute(
-                "aria-pressed",
-                "false"
-            );
-
-            soundButton.setAttribute(
-                "aria-label",
-                "Turn sound on"
+        const text =
+            soundButton.querySelector(
+                "[data-sound-text]"
             );
 
 
-            if (soundText) {
+        if (text) {
 
-                soundText.textContent =
-                    "Sound Off";
-
-            }
+            text.textContent =
+                soundEnabled
+                    ? "Sound On"
+                    : "Sound Off";
 
         }
 
     }
 
 
-    function enableSound() {
+    function toggleSound() {
 
-        soundEnabled = true;
-
-        video.muted = false;
-
-        video.volume = 1;
+        if (!backgroundVideo) {
+            return;
+        }
 
 
-        video.play().catch(() => {
-
-            /*
-               If Safari still blocks playback,
-               the next user interaction will
-               retry it.
-            */
-
-        });
+        soundEnabled =
+            !soundEnabled;
 
 
-        updateSoundUI();
+        backgroundVideo.muted =
+            !soundEnabled;
 
-    }
+
+        updateSoundButton();
 
 
-    function disableSound() {
+        if (
+            soundEnabled &&
+            backgroundVideo.paused
+        ) {
 
-        soundEnabled = false;
+            const playPromise =
+                backgroundVideo.play();
 
-        video.muted = true;
 
-        updateSoundUI();
+            if (
+                playPromise &&
+                typeof playPromise.catch ===
+                "function"
+            ) {
+
+                playPromise.catch(() => {});
+
+            }
+
+        }
 
     }
 
@@ -817,74 +656,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
         soundButton.addEventListener(
             "click",
-            () => {
-
-                if (soundEnabled) {
-
-                    disableSound();
-
-                }
-                else {
-
-                    enableSound();
-
-                }
-
-            }
+            toggleSound
         );
 
     }
 
 
     /* =====================================================
-       MOBILE SAFARI SOUND RETRY
-    ===================================================== */
-
-    document.addEventListener(
-        "touchstart",
-        () => {
-
-            if (
-                soundEnabled &&
-                video.muted
-            ) {
-
-                video.muted = false;
-
-                video.play().catch(() => {});
-
-            }
-
-        },
-        {
-            passive: true,
-            once: true
-        }
-    );
-
-
-    /* =====================================================
-       NAVIGATION OPEN
-    ===================================================== */
+       NAVIGATION
+       ===================================================== */
 
     function openNavigation() {
 
-        if (!navigation) {
+        if (!arrivalNavigation) {
             return;
         }
 
 
-        navigationOpen = true;
+        navigationOpen =
+            true;
 
 
-        navigation.classList.add(
+        arrivalNavigation.classList.add(
             "is-open"
         );
 
 
-        navigation.setAttribute(
+        arrivalNavigation.setAttribute(
             "aria-hidden",
             "false"
+        );
+
+
+        document.body.classList.add(
+            "menu-open"
         );
 
 
@@ -895,37 +700,40 @@ document.addEventListener("DOMContentLoaded", () => {
                 "true"
             );
 
+            menuButton.setAttribute(
+                "aria-label",
+                "Close navigation"
+            );
+
         }
-
-
-        document.body.style.overflow =
-            "hidden";
 
     }
 
 
-    /* =====================================================
-       NAVIGATION CLOSE
-    ===================================================== */
-
     function closeNavigation() {
 
-        if (!navigation) {
+        if (!arrivalNavigation) {
             return;
         }
 
 
-        navigationOpen = false;
+        navigationOpen =
+            false;
 
 
-        navigation.classList.remove(
+        arrivalNavigation.classList.remove(
             "is-open"
         );
 
 
-        navigation.setAttribute(
+        arrivalNavigation.setAttribute(
             "aria-hidden",
             "true"
+        );
+
+
+        document.body.classList.remove(
+            "menu-open"
         );
 
 
@@ -936,11 +744,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 "false"
             );
 
+            menuButton.setAttribute(
+                "aria-label",
+                "Open navigation"
+            );
+
         }
-
-
-        document.body.style.overflow =
-            "";
 
     }
 
@@ -955,8 +764,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     closeNavigation();
 
-                }
-                else {
+                } else {
 
                     openNavigation();
 
@@ -978,40 +786,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
-    /* =====================================================
-       CLOSE NAVIGATION WHEN LINK IS SELECTED
-    ===================================================== */
-
-    if (navigation) {
-
-        const navigationLinks =
-            navigation.querySelectorAll(
-                "a"
-            );
-
-
-        navigationLinks.forEach(
-            (link) => {
-
-                link.addEventListener(
-                    "click",
-                    () => {
-
-                        closeNavigation();
-
-                    }
-                );
-
-            }
-        );
-
-    }
-
-
-    /* =====================================================
-       ESCAPE KEY
-    ===================================================== */
-
     document.addEventListener(
         "keydown",
         (event) => {
@@ -1030,62 +804,209 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       BEGIN YOUR JOURNEY
-    ===================================================== */
+       PAGE TRANSITION
+       ===================================================== */
 
-    function beginJourney() {
+    function goToPage(destination) {
 
-        if (!pageTransition) {
+        if (!destination) {
             return;
         }
 
 
-        pageTransition.classList.add(
-            "is-active"
-        );
+        closeNavigation();
 
 
-        /*
-           Page 1 filename.
+        if (pageTransition) {
 
-           This can be changed later if
-           the final Page 1 filename changes.
-        */
+            pageTransition.classList.remove(
+                "is-ready"
+            );
 
-        setTimeout(() => {
+            pageTransition.classList.add(
+                "is-active"
+            );
 
-            window.location.href =
-                "aksh.html";
-
-        }, 750);
-
-    }
+        }
 
 
-    if (beginButton) {
+        setTimeout(
+            () => {
 
-        beginButton.addEventListener(
-            "click",
-            beginJourney
+                window.location.href =
+                    destination;
+
+            },
+            CONFIG.pageTransitionDuration
         );
 
     }
 
 
     /* =====================================================
-       PAGE VISIBILITY
-    ===================================================== */
+       ALL INTERNAL LINKS
+       ===================================================== */
+
+    document
+        .querySelectorAll(
+            'a[href]'
+        )
+        .forEach(
+            (link) => {
+
+                link.addEventListener(
+                    "click",
+                    (event) => {
+
+                        const href =
+                            link.getAttribute(
+                                "href"
+                            );
+
+
+                        if (!href) {
+                            return;
+                        }
+
+
+                        if (
+                            href.startsWith("#")
+                        ) {
+                            return;
+                        }
+
+
+                        if (
+                            href.startsWith(
+                                "http://"
+                            ) ||
+                            href.startsWith(
+                                "https://"
+                            )
+                        ) {
+                            return;
+                        }
+
+
+                        if (
+                            href.startsWith(
+                                "mailto:"
+                            ) ||
+                            href.startsWith(
+                                "tel:"
+                            )
+                        ) {
+                            return;
+                        }
+
+
+                        if (
+                            link.target ===
+                            "_blank"
+                        ) {
+                            return;
+                        }
+
+
+                        event.preventDefault();
+
+
+                        goToPage(href);
+
+                    }
+                );
+
+            }
+        );
+
+
+    /* =====================================================
+       BEGIN JOURNEY
+       ===================================================== */
+
+    if (beginButton) {
+
+        beginButton.addEventListener(
+            "click",
+            () => {
+
+                goToPage(
+                    CONFIG.nextPage
+                );
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       PREVENT OLD VIDEO STATE
+       ===================================================== */
 
     document.addEventListener(
         "visibilitychange",
         () => {
 
             if (
-                !document.hidden &&
-                video.paused
+                document.visibilityState ===
+                "visible"
             ) {
 
-                video.play().catch(() => {});
+                /*
+                 * Re-check the current period.
+                 * If the user leaves the page for
+                 * a while and returns after a time
+                 * change, load the correct videos.
+                 */
+
+                const newPeriod =
+                    getTimePeriod();
+
+
+                if (
+                    newPeriod !==
+                    currentPeriod
+                ) {
+
+                    currentPeriod =
+                        newPeriod;
+
+                    currentVideoIndex =
+                        0;
+
+                    updateGreeting();
+
+                    loadVideo(
+                        0,
+                        true
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    backgroundVideo &&
+                    backgroundVideo.paused
+                ) {
+
+                    const playPromise =
+                        backgroundVideo.play();
+
+
+                    if (
+                        playPromise &&
+                        typeof playPromise.catch ===
+                        "function"
+                    ) {
+
+                        playPromise.catch(() => {});
+
+                    }
+
+                }
 
             }
 
@@ -1094,51 +1015,114 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       RECHECK CLOCK
-       Every 15 seconds.
-    ===================================================== */
+       BACK / FORWARD CACHE
+       ===================================================== */
 
-    setInterval(
-        () => {
-
-            const data =
-                getVideoForCurrentTime();
-
+    window.addEventListener(
+        "pageshow",
+        (event) => {
 
             if (
-                data.videoFile !==
-                currentVideoPath
+                event.persisted
             ) {
 
-                loadVideo(data);
+                if (pageTransition) {
+
+                    pageTransition.classList.remove(
+                        "is-active"
+                    );
+
+                    pageTransition.classList.add(
+                        "is-ready"
+                    );
+
+                }
+
+
+                closeNavigation();
+
+
+                currentPeriod =
+                    getTimePeriod();
+
+
+                currentVideoIndex =
+                    0;
+
+
+                updateGreeting();
+
+
+                loadVideo(
+                    0,
+                    true
+                );
 
             }
 
-            updateDate();
-
-        },
-        15000
+        }
     );
 
 
     /* =====================================================
-       INITIALIZE
-    ===================================================== */
+       INITIALISE
+       ===================================================== */
 
     updateDate();
 
+    updateGreeting();
 
-    const initialData =
-        getVideoForCurrentTime();
+    updateSoundButton();
 
+
+    /*
+     * Start with the correct video for the
+     * visitor's exact current time.
+     */
 
     loadVideo(
-        initialData,
+        0,
         true
     );
 
 
-    updateSoundUI();
+    /* =====================================================
+       KEEP DATE / DAY CURRENT
+       ===================================================== */
+
+    setInterval(
+        () => {
+
+            updateDate();
+
+
+            const newPeriod =
+                getTimePeriod();
+
+
+            if (
+                newPeriod !==
+                currentPeriod
+            ) {
+
+                currentPeriod =
+                    newPeriod;
+
+                currentVideoIndex =
+                    0;
+
+                updateGreeting();
+
+                loadVideo(
+                    0,
+                    true
+                );
+
+            }
+
+        },
+        30000
+    );
 
 
 });
