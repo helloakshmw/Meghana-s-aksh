@@ -60,10 +60,6 @@
     >
 
 
-    <!-- =================================================
-         PAGE STYLES
-    ================================================== -->
-
     <style>
 
         :root {
@@ -90,6 +86,7 @@
 
         html {
             scroll-behavior: smooth;
+            background: var(--paper);
         }
 
 
@@ -328,11 +325,7 @@
         .mind-hero-title {
             max-width: 1050px;
             font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                70px,
-                12vw,
-                170px
-            );
+            font-size: clamp(70px, 12vw, 170px);
             font-weight: 400;
             line-height: 0.82;
             letter-spacing: -0.055em;
@@ -341,11 +334,7 @@
 
         .mind-hero-title em {
             display: block;
-            margin-left: clamp(
-                25px,
-                10vw,
-                150px
-            );
+            margin-left: clamp(25px, 10vw, 150px);
             font-style: italic;
         }
 
@@ -353,11 +342,7 @@
         .mind-hero-copy {
             width: min(560px, 100%);
             margin-top: 58px;
-            margin-left: clamp(
-                0px,
-                12vw,
-                170px
-            );
+            margin-left: clamp(0px, 12vw, 170px);
             color: var(--soft-ink);
             font-size: 15px;
             line-height: 1.9;
@@ -407,7 +392,7 @@
 
 
         /* =================================================
-           OPENING STATEMENT
+           OPENING
         ================================================== */
 
         .mind-opening {
@@ -438,11 +423,7 @@
         .mind-opening-title {
             max-width: 1050px;
             font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                50px,
-                7vw,
-                105px
-            );
+            font-size: clamp(50px, 7vw, 105px);
             font-weight: 400;
             line-height: 0.97;
             letter-spacing: -0.04em;
@@ -495,11 +476,7 @@
             max-width: 850px;
             margin-top: 34px;
             font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                48px,
-                7vw,
-                92px
-            );
+            font-size: clamp(48px, 7vw, 92px);
             font-weight: 400;
             line-height: 0.95;
             letter-spacing: -0.04em;
@@ -549,11 +526,7 @@
 
         .mind-layer-title {
             font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                32px,
-                4vw,
-                55px
-            );
+            font-size: clamp(32px, 4vw, 55px);
             font-weight: 400;
             line-height: 1;
         }
@@ -607,15 +580,16 @@
         }
 
 
+        .mind-human .mind-section-label {
+            color: rgba(250,248,244,0.55);
+        }
+
+
         .mind-human-title {
             max-width: 900px;
             margin-top: 34px;
             font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                52px,
-                8vw,
-                115px
-            );
+            font-size: clamp(52px, 8vw, 115px);
             font-weight: 400;
             line-height: 0.9;
             letter-spacing: -0.045em;
@@ -659,11 +633,7 @@
         .mind-curiosity-title {
             max-width: 850px;
             font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                50px,
-                7vw,
-                94px
-            );
+            font-size: clamp(50px, 7vw, 94px);
             font-weight: 400;
             line-height: 0.95;
             letter-spacing: -0.04em;
@@ -703,14 +673,15 @@
         }
 
 
+        .mind-continue .mind-section-label {
+            color: rgba(250,248,244,0.55);
+        }
+
+
         .mind-continue-title {
             max-width: 850px;
             font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                48px,
-                7vw,
-                90px
-            );
+            font-size: clamp(48px, 7vw, 90px);
             font-weight: 400;
             line-height: 0.95;
             letter-spacing: -0.04em;
@@ -741,12 +712,18 @@
             padding: 30px;
             background: var(--dark-soft);
             transition:
-                background 0.4s ease;
+                background 0.4s ease,
+                transform 0.4s ease;
         }
 
 
         .mind-link:hover {
             background: #24211e;
+        }
+
+
+        .mind-link:active {
+            transform: scale(0.99);
         }
 
 
@@ -817,11 +794,7 @@
         .mind-footer-tagline {
             max-width: 600px;
             font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                35px,
-                5vw,
-                65px
-            );
+            font-size: clamp(35px, 5vw, 65px);
             line-height: 0.95;
         }
 
@@ -877,6 +850,7 @@
             border: 0;
             background: transparent;
             cursor: pointer;
+            z-index: 5;
         }
 
 
@@ -938,11 +912,7 @@
             padding: 17px 0;
             border-bottom: 1px solid var(--dark-line);
             font-family: "Cormorant Garamond", serif;
-            font-size: clamp(
-                30px,
-                4vw,
-                50px
-            );
+            font-size: clamp(30px, 4vw, 50px);
             line-height: 1;
             transition:
                 color 0.3s ease,
@@ -961,6 +931,20 @@
         .mind-navigation-links a:hover {
             padding-left: 10px;
             color: var(--accent);
+        }
+
+
+        /* =================================================
+           FOCUS STATES
+        ================================================== */
+
+        .mind-navigation-links a:focus-visible,
+        .mind-link:focus-visible,
+        .mind-brand:focus-visible,
+        #mindMenuButton:focus-visible,
+        #closeMindMenu:focus-visible {
+            outline: 1px solid var(--accent);
+            outline-offset: 6px;
         }
 
 
@@ -999,7 +983,7 @@
             .mind-continue-inner,
             .mind-footer-inner {
                 width: min(
-                    100% - 44px,
+                    calc(100% - 44px),
                     720px
                 );
             }
@@ -1886,40 +1870,48 @@
                     The World
                 </a>
 
+
                 <a href="the-mind.html">
                     <span>02</span>
                     The Mind
                 </a>
+
 
                 <a href="with-you.html">
                     <span>03</span>
                     With You
                 </a>
 
+
                 <a href="meghana-kaverappa.html">
                     <span>04</span>
                     Meghana
                 </a>
+
 
                 <a href="journey.html">
                     <span>05</span>
                     Journey
                 </a>
 
+
                 <a href="stories.html">
                     <span>06</span>
                     Stories
                 </a>
+
 
                 <a href="journal.html">
                     <span>07</span>
                     Journal
                 </a>
 
+
                 <a href="ai.html">
                     <span>08</span>
                     AKSH AI
                 </a>
+
 
                 <a href="booking.html">
                     <span>09</span>
@@ -1939,197 +1931,262 @@
 
     <script>
 
-        document.addEventListener(
-            "DOMContentLoaded",
-            () => {
+        (() => {
 
-                const transition =
-                    document.getElementById(
-                        "mindPageTransition"
+            "use strict";
+
+
+            /* =================================================
+               ELEMENTS
+            ================================================= */
+
+            const transition =
+                document.getElementById(
+                    "mindPageTransition"
+                );
+
+
+            const menuButton =
+                document.getElementById(
+                    "mindMenuButton"
+                );
+
+
+            const closeMenu =
+                document.getElementById(
+                    "closeMindMenu"
+                );
+
+
+            const navigation =
+                document.getElementById(
+                    "mindNavigation"
+                );
+
+
+            const footerYear =
+                document.getElementById(
+                    "mindFooterYear"
+                );
+
+
+            let navigationOpen = false;
+
+            let navigating = false;
+
+
+            /* =================================================
+               PAGE ARRIVAL
+            ================================================= */
+
+            function revealPage() {
+
+                if (!transition) {
+                    return;
+                }
+
+
+                requestAnimationFrame(() => {
+
+                    requestAnimationFrame(() => {
+
+                        transition.classList.remove(
+                            "is-active"
+                        );
+
+                        transition.classList.add(
+                            "is-ready"
+                        );
+
+                    });
+
+                });
+
+            }
+
+
+            revealPage();
+
+
+            /* =================================================
+               OPEN NAVIGATION
+            ================================================= */
+
+            function openNavigation() {
+
+                if (!navigation) {
+                    return;
+                }
+
+
+                navigationOpen = true;
+
+
+                navigation.classList.add(
+                    "is-open"
+                );
+
+
+                navigation.setAttribute(
+                    "aria-hidden",
+                    "false"
+                );
+
+
+                if (menuButton) {
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "true"
                     );
 
 
-                const menuButton =
-                    document.getElementById(
-                        "mindMenuButton"
+                    menuButton.setAttribute(
+                        "aria-label",
+                        "Close navigation"
+                    );
+
+                }
+
+
+                document.body.classList.add(
+                    "is-menu-open"
+                );
+
+            }
+
+
+            /* =================================================
+               CLOSE NAVIGATION
+            ================================================= */
+
+            function closeNavigation() {
+
+                if (!navigation) {
+                    return;
+                }
+
+
+                navigationOpen = false;
+
+
+                navigation.classList.remove(
+                    "is-open"
+                );
+
+
+                navigation.setAttribute(
+                    "aria-hidden",
+                    "true"
+                );
+
+
+                if (menuButton) {
+
+                    menuButton.setAttribute(
+                        "aria-expanded",
+                        "false"
                     );
 
 
-                const closeMenu =
-                    document.getElementById(
-                        "closeMindMenu"
+                    menuButton.setAttribute(
+                        "aria-label",
+                        "Open navigation"
                     );
 
-
-                const navigation =
-                    document.getElementById(
-                        "mindNavigation"
-                    );
+                }
 
 
-                const footerYear =
-                    document.getElementById(
-                        "mindFooterYear"
-                    );
+                document.body.classList.remove(
+                    "is-menu-open"
+                );
+
+            }
 
 
-                let navigationOpen = false;
+            /* =================================================
+               MENU BUTTON
+            ================================================= */
+
+            if (menuButton) {
+
+                menuButton.addEventListener(
+                    "click",
+                    (event) => {
+
+                        event.preventDefault();
 
 
-                /* =========================================
-                   PAGE ARRIVAL
-                ========================================== */
+                        if (navigationOpen) {
 
-                requestAnimationFrame(
-                    () => {
+                            closeNavigation();
 
-                        if (transition) {
+                        } else {
 
-                            transition.classList.add(
-                                "is-ready"
-                            );
+                            openNavigation();
 
                         }
 
                     }
                 );
 
+            }
 
-                /* =========================================
-                   OPEN NAVIGATION
-                ========================================== */
 
-                function openNavigation() {
+            /* =================================================
+               CLOSE BUTTON
+            ================================================= */
 
-                    if (!navigation) {
-                        return;
-                    }
+            if (closeMenu) {
 
-                    navigationOpen = true;
+                closeMenu.addEventListener(
+                    "click",
+                    (event) => {
 
-                    navigation.classList.add(
-                        "is-open"
-                    );
+                        event.preventDefault();
 
-                    navigation.setAttribute(
-                        "aria-hidden",
-                        "false"
-                    );
-
-                    if (menuButton) {
-
-                        menuButton.setAttribute(
-                            "aria-expanded",
-                            "true"
-                        );
-
-                        menuButton.setAttribute(
-                            "aria-label",
-                            "Close navigation"
-                        );
+                        closeNavigation();
 
                     }
+                );
 
-                    document.body.classList.add(
-                        "is-menu-open"
-                    );
-
-                }
+            }
 
 
-                /* =========================================
-                   CLOSE NAVIGATION
-                ========================================== */
+            /* =================================================
+               ESCAPE KEY
+            ================================================= */
 
-                function closeNavigation() {
+            document.addEventListener(
+                "keydown",
+                (event) => {
 
-                    if (!navigation) {
-                        return;
-                    }
+                    if (
+                        event.key === "Escape" &&
+                        navigationOpen
+                    ) {
 
-                    navigationOpen = false;
-
-                    navigation.classList.remove(
-                        "is-open"
-                    );
-
-                    navigation.setAttribute(
-                        "aria-hidden",
-                        "true"
-                    );
-
-                    if (menuButton) {
-
-                        menuButton.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
-
-                        menuButton.setAttribute(
-                            "aria-label",
-                            "Open navigation"
-                        );
+                        closeNavigation();
 
                     }
 
-                    document.body.classList.remove(
-                        "is-menu-open"
-                    );
-
                 }
+            );
 
 
-                /* =========================================
-                   MENU BUTTON
-                ========================================== */
+            /* =================================================
+               CLICK OUTSIDE NAVIGATION
+            ================================================= */
 
-                if (menuButton) {
+            if (navigation) {
 
-                    menuButton.addEventListener(
-                        "click",
-                        () => {
-
-                            if (navigationOpen) {
-
-                                closeNavigation();
-
-                            } else {
-
-                                openNavigation();
-
-                            }
-
-                        }
-                    );
-
-                }
-
-
-                /* =========================================
-                   CLOSE BUTTON
-                ========================================== */
-
-                if (closeMenu) {
-
-                    closeMenu.addEventListener(
-                        "click",
-                        closeNavigation
-                    );
-
-                }
-
-
-                /* =========================================
-                   ESCAPE KEY
-                ========================================== */
-
-                document.addEventListener(
-                    "keydown",
+                navigation.addEventListener(
+                    "click",
                     (event) => {
 
                         if (
-                            event.key === "Escape" &&
-                            navigationOpen
+                            event.target ===
+                            navigation
                         ) {
 
                             closeNavigation();
@@ -2139,132 +2196,175 @@
                     }
                 );
 
+            }
 
-                /* =========================================
-                   NAVIGATION LINKS
-                ========================================== */
 
-                if (navigation) {
+            /* =================================================
+               INTERNAL PAGE TRANSITION
+            ================================================= */
 
-                    navigation
-                        .querySelectorAll("a")
-                        .forEach(
-                            (link) => {
+            function navigateToPage(destination) {
 
-                                link.addEventListener(
-                                    "click",
-                                    () => {
+                if (!destination || navigating) {
+                    return;
+                }
 
-                                        closeNavigation();
 
-                                    }
+                navigating = true;
+
+
+                closeNavigation();
+
+
+                if (transition) {
+
+                    transition.classList.remove(
+                        "is-ready"
+                    );
+
+
+                    transition.classList.add(
+                        "is-active"
+                    );
+
+                }
+
+
+                window.setTimeout(
+                    () => {
+
+                        window.location.assign(
+                            destination
+                        );
+
+                    },
+                    650
+                );
+
+            }
+
+
+            /* =================================================
+               ALL INTERNAL HTML LINKS
+            ================================================= */
+
+            document
+                .querySelectorAll(
+                    'a[href$=".html"]'
+                )
+                .forEach(
+                    (link) => {
+
+                        link.addEventListener(
+                            "click",
+                            (event) => {
+
+                                const destination =
+                                    link.getAttribute(
+                                        "href"
+                                    );
+
+
+                                if (!destination) {
+                                    return;
+                                }
+
+
+                                if (
+                                    link.target ===
+                                    "_blank"
+                                ) {
+                                    return;
+                                }
+
+
+                                if (
+                                    event.ctrlKey ||
+                                    event.metaKey ||
+                                    event.shiftKey ||
+                                    event.altKey
+                                ) {
+                                    return;
+                                }
+
+
+                                event.preventDefault();
+
+
+                                navigateToPage(
+                                    destination
                                 );
 
                             }
                         );
 
-                }
+                    }
+                );
 
 
-                /* =========================================
-                   PAGE TRANSITIONS
-                ========================================== */
+            /* =================================================
+               CURRENT YEAR
+            ================================================== */
 
-                document
-                    .querySelectorAll(
-                        'a[href$=".html"]'
-                    )
-                    .forEach(
-                        (link) => {
+            if (footerYear) {
 
-                            link.addEventListener(
-                                "click",
-                                (event) => {
+                footerYear.textContent =
+                    new Date()
+                        .getFullYear();
 
-                                    const destination =
-                                        link.getAttribute(
-                                            "href"
-                                        );
+            }
 
 
-                                    if (!destination) {
-                                        return;
-                                    }
+            /* =================================================
+               BACK / FORWARD CACHE
+            ================================================== */
+
+            window.addEventListener(
+                "pageshow",
+                (event) => {
+
+                    navigating = false;
 
 
-                                    if (
-                                        link.target ===
-                                        "_blank"
-                                    ) {
-                                        return;
-                                    }
+                    closeNavigation();
 
 
-                                    event.preventDefault();
+                    if (transition) {
+
+                        transition.classList.remove(
+                            "is-active"
+                        );
 
 
-                                    closeNavigation();
+                        transition.classList.add(
+                            "is-ready"
+                        );
 
-
-                                    if (transition) {
-
-                                        transition.classList.remove(
-                                            "is-ready"
-                                        );
-
-                                        transition.classList.add(
-                                            "is-active"
-                                        );
-
-                                    }
-
-
-                                    setTimeout(
-                                        () => {
-
-                                            window.location.href =
-                                                destination;
-
-                                        },
-                                        700
-                                    );
-
-                                }
-                            );
-
-                        }
-                    );
-
-
-                /* =========================================
-                   CURRENT YEAR
-                ========================================== */
-
-                if (footerYear) {
-
-                    footerYear.textContent =
-                        new Date()
-                            .getFullYear();
+                    }
 
                 }
+            );
 
 
-                /* =========================================
-                   BACK / FORWARD CACHE
-                ========================================== */
+            /* =================================================
+               PAGE VISIBILITY RECOVERY
+            ================================================= */
 
-                window.addEventListener(
-                    "pageshow",
-                    (event) => {
+            document.addEventListener(
+                "visibilitychange",
+                () => {
 
-                        if (
-                            event.persisted &&
-                            transition
-                        ) {
+                    if (
+                        document.visibilityState ===
+                        "visible"
+                    ) {
+
+                        if (transition) {
 
                             transition.classList.remove(
                                 "is-active"
                             );
+
 
                             transition.classList.add(
                                 "is-ready"
@@ -2272,15 +2372,16 @@
 
                         }
 
-                        closeNavigation();
-
                     }
-                );
 
-            }
-        );
+                }
+            );
+
+
+        })();
 
     </script>
+
 
 </body>
 
