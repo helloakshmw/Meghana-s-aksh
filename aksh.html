@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,7 +10,7 @@
 
     <meta
         name="theme-color"
-        content="#0b0b0a"
+        content="#0b1c34"
     >
 
     <meta
@@ -20,17 +18,7 @@
         content="AKSH Mental Wellness — A Safe Space For Every Mind."
     >
 
-    <meta
-        name="robots"
-        content="index, follow"
-    >
-
     <title>AKSH — A Safe Space For Every Mind</title>
-
-
-    <!-- =================================================
-         FAVICON
-    ================================================== -->
 
     <link
         rel="icon"
@@ -38,576 +26,840 @@
         href="aksh-icon.PNG"
     >
 
+    <style>
 
-    <!-- =================================================
-         FONTS
-    ================================================== -->
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link
-        rel="preconnect"
-        href="https://fonts.googleapis.com"
-    >
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
 
-    <link
-        rel="preconnect"
-        href="https://fonts.gstatic.com"
-        crossorigin
-    >
+        body {
+            font-family: Arial, sans-serif;
+        }
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
-        rel="stylesheet"
-    >
+        .page {
+            position: relative;
+            width: 100vw;
+            height: 100svh;
+            overflow: hidden;
+            background: #000;
+        }
 
+        /*
+        =====================================================
+        PAGE 1 DESIGN IMAGE
+        =====================================================
+        */
 
-    <!-- =================================================
-         PAGE CSS
-    ================================================== -->
+        .page-image {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
 
-    <link
-        rel="stylesheet"
-        href="aksh.css"
-    >
+        /*
+        =====================================================
+        CLICKABLE LAYER
+        =====================================================
+        */
 
+        .click-area {
+            position: absolute;
+            display: block;
+            z-index: 10;
+            cursor: pointer;
+            background: transparent;
+            border: 0;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /*
+        =====================================================
+        TOP NAVIGATION
+        =====================================================
+        */
+
+        .home {
+            top: 4%;
+            left: 6%;
+            width: 8%;
+            height: 6%;
+        }
+
+        .services {
+            top: 4%;
+            left: 18%;
+            width: 10%;
+            height: 6%;
+        }
+
+        .specialists {
+            top: 4%;
+            left: 31%;
+            width: 12%;
+            height: 6%;
+        }
+
+        .resources {
+            top: 4%;
+            left: 46%;
+            width: 11%;
+            height: 6%;
+        }
+
+        .about {
+            top: 4%;
+            left: 60%;
+            width: 10%;
+            height: 6%;
+        }
+
+        .help {
+            top: 4%;
+            right: 5%;
+            width: 14%;
+            height: 7%;
+        }
+
+        /*
+        =====================================================
+        HERO BUTTONS
+        =====================================================
+        */
+
+        .consultation {
+            left: 7%;
+            top: 55%;
+            width: 20%;
+            height: 8%;
+        }
+
+        .explore {
+            left: 29%;
+            top: 55%;
+            width: 22%;
+            height: 8%;
+        }
+
+        /*
+        =====================================================
+        SERVICE CARDS
+        =====================================================
+        */
+
+        .individual {
+            left: 6%;
+            bottom: 25%;
+            width: 16%;
+            height: 7%;
+        }
+
+        .child {
+            left: 23%;
+            bottom: 25%;
+            width: 16%;
+            height: 7%;
+        }
+
+        .relationship {
+            left: 40%;
+            bottom: 25%;
+            width: 16%;
+            height: 7%;
+        }
+
+        .stress {
+            left: 57%;
+            bottom: 25%;
+            width: 16%;
+            height: 7%;
+        }
+
+        .emotional {
+            left: 74%;
+            bottom: 25%;
+            width: 16%;
+            height: 7%;
+        }
+
+        /*
+        =====================================================
+        RIGHT SIDE QUICK NAVIGATION
+        =====================================================
+        */
+
+        .quick-home {
+            right: 4%;
+            bottom: 24%;
+            width: 12%;
+            height: 6%;
+        }
+
+        .quick-services {
+            right: 4%;
+            bottom: 18%;
+            width: 12%;
+            height: 6%;
+        }
+
+        .quick-about {
+            right: 4%;
+            bottom: 12%;
+            width: 12%;
+            height: 6%;
+        }
+
+        .quick-resources {
+            right: 4%;
+            bottom: 6%;
+            width: 12%;
+            height: 6%;
+        }
+
+        .quick-contact {
+            right: 4%;
+            bottom: 0;
+            width: 12%;
+            height: 6%;
+        }
+
+        /*
+        =====================================================
+        SOCIAL LINKS
+        =====================================================
+        */
+
+        .instagram {
+            left: 5%;
+            bottom: 3%;
+            width: 3%;
+            height: 5%;
+        }
+
+        .linkedin {
+            left: 9%;
+            bottom: 3%;
+            width: 3%;
+            height: 5%;
+        }
+
+        .youtube {
+            left: 13%;
+            bottom: 3%;
+            width: 3%;
+            height: 5%;
+        }
+
+        /*
+        =====================================================
+        FOOTER LINKS
+        =====================================================
+        */
+
+        .privacy {
+            left: 45%;
+            bottom: 2%;
+            width: 9%;
+            height: 5%;
+        }
+
+        .terms {
+            left: 55%;
+            bottom: 2%;
+            width: 11%;
+            height: 5%;
+        }
+
+        /*
+        =====================================================
+        SUBSCRIPTION AREA
+        =====================================================
+        */
+
+        .subscription {
+            position: absolute;
+            z-index: 20;
+            left: 50%;
+            bottom: 8%;
+            transform: translateX(-50%);
+            width: min(420px, 75vw);
+            display: none;
+            padding: 10px;
+            border-radius: 30px;
+            background: rgba(255,255,255,0.94);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.25);
+        }
+
+        .subscription form {
+            display: flex;
+            gap: 6px;
+        }
+
+        .subscription input {
+            flex: 1;
+            min-width: 0;
+            border: 0;
+            outline: 0;
+            padding: 12px 15px;
+            border-radius: 22px;
+            font-size: 14px;
+        }
+
+        .subscription button {
+            border: 0;
+            padding: 0 18px;
+            border-radius: 22px;
+            background: #102f56;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /*
+        =====================================================
+        MESSAGE
+        =====================================================
+        */
+
+        .message {
+            position: fixed;
+            z-index: 100;
+            left: 50%;
+            bottom: 25px;
+            transform: translate(-50%, 20px);
+            opacity: 0;
+            pointer-events: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            background: #102f56;
+            color: white;
+            font-size: 13px;
+            transition: 0.3s ease;
+        }
+
+        .message.show {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /*
+        =====================================================
+        MOBILE
+        =====================================================
+        */
+
+        @media (max-width: 700px) {
+
+            .page-image {
+                object-position: center;
+            }
+
+            .home {
+                left: 3%;
+                width: 13%;
+            }
+
+            .services {
+                left: 18%;
+                width: 15%;
+            }
+
+            .specialists {
+                left: 36%;
+                width: 17%;
+            }
+
+            .resources {
+                left: 56%;
+                width: 15%;
+            }
+
+            .about {
+                left: 74%;
+                width: 14%;
+            }
+
+            .help {
+                right: 3%;
+                top: 12%;
+                width: 24%;
+                height: 6%;
+            }
+
+            .consultation {
+                left: 7%;
+                top: 53%;
+                width: 40%;
+                height: 9%;
+            }
+
+            .explore {
+                left: 51%;
+                top: 53%;
+                width: 40%;
+                height: 9%;
+            }
+
+            .individual,
+            .child,
+            .relationship,
+            .stress,
+            .emotional {
+                width: 17%;
+                bottom: 25%;
+            }
+
+            .individual {
+                left: 2%;
+            }
+
+            .child {
+                left: 21%;
+            }
+
+            .relationship {
+                left: 40%;
+            }
+
+            .stress {
+                left: 59%;
+            }
+
+            .emotional {
+                left: 78%;
+            }
+
+            .quick-home,
+            .quick-services,
+            .quick-about,
+            .quick-resources,
+            .quick-contact {
+                right: 2%;
+                width: 20%;
+            }
+
+            .instagram {
+                left: 4%;
+            }
+
+            .linkedin {
+                left: 10%;
+            }
+
+            .youtube {
+                left: 16%;
+            }
+
+            .privacy {
+                left: 40%;
+                width: 18%;
+            }
+
+            .terms {
+                left: 60%;
+                width: 20%;
+            }
+        }
+
+    </style>
 </head>
-
 
 <body>
 
-
-    <!-- =================================================
-         PAGE
-    ================================================== -->
-
-    <main id="akshPage">
-
-
-        <!-- =================================================
-             AMBIENT BACKGROUND
-        ================================================== -->
-
-        <div
-            class="aksh-background"
-            aria-hidden="true"
-        >
-
-            <div class="background-glow glow-one"></div>
-
-            <div class="background-glow glow-two"></div>
-
-            <div class="background-grain"></div>
-
-        </div>
-
-
-        <!-- =================================================
-             HEADER
-        ================================================== -->
-
-        <header class="aksh-header">
-
-            <a
-                href="index.html"
-                class="aksh-brand"
-                aria-label="Return to AKSH arrival"
-            >
-
-                <img
-                    src="aksh-icon.PNG"
-                    alt="AKSH"
-                >
-
-                <span>AKSH</span>
-
-            </a>
-
-
-            <button
-                id="akshMenuButton"
-                class="aksh-menu-button"
-                type="button"
-                aria-label="Open navigation"
-                aria-expanded="false"
-                aria-controls="akshNavigation"
-            >
-
-                <span></span>
-                <span></span>
-
-            </button>
-
-        </header>
-
-
-        <!-- =================================================
-             HERO
-        ================================================== -->
-
-        <section
-            class="aksh-hero"
-            aria-labelledby="akshHeroTitle"
-        >
-
-            <div class="hero-eyebrow">
-                AKSH MENTAL WELLNESS
-            </div>
-
-
-            <h1 id="akshHeroTitle">
-
-                A safe space
-                <br>
-
-                <em>for every mind.</em>
-
-            </h1>
-
-
-            <p class="hero-introduction">
-
-                Somewhere between the noise of the world
-                and the quiet within, there is a space
-                where you can simply be.
-
-            </p>
-
-
-            <div class="hero-line"></div>
-
-
-            <p class="hero-subtext">
-                Welcome to AKSH.
-            </p>
-
-        </section>
-
-
-        <!-- =================================================
-             SCROLL INDICATOR
-        ================================================== -->
-
-        <div
-            class="scroll-indicator"
-            aria-hidden="true"
-        >
-
-            <span class="scroll-line"></span>
-
-            <span>
-                Explore
-            </span>
-
-        </div>
-
-
-        <!-- =================================================
-             INTRODUCTION
-        ================================================== -->
-
-        <section
-            class="aksh-introduction"
-            aria-labelledby="introductionTitle"
-        >
-
-            <div class="section-number">
-                01
-            </div>
-
-
-            <div class="introduction-content">
-
-                <p class="section-label">
-                    WHY AKSH EXISTS
-                </p>
-
-
-                <h2 id="introductionTitle">
-
-                    Because every mind
-                    <br>
-                    deserves to be heard.
-
-                </h2>
-
-
-                <p>
-
-                    AKSH is a mental wellness space created
-                    around one simple belief — that seeking
-                    support should feel human, safe and free
-                    from judgement.
-
-                </p>
-
-
-                <p>
-
-                    Here, you don't have to have everything
-                    figured out before you begin.
-
-                </p>
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             THE AKSH EXPERIENCE
-        ================================================== -->
-
-        <section
-            class="aksh-experience"
-            aria-labelledby="experienceTitle"
-        >
-
-            <div class="experience-heading">
-
-                <p class="section-label">
-                    THE AKSH EXPERIENCE
-                </p>
-
-
-                <h2 id="experienceTitle">
-
-                    A space to pause.
-                    <br>
-                    A space to understand.
-                    <br>
-                    A space to grow.
-
-                </h2>
-
-            </div>
-
-
-            <div class="experience-grid">
-
-
-                <article class="experience-card">
-
-                    <span class="card-number">
-                        01
-                    </span>
-
-                    <h3>
-                        Be Heard
-                    </h3>
-
-                    <p>
-                        A place where your thoughts,
-                        feelings and experiences can be
-                        expressed without judgement.
-                    </p>
-
-                </article>
-
-
-                <article class="experience-card">
-
-                    <span class="card-number">
-                        02
-                    </span>
-
-                    <h3>
-                        Understand
-                    </h3>
-
-                    <p>
-                        Discover a deeper understanding
-                        of yourself, your emotions and
-                        the patterns that shape your life.
-                    </p>
-
-                </article>
-
-
-                <article class="experience-card">
-
-                    <span class="card-number">
-                        03
-                    </span>
-
-                    <h3>
-                        Move Forward
-                    </h3>
-
-                    <p>
-                        With the right support, small steps
-                        can become meaningful change.
-                    </p>
-
-                </article>
-
-
-            </div>
-
-        </section>
-
-
-        <!-- =================================================
-             CLOSING STATEMENT
-        ================================================== -->
-
-        <section
-            class="aksh-closing"
-            aria-labelledby="closingTitle"
-        >
-
-            <p class="section-label">
-                YOUR SPACE
-            </p>
-
-
-            <h2 id="closingTitle">
-
-                You don't have to
-                <br>
-                walk through it alone.
-
-            </h2>
-
-
-            <a
-                href="with-you.html"
-                class="primary-link"
-            >
-
-                <span>
-                    Find Your Space
-                </span>
-
-                <span
-                    class="link-arrow"
-                    aria-hidden="true"
-                >
-                    →
-                </span>
-
-            </a>
-
-        </section>
-
-
-        <!-- =================================================
-             FOOTER
-        ================================================== -->
-
-        <footer class="aksh-footer">
-
-            <div class="footer-brand">
-
-                <img
-                    src="aksh-icon.PNG"
-                    alt="AKSH"
-                >
-
-                <div>
-
-                    <strong>
-                        AKSH
-                    </strong>
-
-                    <span>
-                        A Safe Space For Every Mind
-                    </span>
-
-                </div>
-
-            </div>
-
-
-            <div class="footer-links">
-
-                <a
-                    href="meghana-kaverappa.html"
-                >
-                    Meghana
-                </a>
-
-                <a
-                    href="javascript:void(0)"
-                    class="future-link"
-                    aria-disabled="true"
-                >
-                    Journey
-                </a>
-
-                <a
-                    href="javascript:void(0)"
-                    class="future-link"
-                    aria-disabled="true"
-                >
-                    Stories
-                </a>
-
-                <a
-                    href="javascript:void(0)"
-                    class="future-link"
-                    aria-disabled="true"
-                >
-                    Journal
-                </a>
-
-                <a
-                    href="javascript:void(0)"
-                    class="future-link"
-                    aria-disabled="true"
-                >
-                    Book
-                </a>
-
-            </div>
-
-
-            <div class="footer-bottom">
-
-                <span>
-                    © 2026 AKSH Mental Wellness
-                </span>
-
-                <span>
-                    A Safe Space For Every Mind
-                </span>
-
-            </div>
-
-        </footer>
-
-
-    </main>
-
-
-    <!-- =================================================
-         FULL SCREEN NAVIGATION
-    ================================================== -->
-
-    <aside
-        id="akshNavigation"
-        aria-hidden="true"
+<div class="page">
+
+    <!-- YOUR EXACT UPLOADED PAGE 1 IMAGE -->
+    <img
+        src="aksh-page-1.png.PNG"
+        alt="AKSH Mental Wellness"
+        class="page-image"
     >
 
-        <button
-            id="akshCloseMenu"
-            type="button"
-            aria-label="Close navigation"
-        >
+    <!-- =================================================
+         TOP NAVIGATION
+    ================================================== -->
 
-            <span></span>
-            <span></span>
+    <a
+        href="aksh.html"
+        class="click-area home"
+        aria-label="Home"
+    ></a>
 
-        </button>
+    <a
+        href="with-you.html"
+        class="click-area services"
+        aria-label="Services"
+    ></a>
 
+    <a
+        href="meghana-kaverappa.html"
+        class="click-area specialists"
+        aria-label="Specialists"
+    ></a>
 
-        <div class="navigation-content">
+    <a
+        href="stories.html"
+        class="click-area resources"
+        aria-label="Resources"
+    ></a>
 
-            <p class="navigation-label">
-                EXPLORE AKSH
-            </p>
+    <a
+        href="meghana-kaverappa.html"
+        class="click-area about"
+        aria-label="About Us"
+    ></a>
 
-
-            <nav aria-label="AKSH navigation">
-
-                <a href="aksh.html">
-                    <span>01</span>
-                    The World
-                </a>
-
-
-                <a
-                    href="mind.html"
-                    class="existing-page-link"
-                >
-                    <span>02</span>
-                    The Mind
-                </a>
-
-
-                <a href="with-you.html">
-                    <span>03</span>
-                    With You
-                </a>
-
-
-                <a href="meghana-kaverappa.html">
-                    <span>04</span>
-                    Meghana
-                </a>
-
-
-                <a
-                    href="javascript:void(0)"
-                    class="future-link"
-                    aria-disabled="true"
-                >
-                    <span>05</span>
-                    Journey
-                </a>
-
-
-                <a
-                    href="javascript:void(0)"
-                    class="future-link"
-                    aria-disabled="true"
-                >
-                    <span>06</span>
-                    Stories
-                </a>
-
-
-                <a
-                    href="javascript:void(0)"
-                    class="future-link"
-                    aria-disabled="true"
-                >
-                    <span>07</span>
-                    Journal
-                </a>
-
-
-                <a
-                    href="javascript:void(0)"
-                    class="future-link"
-                    aria-disabled="true"
-                >
-                    <span>08</span>
-                    AKSH AI
-                </a>
-
-
-                <a
-                    href="javascript:void(0)"
-                    class="future-link"
-                    aria-disabled="true"
-                >
-                    <span>09</span>
-                    Book a Session
-                </a>
-
-            </nav>
-
-        </div>
-
-    </aside>
+    <a
+        href="booking.html"
+        class="click-area help"
+        aria-label="Get Help Now"
+    ></a>
 
 
     <!-- =================================================
-         PAGE TRANSITION
+         HERO ACTIONS
+    ================================================== -->
+
+    <a
+        href="booking.html"
+        class="click-area consultation"
+        aria-label="Book a Consultation"
+    ></a>
+
+    <a
+        href="with-you.html"
+        class="click-area explore"
+        aria-label="Explore Our Services"
+    ></a>
+
+
+    <!-- =================================================
+         SERVICES
+    ================================================== -->
+
+    <a
+        href="booking.html"
+        class="click-area individual"
+        aria-label="Individual Counselling"
+    ></a>
+
+    <a
+        href="booking.html"
+        class="click-area child"
+        aria-label="Child Psychology"
+    ></a>
+
+    <a
+        href="booking.html"
+        class="click-area relationship"
+        aria-label="Relationship Support"
+    ></a>
+
+    <a
+        href="booking.html"
+        class="click-area stress"
+        aria-label="Stress and Anxiety"
+    ></a>
+
+    <a
+        href="booking.html"
+        class="click-area emotional"
+        aria-label="Emotional Wellness"
+    ></a>
+
+
+    <!-- =================================================
+         QUICK NAVIGATION
+    ================================================== -->
+
+    <a
+        href="aksh.html"
+        class="click-area quick-home"
+        aria-label="Home"
+    ></a>
+
+    <a
+        href="with-you.html"
+        class="click-area quick-services"
+        aria-label="Services"
+    ></a>
+
+    <a
+        href="meghana-kaverappa.html"
+        class="click-area quick-about"
+        aria-label="About Us"
+    ></a>
+
+    <a
+        href="stories.html"
+        class="click-area quick-resources"
+        aria-label="Resources"
+    ></a>
+
+    <a
+        href="booking.html"
+        class="click-area quick-contact"
+        aria-label="Contact Us"
+    ></a>
+
+
+    <!-- =================================================
+         SOCIAL MEDIA
+    ================================================== -->
+
+    <a
+        href="https://www.instagram.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="click-area instagram"
+        aria-label="Instagram"
+    ></a>
+
+    <a
+        href="https://www.linkedin.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="click-area linkedin"
+        aria-label="LinkedIn"
+    ></a>
+
+    <a
+        href="https://www.youtube.com/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="click-area youtube"
+        aria-label="YouTube"
+    ></a>
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <a
+        href="privacy.html"
+        class="click-area privacy"
+        aria-label="Privacy Policy"
+    ></a>
+
+    <a
+        href="terms.html"
+        class="click-area terms"
+        aria-label="Terms and Conditions"
+    ></a>
+
+
+    <!-- =================================================
+         SUBSCRIPTION
     ================================================== -->
 
     <div
-        id="akshPageTransition"
-        aria-hidden="true"
-    ></div>
+        class="subscription"
+        id="subscription"
+    >
+
+        <form id="subscriptionForm">
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <button type="submit">
+                Subscribe
+            </button>
+
+        </form>
+
+    </div>
 
 
     <!-- =================================================
-         JAVASCRIPT
+         MESSAGE
     ================================================== -->
 
-    <script src="aksh.js"></script>
+    <div
+        id="message"
+        class="message"
+        role="status"
+        aria-live="polite"
+    ></div>
 
+</div>
+
+
+<script>
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            const message =
+                document.getElementById("message");
+
+            const subscription =
+                document.getElementById("subscription");
+
+            const form =
+                document.getElementById("subscriptionForm");
+
+
+            /*
+            ================================================
+            MESSAGE
+            ================================================
+            */
+
+            function showMessage(text) {
+
+                message.textContent = text;
+
+                message.classList.add("show");
+
+                setTimeout(
+                    function () {
+
+                        message.classList.remove("show");
+
+                    },
+                    3000
+                );
+            }
+
+
+            /*
+            ================================================
+            PAGE TRANSITIONS
+            ================================================
+            */
+
+            document
+                .querySelectorAll(
+                    'a[href$=".html"]'
+                )
+                .forEach(
+                    function (link) {
+
+                        link.addEventListener(
+                            "click",
+                            function (event) {
+
+                                const destination =
+                                    link.getAttribute("href");
+
+                                if (
+                                    !destination ||
+                                    destination === "#"
+                                ) {
+                                    return;
+                                }
+
+                                /*
+                                Same-page Home link
+                                */
+
+                                if (
+                                    destination ===
+                                    "aksh.html"
+                                ) {
+
+                                    event.preventDefault();
+
+                                    window.scrollTo(
+                                        {
+                                            top: 0,
+                                            behavior: "smooth"
+                                        }
+                                    );
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            /*
+            ================================================
+            SUBSCRIPTION
+            ================================================
+            */
+
+            if (form) {
+
+                form.addEventListener(
+                    "submit",
+                    function (event) {
+
+                        event.preventDefault();
+
+                        const email =
+                            document
+                                .getElementById("email")
+                                .value
+                                .trim();
+
+                        if (!email) {
+                            return;
+                        }
+
+                        showMessage(
+                            "Thank you. Your email has been received."
+                        );
+
+                        form.reset();
+
+                    }
+                );
+
+            }
+
+
+            /*
+            ================================================
+            KEYBOARD ACCESS
+            ================================================
+            */
+
+            document.addEventListener(
+                "keydown",
+                function (event) {
+
+                    if (event.key === "Escape") {
+
+                        if (subscription) {
+
+                            subscription.style.display =
+                                "none";
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+</script>
 
 </body>
-
 </html>
