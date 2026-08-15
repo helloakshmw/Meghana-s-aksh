@@ -27,21 +27,11 @@
 
     <title>AKSH — A Safe Space For Every Mind</title>
 
-
-    <!-- =====================================================
-         FAVICON
-    ====================================================== -->
-
     <link
         rel="icon"
         type="image/png"
         href="aksh-icon.PNG"
     >
-
-
-    <!-- =====================================================
-         GOOGLE FONTS
-    ====================================================== -->
 
     <link
         rel="preconnect"
@@ -55,41 +45,27 @@
     >
 
     <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&family=Allura&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Parisienne&display=swap"
         rel="stylesheet"
     >
-
-
-    <!-- =====================================================
-         ARRIVAL STYLES
-    ====================================================== -->
 
     <link
         rel="stylesheet"
         href="style.css"
     >
 
+    <script
+        src="script.js"
+        defer
+    ></script>
+
 </head>
 
 
 <body>
 
-
-    <!-- =====================================================
-         PAGE TRANSITION
-    ====================================================== -->
-
-    <div
-        id="pageTransition"
-        aria-hidden="true"
-    ></div>
-
-
     <!-- =====================================================
          BACKGROUND VIDEO
-         
-         IMPORTANT:
-         THERE IS ONLY ONE VIDEO ELEMENT.
     ====================================================== -->
 
     <video
@@ -99,14 +75,7 @@
         playsinline
         preload="auto"
         aria-hidden="true"
-    >
-
-        <source
-            src=""
-            type="video/quicktime"
-        >
-
-    </video>
+    ></video>
 
 
     <!-- =====================================================
@@ -114,101 +83,99 @@
     ====================================================== -->
 
     <div
-        id="videoOverlay"
+        class="video-overlay"
         aria-hidden="true"
     ></div>
 
 
     <!-- =====================================================
-         TOP HEADER
+         PAGE TRANSITION
     ====================================================== -->
 
-    <header class="arrival-header">
+    <div
+        id="pageTransition"
+        class="page-transition"
+        aria-hidden="true"
+    ></div>
 
 
-        <!-- =================================================
-             DATE / DAY — TOP LEFT
-        ================================================== -->
+    <!-- =====================================================
+         TOP LEFT — DATE / DAY
+    ====================================================== -->
 
-        <div
-            class="arrival-date"
-            aria-label="Current date"
+    <div
+        class="arrival-date"
+        aria-label="Current date"
+    >
+
+        <span
+            id="arrivalDate"
+            class="arrival-date-number"
+        >
+            00.00.0000
+        </span>
+
+        <span
+            id="arrivalDay"
+            class="arrival-day"
+        >
+            Day
+        </span>
+
+    </div>
+
+
+    <!-- =====================================================
+         TOP CENTER — AKSH BRAND
+    ====================================================== -->
+
+    <a
+        href="index.html"
+        class="arrival-brand"
+        aria-label="AKSH Mental Wellness"
+    >
+
+        <img
+            src="aksh-icon.PNG"
+            alt="AKSH"
+            class="arrival-brand-icon"
         >
 
-            <span
-                id="arrivalDate"
-                class="arrival-date-value"
-            >
-                00.00.0000
-            </span>
+        <span class="arrival-brand-name">
+            AKSH
+        </span>
 
-            <span
-                id="arrivalDay"
-                class="arrival-day-value"
-            >
-                Day
-            </span>
+        <span class="arrival-brand-tagline">
+            A Safe Space For Every Mind
+        </span>
 
-        </div>
+    </a>
 
 
-        <!-- =================================================
-             AKSH — TOP CENTER
-        ================================================== -->
+    <!-- =====================================================
+         TOP RIGHT — MENU
+    ====================================================== -->
 
-        <a
-            href="index.html"
-            class="arrival-brand"
-            aria-label="AKSH Home"
-        >
+    <button
+        id="menuButton"
+        class="menu-button"
+        type="button"
+        aria-label="Open navigation"
+        aria-expanded="false"
+        aria-controls="arrivalNavigation"
+    >
 
-            <img
-                src="aksh-icon.PNG"
-                alt="AKSH"
-                class="arrival-brand-icon"
-            >
+        <span
+            class="menu-line menu-line-one"
+            aria-hidden="true"
+        ></span>
 
-            <span
-                class="arrival-brand-name"
-            >
-                AKSH
-            </span>
+        <span
+            class="menu-line menu-line-two"
+            aria-hidden="true"
+        ></span>
 
-            <span
-                class="arrival-brand-tagline"
-            >
-                A Safe Space For Every Mind
-            </span>
-
-        </a>
-
-
-        <!-- =================================================
-             MENU — TOP RIGHT
-        ================================================== -->
-
-        <button
-            id="menuButton"
-            class="menu-button"
-            type="button"
-            aria-label="Open navigation"
-            aria-expanded="false"
-            aria-controls="arrivalNavigation"
-        >
-
-            <span
-                class="menu-line menu-line-one"
-                aria-hidden="true"
-            ></span>
-
-            <span
-                class="menu-line menu-line-two"
-                aria-hidden="true"
-            ></span>
-
-        </button>
-
-    </header>
+    </button>
 
 
     <!-- =====================================================
@@ -216,11 +183,6 @@
     ====================================================== -->
 
     <main class="arrival-main">
-
-
-        <!-- =================================================
-             CENTER CONTENT
-        ================================================== -->
 
         <section
             class="arrival-content"
@@ -231,7 +193,7 @@
                 id="timeGreeting"
                 class="time-greeting"
             >
-                Welcome
+                Good Evening
             </p>
 
 
@@ -239,13 +201,10 @@
                 id="arrivalMessage"
                 class="arrival-message"
             >
-                Take a moment to arrive.
+                Let the day become quieter.
+                Give yourself a moment.
             </p>
 
-
-            <!-- =================================================
-                 BEGIN JOURNEY
-            ================================================== -->
 
             <button
                 id="beginButton"
@@ -268,77 +227,38 @@
 
         </section>
 
-
     </main>
 
 
     <!-- =====================================================
-         BOTTOM CONTROLS
+         BOTTOM LEFT — SOUND
     ====================================================== -->
 
-    <div class="arrival-bottom">
+    <button
+        id="soundButton"
+        class="sound-button"
+        type="button"
+        aria-label="Enable sound"
+        aria-pressed="false"
+    >
 
+        <span
+            class="sound-icon"
+            aria-hidden="true"
+        ></span>
 
-        <!-- =================================================
-             SOUND BUTTON
-        ================================================== -->
-
-        <button
-            id="soundButton"
-            class="sound-button"
-            type="button"
-            aria-label="Enable sound"
-            aria-pressed="false"
+        <span
+            data-sound-text
+            class="sound-text"
         >
+            Sound Off
+        </span>
 
-            <span
-                class="sound-symbol"
-                aria-hidden="true"
-            >
-                ◌
-            </span>
-
-            <span
-                data-sound-text
-            >
-                Sound Off
-            </span>
-
-        </button>
-
-
-        <!-- =================================================
-             MEGHANA SIGNATURE / PHOTO
-        ================================================== -->
-
-        <a
-            href="meghana-kaverappa.html"
-            class="meghana-arrival"
-            aria-label="Meet Meghana Kaverappa"
-        >
-
-            <span
-                class="meghana-name"
-            >
-                Meghana Kaverappa
-            </span>
-
-            <img
-                src="meghana.kaverappa.PNG"
-                alt="Meghana Kaverappa"
-                class="meghana-photo"
-            >
-
-        </a>
-
-    </div>
+    </button>
 
 
     <!-- =====================================================
-         VIDEO PROGRESS
-         
-         NO VIDEO NUMBER.
-         ONLY A SUBTLE PROGRESS LINE.
+         BOTTOM CENTER — VIDEO PROGRESS
     ====================================================== -->
 
     <div
@@ -355,17 +275,26 @@
 
 
     <!-- =====================================================
-         HIDDEN VIDEO INDICATOR
-         
-         Kept only for JS compatibility.
-         It does NOT display any video count.
+         MEGHANA KAVERAPPA
     ====================================================== -->
 
-    <span
-        id="videoIndicator"
-        hidden
-        aria-hidden="true"
-    ></span>
+    <a
+        href="meghana-kaverappa.html"
+        class="meghana-arrival"
+        aria-label="Meet Meghana Kaverappa"
+    >
+
+        <span class="meghana-name">
+            Meghana Kaverappa
+        </span>
+
+        <img
+            src="meghana.kaverappa.PNG"
+            alt="Meghana Kaverappa"
+            class="meghana-photo"
+        >
+
+    </a>
 
 
     <!-- =====================================================
@@ -378,35 +307,15 @@
         aria-hidden="true"
     >
 
-
-        <!-- =================================================
-             CLOSE MENU
-        ================================================== -->
-
         <button
             id="closeMenuButton"
             class="close-menu-button"
             type="button"
             aria-label="Close navigation"
-        >
-
-            <span
-                aria-hidden="true"
-            ></span>
-
-            <span
-                aria-hidden="true"
-            ></span>
-
-        </button>
+        ></button>
 
 
-        <!-- =================================================
-             NAVIGATION CONTENT
-        ================================================== -->
-
-        <div class="arrival-navigation-inner">
-
+        <div class="navigation-inner">
 
             <p class="navigation-caption">
                 Explore AKSH
@@ -418,166 +327,56 @@
                 aria-label="Main navigation"
             >
 
-
-                <a
-                    href="index.html"
-                    class="navigation-link"
-                >
-
-                    <span class="navigation-number">
-                        01
-                    </span>
-
-                    <span>
-                        The World
-                    </span>
-
+                <a href="aksh.html">
+                    <span>01</span>
+                    The World
                 </a>
 
-
-                <a
-                    href="the-mind.html"
-                    class="navigation-link"
-                >
-
-                    <span class="navigation-number">
-                        02
-                    </span>
-
-                    <span>
-                        The Mind
-                    </span>
-
+                <a href="the-mind.html">
+                    <span>02</span>
+                    The Mind
                 </a>
 
-
-                <a
-                    href="with-you.html"
-                    class="navigation-link"
-                >
-
-                    <span class="navigation-number">
-                        03
-                    </span>
-
-                    <span>
-                        With You
-                    </span>
-
+                <a href="with-you.html">
+                    <span>03</span>
+                    With You
                 </a>
 
-
-                <a
-                    href="meghana-kaverappa.html"
-                    class="navigation-link"
-                >
-
-                    <span class="navigation-number">
-                        04
-                    </span>
-
-                    <span>
-                        Meghana
-                    </span>
-
+                <a href="meghana-kaverappa.html">
+                    <span>04</span>
+                    Meghana
                 </a>
 
-
-                <a
-                    href="journey.html"
-                    class="navigation-link"
-                >
-
-                    <span class="navigation-number">
-                        05
-                    </span>
-
-                    <span>
-                        Journey
-                    </span>
-
+                <a href="journey.html">
+                    <span>05</span>
+                    Journey
                 </a>
 
-
-                <a
-                    href="stories.html"
-                    class="navigation-link"
-                >
-
-                    <span class="navigation-number">
-                        06
-                    </span>
-
-                    <span>
-                        Stories
-                    </span>
-
+                <a href="stories.html">
+                    <span>06</span>
+                    Stories
                 </a>
 
-
-                <a
-                    href="journal.html"
-                    class="navigation-link"
-                >
-
-                    <span class="navigation-number">
-                        07
-                    </span>
-
-                    <span>
-                        Journal
-                    </span>
-
+                <a href="journal.html">
+                    <span>07</span>
+                    Journal
                 </a>
 
-
-                <a
-                    href="ai.html"
-                    class="navigation-link"
-                >
-
-                    <span class="navigation-number">
-                        08
-                    </span>
-
-                    <span>
-                        AKSH AI
-                    </span>
-
+                <a href="ai.html">
+                    <span>08</span>
+                    AKSH AI
                 </a>
 
-
-                <a
-                    href="booking.html"
-                    class="navigation-link"
-                >
-
-                    <span class="navigation-number">
-                        09
-                    </span>
-
-                    <span>
-                        Book a Session
-                    </span>
-
+                <a href="booking.html">
+                    <span>09</span>
+                    Book a Session
                 </a>
-
 
             </nav>
 
         </div>
 
     </aside>
-
-
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
-
-    <script
-        src="script.js"
-        defer
-    ></script>
 
 </body>
 
