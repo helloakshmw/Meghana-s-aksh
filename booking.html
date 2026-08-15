@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
+
+    <meta
+        name="theme-color"
+        content="#11100f"
+    >
+
+    <meta
+        name="description"
+        content="Book a session with AKSH Mental Wellness — a safe, professional space for mental health and wellbeing."
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <title>AKSH — Book a Session</title>
+
+
+    <!-- =================================================
+         FAVICON
+    ================================================== -->
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="aksh-icon.PNG"
+    >
+
+
+    <!-- =================================================
+         FONTS
+    ================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =================================================
+         STYLES
+    ================================================== -->
+
+    <style>
+
+        :root {
+            --dark: #11100f;
+            --deep: #0b0a09;
+            --paper: #f2eee7;
+            --warm: #d8cbbb;
+            --soft: #c8beb1;
+            --white: #faf8f4;
+            --muted: rgba(250,248,244,0.58);
+            --line: rgba(250,248,244,0.14);
+        }
+
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            min-height: 100%;
+            overflow-x: hidden;
+            background: var(--dark);
+            color: var(--white);
+            font-family: "Inter", sans-serif;
+            font-weight: 300;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+
+        body.menu-open {
+            overflow: hidden;
+        }
+
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+
+        button {
+            font: inherit;
+            color: inherit;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+
+        /* =================================================
+           PAGE TRANSITION
+        ================================================== */
+
+        #pageTransition {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--dark);
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: none;
+            transition:
+                opacity 0.8s cubic-bezier(.22,1,.36,1),
+                transform 0.8s cubic-bezier(.22,1,.36,1);
+        }
+
+
+        #pageTransition.ready {
+            opacity: 0;
+            transform: translateY(-100%);
+        }
+
+
+        #pageTransition.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+
+        /* =================================================
+           HEADER
+        ================================================== */
+
+        .booking-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 88px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding:
+                env(safe-area-inset-top)
+                34px
+                0;
+            pointer-events: none;
+        }
+
+
+        .booking-brand,
+        #menuButton {
+            pointer-events: auto;
+        }
+
+
+        .booking-brand {
+            width: 48px;
+            height: 48px;
+            display: block;
+        }
+
+
+        .booking-brand img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: contain;
+        }
+
+
+        #menuButton {
+            width: 48px;
+            height: 48px;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 7px;
+        }
+
+
+        #menuButton span {
+            display: block;
+            height: 1px;
+            background: var(--white);
+            transition: width 0.3s ease;
+        }
+
+
+        #menuButton span:first-child {
+            width: 29px;
+        }
+
+
+        #menuButton span:last-child {
+            width: 19px;
+        }
+
+
+        #menuButton:hover span:first-child {
+            width: 19px;
+        }
+
+
+        #menuButton:hover span:last-child {
+            width: 29px;
+        }
+
+
+        /* =================================================
+           HERO
+        ================================================== */
+
+        .booking-hero {
+            position: relative;
+            min-height: 100svh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background:
+                radial-gradient(
+                    circle at 78% 18%,
+                    rgba(216,203,187,0.18),
+                    transparent 34%
+                ),
+                radial-gradient(
+                    circle at 15% 80%,
+                    rgba(255,255,255,0.035),
+                    transparent 35%
+                ),
+                var(--dark);
+        }
+
+
+        .hero-orbit {
+            position: absolute;
+            width: 72vw;
+            height: 72vw;
+            max-width: 900px;
+            max-height: 900px;
+            right: -28%;
+            top: 4%;
+            border: 1px solid rgba(216,203,187,0.13);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+
+        .hero-orbit::before {
+            content: "";
+            position: absolute;
+            inset: 12%;
+            border: 1px solid rgba(216,203,187,0.08);
+            border-radius: 50%;
+        }
+
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: min(1180px, calc(100% - 68px));
+            margin: 0 auto;
+            padding:
+                150px
+                0
+                110px;
+        }
+
+
+        .hero-label {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 32px;
+            color: var(--muted);
+            font-size: 10px;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+        }
+
+
+        .hero-label::before {
+            content: "";
+            width: 42px;
+            height: 1px;
+            background: currentColor;
+        }
+
+
+        .hero-title {
+            max-width: 1000px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(
+                70px,
+                12vw,
+                160px
+            );
+            font-weight: 400;
+            line-height: 0.84;
+            letter-spacing: -0.06em;
+        }
+
+
+        .hero-title em {
+            display: block;
+            margin-left: clamp(
+                25px,
+                9vw,
+                135px
+            );
+            color: var(--warm);
+            font-style: italic;
+        }
+
+
+        .hero-intro {
+            width: min(570px, 100%);
+            margin-top: 62px;
+            margin-left: clamp(
+                0px,
+                12vw,
+                170px
+            );
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+
+        .hero-note {
+            margin-top: 35px;
+            margin-left: clamp(
+                0px,
+                12vw,
+                170px
+            );
+            color: rgba(250,248,244,0.36);
+            font-size: 10px;
+            letter-spacing: 0.08em;
+        }
+
+
+        .hero-scroll {
+            position: absolute;
+            left: 50%;
+            bottom: 32px;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: rgba(250,248,244,0.42);
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+
+        .scroll-line {
+            width: 1px;
+            height: 45px;
+            background: rgba(250,248,244,0.25);
+            transform-origin: top;
+            animation: scrollPulse 2.4s ease-in-out infinite;
+        }
+
+
+        @keyframes scrollPulse {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scaleY(0.35);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+
+        }
+
+
+        /* =================================================
+           BOOKING SECTION
+        ================================================== */
+
+        .booking-section {
+            background: var(--paper);
+            color: #171513;
+            padding:
+                clamp(110px, 15vw, 210px)
+                0;
+        }
+
+
+        .content-width {
+            width: min(
+                1180px,
+                calc(100% - 68px)
+            );
+            margin: 0 auto;
+        }
+
+
+        .section-number {
+            display: block;
+            margin-bottom: 42px;
+            color: rgba(23,21,19,0.42);
+            font-size: 10px;
+            letter-spacing: 0.25em;
+        }
+
+
+        .section-title {
+            max-width: 900px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(
+                50px,
+                7vw,
+                105px
+            );
+            font-weight: 400;
+            line-height: 0.92;
+            letter-spacing: -0.045em;
+        }
+
+
+        .section-title em {
+            font-style: italic;
+            color: #857565;
+        }
+
+
+        .section-intro {
+            max-width: 590px;
+            margin-top: 48px;
+            color: rgba(23,21,19,0.62);
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+
+        /* =================================================
+           OPTIONS
+        ================================================== */
+
+        .booking-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            margin-top: 90px;
+            background: rgba(23,21,19,0.16);
+            border: 1px solid rgba(23,21,19,0.16);
+        }
+
+
+        .booking-option {
+            min-height: 320px;
+            padding: 34px;
+            background: #f7f3ed;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition:
+                background 0.4s ease,
+                transform 0.4s ease;
+        }
+
+
+        .booking-option:hover {
+            background: #e8dfd3;
+        }
+
+
+        .option-number {
+            color: rgba(23,21,19,0.4);
+            font-size: 10px;
+            letter-spacing: 0.2em;
+        }
+
+
+        .option-title {
+            margin-top: auto;
+            font-family: "Cormorant Garamond", serif;
+            font-size: 42px;
+            line-height: 0.95;
+            font-weight: 400;
+        }
+
+
+        .option-description {
+            margin-top: 20px;
+            color: rgba(23,21,19,0.58);
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+
+        /* =================================================
+           CTA
+        ================================================== */
+
+        .booking-action {
+            margin-top: 100px;
+            padding-top: 60px;
+            border-top: 1px solid rgba(23,21,19,0.15);
+        }
+
+
+        .action-title {
+            max-width: 800px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(
+                43px,
+                6vw,
+                78px
+            );
+            font-weight: 400;
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+        }
+
+
+        .action-copy {
+            max-width: 520px;
+            margin-top: 30px;
+            color: rgba(23,21,19,0.58);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+
+        .booking-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 22px;
+            margin-top: 48px;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(23,21,19,0.45);
+            color: #171513;
+            font-size: 11px;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            transition:
+                gap 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+
+        .booking-button:hover {
+            gap: 32px;
+            border-color: #171513;
+        }
+
+
+        .booking-button span:last-child {
+            font-size: 18px;
+        }
+
+
+        /* =================================================
+           SUPPORT NOTE
+        ================================================== */
+
+        .support-section {
+            background: #ded3c5;
+            color: #171513;
+            padding:
+                clamp(100px, 13vw, 180px)
+                0;
+        }
+
+
+        .support-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 100px;
+            align-items: start;
+        }
+
+
+        .support-label {
+            color: rgba(23,21,19,0.45);
+            font-size: 10px;
+            letter-spacing: 0.23em;
+            text-transform: uppercase;
+        }
+
+
+        .support-title {
+            margin-top: 25px;
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(
+                45px,
+                6vw,
+                80px
+            );
+            line-height: 0.95;
+            font-weight: 400;
+            letter-spacing: -0.04em;
+        }
+
+
+        .support-copy {
+            max-width: 620px;
+            color: rgba(23,21,19,0.63);
+            font-size: 15px;
+            line-height: 1.9;
+        }
+
+
+        /* =================================================
+           FOOTER
+        ================================================== */
+
+        .booking-footer {
+            background: var(--deep);
+            color: var(--white);
+            padding:
+                75px
+                0
+                calc(
+                    75px +
+                    env(safe-area-inset-bottom)
+                );
+        }
+
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+
+        .footer-brand img {
+            width: 52px;
+            height: 52px;
+            object-fit: contain;
+        }
+
+
+        .footer-brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+
+        .footer-brand-text strong {
+            font-family: "Cormorant Garamond", serif;
+            font-size: 27px;
+            font-weight: 500;
+        }
+
+
+        .footer-brand-text span {
+            color: rgba(250,248,244,0.45);
+            font-size: 9px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+            margin-top: 85px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(250,248,244,0.13);
+            color: rgba(250,248,244,0.42);
+            font-size: 10px;
+        }
+
+
+        /* =================================================
+           NAVIGATION
+        ================================================== */
+
+        #navigation {
+            position: fixed;
+            inset: 0;
+            z-index: 500;
+            display: flex;
+            align-items: center;
+            background: #11100f;
+            color: var(--white);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition:
+                opacity 0.45s ease,
+                visibility 0.45s ease;
+        }
+
+
+        #navigation.open {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+
+        #closeMenu {
+            position: absolute;
+            top: 30px;
+            right: 34px;
+            width: 48px;
+            height: 48px;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+        }
+
+
+        #closeMenu::before,
+        #closeMenu::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 29px;
+            height: 1px;
+            background: var(--white);
+        }
+
+
+        #closeMenu::before {
+            transform:
+                translate(-50%, -50%)
+                rotate(45deg);
+        }
+
+
+        #closeMenu::after {
+            transform:
+                translate(-50%, -50%)
+                rotate(-45deg);
+        }
+
+
+        .navigation-inner {
+            width: min(
+                1100px,
+                calc(100% - 68px)
+            );
+            margin: 0 auto;
+        }
+
+
+        .navigation-label {
+            margin-bottom: 35px;
+            color: rgba(250,248,244,0.4);
+            font-size: 10px;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+        }
+
+
+        .navigation-links {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0 80px;
+        }
+
+
+        .navigation-links a {
+            display: flex;
+            align-items: baseline;
+            gap: 18px;
+            padding: 17px 0;
+            border-bottom: 1px solid rgba(250,248,244,0.12);
+            font-family: "Cormorant Garamond", serif;
+            font-size: clamp(
+                30px,
+                4vw,
+                50px
+            );
+            line-height: 1;
+            transition:
+                color 0.3s ease,
+                padding-left 0.3s ease;
+        }
+
+
+        .navigation-links a span {
+            color: rgba(250,248,244,0.32);
+            font-family: "Inter", sans-serif;
+            font-size: 9px;
+            letter-spacing: 0.12em;
+        }
+
+
+        .navigation-links a:hover {
+            padding-left: 10px;
+            color: var(--warm);
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+        ================================================== */
+
+        @media (max-width: 900px) {
+
+            .booking-header {
+                height: 76px;
+                padding:
+                    env(safe-area-inset-top)
+                    22px
+                    0;
+            }
+
+
+            .booking-brand {
+                width: 42px;
+                height: 42px;
+            }
+
+
+            #menuButton {
+                width: 44px;
+                height: 44px;
+            }
+
+
+            .content-width,
+            .hero-content,
+            .navigation-inner {
+                width: min(
+                    calc(100% - 44px),
+                    720px
+                );
+            }
+
+
+            .hero-title {
+                font-size: clamp(
+                    64px,
+                    16vw,
+                    110px
+                );
+            }
+
+
+            .booking-options {
+                grid-template-columns: 1fr;
+            }
+
+
+            .support-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+
+            .navigation-links {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .booking-header {
+                height: 70px;
+                padding:
+                    env(safe-area-inset-top)
+                    17px
+                    0;
+            }
+
+
+            .booking-brand {
+                width: 38px;
+                height: 38px;
+            }
+
+
+            #menuButton {
+                width: 42px;
+                height: 42px;
+            }
+
+
+            .content-width,
+            .hero-content {
+                width: calc(100% - 36px);
+            }
+
+
+            .hero-content {
+                padding:
+                    120px 0
+                    100px;
+            }
+
+
+            .hero-title {
+                font-size: clamp(
+                    60px,
+                    19vw,
+                    90px
+                );
+            }
+
+
+            .hero-title em {
+                margin-left: 6vw;
+            }
+
+
+            .hero-intro {
+                margin-top: 45px;
+                margin-left: 0;
+                font-size: 14px;
+            }
+
+
+            .hero-note {
+                margin-left: 0;
+                line-height: 1.7;
+            }
+
+
+            .booking-section {
+                padding:
+                    100px 0
+                    120px;
+            }
+
+
+            .section-title {
+                font-size: clamp(
+                    45px,
+                    13vw,
+                    68px
+                );
+            }
+
+
+            .section-intro {
+                margin-top: 40px;
+                font-size: 14px;
+            }
+
+
+            .booking-options {
+                margin-top: 65px;
+            }
+
+
+            .booking-option {
+                min-height: 285px;
+                padding: 28px;
+            }
+
+
+            .option-title {
+                font-size: 38px;
+            }
+
+
+            .booking-action {
+                margin-top: 75px;
+                padding-top: 50px;
+            }
+
+
+            .action-title {
+                font-size: clamp(
+                    42px,
+                    12vw,
+                    62px
+                );
+            }
+
+
+            .support-section {
+                padding:
+                    100px 0
+                    120px;
+            }
+
+
+            .support-title {
+                font-size: clamp(
+                    44px,
+                    12vw,
+                    65px
+                );
+            }
+
+
+            .support-copy {
+                font-size: 14px;
+            }
+
+
+            .footer-bottom {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-top: 65px;
+            }
+
+
+            #closeMenu {
+                top: 17px;
+                right: 17px;
+            }
+
+
+            .navigation-inner {
+                width: calc(100% - 44px);
+            }
+
+
+            .navigation-links a {
+                font-size: 34px;
+                padding: 14px 0;
+            }
+
+        }
+
+
+        /* =================================================
+           REDUCED MOTION
+        ================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================================
+         PAGE TRANSITION
+    ================================================== -->
+
+    <div
+        id="pageTransition"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <header class="booking-header">
+
+        <a
+            href="index.html"
+            class="booking-brand"
+            aria-label="Return to AKSH arrival"
+        >
+
+            <img
+                src="aksh-icon.PNG"
+                alt="AKSH"
+            >
+
+        </a>
+
+
+        <button
+            id="menuButton"
+            type="button"
+            aria-label="Open navigation"
+            aria-expanded="false"
+            aria-controls="navigation"
+        >
+
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+
+        </button>
+
+    </header>
+
+
+    <!-- =================================================
+         HERO
+    ================================================== -->
+
+    <main>
+
+        <section
+            class="booking-hero"
+            aria-labelledby="bookingHeroTitle"
+        >
+
+            <div
+                class="hero-orbit"
+                aria-hidden="true"
+            ></div>
+
+
+            <div class="hero-content">
+
+                <div class="hero-label">
+                    AKSH — BEGIN HERE
+                </div>
+
+
+                <h1
+                    id="bookingHeroTitle"
+                    class="hero-title"
+                >
+
+                    A space
+                    <em>for you.</em>
+
+                </h1>
+
+
+                <p class="hero-intro">
+
+                    Reaching out for support can be
+                    a meaningful first step.
+
+                    At AKSH, sessions are designed to
+                    offer a professional, confidential
+                    and compassionate space to explore
+                    what you are going through.
+
+                </p>
+
+
+                <p class="hero-note">
+
+                    You do not need to have everything
+                    figured out before reaching out.
+
+                </p>
+
+            </div>
+
+
+            <div
+                class="hero-scroll"
+                aria-hidden="true"
+            >
+
+                <span>
+                    Continue
+                </span>
+
+                <span class="scroll-line"></span>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             BOOKING INFORMATION
+        ================================================== -->
+
+        <section class="booking-section">
+
+            <div class="content-width">
+
+                <span class="section-number">
+                    01 — YOUR SPACE
+                </span>
+
+
+                <h2 class="section-title">
+
+                    Choose the kind of
+                    <em>space you need.</em>
+
+                </h2>
+
+
+                <p class="section-intro">
+
+                    Every person arrives with a different
+                    experience. The first conversation is
+                    an opportunity to understand what you
+                    need and determine the most appropriate
+                    way forward.
+
+                </p>
+
+
+                <div class="booking-options">
+
+
+                    <article class="booking-option">
+
+                        <span class="option-number">
+                            01
+                        </span>
+
+
+                        <div>
+
+                            <h3 class="option-title">
+                                Individual
+                                Sessions
+                            </h3>
+
+
+                            <p class="option-description">
+
+                                A private space to explore
+                                emotions, thoughts, patterns,
+                                relationships and personal
+                                experiences.
+
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="booking-option">
+
+                        <span class="option-number">
+                            02
+                        </span>
+
+
+                        <div>
+
+                            <h3 class="option-title">
+                                Support &
+                                Guidance
+                            </h3>
+
+
+                            <p class="option-description">
+
+                                A space to talk through
+                                challenges and understand
+                                what may help you move
+                                forward.
+
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="booking-option">
+
+                        <span class="option-number">
+                            03
+                        </span>
+
+
+                        <div>
+
+                            <h3 class="option-title">
+                                Start a
+                                Conversation
+                            </h3>
+
+
+                            <p class="option-description">
+
+                                Not sure where to begin?
+                                That is okay. You can start
+                                with a simple conversation
+                                about what you are experiencing.
+
+                            </p>
+
+                        </div>
+
+                    </article>
+
+
+                </div>
+
+
+                <!-- =========================================
+                     BOOKING CTA
+                ========================================== -->
+
+                <div class="booking-action">
+
+                    <h3 class="action-title">
+
+                        When you are ready,
+                        <em>we are here.</em>
+
+                    </h3>
+
+
+                    <p class="action-copy">
+
+                        Begin by getting in touch with AKSH.
+                        We can understand your requirements,
+                        answer your questions and guide you
+                        through the next step.
+
+                    </p>
+
+
+                    <!--
+                        IMPORTANT:
+                        Replace this destination later
+                        with the final booking system /
+                        WhatsApp / appointment platform.
+                    -->
+
+                    <a
+                        href="mailto:hello@akshmentalwellness.com"
+                        class="booking-button"
+                    >
+
+                        <span>
+                            Begin Your Conversation
+                        </span>
+
+                        <span aria-hidden="true">
+                            →
+                        </span>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             SUPPORT
+        ================================================== -->
+
+        <section class="support-section">
+
+            <div class="content-width">
+
+                <div class="support-grid">
+
+
+                    <div>
+
+                        <p class="support-label">
+                            BEFORE YOUR SESSION
+                        </p>
+
+
+                        <h2 class="support-title">
+                            You can
+                            simply be yourself.
+                        </h2>
+
+                    </div>
+
+
+                    <div>
+
+                        <p class="support-copy">
+
+                            You do not need to prepare the
+                            perfect explanation.
+
+                            <br><br>
+
+                            You can arrive with questions,
+                            uncertainty, silence or simply
+                            the feeling that something does
+                            not feel right.
+
+                            <br><br>
+
+                            The purpose of the first
+                            conversation is to listen,
+                            understand and help identify
+                            what support may be appropriate
+                            for you.
+
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =================================================
+         FOOTER
+    ================================================== -->
+
+    <footer class="booking-footer">
+
+        <div class="content-width">
+
+            <div class="footer-brand">
+
+                <img
+                    src="aksh-icon.PNG"
+                    alt="AKSH"
+                >
+
+
+                <div class="footer-brand-text">
+
+                    <strong>
+                        AKSH
+                    </strong>
+
+                    <span>
+                        A Safe Space For Every Mind
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <span>
+                    © 2026 AKSH Mental Wellness
+                </span>
+
+                <span>
+                    Book a Session
+                </span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =================================================
+         FULLSCREEN NAVIGATION
+    ================================================== -->
+
+    <aside
+        id="navigation"
+        aria-hidden="true"
+    >
+
+        <button
+            id="closeMenu"
+            type="button"
+            aria-label="Close navigation"
+        ></button>
+
+
+        <div class="navigation-inner">
+
+            <p class="navigation-label">
+                EXPLORE AKSH
+            </p>
+
+
+            <nav
+                class="navigation-links"
+                aria-label="AKSH navigation"
+            >
+
+                <a href="aksh.html">
+                    <span>01</span>
+                    The World
+                </a>
+
+
+                <a href="the-mind.html">
+                    <span>02</span>
+                    The Mind
+                </a>
+
+
+                <a href="with-you.html">
+                    <span>03</span>
+                    With You
+                </a>
+
+
+                <a href="meghana-kaverappa.html">
+                    <span>04</span>
+                    Meghana
+                </a>
+
+
+                <a href="journey.html">
+                    <span>05</span>
+                    Journey
+                </a>
+
+
+                <a href="stories.html">
+                    <span>06</span>
+                    Stories
+                </a>
+
+
+                <a href="journal.html">
+                    <span>07</span>
+                    Journal
+                </a>
+
+
+                <a href="ai.html">
+                    <span>08</span>
+                    AKSH AI
+                </a>
+
+
+                <a href="booking.html">
+                    <span>09</span>
+                    Book a Session
+                </a>
+
+            </nav>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =================================================
+         JAVASCRIPT
+    ================================================== -->
+
+    <script>
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+
+                const transition =
+                    document.getElementById(
+                        "pageTransition"
+                    );
+
+
+                const menuButton =
+                    document.getElementById(
+                        "menuButton"
+                    );
+
+
+                const closeMenu =
+                    document.getElementById(
+                        "closeMenu"
+                    );
+
+
+                const navigation =
+                    document.getElementById(
+                        "navigation"
+                    );
+
+
+                /* =========================================
+                   PAGE ARRIVAL
+                ========================================== */
+
+                requestAnimationFrame(
+                    () => {
+
+                        if (transition) {
+
+                            transition.classList.add(
+                                "ready"
+                            );
+
+                        }
+
+                    }
+                );
+
+
+                /* =========================================
+                   PAGE LINKS + TRANSITION
+                ========================================== */
+
+                document
+                    .querySelectorAll(
+                        'a[href$=".html"]'
+                    )
+                    .forEach(
+                        (link) => {
+
+                            link.addEventListener(
+                                "click",
+                                (event) => {
+
+                                    const destination =
+                                        link.getAttribute(
+                                            "href"
+                                        );
+
+
+                                    if (
+                                        !destination ||
+                                        destination.startsWith(
+                                            "#"
+                                        )
+                                    ) {
+                                        return;
+                                    }
+
+
+                                    if (
+                                        link.target ===
+                                        "_blank"
+                                    ) {
+                                        return;
+                                    }
+
+
+                                    event.preventDefault();
+
+
+                                    if (transition) {
+
+                                        transition.classList.remove(
+                                            "ready"
+                                        );
+
+                                        transition.classList.add(
+                                            "active"
+                                        );
+
+                                    }
+
+
+                                    setTimeout(
+                                        () => {
+
+                                            window.location.href =
+                                                destination;
+
+                                        },
+                                        700
+                                    );
+
+                                }
+                            );
+
+                        }
+                    );
+
+
+                /* =========================================
+                   OPEN NAVIGATION
+                ========================================== */
+
+                function openNavigation() {
+
+                    if (!navigation) {
+                        return;
+                    }
+
+
+                    navigation.classList.add(
+                        "open"
+                    );
+
+
+                    navigation.setAttribute(
+                        "aria-hidden",
+                        "false"
+                    );
+
+
+                    if (menuButton) {
+
+                        menuButton.setAttribute(
+                            "aria-expanded",
+                            "true"
+                        );
+
+                    }
+
+
+                    document.body.classList.add(
+                        "menu-open"
+                    );
+
+                }
+
+
+                /* =========================================
+                   CLOSE NAVIGATION
+                ========================================== */
+
+                function closeNavigation() {
+
+                    if (!navigation) {
+                        return;
+                    }
+
+
+                    navigation.classList.remove(
+                        "open"
+                    );
+
+
+                    navigation.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+
+                    if (menuButton) {
+
+                        menuButton.setAttribute(
+                            "aria-expanded",
+                            "false"
+                        );
+
+                    }
+
+
+                    document.body.classList.remove(
+                        "menu-open"
+                    );
+
+                }
+
+
+                /* =========================================
+                   MENU BUTTON
+                ========================================== */
+
+                if (menuButton) {
+
+                    menuButton.addEventListener(
+                        "click",
+                        openNavigation
+                    );
+
+                }
+
+
+                if (closeMenu) {
+
+                    closeMenu.addEventListener(
+                        "click",
+                        closeNavigation
+                    );
+
+                }
+
+
+                /* =========================================
+                   NAVIGATION LINKS
+                ========================================== */
+
+                if (navigation) {
+
+                    navigation
+                        .querySelectorAll("a")
+                        .forEach(
+                            (link) => {
+
+                                link.addEventListener(
+                                    "click",
+                                    closeNavigation
+                                );
+
+                            }
+                        );
+
+                }
+
+
+                /* =========================================
+                   ESCAPE KEY
+                ========================================== */
+
+                document.addEventListener(
+                    "keydown",
+                    (event) => {
+
+                        if (
+                            event.key === "Escape"
+                        ) {
+
+                            closeNavigation();
+
+                        }
+
+                    }
+                );
+
+
+                /* =========================================
+                   BACK / FORWARD CACHE
+                ========================================== */
+
+                window.addEventListener(
+                    "pageshow",
+                    (event) => {
+
+                        if (
+                            event.persisted &&
+                            transition
+                        ) {
+
+                            transition.classList.add(
+                                "ready"
+                            );
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
