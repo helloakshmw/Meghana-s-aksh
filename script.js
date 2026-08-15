@@ -51,25 +51,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        CONFIGURATION
-       ===================================================== */
+    ===================================================== */
 
     const CONFIG = {
-
-        /* Page 1 */
         nextPage: "the-mind.html",
-
-        /* Video duration */
-        videoDuration: 4000,
-
-        /* Transition duration */
         pageTransitionDuration: 850
-
     };
 
 
     /* =====================================================
        TIME PERIOD
-       ===================================================== */
+    ===================================================== */
 
     function getCurrentMinutes() {
 
@@ -87,49 +79,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const minutes = getCurrentMinutes();
 
-
-        /* 5:00 AM – 11:59 AM */
         if (
             minutes >= 300 &&
             minutes < 720
         ) {
-
             return "morning";
-
         }
 
-
-        /* 12:00 PM – 4:59 PM */
         if (
             minutes >= 720 &&
             minutes < 1020
         ) {
-
             return "afternoon";
-
         }
 
-
-        /* 5:00 PM – 8:59 PM */
         if (
             minutes >= 1020 &&
             minutes < 1260
         ) {
-
             return "evening";
-
         }
 
-
-        /* 9:00 PM – 4:59 AM */
         return "night";
-
     }
 
 
     /* =====================================================
        GREETINGS
-       ===================================================== */
+    ===================================================== */
 
     const greetings = {
 
@@ -162,7 +139,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        VIDEO COLLECTION
-       ===================================================== */
+    ===================================================== */
 
     const videos = {
 
@@ -195,70 +172,59 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       CURRENT STATE
-       ===================================================== */
+       STATE
+    ===================================================== */
 
     let currentPeriod =
         getTimePeriod();
 
     let currentVideoIndex = 0;
 
-    let progressTimer = null;
-
-    let videoTimer = null;
+    let navigationOpen = false;
 
     let soundEnabled = false;
 
-    let navigationOpen = false;
+    /*
+     * Prevents duplicate video changes.
+     */
+    let changingVideo = false;
 
 
     /* =====================================================
        DATE
-       ===================================================== */
+    ===================================================== */
 
     function updateDate() {
 
         const now = new Date();
 
         const day =
-            String(
-                now.getDate()
-            ).padStart(2, "0");
+            String(now.getDate())
+                .padStart(2, "0");
 
         const month =
-            String(
-                now.getMonth() + 1
-            ).padStart(2, "0");
+            String(now.getMonth() + 1)
+                .padStart(2, "0");
 
         const year =
             now.getFullYear();
 
-
-        const formattedDate =
-            `${day}.${month}.${year}`;
-
-
-        const formattedDay =
-            now.toLocaleDateString(
-                "en-IN",
-                {
-                    weekday: "long"
-                }
-            );
-
-
         if (dateElement) {
 
             dateElement.textContent =
-                formattedDate;
+                `${day}.${month}.${year}`;
 
         }
-
 
         if (dayElement) {
 
             dayElement.textContent =
-                formattedDay;
+                now.toLocaleDateString(
+                    "en-IN",
+                    {
+                        weekday: "long"
+                    }
+                );
 
         }
 
@@ -267,17 +233,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        GREETING
-       ===================================================== */
+    ===================================================== */
 
     function updateGreeting() {
 
         currentPeriod =
             getTimePeriod();
 
-
         const greeting =
             greetings[currentPeriod];
-
 
         if (timeGreeting) {
 
@@ -285,7 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 greeting.title;
 
         }
-
 
         if (arrivalMessage) {
 
@@ -298,8 +261,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       VIDEO LOADING
-       ===================================================== */
+       RESET PROGRESS
+    ===================================================== */
+
+    function resetProgress() {
+
+        if (!videoProgressBar) {
+            return;
+        }
+
+        videoProgressBar.style.transition =
+            "none";
+
+        videoProgressBar.style.width =
+            "0%";
+
+        /*
+         * Force browser reflow.
+         */
+        void videoProgressBar.offsetWidth;
+
+    }
+
+
+    /* =====================================================
+       START PROGRESS
+    ===================================================== */
+
+    function startProgress() {
+
+        if (!videoProgressBar) {
+            return;
+        }
+
+        resetProgress();
+
+        requestAnimationFrame(() => {
+
+            requestAnimationFrame(() => {
+
+                if (!videoProgressBar) {
+                    return;
+                }
+
+                videoProgressBar.style.transition =
+                    "width linear";
+
+                /*
+                 * Use the REAL video duration.
+                 * Do not use a fake 4000ms timer.
+                 */
+
+                const duration =
+                    backgroundVideo &&
+                    Number.isFinite(
+                        backgroundVideo.duration
+                    )
+                        ? backgroundVideo.duration
+                        : 4;
+
+                videoProgressBar.style.transition =
+                    `width ${duration}s linear`;
+
+                videoProgressBar.style.width =
+                    "100%";
+
+            });
+
+        });
+
+    }
+
+
+    /* =====================================================
+       LOAD VIDEO
+    ===================================================== */
 
     function loadVideo(
         index = 0,
@@ -310,27 +346,47 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         const periodVideos =
             videos[currentPeriod];
-
 
         if (
             !periodVideos ||
             periodVideos.length === 0
         ) {
-
             return;
-
         }
 
+        /*
+         * Keep index safely inside
+         * the current period.
+         */
 
         currentVideoIndex =
-            index % periodVideos.length;
+            (
+                index +
+                periodVideos.length
+            ) %
+            periodVideos.length;
 
 
         const videoFile =
             periodVideos[currentVideoIndex];
+
+
+        /*
+         * Stop the current video FIRST.
+         */
+
+        backgroundVideo.pause();
+
+
+        /*
+         * Remove any previous source.
+         */
+
+        backgroundVideo.removeAttribute(
+            "src"
+        );
 
 
         const source =
@@ -339,15 +395,26 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
+        if (source) {
+
+            source.removeAttribute(
+                "src"
+            );
+
+        }
+
+
         /*
-         * IMPORTANT:
-         * Completely replace the source.
-         * This prevents the previous period's
-         * video from continuing.
+         * Force the old media resource
+         * to be released.
          */
 
-        backgroundVideo.pause();
+        backgroundVideo.load();
 
+
+        /*
+         * Set ONLY ONE source.
+         */
 
         if (source) {
 
@@ -362,7 +429,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
+        /*
+         * Load the new video.
+         */
+
         backgroundVideo.load();
+
+
+        resetProgress();
 
 
         if (videoIndicator) {
@@ -373,14 +447,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        resetProgress();
-
+        /*
+         * Start only the selected video.
+         */
 
         if (autoplay) {
 
             const playPromise =
                 backgroundVideo.play();
-
 
             if (
                 playPromise &&
@@ -388,14 +462,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 "function"
             ) {
 
-                playPromise.catch(() => {
-
-                    /*
-                     * Autoplay may be blocked
-                     * until the user interacts.
-                     */
-
-                });
+                playPromise.catch(() => {});
 
             }
 
@@ -405,96 +472,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       VIDEO PROGRESS
-       ===================================================== */
-
-    function resetProgress() {
-
-        clearTimeout(
-            progressTimer
-        );
-
-        clearTimeout(
-            videoTimer
-        );
-
-
-        if (videoProgressBar) {
-
-            videoProgressBar.style.width =
-                "0%";
-
-        }
-
-    }
-
-
-    function startProgress() {
-
-        resetProgress();
-
-
-        if (!videoProgressBar) {
-            return;
-        }
-
-
-        /*
-         * Force browser to recognise
-         * the starting position.
-         */
-
-        videoProgressBar.style.width =
-            "0%";
-
-
-        requestAnimationFrame(() => {
-
-            requestAnimationFrame(() => {
-
-                videoProgressBar.style.transition =
-                    `width ${CONFIG.videoDuration}ms linear`;
-
-                videoProgressBar.style.width =
-                    "100%";
-
-            });
-
-        });
-
-
-        videoTimer =
-            setTimeout(() => {
-
-                nextVideo();
-
-            }, CONFIG.videoDuration);
-
-    }
-
-
-    /* =====================================================
        NEXT VIDEO
-       ===================================================== */
+    ===================================================== */
 
     function nextVideo() {
 
+        /*
+         * Prevent ended + another event
+         * from changing twice.
+         */
+
+        if (changingVideo) {
+            return;
+        }
+
+        changingVideo = true;
+
+
         const periodVideos =
             videos[currentPeriod];
-
 
         if (
             !periodVideos ||
             periodVideos.length === 0
         ) {
 
+            changingVideo = false;
             return;
 
         }
 
 
         currentVideoIndex++;
-
 
         if (
             currentVideoIndex >=
@@ -512,16 +521,31 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
 
-        startProgress();
+        /*
+         * Allow the next genuine
+         * ended event to advance.
+         */
+
+        setTimeout(() => {
+
+            changingVideo = false;
+
+        }, 150);
+
 
     }
 
 
     /* =====================================================
        VIDEO EVENTS
-       ===================================================== */
+    ===================================================== */
 
     if (backgroundVideo) {
+
+        /*
+         * THIS IS NOW THE ONLY THING
+         * THAT ADVANCES THE VIDEO.
+         */
 
         backgroundVideo.addEventListener(
             "ended",
@@ -537,6 +561,8 @@ document.addEventListener("DOMContentLoaded", () => {
             "loadedmetadata",
             () => {
 
+                resetProgress();
+
                 startProgress();
 
             }
@@ -547,14 +573,7 @@ document.addEventListener("DOMContentLoaded", () => {
             "play",
             () => {
 
-                if (
-                    videoProgressBar &&
-                    !videoProgressBar.style.width
-                ) {
-
-                    startProgress();
-
-                }
+                startProgress();
 
             }
         );
@@ -564,7 +583,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        SOUND
-       ===================================================== */
+    ===================================================== */
 
     function updateSoundButton() {
 
@@ -572,12 +591,10 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         soundButton.setAttribute(
             "aria-pressed",
             String(soundEnabled)
         );
-
 
         soundButton.setAttribute(
             "aria-label",
@@ -586,17 +603,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 : "Enable sound"
         );
 
-
-        /*
-         * If the button contains text,
-         * keep it simple and clean.
-         */
-
         const text =
             soundButton.querySelector(
                 "[data-sound-text]"
             );
-
 
         if (text) {
 
@@ -616,14 +626,11 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         soundEnabled =
             !soundEnabled;
 
-
         backgroundVideo.muted =
             !soundEnabled;
-
 
         updateSoundButton();
 
@@ -635,7 +642,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
             const playPromise =
                 backgroundVideo.play();
-
 
             if (
                 playPromise &&
@@ -664,7 +670,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        NAVIGATION
-       ===================================================== */
+    ===================================================== */
 
     function openNavigation() {
 
@@ -672,26 +678,20 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
-        navigationOpen =
-            true;
-
+        navigationOpen = true;
 
         arrivalNavigation.classList.add(
             "is-open"
         );
-
 
         arrivalNavigation.setAttribute(
             "aria-hidden",
             "false"
         );
 
-
         document.body.classList.add(
             "menu-open"
         );
-
 
         if (menuButton) {
 
@@ -716,26 +716,20 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
-        navigationOpen =
-            false;
-
+        navigationOpen = false;
 
         arrivalNavigation.classList.remove(
             "is-open"
         );
-
 
         arrivalNavigation.setAttribute(
             "aria-hidden",
             "true"
         );
 
-
         document.body.classList.remove(
             "menu-open"
         );
-
 
         if (menuButton) {
 
@@ -805,7 +799,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        PAGE TRANSITION
-       ===================================================== */
+    ===================================================== */
 
     function goToPage(destination) {
 
@@ -813,8 +807,14 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-
         closeNavigation();
+
+
+        if (backgroundVideo) {
+
+            backgroundVideo.pause();
+
+        }
 
 
         if (pageTransition) {
@@ -844,12 +844,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       ALL INTERNAL LINKS
-       ===================================================== */
+       INTERNAL LINKS
+    ===================================================== */
 
     document
         .querySelectorAll(
-            'a[href]'
+            "a[href]"
         )
         .forEach(
             (link) => {
@@ -863,18 +863,15 @@ document.addEventListener("DOMContentLoaded", () => {
                                 "href"
                             );
 
-
                         if (!href) {
                             return;
                         }
-
 
                         if (
                             href.startsWith("#")
                         ) {
                             return;
                         }
-
 
                         if (
                             href.startsWith(
@@ -887,7 +884,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             return;
                         }
 
-
                         if (
                             href.startsWith(
                                 "mailto:"
@@ -899,7 +895,6 @@ document.addEventListener("DOMContentLoaded", () => {
                             return;
                         }
 
-
                         if (
                             link.target ===
                             "_blank"
@@ -907,9 +902,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             return;
                         }
 
-
                         event.preventDefault();
-
 
                         goToPage(href);
 
@@ -922,7 +915,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        BEGIN JOURNEY
-       ===================================================== */
+    ===================================================== */
 
     if (beginButton) {
 
@@ -941,70 +934,68 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /* =====================================================
-       PREVENT OLD VIDEO STATE
-       ===================================================== */
+       VISIBILITY CHANGE
+    ===================================================== */
 
     document.addEventListener(
         "visibilitychange",
         () => {
 
             if (
-                document.visibilityState ===
+                document.visibilityState !==
                 "visible"
             ) {
+                return;
+            }
 
-                /*
-                 * Re-check the current period.
-                 * If the user leaves the page for
-                 * a while and returns after a time
-                 * change, load the correct videos.
-                 */
 
-                const newPeriod =
-                    getTimePeriod();
+            const newPeriod =
+                getTimePeriod();
 
+
+            if (
+                newPeriod !==
+                currentPeriod
+            ) {
+
+                currentPeriod =
+                    newPeriod;
+
+                currentVideoIndex =
+                    0;
+
+                updateGreeting();
+
+                loadVideo(
+                    0,
+                    true
+                );
+
+                return;
+
+            }
+
+
+            /*
+             * Resume ONLY the currently
+             * selected video.
+             */
+
+            if (
+                backgroundVideo &&
+                backgroundVideo.paused
+            ) {
+
+                const playPromise =
+                    backgroundVideo.play();
 
                 if (
-                    newPeriod !==
-                    currentPeriod
+                    playPromise &&
+                    typeof playPromise.catch ===
+                    "function"
                 ) {
 
-                    currentPeriod =
-                        newPeriod;
-
-                    currentVideoIndex =
-                        0;
-
-                    updateGreeting();
-
-                    loadVideo(
-                        0,
-                        true
-                    );
-
-                    return;
-
-                }
-
-
-                if (
-                    backgroundVideo &&
-                    backgroundVideo.paused
-                ) {
-
-                    const playPromise =
-                        backgroundVideo.play();
-
-
-                    if (
-                        playPromise &&
-                        typeof playPromise.catch ===
-                        "function"
-                    ) {
-
-                        playPromise.catch(() => {});
-
-                    }
+                    playPromise.catch(() => {});
 
                 }
 
@@ -1016,42 +1007,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        BACK / FORWARD CACHE
-       ===================================================== */
+    ===================================================== */
 
     window.addEventListener(
         "pageshow",
         (event) => {
 
-            if (
-                event.persisted
-            ) {
+            if (pageTransition) {
 
-                if (pageTransition) {
+                pageTransition.classList.remove(
+                    "is-active"
+                );
 
-                    pageTransition.classList.remove(
-                        "is-active"
-                    );
+                pageTransition.classList.add(
+                    "is-ready"
+                );
 
-                    pageTransition.classList.add(
-                        "is-ready"
-                    );
-
-                }
+            }
 
 
-                closeNavigation();
+            closeNavigation();
 
+
+            if (event.persisted) {
 
                 currentPeriod =
                     getTimePeriod();
 
-
                 currentVideoIndex =
                     0;
 
-
                 updateGreeting();
-
 
                 loadVideo(
                     0,
@@ -1066,7 +1052,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        INITIALISE
-       ===================================================== */
+    ===================================================== */
 
     updateDate();
 
@@ -1076,9 +1062,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     /*
-     * Start with the correct video for the
-     * visitor's exact current time.
+     * Start exactly ONE video.
      */
+
+    currentPeriod =
+        getTimePeriod();
+
+    currentVideoIndex =
+        0;
 
     loadVideo(
         0,
@@ -1088,7 +1079,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* =====================================================
        KEEP DATE / DAY CURRENT
-       ===================================================== */
+    ===================================================== */
 
     setInterval(
         () => {
@@ -1123,6 +1114,5 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         30000
     );
-
 
 });
